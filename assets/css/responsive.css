@@ -1,0 +1,1052 @@
+/**
+ * Grupo Amigos Verdaderos — Ajustes responsive
+ * Este archivo debe cargarse DESPUÉS de main.css.
+ * No reemplaza main.css: únicamente adapta el diseño para tablets y teléfonos.
+ */
+
+/*--------------------------------------------------------------
+# Ajustes generales para pantallas pequeñas y táctiles
+--------------------------------------------------------------*/
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+/* Evita que textos o enlaces largos rompan el ancho de la pantalla. */
+.contact-method,
+.meeting-meta,
+.footer-contact,
+.map-card-head,
+.norm-item,
+.resource-card,
+.accordion-body {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* Mejora el tamaño táctil de botones y enlaces importantes. */
+@media (pointer: coarse) {
+  .navmenu a,
+  .hero .btn,
+  .btn-getstarted,
+  .map-link,
+  .social-links a,
+  .scroll-top,
+  .whatsapp-float {
+    min-height: 44px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Portátiles y tablets horizontales
+--------------------------------------------------------------*/
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .header .header-container {
+    width: calc(100% - 24px);
+    padding-left: 13px;
+    padding-right: 10px;
+  }
+
+  .header .logo img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .logo-text strong {
+    font-size: .98rem;
+  }
+
+  .logo-text small {
+    font-size: .61rem;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: .79rem;
+  }
+
+  .header .btn-getstarted,
+  .header .btn-getstarted:focus {
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-left: 9px;
+    font-size: .78rem;
+  }
+}
+
+/*--------------------------------------------------------------
+# Tablets y menú móvil
+--------------------------------------------------------------*/
+@media (max-width: 1199.98px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+
+  section,
+  .section {
+    scroll-margin-top: 78px;
+  }
+
+  .header {
+    padding: 9px 0;
+  }
+
+  .header .header-container {
+    width: calc(100% - 24px);
+    min-height: 64px;
+  }
+
+  .navmenu ul {
+    inset: 78px 16px 16px;
+    max-height: calc(100dvh - 94px);
+    padding: 8px 0;
+    overscroll-behavior: contain;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    min-height: 48px;
+    padding: 12px 18px;
+  }
+
+  .mobile-nav-active .mobile-nav-toggle {
+    top: 18px;
+    right: 20px;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .value-item {
+    border-right: 0;
+  }
+
+  .norms-image-card {
+    position: relative;
+    top: auto;
+  }
+}
+
+/*--------------------------------------------------------------
+# Tablets verticales
+--------------------------------------------------------------*/
+@media (max-width: 991.98px) {
+  section,
+  .section {
+    padding: 68px 0;
+  }
+
+  .section-title {
+    max-width: 680px;
+    margin-bottom: 38px;
+  }
+
+  .hero {
+    padding: 130px 0 62px;
+    text-align: center;
+  }
+
+  .hero::after {
+    height: 58px;
+  }
+
+  .hero-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero h1 {
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-buttons,
+  .hero-note {
+    justify-content: center;
+  }
+
+  .hero-logo-wrap {
+    width: min(100%, 430px);
+    margin-top: 8px;
+  }
+
+  .value-row {
+    margin-top: 45px;
+  }
+
+  .about {
+    padding-top: 88px;
+  }
+
+  .image-placeholder {
+    min-height: 390px;
+  }
+
+  .meeting-card > p {
+    min-height: auto;
+  }
+
+  .steps-row::before {
+    display: none;
+  }
+
+  .principles::before {
+    font-size: 17rem;
+  }
+
+  .cta-box {
+    padding: 42px 34px;
+  }
+
+  .cta-box .text-lg-end {
+    text-align: center !important;
+  }
+
+  .contact-panel,
+  .map-card {
+    height: auto;
+  }
+
+  .map-frame,
+  .map-frame iframe {
+    min-height: 420px;
+    height: 420px;
+  }
+
+  .footer-top .row > div {
+    margin-bottom: 5px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Teléfonos grandes y medianos
+--------------------------------------------------------------*/
+@media (max-width: 767.98px) {
+  body {
+    font-size: .96rem;
+  }
+
+  section,
+  .section {
+    padding: 58px 0;
+  }
+
+  .container,
+  .container-sm {
+    --bs-gutter-x: 1.35rem;
+  }
+
+  .header .header-container {
+    width: calc(100% - 18px);
+    min-height: 60px;
+    padding: 6px 7px 6px 9px;
+    border-radius: 15px;
+  }
+
+  .header .logo {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .header .logo img {
+    flex: 0 0 43px;
+    width: 43px;
+    height: 43px;
+  }
+
+  .logo-text {
+    min-width: 0;
+  }
+
+  .logo-text strong {
+    display: block;
+    max-width: 150px;
+    overflow: hidden;
+    font-size: .91rem;
+    line-height: 1.08;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .logo-text small {
+    display: none;
+  }
+
+  .header .btn-getstarted,
+  .header .btn-getstarted:focus {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
+    margin-right: 5px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 0;
+  }
+
+  .header .btn-getstarted i {
+    margin: 0 !important;
+    font-size: 1.1rem;
+  }
+
+  .mobile-nav-toggle {
+    font-size: 28px;
+  }
+
+  .navmenu ul {
+    inset: 72px 10px 10px;
+    border-radius: 13px;
+  }
+
+  .hero {
+    padding-top: 116px;
+  }
+
+  .eyebrow {
+    padding: 8px 12px;
+    font-size: .74rem;
+  }
+
+  .hero h1 {
+    margin-bottom: 18px;
+    font-size: clamp(2.25rem, 10vw, 3.1rem);
+    letter-spacing: -.035em;
+  }
+
+  .hero-lead {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .hero .btn {
+    min-height: 48px;
+    padding: 12px 20px;
+  }
+
+  .hero-logo-wrap {
+    width: min(100%, 360px);
+  }
+
+  .hero-logo {
+    border-width: 3px;
+  }
+
+  .hero-logo-caption {
+    min-width: min(280px, 88vw);
+    margin-top: -22px;
+  }
+
+  .value-row {
+    padding: 12px 7px;
+    border-radius: 18px;
+  }
+
+  .value-item {
+    min-height: 74px;
+    padding: 9px 5px;
+  }
+
+  .image-placeholder {
+    min-height: 330px;
+    padding: 32px 22px;
+    border-radius: 20px;
+  }
+
+  .image-placeholder::before,
+  .image-placeholder::after {
+    width: 62px;
+    height: 62px;
+  }
+
+  .meeting-card,
+  .step-card,
+  .principle-card,
+  .resource-card {
+    padding: 23px;
+    border-radius: 17px;
+  }
+
+  .meeting-icon {
+    top: 24px;
+    right: 22px;
+  }
+
+  .meeting-notice {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 18px;
+  }
+
+  .meeting-notice a {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .purpose-card {
+    align-items: flex-start;
+    padding: 18px;
+  }
+
+  .norm-item {
+    padding: 17px;
+  }
+
+  .norm-item:hover,
+  .meeting-card:hover,
+  .resource-card:hover {
+    transform: none;
+  }
+
+  .norms-image-card > span {
+    right: 11px;
+    bottom: 11px;
+    padding: 8px 11px;
+    font-size: .7rem;
+  }
+
+  .accordion-button {
+    padding: 17px 18px;
+    font-size: .94rem;
+  }
+
+  .accordion-body {
+    padding: 17px 18px;
+  }
+
+  .cta {
+    padding-top: 22px;
+  }
+
+  .cta-box {
+    padding: 34px 23px;
+    border-radius: 20px;
+  }
+
+  .cta-symbol {
+    right: 8px;
+    font-size: 10rem;
+  }
+
+  .contact-panel,
+  .map-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .contact-panel-head {
+    gap: 12px;
+  }
+
+  .contact-panel-head img {
+    width: 62px;
+    height: 62px;
+  }
+
+  .contact-method {
+    gap: 12px;
+  }
+
+  .contact-method-icon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .map-card-head {
+    align-items: flex-start;
+  }
+
+  .map-card-head > i {
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+  }
+
+  .map-frame,
+  .map-frame iframe {
+    min-height: 360px;
+    height: 360px;
+  }
+
+  .footer {
+    text-align: left;
+  }
+
+  .footer-top {
+    padding-top: 48px;
+  }
+
+  .footer-logo img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .footer-disclaimer {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .whatsapp-float {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: 56px;
+    min-width: 56px;
+    height: 56px;
+    padding: 0;
+  }
+
+  .whatsapp-float span {
+    display: none;
+  }
+
+  .scroll-top.active {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 68px);
+  }
+}
+
+/*--------------------------------------------------------------
+# Teléfonos pequeños
+--------------------------------------------------------------*/
+@media (max-width: 575.98px) {
+  section,
+  .section {
+    padding: 52px 0;
+  }
+
+  .section-title {
+    margin-bottom: 32px;
+  }
+
+  .section-title h2,
+  .about h2,
+  .principles h2,
+  .faq h2,
+  .cta-box h2 {
+    font-size: clamp(1.75rem, 8.2vw, 2.2rem);
+  }
+
+  .section-title p,
+  .lead-copy {
+    font-size: .98rem;
+  }
+
+  .header .header-container {
+    width: calc(100% - 12px);
+  }
+
+  .logo-text strong {
+    max-width: 118px;
+    font-size: .84rem;
+  }
+
+  .hero {
+    padding-top: 108px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 10.5vw, 2.65rem);
+  }
+
+  .hero-buttons {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 11px !important;
+  }
+
+  .hero .btn {
+    width: 100%;
+  }
+
+  .hero-note {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-logo-wrap {
+    width: min(100%, 305px);
+  }
+
+  .hero-logo-caption {
+    min-width: min(246px, 86vw);
+    padding: 11px 14px;
+  }
+
+  .hero-logo-caption strong {
+    font-size: .94rem;
+  }
+
+  .hero-logo-caption span {
+    font-size: .58rem;
+  }
+
+  .value-row > div {
+    width: 50%;
+  }
+
+  .value-item {
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+  }
+
+  .value-item i {
+    flex-basis: 39px;
+    width: 39px;
+    height: 39px;
+  }
+
+  .value-item strong {
+    font-size: .79rem;
+  }
+
+  .value-item span {
+    display: none;
+  }
+
+  .welcome-message {
+    align-items: flex-start;
+    padding: 17px;
+  }
+
+  .welcome-message > i {
+    flex-basis: 45px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .image-placeholder {
+    min-height: 290px;
+    padding: 28px 18px;
+  }
+
+  .placeholder-icon {
+    width: 68px;
+    height: 68px;
+    font-size: 1.55rem;
+  }
+
+  .meeting-card,
+  .step-card,
+  .principle-card,
+  .resource-card {
+    padding: 20px;
+  }
+
+  .featured-label {
+    left: 14px;
+    right: 14px;
+  }
+
+  .meeting-day {
+    margin-bottom: 19px;
+  }
+
+  .meeting-icon {
+    width: 43px;
+    height: 43px;
+    font-size: 1.05rem;
+  }
+
+  .purpose-card {
+    gap: 12px;
+  }
+
+  .purpose-card > i {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .purpose-card strong {
+    font-size: .93rem;
+  }
+
+  .norm-item {
+    gap: 11px;
+    padding: 15px;
+  }
+
+  .norm-item > span {
+    flex-basis: 35px;
+    width: 35px;
+    height: 35px;
+    font-size: .78rem;
+  }
+
+  .norm-item h3 {
+    font-size: .91rem;
+  }
+
+  .norm-item p {
+    font-size: .83rem;
+    line-height: 1.55;
+  }
+
+  .norms-image-card {
+    border-radius: 17px;
+  }
+
+  .norms-image-card > span {
+    font-size: 0;
+  }
+
+  .norms-image-card > span i {
+    font-size: 1rem;
+  }
+
+  .faq-help {
+    align-items: flex-start;
+  }
+
+  .cta-box .btn-light {
+    width: 100%;
+  }
+
+  .contact-panel,
+  .map-card {
+    padding: 18px;
+  }
+
+  .contact-panel-head {
+    align-items: flex-start;
+  }
+
+  .contact-panel-head img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .contact-panel-head h3 {
+    font-size: 1.07rem;
+  }
+
+  .contact-method {
+    align-items: flex-start;
+  }
+
+  .contact-method-icon {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .map-card-head h3 {
+    font-size: 1.2rem;
+  }
+
+  .map-card-head > i {
+    display: none;
+  }
+
+  .map-frame,
+  .map-frame iframe {
+    min-height: 315px;
+    height: 315px;
+  }
+
+  .map-link {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 14px;
+    background: var(--na-ice);
+    border: 1px solid var(--na-border);
+    border-radius: 50px;
+  }
+
+  .footer-links {
+    width: 100%;
+  }
+
+  .footer-disclaimer {
+    align-items: flex-start;
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  .copyright,
+  .credits {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Teléfonos muy estrechos
+--------------------------------------------------------------*/
+@media (max-width: 389.98px) {
+  .header .logo img {
+    flex-basis: 39px;
+    width: 39px;
+    height: 39px;
+  }
+
+  .logo-text strong {
+    max-width: 93px;
+    font-size: .77rem;
+  }
+
+  .header .btn-getstarted,
+  .header .btn-getstarted:focus {
+    flex-basis: 39px;
+    width: 39px;
+    height: 39px;
+  }
+
+  .mobile-nav-toggle {
+    font-size: 26px;
+  }
+
+  .hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .eyebrow {
+    font-size: .68rem;
+  }
+
+  .value-item strong {
+    font-size: .73rem;
+  }
+
+  .meeting-card,
+  .step-card,
+  .principle-card,
+  .resource-card,
+  .contact-panel,
+  .map-card {
+    padding: 17px;
+  }
+
+  .map-frame,
+  .map-frame iframe {
+    min-height: 280px;
+    height: 280px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Teléfonos en posición horizontal
+--------------------------------------------------------------*/
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 991.98px) {
+  .navmenu ul {
+    inset: 62px 10px 8px;
+    max-height: calc(100dvh - 70px);
+  }
+
+  .hero {
+    padding-top: 100px;
+  }
+
+  .hero-logo-wrap {
+    width: min(100%, 290px);
+  }
+}
+
+/*--------------------------------------------------------------
+# Accesibilidad: menos movimiento
+--------------------------------------------------------------*/
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo,
+  .norms-image-card img,
+  .meeting-card,
+  .resource-card,
+  .whatsapp-float,
+  .scroll-top {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/*--------------------------------------------------------------
+# Corrección del menú móvil
+# Mantener este bloque al final de responsive.css.
+--------------------------------------------------------------*/
+@media (max-width: 1199.98px) {
+  body.mobile-nav-active {
+    overflow: hidden !important;
+    touch-action: none;
+  }
+
+  body.mobile-nav-active .header {
+    z-index: 100000 !important;
+  }
+
+  /* El contenedor del menú ocupa toda la pantalla cuando está abierto. */
+  body.mobile-nav-active #navmenu {
+    position: fixed !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: rgba(0, 12, 51, .94) !important;
+    backdrop-filter: blur(5px);
+    z-index: 99999 !important;
+  }
+
+  /* Estado cerrado. */
+  #navmenu > ul {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Estado abierto: se fuerza la visualización para evitar conflictos
+     con los estilos originales de la plantilla. */
+  body.mobile-nav-active #navmenu > ul {
+    position: fixed !important;
+    inset: auto 12px 12px 12px !important;
+    top: 86px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: auto !important;
+    max-height: calc(100dvh - 98px) !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    overflow-y: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    background: #fefefe !important;
+    border: 1px solid rgba(0, 30, 124, .12) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .34) !important;
+    transform: none !important;
+    z-index: 100001 !important;
+  }
+
+  body.mobile-nav-active #navmenu > ul > li {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  body.mobile-nav-active #navmenu > ul > li > a,
+  body.mobile-nav-active #navmenu > ul > li > a:focus {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 50px !important;
+    padding: 13px 15px !important;
+    color: #24314d !important;
+    background: transparent !important;
+    border-radius: 11px !important;
+    font-size: .98rem !important;
+    font-weight: 800 !important;
+  }
+
+  body.mobile-nav-active #navmenu > ul > li > a:hover,
+  body.mobile-nav-active #navmenu > ul > li > a.active,
+  body.mobile-nav-active #navmenu > ul > li > a:focus-visible {
+    color: #001e7c !important;
+    background: #eef5ff !important;
+  }
+
+  body.mobile-nav-active .mobile-nav-toggle {
+    position: fixed !important;
+    top: 20px !important;
+    right: 18px !important;
+    display: grid !important;
+    width: 48px !important;
+    height: 48px !important;
+    place-items: center !important;
+    margin: 0 !important;
+    color: #fefefe !important;
+    background: #001e7c !important;
+    border: 2px solid rgba(255, 255, 255, .32) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .28) !important;
+    font-size: 30px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    z-index: 100002 !important;
+  }
+}
+
+/* Respaldo para navegadores modernos: si el script cambia el icono a X,
+   el menú también se mostrará aunque otro CSS impida detectar la clase body. */
+@media (max-width: 1199.98px) {
+  body:has(#navmenu .mobile-nav-toggle.bi-x) #navmenu {
+    position: fixed !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    background: rgba(0, 12, 51, .94) !important;
+    z-index: 99999 !important;
+  }
+
+  body:has(#navmenu .mobile-nav-toggle.bi-x) #navmenu > ul {
+    position: fixed !important;
+    inset: auto 12px 12px 12px !important;
+    top: 86px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    max-height: calc(100dvh - 98px) !important;
+    overflow-y: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    background: #fefefe !important;
+    border-radius: 18px !important;
+    z-index: 100001 !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  body.mobile-nav-active #navmenu > ul,
+  body:has(#navmenu .mobile-nav-toggle.bi-x) #navmenu > ul {
+    inset: auto 9px 9px 9px !important;
+    top: 78px !important;
+    max-height: calc(100dvh - 87px) !important;
+    border-radius: 15px !important;
+  }
+
+  body.mobile-nav-active .mobile-nav-toggle {
+    top: 16px !important;
+    right: 14px !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 27px !important;
+  }
+}
+
+/* Imagen de Los Doce Pasos en tablets y teléfonos */
+@media (max-width: 767px) {
+
+  .resource-image {
+    height: 300px;
+    padding: 10px;
+    margin-bottom: 18px;
+  }
+
+  .resource-image img {
+    object-fit: contain;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .resource-image {
+    height: 260px;
+  }
+
+}
