@@ -452,7 +452,7 @@
         <div class="anniversary-calendar-summary-copy">
           <span>GRUPO AMIGOS VERDADEROS</span>
           <h3>${escapeHtml(total)} ${total === 1 ? 'historia de recuperación' : 'historias de recuperación'}</h3>
-          <p>Las fechas muestran el día original de inicio. La celebración puede programarse en una fecha diferente.</p>
+          <p>Las fechas muestran el día original de inicio de la recuperación de cada compañero.</p>
         </div>
         <i class="bi bi-stars" aria-hidden="true"></i>
       </div>`;
@@ -483,7 +483,7 @@
             const meta = item.startYear
               ? `<div class="anniversary-calendar-meta">
                    <span class="anniversary-calendar-start">
-                     <i class="bi bi-calendar-heart"></i>
+                     <i class="bi bi-calendar4"></i>
                      Inicio: ${escapeHtml(startDate)}
                    </span>
                    ${durationText
