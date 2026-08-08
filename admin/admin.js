@@ -114,12 +114,118 @@
     renderAnniversaries();
   };
 
-  const yearsFor = (item) => {
-    const y = Number(item.recovery_year);
-    if (!Number.isInteger(y) || y <= 0) return null;
-    const years = new Date().getFullYear() - y;
-    return years > 0 ? years : null;
+
+  const makeClampedDate = (year, monthIndex, day) => {
+    const lastDay = new Date(year, monthIndex + 1, 0, 12).getDate();
+    return new Date(year, monthIndex, Math.min(day, lastDay), 12);
   };
+
+  const getRecoveryStartDate = (item) => {
+    const year = Number(item.recovery_year);
+    const month = Number(item.recovery_month);
+    const day = Number(item.recovery_day);
+
+    if (!Number.isInteger(year) || year <= 0) return null;
+    if (!Number.isInteger(month) || month < 1 || month > 12) return null;
+    if (!Number.isInteger(day) || day < 1 || day > 31) return null;
+
+    const date = new Date(year, month - 1, day, 12);
+    if (
+      date.getFullYear() !== year ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) return null;
+
+    return date;
+  };
+
+  const addYearsClamped = (date, years) =>
+    makeClampedDate(date.getFullYear() + years, date.getMonth(), date.getDate());
+
+  const addMonthsClamped = (date, months) => {
+    const totalMonths = date.getFullYear() * 12 + date.getMonth() + months;
+    const year = Math.floor(totalMonths / 12);
+    const monthIndex = totalMonths % 12;
+    return makeClampedDate(year, monthIndex, date.getDate());
+  };
+
+  const dateOnlyUtc = (date) =>
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+
+  const getRecoveryDuration = (item, referenceDate = new Date()) => {
+    const start = getRecoveryStartDate(item);
+    if (!start) return null;
+
+    const end = new Date(
+      referenceDate.getFullYear(),
+      referenceDate.getMonth(),
+      referenceDate.getDate(),
+      12
+    );
+
+    if (start > end) {
+      return { future: true, years: 0, months: 0, days: 0, start };
+    }
+
+    let years = end.getFullYear() - start.getFullYear();
+    let anchor = addYearsClamped(start, years);
+
+    if (anchor > end) {
+      years -= 1;
+      anchor = addYearsClamped(start, years);
+    }
+
+    let months = 0;
+    while (months < 11) {
+      const next = addMonthsClamped(anchor, 1);
+      if (next > end) break;
+      anchor = next;
+      months += 1;
+    }
+
+    const days = Math.max(
+      0,
+      Math.floor((dateOnlyUtc(end) - dateOnlyUtc(anchor)) / 86400000)
+    );
+
+    return { future: false, years, months, days, start };
+  };
+
+  const joinNatural = (parts) => {
+    if (!parts.length) return '';
+    if (parts.length === 1) return parts[0];
+    if (parts.length === 2) return `${parts[0]} y ${parts[1]}`;
+    return `${parts.slice(0, -1).join(', ')} y ${parts.at(-1)}`;
+  };
+
+  const formatRecoveryDuration = (duration) => {
+    if (!duration || duration.future) return '';
+    const parts = [];
+
+    if (duration.years > 0) {
+      parts.push(`${duration.years} ${duration.years === 1 ? 'año' : 'años'}`);
+    }
+    if (duration.months > 0) {
+      parts.push(`${duration.months} ${duration.months === 1 ? 'mes' : 'meses'}`);
+    }
+    if (duration.days > 0 || !parts.length) {
+      parts.push(`${duration.days} ${duration.days === 1 ? 'día' : 'días'}`);
+    }
+
+    return joinNatural(parts);
+  };
+
+  const formatStartDate = (item) => {
+    const date = getRecoveryStartDate(item);
+    if (!date) return '';
+    const formatted = new Intl.DateTimeFormat('es-EC', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  };
+
 
   const formatCelebration = (item) => {
     if (!item.celebration_date) return '';
@@ -148,8 +254,12 @@
     }
 
     list.innerHTML = items.map(item => {
-      const years = yearsFor(item);
-      const recovery = years ? `${years} ${years === 1 ? 'año' : 'años'} de recuperación en ${new Date().getFullYear()}` : 'Año de inicio no registrado';
+      const duration = getRecoveryDuration(item);
+      const recovery = duration
+        ? duration.future
+          ? `La fecha de inicio (${formatStartDate(item)}) es posterior a hoy. Revisa el registro.`
+          : `Tiempo en recuperación: ${formatRecoveryDuration(duration)}`
+        : 'Año de inicio por registrar';
       const celebration = formatCelebration(item);
       const location = String(item.celebration_location || '').trim();
       const visibleBadge = item.public_visible
