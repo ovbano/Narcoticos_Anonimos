@@ -32,6 +32,9 @@
   <!-- Responsive CSS File: debe cargarse después de main.css -->
   <link href="assets/css/responsive.css" rel="stylesheet">
 
+  <!-- Extensión para aniversarios administrables -->
+  <link href="assets/css/anniversary-admin.css" rel="stylesheet">
+
   <!-- =======================================================
   * Adaptación para: Grupo Amigos Verdaderos
   * Plantilla base: iLanding - BootstrapMade.com
@@ -57,6 +60,7 @@
           <li><a href="#inicio" class="active">Inicio</a></li>
           <li><a href="#nosotros">Quiénes somos</a></li>
           <li><a href="#reuniones">Reuniones</a></li>
+          <li><a href="#aniversarios">Aniversarios</a></li>
           <li><a href="#normas">Normas</a></li>
           <li><a href="#como-funciona">Cómo funciona</a></li>
           <li><a href="#recursos">Recursos</a></li>
@@ -103,7 +107,7 @@
                   <i class="bi bi-calendar-check me-2"></i>Ver reuniones
                 </a>
                 <a href="#contacto" class="btn btn-outline-light">
-                  <i class="bi bi-telephone me-2"></i>Comunícate con nosotros
+                  <i class="bi bi-whatsapp me-2"></i>Comunícate con nosotros
                 </a>
               </div>
 
@@ -279,7 +283,66 @@
           <a href="#ubicacion">Ver ubicación <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
+
     </section><!-- /Meetings Section -->
+
+    <!-- Anniversaries Section -->
+    <section id="aniversarios" class="anniversaries section">
+      <div class="anniversary-decoration anniversary-decoration-one" aria-hidden="true"></div>
+      <div class="anniversary-decoration anniversary-decoration-two" aria-hidden="true"></div>
+
+      <div class="container position-relative">
+        <div class="row align-items-end gy-4 mb-5">
+          <div class="col-lg-7" data-aos="fade-right">
+            <span class="section-kicker">UN AÑO MÁS EN RECUPERACIÓN</span>
+            <h2 class="anniversary-title">Próximos aniversarios</h2>
+            <p id="anniversary-intro" class="anniversary-intro">
+              Aquí celebramos a los compañeros que cumplen un año más en recuperación.
+            </p>
+          </div>
+
+          <div class="col-lg-5" data-aos="fade-left">
+            <div class="anniversary-actions">
+              <div class="anniversary-period">
+                <i class="bi bi-calendar2-month"></i>
+                <div>
+                  <span>MES ACTUAL</span>
+                  <strong id="anniversary-period">Calculando…</strong>
+                </div>
+              </div>
+
+              <button type="button"
+                      class="btn-anniversary-calendar"
+                      data-bs-toggle="modal"
+                      data-bs-target="#anniversariesModal"
+                      aria-label="Ver el calendario completo de aniversarios">
+                <i class="bi bi-calendar3"></i>
+                <span>Ver todos</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="anniversary-list"
+             class="row gy-4"
+             aria-live="polite"
+             aria-label="Próximos aniversarios de recuperación del mes actual">
+        </div>
+
+        <noscript>
+          <div class="anniversary-empty">
+            Activa JavaScript para consultar automáticamente los aniversarios del mes.
+          </div>
+        </noscript>
+
+        <div class="anniversary-message mt-4" data-aos="fade-up">
+          <i class="bi bi-stars"></i>
+          <p>
+            Cada aniversario representa esperanza: la recuperación es posible, un día a la vez.
+          </p>
+        </div>
+      </div>
+    </section><!-- /Anniversaries Section -->
 
     <!-- Group Rules Section -->
     <section id="normas" class="group-rules section">
@@ -601,23 +664,71 @@
                 <div><span>Reuniones</span><strong>Martes, jueves y sábados</strong><small>Todos los días indicados a las 20h00.</small></div>
               </div>
 
-              <div class="contact-method">
-                <div class="contact-method-icon"><i class="bi bi-whatsapp"></i></div>
-                <div>
-                  <span>WhatsApp o teléfono</span>
-                  <strong>Contacto pendiente de habilitar</strong>
-                  <small>Agregar el número cuando el grupo lo defina.</small>
-                  <!-- WHATSAPP: reemplaza 593XXXXXXXXX por el número real, sin el signo +, espacios ni guiones. Ejemplo: 593987654321 -->
-                </div>
-              </div>
+              <div class="contact-directory accordion" id="contactDirectoryAccordion">
+                <div class="contact-directory-item">
+                  <h3 class="contact-directory-heading">
+                    <button class="contact-directory-toggle collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#contactDirectoryList"
+                            aria-expanded="false"
+                            aria-controls="contactDirectoryList">
+                      <span class="contact-directory-icon"><i class="bi bi-whatsapp"></i></span>
+                      <span class="contact-directory-title-copy">
+                        <small>CONTACTOS DEL GRUPO</small>
+                        <strong>Elige a quién deseas escribir</strong>
+                      </span>
+                      <span class="contact-directory-chevron" aria-hidden="true">
+                        <i class="bi bi-chevron-down"></i>
+                      </span>
+                    </button>
+                  </h3>
 
-              <div class="contact-method">
-                <div class="contact-method-icon"><i class="bi bi-envelope-fill"></i></div>
-                <div>
-                  <span>Correo electrónico</span>
-                  <strong>Correo pendiente de habilitar</strong>
-                  <small>Agregar una cuenta cuando esté disponible.</small>
-                  <!-- CORREO: reemplaza correo@ejemplo.com por el correo real del grupo. -->
+                  <div id="contactDirectoryList"
+                       class="accordion-collapse collapse"
+                       data-bs-parent="#contactDirectoryAccordion">
+                    <div class="contact-directory-body" id="contact-directory-body">
+                      <!-- Respaldo visible: JavaScript reemplaza estos datos con data/site-data.json. -->
+                      <a class="contact-person-card is-principal"
+                         href="https://wa.me/593989242881?text=Hola%20Geovanny%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos."
+                         target="_blank" rel="noopener">
+                        <span class="contact-person-avatar">GM</span>
+                        <span class="contact-person-data">
+                          <span class="contact-role-badge role-principal">RSG PRINCIPAL</span>
+                          <strong>Geovanny Mendoza</strong>
+                          <small>Representante del servicio del grupo</small>
+                          <em>+593 98 924 2881</em>
+                        </span>
+                        <i class="bi bi-whatsapp"></i>
+                      </a>
+
+                      <a class="contact-person-card is-alternate"
+                         href="https://wa.me/593985671523?text=Hola%20Oswaldo%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos."
+                         target="_blank" rel="noopener">
+                        <span class="contact-person-avatar">OB</span>
+                        <span class="contact-person-data">
+                          <span class="contact-role-badge role-alternate">RSG ALTERNO</span>
+                          <strong>Oswaldo Baño</strong>
+                          <small>Representante alterno del servicio del grupo</small>
+                          <em>+593 98 567 1523</em>
+                        </span>
+                        <i class="bi bi-whatsapp"></i>
+                      </a>
+
+                      <a class="contact-person-card is-secretary"
+                         href="https://wa.me/593969835527?text=Hola%20Germania%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos."
+                         target="_blank" rel="noopener">
+                        <span class="contact-person-avatar">GS</span>
+                        <span class="contact-person-data">
+                          <span class="contact-role-badge role-secretary">SECRETARIA / TESORERA</span>
+                          <strong>Germania Sanchéz</strong>
+                          <small>Secretaría y tesorería del grupo</small>
+                          <em>+593 96 983 5527</em>
+                        </span>
+                        <i class="bi bi-whatsapp"></i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -661,6 +772,51 @@
 
   </main>
 
+
+  <!-- Modal: calendario completo de aniversarios -->
+  <div class="modal fade anniversary-modal"
+       id="anniversariesModal"
+       tabindex="-1"
+       aria-labelledby="anniversariesModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header anniversary-modal-header">
+          <div class="anniversary-modal-heading">
+            <span class="anniversary-modal-icon"><i class="bi bi-award"></i></span>
+            <div>
+              <span>GRUPO AMIGOS VERDADEROS</span>
+              <h2 class="modal-title" id="anniversariesModalLabel">Calendario de aniversarios</h2>
+              <p>Un recorrido por las fechas de recuperación de nuestros compañeros.</p>
+            </div>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body anniversary-modal-body">
+          <div class="anniversary-modal-note">
+            <i class="bi bi-info-circle-fill"></i>
+            <p>
+              Las fechas de este calendario corresponden al día original de inicio de recuperación y no se modifican.
+              Si un compañero decide celebrar antes o después, esa fecha especial se mostrará únicamente en su tarjeta de próximo aniversario.
+            </p>
+          </div>
+
+          <div id="anniversary-calendar"
+               class="anniversary-calendar-grid"
+               aria-live="polite"
+               aria-label="Calendario anual completo de aniversarios">
+          </div>
+        </div>
+
+        <div class="modal-footer anniversary-modal-footer">
+          <span><i class="bi bi-stars"></i> Unidad · Servicio · Recuperación</span>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar calendario</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer id="footer" class="footer">
     <div class="container footer-top">
       <div class="row gy-4">
@@ -673,12 +829,10 @@
             Un espacio de recuperación, compañerismo y esperanza. Nuestro propósito principal
             es llevar el mensaje a la persona que todavía sufre.
           </p>
-          <div class="social-links d-flex mt-4">
-            <!-- REDES SOCIALES: reemplaza # por los enlaces reales cuando estén disponibles. -->
-            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-            <!-- WHATSAPP: reemplaza el enlace por https://wa.me/593XXXXXXXXX -->
-            <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          <div class="footer-values mt-4" aria-label="Principios del Grupo Amigos Verdaderos">
+            <span><i class="bi bi-heart-pulse-fill"></i> Recuperación</span>
+            <span><i class="bi bi-people-fill"></i> Unidad</span>
+            <span><i class="bi bi-hand-thumbs-up-fill"></i> Servicio</span>
           </div>
         </div>
 
@@ -688,6 +842,7 @@
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#nosotros">Quiénes somos</a></li>
             <li><a href="#reuniones">Reuniones</a></li>
+            <li><a href="#aniversarios">Aniversarios</a></li>
             <li><a href="#normas">Normas internas</a></li>
             <li><a href="#recursos">Recursos</a></li>
             <li><a href="#contacto">Contacto</a></li>
@@ -701,6 +856,7 @@
             <li><a href="#preguntas">Preguntas frecuentes</a></li>
             <li><a href="#reuniones">Horarios</a></li>
             <li><a href="#ubicacion">Cómo llegar</a></li>
+            <li><a href="admin/">Acceso servidores</a></li>
           </ul>
         </div>
 
@@ -708,9 +864,18 @@
           <h4>Contacto del grupo</h4>
           <p><i class="bi bi-calendar-week"></i> Martes, jueves y sábados · 20h00</p>
           <p><i class="bi bi-geo-alt"></i> Parroquia Luz de América, Santo Domingo</p>
-          <p><i class="bi bi-whatsapp"></i> Número pendiente</p>
-          <p><i class="bi bi-envelope"></i> Correo pendiente</p>
-          <!-- WHATSAPP Y CORREO: reemplaza los dos textos anteriores cuando dispongas de los datos reales. -->
+          <div id="footer-contact-list">
+            <!-- Respaldo visible; se actualiza automáticamente desde Supabase. -->
+            <a class="footer-contact-link" href="https://wa.me/593989242881?text=Hola%20Geovanny%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos." target="_blank" rel="noopener">
+              <i class="bi bi-whatsapp"></i><span><strong>Geovanny Mendoza</strong><small>RSG principal · +593 98 924 2881</small></span>
+            </a>
+            <a class="footer-contact-link" href="https://wa.me/593985671523?text=Hola%20Oswaldo%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos." target="_blank" rel="noopener">
+              <i class="bi bi-whatsapp"></i><span><strong>Oswaldo Baño</strong><small>RSG alterno · +593 98 567 1523</small></span>
+            </a>
+            <a class="footer-contact-link" href="https://wa.me/593969835527?text=Hola%20Germania%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos." target="_blank" rel="noopener">
+              <i class="bi bi-whatsapp"></i><span><strong>Germania Sanchéz</strong><small>Secretaria / Tesorera · +593 96 983 5527</small></span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -731,20 +896,50 @@
     </div>
   </footer>
 
-  <!-- WhatsApp flotante -->
-  <!--
-    IMPORTANTE: reemplaza 593XXXXXXXXX por el número real del grupo.
-    Debe escribirse con código de país, sin +, espacios, paréntesis ni guiones.
-    Ejemplo Ecuador: 593987654321
-  -->
-  <a href="https://wa.me/593XXXXXXXXX?text=Hola%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos"
-     class="whatsapp-float"
-     target="_blank"
-     rel="noopener"
-     aria-label="Comunicarse con el Grupo Amigos Verdaderos por WhatsApp">
-    <i class="bi bi-whatsapp"></i>
-    <span>Escríbenos</span>
-  </a>
+  <!-- Selector flotante de contactos de WhatsApp -->
+  <div class="whatsapp-widget">
+    <div id="whatsapp-menu"
+         class="whatsapp-menu"
+         hidden
+         aria-label="Contactos de WhatsApp del Grupo Amigos Verdaderos">
+      <div class="whatsapp-menu-head">
+        <i class="bi bi-chat-heart-fill"></i>
+        <div>
+          <strong>¿Con quién deseas hablar?</strong>
+          <span>Elige uno de los contactos del grupo.</span>
+        </div>
+      </div>
+
+      <div id="whatsapp-options">
+        <!-- Respaldo visible; JavaScript actualiza nombres y teléfonos desde Supabase. -->
+        <a href="https://wa.me/593989242881?text=Hola%20Geovanny%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos." class="whatsapp-option" target="_blank" rel="noopener">
+          <span class="whatsapp-option-avatar">GM</span>
+          <span><span class="whatsapp-option-role role-principal">RSG PRINCIPAL</span><strong>Geovanny Mendoza</strong><small>+593 98 924 2881</small></span>
+          <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+        <a href="https://wa.me/593985671523?text=Hola%20Oswaldo%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos." class="whatsapp-option" target="_blank" rel="noopener">
+          <span class="whatsapp-option-avatar">OB</span>
+          <span><span class="whatsapp-option-role role-alternate">RSG ALTERNO</span><strong>Oswaldo Baño</strong><small>+593 98 567 1523</small></span>
+          <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+        <a href="https://wa.me/593969835527?text=Hola%20Germania%2C%20deseo%20informaci%C3%B3n%20sobre%20las%20reuniones%20del%20Grupo%20Amigos%20Verdaderos%20de%20Narc%C3%B3ticos%20An%C3%B3nimos." class="whatsapp-option" target="_blank" rel="noopener">
+          <span class="whatsapp-option-avatar">GS</span>
+          <span><span class="whatsapp-option-role role-secretary">SECRETARIA / TESORERA</span><strong>Germania Sanchéz</strong><small>+593 96 983 5527</small></span>
+          <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <button type="button"
+            id="whatsapp-toggle"
+            class="whatsapp-float"
+            aria-controls="whatsapp-menu"
+            aria-expanded="false"
+            aria-label="Mostrar contactos de WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+      <span>Escríbenos</span>
+    </button>
+  </div>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" aria-label="Volver arriba">
@@ -753,7 +948,6 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
@@ -761,10 +955,17 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/mobile-menu.js"></script>
 
   <!-- Corrección del menú móvil: debe cargarse después de main.js -->
   <script src="assets/js/mobile-menu.js"></script>
+
+  <!-- Supabase: datos públicos y autenticación -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase-config.js"></script>
+
+  <!-- Contactos flotantes y aniversarios dinámicos -->
+  <script src="assets/js/contactos-aniversarios.js"></script>
+
   <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
 
 </body>

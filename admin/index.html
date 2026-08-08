@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Administración | Grupo Amigos Verdaderos</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="admin.css" rel="stylesheet">
+</head>
+<body>
+
+  <main id="login-view" class="login-page">
+    <section class="login-card">
+      <div class="brand-mark">
+        <img src="../assets/img/logo-amigos-verdaderos.png" alt="Logo del Grupo Amigos Verdaderos">
+      </div>
+      <span class="eyebrow">ACCESO DE SERVIDORES</span>
+      <h1>Administración del grupo</h1>
+      <p class="login-copy">Ingresa con la cuenta que te fue asignada para gestionar aniversarios, celebraciones y contactos.</p>
+
+      <div id="login-alert" class="admin-alert is-error" hidden></div>
+
+      <form id="login-form" class="login-form">
+        <label>
+          <span>Correo electrónico</span>
+          <div class="input-shell">
+            <i class="bi bi-envelope"></i>
+            <input type="email" id="login-email" autocomplete="username" required>
+          </div>
+        </label>
+
+        <label>
+          <span>Contraseña</span>
+          <div class="input-shell">
+            <i class="bi bi-lock"></i>
+            <input type="password" id="login-password" autocomplete="current-password" required>
+          </div>
+        </label>
+
+        <button type="submit" class="btn-primary" id="login-button">
+          <i class="bi bi-box-arrow-in-right"></i> Ingresar
+        </button>
+      </form>
+
+      <div class="security-note">
+        <i class="bi bi-shield-lock"></i>
+        <span>Solo los servidores autorizados pueden modificar la información del sitio.</span>
+      </div>
+
+      <a class="back-link" href="../index.html"><i class="bi bi-arrow-left"></i> Volver al sitio</a>
+    </section>
+  </main>
+
+  <main id="denied-view" class="login-page" hidden>
+    <section class="login-card">
+      <div class="brand-mark"><img src="../assets/img/logo-amigos-verdaderos.png" alt=""></div>
+      <span class="eyebrow">ACCESO RESTRINGIDO</span>
+      <h1>Tu cuenta no tiene permisos</h1>
+      <p class="login-copy" id="denied-copy">La cuenta existe, pero no está habilitada como administrador o editor del sitio.</p>
+      <button type="button" class="btn-secondary full-width" id="denied-logout"><i class="bi bi-box-arrow-left"></i> Cerrar sesión</button>
+    </section>
+  </main>
+
+  <div id="admin-view" hidden>
+    <header class="admin-topbar">
+      <div class="admin-container topbar-inner">
+        <a href="../index.html" class="admin-brand" target="_blank" rel="noopener">
+          <img src="../assets/img/logo-amigos-verdaderos.png" alt="">
+          <span><strong>Amigos Verdaderos</strong><small>Administración</small></span>
+        </a>
+
+        <div class="topbar-actions">
+          <span class="signed-user" id="signed-user"></span>
+          <button type="button" class="btn-ghost" id="change-password-button"><i class="bi bi-key"></i><span>Contraseña</span></button>
+          <a href="../index.html" class="btn-ghost" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i><span>Ver sitio</span></a>
+          <button type="button" class="btn-danger-soft" id="logout-button"><i class="bi bi-power"></i><span>Salir</span></button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="admin-container">
+        <section class="admin-hero">
+          <div>
+            <span class="eyebrow">GRUPO AMIGOS VERDADEROS</span>
+            <h1>Panel de administración</h1>
+            <p>Los cambios guardados se reflejan directamente en la página pública.</p>
+          </div>
+          <div class="status-pill"><span class="status-dot"></span><span id="profile-role-label">Sesión activa</span></div>
+        </section>
+
+        <div id="admin-alert" class="admin-alert" hidden></div>
+
+        <nav class="admin-tabs" aria-label="Secciones del panel">
+          <button type="button" class="admin-tab is-active" data-tab="anniversaries"><i class="bi bi-award"></i> Aniversarios</button>
+          <button type="button" class="admin-tab" data-tab="contacts"><i class="bi bi-people"></i> Servidores y contactos</button>
+          <button type="button" class="admin-tab admin-only" data-tab="users"><i class="bi bi-person-gear"></i> Accesos</button>
+        </nav>
+
+        <section class="admin-panel is-active" data-panel="anniversaries">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">RECUPERACIÓN</span>
+              <h2>Compañeros y aniversarios</h2>
+              <p>La fecha original permanece intacta. La fecha y ubicación de la celebración son independientes.</p>
+            </div>
+            <button type="button" class="btn-primary" id="btn-new-anniversary"><i class="bi bi-person-plus"></i> Agregar compañero</button>
+          </div>
+
+          <div class="admin-grid">
+            <div class="card">
+              <div class="card-head">
+                <div><h3>Registros</h3><p id="anniversary-count">Cargando…</p></div>
+                <div class="search-shell"><i class="bi bi-search"></i><input type="search" id="anniversary-search" placeholder="Buscar compañero…"></div>
+              </div>
+              <div id="anniversary-admin-list" class="records-list"></div>
+            </div>
+
+            <aside class="card editor-card" id="anniversary-editor">
+              <div class="card-head">
+                <div><span class="eyebrow">EDICIÓN</span><h3 id="anniversary-form-title">Nuevo compañero</h3></div>
+                <button type="button" class="icon-btn" id="btn-reset-anniversary" title="Limpiar formulario"><i class="bi bi-arrow-counterclockwise"></i></button>
+              </div>
+
+              <form id="anniversary-form" class="admin-form">
+                <input type="hidden" id="anniversary-id">
+
+                <label class="field full"><span>Nombre del compañero *</span><input type="text" id="anniversary-name" required maxlength="100"></label>
+
+                <div class="field-grid two">
+                  <label class="field"><span>Día original *</span><input type="number" id="anniversary-day" min="1" max="31" required></label>
+                  <label class="field"><span>Mes original *</span>
+                    <select id="anniversary-month" required>
+                      <option value="">Selecciona</option>
+                      <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option>
+                      <option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option>
+                      <option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label class="field full"><span>Año de inicio <em>opcional</em></span><input type="number" id="anniversary-start-year" min="1900" max="2100" placeholder="Ej. 2020"><small>Si existe, la web calcula automáticamente los años de recuperación.</small></label>
+
+                <label class="check-field"><input type="checkbox" id="anniversary-public-visible" checked><span><strong>Mostrar públicamente</strong><small>Desmárcalo si el compañero no desea aparecer en la página.</small></span></label>
+
+                <div class="divider"><span>Celebración programada</span></div>
+
+                <label class="field full"><span>Fecha de celebración <em>opcional</em></span><input type="date" id="celebration-date"><small>Puede ser antes o después de la fecha original.</small></label>
+                <label class="field full"><span>Lugar <em>opcional</em></span><input type="text" id="celebration-location" maxlength="160" placeholder="Ej. Salón del Grupo Amigos Verdaderos"></label>
+
+                <div class="field-grid two">
+                  <label class="field"><span>Latitud <em>opcional</em></span><input type="number" id="celebration-latitude" step="any" min="-90" max="90" placeholder="-0.123456"></label>
+                  <label class="field"><span>Longitud <em>opcional</em></span><input type="number" id="celebration-longitude" step="any" min="-180" max="180" placeholder="-79.123456"></label>
+                </div>
+
+                <button type="button" class="btn-secondary full-width" id="btn-use-location"><i class="bi bi-crosshair"></i> Usar mi ubicación actual</button>
+                <p class="location-help" id="location-help">Puedes usar coordenadas, un enlace de Maps o solamente escribir el lugar.</p>
+
+                <label class="field full"><span>Enlace de Google Maps <em>opcional</em></span><input type="url" id="celebration-map-url" maxlength="500" placeholder="https://maps.google.com/..."></label>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn-primary"><i class="bi bi-floppy"></i> Guardar</button>
+                  <button type="button" class="btn-secondary" id="btn-cancel-anniversary">Cancelar</button>
+                </div>
+              </form>
+            </aside>
+          </div>
+        </section>
+
+        <section class="admin-panel" data-panel="contacts">
+          <div class="panel-heading">
+            <div><span class="eyebrow">SERVICIO</span><h2>Servidores y contactos</h2><p>Los cargos son permanentes; el nombre y teléfono cambian cuando rota el servicio.</p></div>
+          </div>
+          <div id="contacts-admin-grid" class="contacts-admin-grid"></div>
+          <div class="info-box"><i class="bi bi-whatsapp"></i><div><strong>WhatsApp se actualiza automáticamente</strong><p>Al guardar, el contacto cambia en la sección Contacto, footer y botón flotante.</p></div></div>
+        </section>
+
+        <section class="admin-panel admin-only" data-panel="users">
+          <div class="panel-heading">
+            <div><span class="eyebrow">SEGURIDAD</span><h2>Usuarios con acceso</h2><p>Invita nuevos servidores, cambia su nivel de acceso o desactiva cuentas cuando roten los servicios.</p></div>
+            <button type="button" class="btn-primary" id="btn-show-invite"><i class="bi bi-person-plus"></i> Invitar servidor</button>
+          </div>
+
+          <div class="users-layout">
+            <div class="card">
+              <div class="card-head"><div><h3>Servidores autorizados</h3><p id="users-count">Cargando…</p></div></div>
+              <div id="users-list" class="users-list"></div>
+            </div>
+
+            <aside class="card invite-card" id="invite-card" hidden>
+              <div class="card-head"><div><span class="eyebrow">NUEVO ACCESO</span><h3>Invitar servidor</h3></div><button type="button" class="icon-btn" id="btn-hide-invite"><i class="bi bi-x-lg"></i></button></div>
+              <form id="invite-form" class="admin-form">
+                <label class="field"><span>Nombre *</span><input type="text" id="invite-name" required maxlength="100"></label>
+                <label class="field"><span>Correo *</span><input type="email" id="invite-email" required></label>
+                <label class="field"><span>Nivel de acceso *</span><select id="invite-role"><option value="editor">Editor</option><option value="admin">Administrador</option></select></label>
+                <div class="role-help"><strong>Editor:</strong> aniversarios y contactos.<br><strong>Administrador:</strong> además administra usuarios.</div>
+                <button type="submit" class="btn-primary"><i class="bi bi-send"></i> Enviar invitación</button>
+              </form>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="password-modal" class="simple-modal" hidden>
+    <div class="simple-modal-backdrop" data-close-password></div>
+    <section class="simple-modal-card" role="dialog" aria-modal="true" aria-labelledby="password-modal-title">
+      <button type="button" class="modal-close" data-close-password aria-label="Cerrar"><i class="bi bi-x-lg"></i></button>
+      <span class="eyebrow">SEGURIDAD DE TU CUENTA</span>
+      <h2 id="password-modal-title">Cambiar contraseña</h2>
+      <p>Usa una contraseña personal que no compartas con otros servidores.</p>
+      <form id="password-form" class="admin-form no-padding">
+        <label class="field"><span>Nueva contraseña *</span><input type="password" id="new-password" minlength="8" required autocomplete="new-password"></label>
+        <label class="field"><span>Confirmar contraseña *</span><input type="password" id="confirm-password" minlength="8" required autocomplete="new-password"></label>
+        <button type="submit" class="btn-primary"><i class="bi bi-key"></i> Guardar contraseña</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/supabase-config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

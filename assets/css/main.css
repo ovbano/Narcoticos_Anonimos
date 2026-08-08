@@ -2241,3 +2241,1041 @@ section,
     height: 320px;
   }
 }
+/*--------------------------------------------------------------
+# Aniversarios de recuperación
+--------------------------------------------------------------*/
+.anniversaries {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 8% 15%, rgba(77, 163, 255, .12), transparent 26%),
+    radial-gradient(circle at 92% 84%, rgba(0, 30, 124, .09), transparent 24%),
+    var(--na-white);
+}
+
+.anniversary-decoration {
+  position: absolute;
+  z-index: -1;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgba(0, 30, 124, .08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.anniversary-decoration-one {
+  top: 50px;
+  left: -110px;
+}
+
+.anniversary-decoration-two {
+  right: -90px;
+  bottom: 35px;
+  width: 180px;
+  height: 180px;
+}
+
+.anniversary-title {
+  margin: 10px 0 14px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+.anniversary-intro {
+  max-width: 720px;
+  margin: 0;
+  color: var(--na-muted);
+  font-size: 1.05rem;
+}
+
+.anniversary-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 245px;
+  padding: 14px 18px;
+  text-align: left;
+  background: var(--na-ice);
+  border: 1px solid var(--na-border);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 30, 124, .08);
+}
+
+.anniversary-period > i {
+  display: grid;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  color: var(--na-white);
+  background: var(--na-blue);
+  border-radius: 14px;
+  font-size: 1.2rem;
+}
+
+.anniversary-period div {
+  display: flex;
+  flex-direction: column;
+}
+
+.anniversary-period span {
+  color: var(--na-muted);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .11em;
+}
+
+.anniversary-period strong {
+  color: var(--na-blue);
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.anniversary-card {
+  position: relative;
+  display: flex;
+  min-height: 205px;
+  height: 100%;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  overflow: hidden;
+  background: var(--na-white);
+  border: 1px solid var(--na-border);
+  border-radius: 22px;
+  box-shadow: 0 16px 38px rgba(0, 30, 124, .09);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.anniversary-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 30, 124, .24);
+  box-shadow: 0 22px 48px rgba(0, 30, 124, .14);
+}
+
+.anniversary-card.is-next,
+.anniversary-card.is-today {
+  background: linear-gradient(145deg, #fefefe 0%, #eef5ff 100%);
+  border-color: rgba(0, 30, 124, .3);
+}
+
+.anniversary-card.is-today {
+  box-shadow: 0 18px 45px rgba(0, 30, 124, .18);
+}
+
+.anniversary-date {
+  display: flex;
+  flex: 0 0 84px;
+  width: 84px;
+  min-height: 102px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--na-white);
+  background: linear-gradient(155deg, var(--na-blue-mid), var(--na-blue-deep));
+  border: 3px solid var(--na-white);
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0, 30, 124, .23);
+}
+
+.anniversary-date span {
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .15em;
+}
+
+.anniversary-date strong {
+  margin-top: 3px;
+  color: var(--na-white);
+  font-family: var(--heading-font);
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.anniversary-card-content {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.anniversary-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 8px;
+  color: var(--na-blue-mid);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.anniversary-card.is-past .anniversary-status {
+  color: var(--na-muted);
+}
+
+.anniversary-card h3 {
+  margin: 0 0 7px;
+  font-size: 1.35rem;
+}
+
+.anniversary-card p {
+  margin: 0;
+  color: var(--na-muted);
+  font-size: .92rem;
+  line-height: 1.55;
+}
+
+.anniversary-card-star {
+  position: absolute;
+  right: -16px;
+  bottom: -24px;
+  color: rgba(0, 30, 124, .07);
+  font-size: 6rem;
+  transform: rotate(-12deg);
+}
+
+.anniversary-message,
+.anniversary-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 18px 22px;
+  color: var(--na-blue);
+  background: var(--na-ice);
+  border: 1px solid var(--na-border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.anniversary-message i {
+  color: var(--na-blue-mid);
+  font-size: 1.25rem;
+}
+
+.anniversary-message p,
+.anniversary-empty {
+  margin: 0;
+  font-weight: 700;
+}
+
+/*--------------------------------------------------------------
+# Directorio de contactos de WhatsApp
+--------------------------------------------------------------*/
+.contact-directory {
+  margin: 8px 0 24px;
+  padding: 18px;
+  background: var(--na-ice);
+  border: 1px solid var(--na-border);
+  border-radius: 18px;
+}
+
+.contact-directory-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.contact-directory-title > i {
+  display: grid;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: #fff;
+  background: #25d366;
+  border-radius: 13px;
+  font-size: 1.15rem;
+}
+
+.contact-directory-title div {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-directory-title span {
+  color: var(--na-muted);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.contact-directory-title strong {
+  color: var(--na-blue);
+  font-size: .95rem;
+}
+
+.contact-person-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 11px;
+  padding: 12px;
+  margin-top: 10px;
+  color: var(--na-text);
+  background: var(--na-white);
+  border: 1px solid rgba(0, 30, 124, .1);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 30, 124, .06);
+}
+
+.contact-person-card:hover {
+  color: var(--na-text);
+  border-color: rgba(37, 211, 102, .45);
+  transform: translateY(-2px);
+}
+
+.contact-person-avatar,
+.whatsapp-option-avatar {
+  display: grid;
+  place-items: center;
+  color: var(--na-white);
+  background: var(--na-blue);
+  border-radius: 50%;
+  font-size: .72rem;
+  font-weight: 900;
+}
+
+.contact-person-avatar {
+  width: 44px;
+  height: 44px;
+}
+
+.contact-person-data {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.contact-person-data small {
+  color: var(--na-muted);
+  font-size: .65rem;
+  line-height: 1.35;
+}
+
+.contact-person-data strong {
+  color: var(--na-blue);
+  font-size: .9rem;
+}
+
+.contact-person-data em {
+  color: var(--na-text);
+  font-size: .78rem;
+  font-style: normal;
+}
+
+.contact-person-card > i {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: #fff;
+  background: #25d366;
+  border-radius: 50%;
+}
+
+.footer-contact-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-bottom: 12px;
+  color: rgba(254, 254, 254, .7);
+}
+
+.footer-contact-link:hover {
+  color: var(--na-white);
+}
+
+.footer-contact-link > i {
+  margin-top: 2px;
+  color: #65e694;
+}
+
+.footer-contact-link span {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-contact-link strong {
+  color: inherit;
+  font-size: .83rem;
+  line-height: 1.3;
+}
+
+.footer-contact-link small {
+  color: rgba(254, 254, 254, .55);
+  font-size: .7rem;
+  line-height: 1.35;
+}
+
+/*--------------------------------------------------------------
+# Selector flotante de WhatsApp
+--------------------------------------------------------------*/
+.whatsapp-widget {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 100000;
+}
+
+.whatsapp-widget .whatsapp-float {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  border: 2px solid rgba(255, 255, 255, .9);
+  cursor: pointer;
+}
+
+.whatsapp-widget .whatsapp-float.is-open {
+  background: var(--na-blue);
+}
+
+.whatsapp-widget .whatsapp-float.is-open i::before {
+  content: "\f62a";
+}
+
+.whatsapp-menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  width: min(340px, calc(100vw - 28px));
+  padding: 13px;
+  background: var(--na-white);
+  border: 1px solid rgba(0, 30, 124, .15);
+  border-radius: 20px;
+  box-shadow: 0 22px 60px rgba(0, 12, 51, .28);
+  animation: whatsapp-menu-in .2s ease-out;
+}
+
+.whatsapp-menu[hidden] {
+  display: none !important;
+}
+
+.whatsapp-menu-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 10px 13px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--na-border);
+}
+
+.whatsapp-menu-head > i {
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: #fff;
+  background: var(--na-blue);
+  border-radius: 13px;
+}
+
+.whatsapp-menu-head div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.whatsapp-menu-head strong {
+  color: var(--na-blue);
+  font-size: .92rem;
+}
+
+.whatsapp-menu-head span {
+  color: var(--na-muted);
+  font-size: .72rem;
+}
+
+.whatsapp-option {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  color: var(--na-text);
+  border-radius: 13px;
+}
+
+.whatsapp-option:hover {
+  color: var(--na-text);
+  background: var(--na-ice);
+}
+
+.whatsapp-option-avatar {
+  width: 42px;
+  height: 42px;
+  background: #25d366;
+}
+
+.whatsapp-option > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.whatsapp-option strong {
+  color: var(--na-blue);
+  font-size: .84rem;
+}
+
+.whatsapp-option small {
+  color: var(--na-muted);
+  font-size: .68rem;
+  overflow-wrap: anywhere;
+}
+
+.whatsapp-option > i {
+  color: var(--na-muted);
+  font-size: .78rem;
+}
+
+@keyframes whatsapp-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+.whatsapp-menu-active .scroll-top {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+
+/*--------------------------------------------------------------
+# Ajuste 2: aniversarios mensuales, modal anual y contactos plegables
+--------------------------------------------------------------*/
+.anniversary-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-anniversary-calendar {
+  display: inline-flex;
+  min-width: 126px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 17px;
+  color: var(--na-white);
+  background: linear-gradient(145deg, var(--na-blue-mid), var(--na-blue-deep));
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0, 30, 124, .18);
+  font-family: var(--heading-font);
+  font-size: .86rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.btn-anniversary-calendar:hover,
+.btn-anniversary-calendar:focus-visible {
+  color: var(--na-white);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(0, 30, 124, .25);
+}
+
+.anniversary-card {
+  min-height: 190px;
+}
+
+.anniversary-person-mark {
+  position: relative;
+  display: grid;
+  flex: 0 0 88px;
+  width: 88px;
+  height: 88px;
+  place-items: center;
+  color: var(--na-white);
+  background: linear-gradient(155deg, var(--na-blue-mid), var(--na-blue-deep));
+  border: 4px solid var(--na-white);
+  border-radius: 50%;
+  box-shadow: 0 12px 28px rgba(0, 30, 124, .22);
+}
+
+.anniversary-person-mark span {
+  font-family: var(--heading-font);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.anniversary-person-mark i {
+  position: absolute;
+  right: -4px;
+  bottom: -3px;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: var(--na-blue);
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 5px 14px rgba(0, 30, 124, .18);
+  font-size: .83rem;
+}
+
+.anniversary-empty-month {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.anniversary-empty-month > i {
+  font-size: 1.5rem;
+}
+
+.anniversary-empty-month > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.anniversary-empty-month strong {
+  color: var(--na-blue);
+}
+
+.anniversary-empty-month span {
+  color: var(--na-muted);
+  font-size: .86rem;
+  font-weight: 500;
+}
+
+/* Modal anual de aniversarios */
+.anniversary-modal {
+  --bs-modal-width: 1160px;
+}
+
+.anniversary-modal .modal-content {
+  overflow: hidden;
+  background: var(--na-ice);
+  border: 0;
+  border-radius: 26px;
+  box-shadow: 0 30px 100px rgba(0, 12, 51, .34);
+}
+
+.anniversary-modal-header {
+  position: relative;
+  padding: 26px 30px;
+  color: var(--na-white);
+  background:
+    radial-gradient(circle at 88% 15%, rgba(139, 196, 255, .32), transparent 28%),
+    linear-gradient(135deg, var(--na-blue-deep), var(--na-blue) 58%, var(--na-blue-mid));
+  border: 0;
+}
+
+.anniversary-modal-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px);
+  background-size: 38px 38px;
+  pointer-events: none;
+}
+
+.anniversary-modal-heading {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.anniversary-modal-icon {
+  display: grid;
+  flex: 0 0 62px;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  color: var(--na-blue);
+  background: var(--na-white);
+  border-radius: 19px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .2);
+  font-size: 1.55rem;
+}
+
+.anniversary-modal-heading > div {
+  min-width: 0;
+}
+
+.anniversary-modal-heading > div > span {
+  color: #bcd8ff;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.anniversary-modal-heading h2 {
+  margin: 2px 0 3px;
+  color: var(--na-white);
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+}
+
+.anniversary-modal-heading p {
+  margin: 0;
+  color: rgba(254, 254, 254, .76);
+  font-size: .9rem;
+}
+
+.anniversary-modal-header .btn-close {
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  opacity: .9;
+}
+
+.anniversary-modal-body {
+  padding: 24px;
+  background:
+    radial-gradient(circle at 0 0, rgba(77, 163, 255, .1), transparent 28%),
+    var(--na-ice);
+}
+
+.anniversary-modal-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  max-width: 900px;
+  padding: 14px 17px;
+  margin: 0 auto 22px;
+  color: var(--na-text);
+  background: var(--na-white);
+  border: 1px solid var(--na-border);
+  border-radius: 15px;
+  box-shadow: 0 8px 22px rgba(0, 30, 124, .06);
+}
+
+.anniversary-modal-note i {
+  margin-top: 2px;
+  color: var(--na-blue-mid);
+}
+
+.anniversary-modal-note p {
+  margin: 0;
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+.anniversary-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.anniversary-month-card {
+  overflow: hidden;
+  background: var(--na-white);
+  border: 1px solid var(--na-border);
+  border-radius: 19px;
+  box-shadow: 0 12px 28px rgba(0, 30, 124, .07);
+}
+
+.anniversary-month-card.is-current {
+  border-color: rgba(0, 30, 124, .42);
+  box-shadow: 0 16px 36px rgba(0, 30, 124, .14);
+}
+
+.anniversary-month-head {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 15px;
+  background: linear-gradient(145deg, #fefefe, #eef5ff);
+  border-bottom: 1px solid var(--na-border);
+}
+
+.anniversary-month-card.is-current .anniversary-month-head {
+  background: linear-gradient(145deg, var(--na-blue-deep), var(--na-blue-mid));
+}
+
+.anniversary-month-number {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  color: var(--na-white);
+  background: var(--na-blue);
+  border-radius: 14px;
+  font-family: var(--heading-font);
+  font-weight: 900;
+}
+
+.anniversary-month-card.is-current .anniversary-month-number {
+  color: var(--na-blue);
+  background: var(--na-white);
+}
+
+.anniversary-month-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.anniversary-month-head > div > span {
+  color: var(--na-muted);
+  font-size: .7rem;
+}
+
+.anniversary-month-card.is-current .anniversary-month-head h3,
+.anniversary-month-card.is-current .anniversary-month-head > div > span {
+  color: var(--na-white);
+}
+
+.anniversary-month-head em {
+  padding: 5px 8px;
+  color: var(--na-blue);
+  background: var(--na-white);
+  border-radius: 50px;
+  font-size: .58rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.anniversary-month-people {
+  padding: 9px 12px 12px;
+}
+
+.anniversary-calendar-person {
+  display: grid;
+  grid-template-columns: 39px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--na-border);
+}
+
+.anniversary-calendar-person:last-child {
+  border-bottom: 0;
+}
+
+.anniversary-calendar-day {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  place-items: center;
+  color: var(--na-white);
+  background: var(--na-blue-mid);
+  border-radius: 12px;
+  font-family: var(--heading-font);
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+.anniversary-calendar-person > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.anniversary-calendar-person strong {
+  overflow: hidden;
+  color: var(--na-blue);
+  font-size: .86rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.anniversary-calendar-person small {
+  color: var(--na-muted);
+  font-size: .66rem;
+}
+
+.anniversary-calendar-person > i {
+  color: var(--na-sky);
+  font-size: .8rem;
+}
+
+.anniversary-calendar-empty {
+  display: flex;
+  min-height: 65px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--na-muted);
+  font-size: .76rem;
+}
+
+.anniversary-modal-footer {
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--na-white);
+  border-top: 1px solid var(--na-border);
+}
+
+.anniversary-modal-footer > span {
+  color: var(--na-blue);
+  font-size: .8rem;
+  font-weight: 800;
+}
+
+.anniversary-modal-footer .btn-primary {
+  background: var(--na-blue);
+  border-color: var(--na-blue);
+  border-radius: 50px;
+  font-weight: 800;
+}
+
+body.modal-open .whatsapp-widget,
+body.modal-open .scroll-top {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Directorio de contactos plegable */
+.contact-directory {
+  padding: 0;
+  overflow: hidden;
+}
+
+.contact-directory-heading {
+  margin: 0;
+}
+
+.contact-directory-toggle {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 46px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  color: var(--na-text);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.contact-directory-toggle:hover,
+.contact-directory-toggle:focus-visible {
+  background: rgba(255, 255, 255, .7);
+}
+
+.contact-directory-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  color: #fff;
+  background: #25d366;
+  border-radius: 14px;
+  font-size: 1.18rem;
+}
+
+.contact-directory-title-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.contact-directory-title-copy small {
+  color: var(--na-muted);
+  font-size: .66rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.contact-directory-title-copy strong {
+  color: var(--na-blue);
+  font-size: .96rem;
+}
+
+.contact-directory-chevron {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--na-blue);
+  background: var(--na-white);
+  border-radius: 50%;
+  transition: transform .25s ease;
+}
+
+.contact-directory-toggle:not(.collapsed) .contact-directory-chevron {
+  transform: rotate(180deg);
+}
+
+.contact-directory-body {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--na-border);
+}
+
+.contact-person-card {
+  margin-top: 12px;
+}
+
+.contact-person-card.is-principal {
+  border-left: 4px solid var(--na-blue);
+}
+
+.contact-person-card.is-alternate {
+  border-left: 4px solid var(--na-sky);
+}
+
+.contact-person-card.is-secretary {
+  border-left: 4px solid #25d366;
+}
+
+.contact-role-badge,
+.whatsapp-option-role {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  align-items: center;
+  padding: 3px 7px;
+  margin-bottom: 3px;
+  border-radius: 50px;
+  font-size: .56rem;
+  font-weight: 900;
+  letter-spacing: .07em;
+  line-height: 1.25;
+}
+
+.role-principal {
+  color: var(--na-white);
+  background: var(--na-blue);
+}
+
+.role-alternate {
+  color: var(--na-blue-deep);
+  background: #bcd8ff;
+}
+
+.role-secretary {
+  color: #075b2b;
+  background: #c9f5d9;
+}
+
+.contact-person-data small {
+  order: 3;
+}
+
+.contact-person-data strong {
+  order: 2;
+}
+
+.contact-person-data em {
+  order: 4;
+}
+
+.contact-person-data .contact-role-badge {
+  order: 1;
+}
+
+.whatsapp-option-role {
+  margin-bottom: 2px;
+}

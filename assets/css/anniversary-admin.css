@@ -1,0 +1,200 @@
+/**
+ * Extensión visual para aniversarios administrables.
+ * Cargar DESPUÉS de main.css y responsive.css.
+ */
+
+.anniversary-years-copy {
+  margin-bottom: 13px !important;
+}
+
+.anniversary-years-copy strong {
+  color: var(--na-blue);
+  font-weight: 900;
+}
+
+.anniversary-celebration {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 13px;
+  color: var(--na-blue-deep);
+  background: linear-gradient(145deg, #eef5ff, #fefefe);
+  border: 1px solid rgba(0, 30, 124, .13);
+  border-radius: 14px;
+}
+
+.anniversary-celebration > i {
+  display: grid;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  color: var(--na-white);
+  background: var(--na-blue);
+  border-radius: 10px;
+  font-size: .95rem;
+}
+
+.anniversary-celebration > div {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.anniversary-celebration span {
+  color: var(--na-muted);
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.anniversary-celebration strong {
+  color: var(--na-blue);
+  font-size: .85rem;
+  line-height: 1.35;
+}
+
+.anniversary-celebration small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+  color: var(--na-muted);
+  font-size: .72rem;
+  line-height: 1.35;
+}
+
+.anniversary-celebration.is-pending {
+  background: #f8faff;
+  border-style: dashed;
+}
+
+.anniversary-celebration.is-pending > i {
+  color: var(--na-blue);
+  background: #dcecff;
+}
+
+.anniversary-card {
+  align-items: flex-start;
+}
+
+.anniversary-calendar-person small {
+  white-space: normal;
+  line-height: 1.35;
+}
+
+#footer-contact-list,
+#whatsapp-options {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 767.98px) {
+  .anniversary-card {
+    align-items: flex-start;
+  }
+
+  .anniversary-celebration {
+    padding: 11px;
+  }
+}
+
+@media (max-width: 420px) {
+  .anniversary-celebration {
+    gap: 8px;
+  }
+
+  .anniversary-celebration > i {
+    flex-basis: 31px;
+    width: 31px;
+    height: 31px;
+  }
+}
+
+
+/*--------------------------------------------------------------
+# Celebraciones con ubicación y acceso a Google Maps
+--------------------------------------------------------------*/
+.anniversary-celebration-info {
+  width: 100%;
+}
+
+.anniversary-celebration-place {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 6px !important;
+  margin-top: 7px !important;
+  color: var(--na-text) !important;
+  font-size: .76rem !important;
+  font-weight: 600;
+}
+
+.anniversary-celebration-place i {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--na-blue);
+}
+
+.anniversary-map-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: fit-content;
+  min-height: 35px;
+  margin-top: 9px;
+  padding: 7px 11px;
+  color: var(--na-white) !important;
+  background: var(--na-blue);
+  border-radius: 9px;
+  font-size: .7rem;
+  font-weight: 800;
+  line-height: 1;
+  transition: .22s ease;
+}
+
+.anniversary-map-link:hover {
+  color: var(--na-white) !important;
+  background: var(--na-blue-mid);
+  transform: translateY(-1px);
+}
+
+.anniversary-map-link i {
+  font-size: .85rem;
+}
+
+/* Reemplazo de redes sociales: principios del grupo */
+.footer-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-values span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 7px 10px;
+  color: var(--na-blue);
+  background: color-mix(in srgb, var(--na-blue), transparent 93%);
+  border: 1px solid color-mix(in srgb, var(--na-blue), transparent 84%);
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+.footer-values i {
+  color: var(--na-blue-mid);
+}
+
+@media (max-width: 575.98px) {
+  .anniversary-map-link {
+    width: 100%;
+  }
+
+  .footer-values {
+    gap: 6px;
+  }
+}

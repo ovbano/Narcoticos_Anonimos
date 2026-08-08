@@ -1050,3 +1050,327 @@ iframe {
   }
 
 }
+
+/*--------------------------------------------------------------
+# Contactos y aniversarios: ajustes responsive
+--------------------------------------------------------------*/
+@media (max-width: 991.98px) {
+  .anniversary-period {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .anniversary-title,
+  .anniversary-intro {
+    text-align: center;
+  }
+
+  .anniversary-period {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .anniversary-card {
+    min-height: 180px;
+    padding: 21px;
+  }
+
+  .anniversary-date {
+    flex-basis: 76px;
+    width: 76px;
+    min-height: 94px;
+  }
+
+  .anniversary-date strong {
+    font-size: 2rem;
+  }
+
+  .contact-directory {
+    padding: 15px;
+  }
+
+  .whatsapp-widget {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .whatsapp-menu {
+    position: fixed;
+    right: 10px;
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 68px);
+    left: 10px;
+    width: auto;
+  }
+
+  .scroll-top.active {
+    right: max(12px, env(safe-area-inset-right));
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 68px);
+  }
+
+  .whatsapp-menu:not([hidden]) ~ .whatsapp-float + .scroll-top,
+  .whatsapp-widget:has(.whatsapp-menu:not([hidden])) ~ .scroll-top {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .anniversary-card {
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .anniversary-date {
+    flex-basis: 68px;
+    width: 68px;
+    min-height: 84px;
+    border-radius: 16px;
+  }
+
+  .anniversary-date strong {
+    font-size: 1.75rem;
+  }
+
+  .anniversary-card h3 {
+    font-size: 1.16rem;
+  }
+
+  .anniversary-status {
+    font-size: .64rem;
+  }
+
+  .anniversary-message {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .contact-person-card {
+    grid-template-columns: 40px minmax(0, 1fr) 32px;
+    padding: 10px;
+  }
+
+  .contact-person-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-person-data small {
+    font-size: .61rem;
+  }
+
+  .contact-person-data strong {
+    font-size: .84rem;
+  }
+
+  .contact-person-data em {
+    font-size: .73rem;
+  }
+
+  .whatsapp-menu {
+    padding: 10px;
+    border-radius: 17px;
+  }
+
+  .whatsapp-option {
+    grid-template-columns: 40px minmax(0, 1fr) 18px;
+    padding: 9px;
+  }
+
+  .whatsapp-option-avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  .anniversary-card {
+    flex-direction: column;
+  }
+
+  .anniversary-date {
+    min-height: 72px;
+    flex-direction: row;
+    gap: 7px;
+  }
+
+  .anniversary-date strong {
+    font-size: 1.55rem;
+  }
+}
+
+
+@media (max-width: 1199.98px) {
+  body.mobile-nav-active .whatsapp-widget {
+    display: none;
+  }
+}
+
+
+/*--------------------------------------------------------------
+# Ajuste 2 responsive: modal anual y acordeón de contactos
+--------------------------------------------------------------*/
+@media (max-width: 991.98px) {
+  .anniversary-actions {
+    justify-content: flex-start;
+  }
+
+  .anniversary-calendar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .anniversary-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: 100%;
+  }
+
+  .anniversary-period {
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  .btn-anniversary-calendar {
+    min-width: 112px;
+  }
+
+  .anniversary-person-mark {
+    flex-basis: 76px;
+    width: 76px;
+    height: 76px;
+  }
+
+  .anniversary-modal .modal-dialog {
+    margin: .65rem;
+  }
+
+  .anniversary-modal .modal-content {
+    border-radius: 21px;
+  }
+
+  .anniversary-modal-header {
+    padding: 21px 18px;
+  }
+
+  .anniversary-modal-icon {
+    flex-basis: 52px;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+  }
+
+  .anniversary-modal-heading p {
+    display: none;
+  }
+
+  .anniversary-modal-body {
+    padding: 17px;
+  }
+
+  .anniversary-calendar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .anniversary-modal-footer {
+    gap: 12px;
+    padding: 14px 17px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .anniversary-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .anniversary-period,
+  .btn-anniversary-calendar {
+    width: 100%;
+  }
+
+  .anniversary-card {
+    min-height: 0;
+  }
+
+  .anniversary-person-mark {
+    flex-basis: 66px;
+    width: 66px;
+    height: 66px;
+  }
+
+  .anniversary-person-mark span {
+    font-size: 1.05rem;
+  }
+
+  .anniversary-modal-heading {
+    gap: 11px;
+  }
+
+  .anniversary-modal-heading > div > span {
+    font-size: .58rem;
+  }
+
+  .anniversary-modal-heading h2 {
+    font-size: 1.35rem;
+  }
+
+  .anniversary-modal-note {
+    padding: 12px;
+  }
+
+  .anniversary-month-head {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    padding: 13px;
+  }
+
+  .anniversary-month-number {
+    width: 42px;
+    height: 42px;
+  }
+
+  .anniversary-modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .contact-directory-toggle {
+    grid-template-columns: 42px minmax(0, 1fr) 30px;
+    gap: 9px;
+    padding: 13px;
+  }
+
+  .contact-directory-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .contact-directory-body {
+    padding: 0 12px 12px;
+  }
+
+  .contact-role-badge,
+  .whatsapp-option-role {
+    font-size: .51rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .anniversary-card {
+    flex-direction: row;
+  }
+
+  .anniversary-person-mark {
+    flex-basis: 58px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .anniversary-person-mark i {
+    width: 25px;
+    height: 25px;
+  }
+}
