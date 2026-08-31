@@ -1,0 +1,21 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    - cron: "17 */8 * * *"
+
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Consultar Supabase
+        run: |
+          curl --fail --silent --show-error \
+            --request POST \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/healthcheck" \
+            --header "apikey: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}" \
+            --header "Content-Type: application/json" \
+            --data '{}'
