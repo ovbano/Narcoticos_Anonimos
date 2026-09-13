@@ -29,6 +29,8 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <link href="assets/css/solo-por-hoy.css" rel="stylesheet">
+
   <!-- Responsive CSS File: debe cargarse después de main.css -->
   <link href="assets/css/responsive.css" rel="stylesheet">
 
@@ -63,7 +65,7 @@
           <li><a href="#aniversarios">Aniversarios</a></li>
           <li><a href="#normas">Normas</a></li>
           <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#solo-por-hoy">Solo por hoy</a></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list" aria-label="Abrir menú móvil"></i>
@@ -285,6 +287,57 @@
       </div>
 
     </section><!-- /Meetings Section -->
+
+
+    <!-- Solo por hoy: acceso a la meditación oficial en español -->
+    <section id="solo-por-hoy" class="sph-section section" aria-labelledby="sph-heading">
+      <div class="sph-container">
+        <div class="sph-section-heading">
+          <span class="section-kicker">UN MOMENTO PARA TU RECUPERACIÓN</span>
+          <h2 id="sph-heading">Hoy también hay esperanza.</h2>
+          <p>Haz una pausa. Abre la lectura y dedica un momento a ti.</p>
+        </div>
+        <div class="sph-book-wrap">
+          <div class="sph-book" aria-label="Solo por hoy, libro abierto">
+            <div class="sph-page sph-page-left">
+              <span class="sph-running-head">NARCÓTICOS ANÓNIMOS <span aria-hidden="true">✦</span></span>
+              <div class="sph-cover-title">
+                <span class="sph-edition">RECUPERACIÓN · UNIDAD · SERVICIO</span>
+                <h3>Solo<br> por <em>hoy.</em></h3>
+                <span class="sph-rule" aria-hidden="true"></span>
+                <p>Un día a la vez.<br>Una nueva oportunidad.</p>
+              </div>
+              <div class="sph-quote">
+                <span class="sph-small-label">LECTURA PARA REUNIONES · FRAGMENTO</span>
+                <blockquote>«SÓLO POR HOY pensaré en mi recuperación viviendo y disfrutando la vida sin consumir drogas.»</blockquote>
+                <a href="https://na.org/e-lit/solo-por-hoy/" target="_blank" rel="noopener noreferrer">Sólo por hoy · NA World Services ↗</a>
+              </div>
+              <span class="sph-folio">GRUPO AMIGOS VERDADEROS <span aria-hidden="true">01</span></span>
+            </div>
+            <div class="sph-page sph-page-right">
+              <span class="sph-ribbon" aria-hidden="true"></span>
+              <span class="sph-running-head">UN ESPACIO PARA REFLEXIONAR</span>
+              <div class="sph-daily">
+                <span class="sph-small-label">MEDITACIÓN DIARIA EN ESPAÑOL</span>
+                <time id="sph-date" class="sph-date">Una lectura para cada día</time>
+                <h3>Tu lectura<br> de hoy</h3>
+                <p class="sph-intro">Encuentra la meditación de <em>Solo por hoy</em> en su fuente oficial en español y acompaña tu día con la literatura de NA.</p>
+                <a class="sph-read-link" href="https://fzla.org/sxh/" target="_blank" rel="noopener noreferrer">
+                  <span>Leer la meditación oficial</span><span aria-hidden="true">↗</span>
+                </a>
+                <p class="sph-source-note">La lectura completa se abre en el sitio del Foro Zonal Latinoamericano.</p>
+              </div>
+              <div class="sph-pause">
+                <span class="sph-pause-mark" aria-hidden="true">✦</span>
+                <div><span class="sph-small-label">ANTES DE CONTINUAR</span><p>Lee con calma. Date un momento para reflexionar sobre lo que esta lectura significa para ti.</p></div>
+              </div>
+              <span class="sph-folio">SOLO POR HOY <span aria-hidden="true">02</span></span>
+            </div>
+          </div>
+        </div>
+        <p class="sph-credit">Fragmento de la lectura para reuniones «Sólo por hoy»: © 1991, 2010 NA World Services, Inc.<br>La meditación diaria se consulta directamente en el Foro Zonal Latinoamericano.</p>
+      </div>
+    </section>
 
     <!-- Anniversaries Section -->
     <section id="aniversarios" class="anniversaries section">
@@ -962,6 +1015,8 @@
   <!-- Supabase: datos públicos y autenticación -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="assets/js/supabase-config.js"></script>
+
+  <script src="assets/js/solo-por-hoy.js"></script>
 
   <!-- Contactos flotantes y aniversarios dinámicos -->
   <script src="assets/js/contactos-aniversarios.js"></script>
