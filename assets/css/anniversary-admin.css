@@ -191,6 +191,30 @@
   color: var(--na-blue-mid);
 }
 
+.anniversary-card-v2.is-celebrated .anniversary-status {
+  color: #146347;
+  background: #eaf7ef;
+  border-color: #badcc8;
+}
+
+.anniversary-card-v2.is-celebrated .anniversary-status i {
+  color: #146347;
+}
+
+.anniversary-card-v2.is-celebrated .anniversary-card-accent {
+  background: linear-gradient(90deg, #146347, #4c9c75);
+}
+
+.anniversary-card-v2.is-today .anniversary-status {
+  color: #755000;
+  background: #fff5d6;
+  border-color: #e6cf87;
+}
+
+.anniversary-card-v2.is-today .anniversary-status i {
+  color: #755000;
+}
+
 .anniversary-card-v2 h3 {
   margin: 6px 0 7px;
   color: var(--na-blue-deep);
