@@ -92,6 +92,15 @@
   const dateOnlyUtc = (date) =>
     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
 
+  // El estado cambia por día del grupo, aunque el visitante esté en otro país.
+  const getGroupToday = (now = new Date()) => {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Guayaquil', year: 'numeric', month: '2-digit', day: '2-digit'
+    }).formatToParts(now);
+    const value = (type) => Number(parts.find(part => part.type === type).value);
+    return new Date(value('year'), value('month') - 1, value('day'), 12);
+  };
+
   const getRecoveryDuration = (item, referenceDate = new Date()) => {
     const start = getRecoveryStartDate(item);
     if (!start) return null;
@@ -205,6 +214,29 @@
     weekday: 'long', day: 'numeric', month: 'long'
   }).format(date);
 
+  const getAnniversaryStatus = (item, today) => {
+    const year = today.getFullYear();
+    let celebration = getCelebrationForYear(item, year);
+    // Una celebración cercana también puede cruzar diciembre/enero.
+    if (!celebration) {
+      const adjacent = getCelebrationForYear(item, year - 1) || getCelebrationForYear(item, year + 1);
+      if (adjacent) {
+        const celebrationYear = adjacent.date.getFullYear();
+        const nearestYear = [celebrationYear - 1, celebrationYear, celebrationYear + 1]
+          .sort((a, b) =>
+            Math.abs(dateOnlyUtc(makeClampedDate(a, item.month - 1, item.day)) - dateOnlyUtc(adjacent.date))
+            - Math.abs(dateOnlyUtc(makeClampedDate(b, item.month - 1, item.day)) - dateOnlyUtc(adjacent.date))
+          )[0];
+        if (nearestYear === year) celebration = adjacent;
+      }
+    }
+    const date = celebration?.date || makeClampedDate(year, item.month - 1, item.day);
+    const difference = dateOnlyUtc(date) - dateOnlyUtc(today);
+    if (difference < 0) return { date, celebration, className: 'is-celebrated', label: 'Celebrado', icon: 'bi-check-circle-fill' };
+    if (difference === 0) return { date, celebration, className: 'is-today', label: '¡Hoy celebramos!', icon: 'bi-calendar-heart-fill' };
+    return { date, celebration, className: 'is-upcoming', label: 'Próximo aniversario', icon: 'bi-award-fill' };
+  };
+
   const isSafeHttpUrl = (value) => {
     try {
       const url = new URL(String(value || '').trim());
@@ -290,7 +322,7 @@
     const intro = document.getElementById('anniversary-intro');
     if (!list || !period || !intro) return;
 
-    const today = new Date();
+    const today = getGroupToday();
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth() + 1;
     const monthLabel = monthNames[currentMonth - 1];
@@ -325,7 +357,7 @@
 
     intro.textContent = `Durante ${monthLabel} acompañamos a ${
       entries.length === 1 ? 'este compañero' : 'estos compañeros'
-    } en sus próximos aniversarios y celebraciones de recuperación.`;
+    } en sus aniversarios y celebraciones de recuperación.`;
 
     list.innerHTML = entries.map((item, index) => {
       const milestone = getMilestoneForYear(item, currentYear);
@@ -333,7 +365,9 @@
       const durationText = duration && !duration.future
         ? formatRecoveryDuration(duration)
         : '';
-      const celebration = getCelebrationForYear(item, currentYear);
+      const status = getAnniversaryStatus(item, today);
+      const celebrated = status.className === 'is-celebrated';
+      const celebration = status.celebration;
       const animationDelay = 100 + (index * 90);
 
       const milestoneBadge = milestone
@@ -359,7 +393,7 @@
              <i class="bi bi-stars"></i>
              <div>
                <span>RECUPERACIÓN</span>
-               <strong>Próximo aniversario</strong>
+               <strong>${escapeHtml(status.label)}</strong>
              </div>
            </div>`;
 
@@ -368,7 +402,7 @@
         ? `<div class="anniversary-celebration">
              <i class="bi bi-calendar-event-fill"></i>
              <div class="anniversary-celebration-info">
-               <span>CELEBRACIÓN PROGRAMADA</span>
+               <span>${celebrated ? 'CELEBRACIÓN REALIZADA' : 'CELEBRACIÓN PROGRAMADA'}</span>
                <strong>${escapeHtml(capitalize(formatCelebrationDate(celebration.date)))}</strong>
                ${celebration.location
                  ? `<small class="anniversary-celebration-place">
@@ -391,15 +425,15 @@
         : `<div class="anniversary-celebration is-pending">
              <i class="bi bi-calendar2-heart"></i>
              <div>
-               <span>CELEBRACIÓN</span>
-               <strong>Fecha por confirmar</strong>
-               <small>El grupo informará cuando se defina el día.</small>
+               <span>FECHA DEL ANIVERSARIO</span>
+               <strong>${escapeHtml(capitalize(formatCelebrationDate(status.date)))}</strong>
+               <small>Se usa la fecha original cuando no hay otra celebración programada.</small>
              </div>
            </div>`;
 
       return `
         <div class="col-md-6 col-xl-4" data-aos="fade-up" data-aos-delay="${animationDelay}">
-          <article class="anniversary-card anniversary-card-v2 is-upcoming">
+          <article class="anniversary-card anniversary-card-v2 ${status.className}">
             <div class="anniversary-card-accent" aria-hidden="true"></div>
 
             <div class="anniversary-card-head">
@@ -412,14 +446,14 @@
 
             <div class="anniversary-card-content">
               <div class="anniversary-status">
-                <i class="bi bi-award-fill"></i>
-                <span>Próximo aniversario</span>
+                <i class="bi ${status.icon}"></i>
+                <span>${escapeHtml(status.label)}</span>
               </div>
 
               <h3>${escapeHtml(item.name)}</h3>
 
               ${milestone
-                ? `<p class="anniversary-milestone-copy">Este año celebra <strong>${escapeHtml(formatMilestone(milestone))}</strong>.</p>`
+                ? `<p class="anniversary-milestone-copy">Este año ${celebrated ? 'celebró' : 'celebra'} <strong>${escapeHtml(formatMilestone(milestone))}</strong>.</p>`
                 : `<p class="anniversary-milestone-copy">Continúa construyendo su recuperación, un día a la vez.</p>`}
 
               ${recoveryCopy}
@@ -438,7 +472,7 @@
     const calendar = document.getElementById('anniversary-calendar');
     if (!calendar) return;
 
-    const currentDate = new Date();
+    const currentDate = getGroupToday();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
     const total = siteData.anniversaries.length;
@@ -641,6 +675,18 @@
     try {
       await loadSiteData();
       refreshPublicContent();
+      let renderedDay = dateOnlyUtc(getGroupToday());
+      const refreshOnNewDay = () => {
+        const currentDay = dateOnlyUtc(getGroupToday());
+        if (currentDay !== renderedDay) {
+          renderedDay = currentDay;
+          refreshPublicContent();
+        }
+      };
+      window.setInterval(refreshOnNewDay, 60000);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) refreshOnNewDay();
+      });
     } catch (error) {
       console.error('No se pudieron cargar los datos públicos desde Supabase:', error);
       showLoadError();
