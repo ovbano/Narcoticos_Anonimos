@@ -320,12 +320,20 @@
               <div class="sph-daily">
                 <span class="sph-small-label">MEDITACIÓN DIARIA EN ESPAÑOL</span>
                 <time id="sph-date" class="sph-date">Una lectura para cada día</time>
-                <h3>Tu lectura<br> de hoy</h3>
-                <p class="sph-intro">Encuentra la meditación de <em>Solo por hoy</em> en su fuente oficial en español y acompaña tu día con la literatura de NA.</p>
+                <h3 id="sph-title">Tu lectura de hoy</h3>
+                <span id="sph-summary-label" class="sph-small-label" hidden>RESUMEN DE LA REFLEXIÓN · TEXTO PROPIO DEL SITIO</span>
+                <p id="sph-summary" class="sph-intro" aria-live="polite">Consulta la meditación de Solo por hoy en la fuente oficial en español.</p>
+                <div id="sph-audio" class="sph-audio" hidden>
+                  <button id="sph-listen" type="button">Escuchar resumen</button>
+                  <button id="sph-stop" type="button" hidden>Detener</button>
+                  <label for="sph-rate">Velocidad</label>
+                  <select id="sph-rate"><option value="0.8">0,8×</option><option value="1" selected>1×</option><option value="1.2">1,2×</option></select>
+                </div>
+                <p id="sph-audio-status" class="sph-source-note" role="status"></p>
                 <a class="sph-read-link" href="https://fzla.org/sxh/" target="_blank" rel="noopener noreferrer">
                   <span>Leer la meditación oficial</span><span aria-hidden="true">↗</span>
                 </a>
-                <p class="sph-source-note">La lectura completa se abre en el sitio del Foro Zonal Latinoamericano.</p>
+                <p class="sph-source-note">El resumen y su narración automática son una elaboración del sitio, no literatura oficial de NA. La meditación completa se abre en el Foro Zonal Latinoamericano.</p>
               </div>
               <div class="sph-pause">
                 <span class="sph-pause-mark" aria-hidden="true">✦</span>

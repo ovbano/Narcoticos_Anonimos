@@ -1,5 +1,13 @@
 
 /* Solo por hoy — libro abierto. Estilos aislados del resto del sitio. */
+.sph-section [hidden]{display:none!important}
+.sph-audio{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 10px;font:12px/1.5 var(--default-font,Arial,sans-serif)}
+.sph-audio button,.sph-audio select{min-height:44px;border:1px solid #b9ad93;border-radius:5px;background:#fffdf6;color:#001e7c;padding:9px 12px;font:inherit}
+.sph-audio button{font-weight:700;cursor:pointer}
+.sph-audio button:hover{background:#eee8d9}
+.sph-audio button:focus-visible,.sph-audio select:focus-visible{outline:3px solid #a67d34;outline-offset:3px}
+.sph-daily #sph-title{font-size:clamp(30px,3.3vw,44px);overflow-wrap:anywhere}
+.sph-daily #sph-summary-label{margin-bottom:12px;letter-spacing:.08em}
 .sph-section{background:radial-gradient(ellipse at 50% 55%,#e3e9f1 0%,#f3f6fb 52%,#fff 100%);padding:90px 0 75px;overflow:hidden}
 .sph-container{width:min(1120px,calc(100% - 40px));margin-inline:auto}
 .sph-section-heading{text-align:center;margin:0 auto 48px;max-width:680px}
