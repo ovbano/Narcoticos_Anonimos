@@ -163,6 +163,12 @@
 
                 <label class="field full"><span>Enlace de Google Maps <em>opcional</em></span><input type="url" id="celebration-map-url" maxlength="500" placeholder="https://maps.google.com/..."></label>
 
+                <p id="invitation-schema-note" class="location-help">Comprobando opciones de invitación…</p>
+                <fieldset id="invitation-fields" disabled style="border:0;padding:0;margin:0;min-width:0">
+                  <label class="field full"><span>Mensaje de invitación <em>opcional</em></span><textarea id="celebration-message" rows="4" maxlength="1200" placeholder="Comparte unas palabras e invita al grupo a acompañar esta celebración." style="width:100%;font:inherit;padding:12px;border:1px solid #ccd5e2;border-radius:12px"></textarea><small>Será público en el enlace del aniversario. Se aplica a la fecha de celebración programada.</small></label>
+                  <label class="check-field"><input type="checkbox" id="celebration-location-confirmed"><span><strong>Lugar de celebración confirmado</strong><small>Publica el mapa en la invitación. Verifica la dirección o las coordenadas antes de marcarlo.</small></span></label>
+                </fieldset>
+
                 <div class="form-actions">
                   <button type="submit" class="btn-primary"><i class="bi bi-floppy"></i> Guardar</button>
                   <button type="button" class="btn-secondary" id="btn-cancel-anniversary">Cancelar</button>
@@ -228,3 +234,4 @@
   <script src="admin.js"></script>
 </body>
 </html>
+

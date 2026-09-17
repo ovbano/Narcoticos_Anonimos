@@ -99,6 +99,7 @@
     return true;
   };
 
+  let invitationFieldsAvailable = false;
   const loadData = async () => {
     const [contactsResult, anniversariesResult] = await Promise.all([
       db.from('service_contacts').select('role,name,phone,active'),
@@ -110,6 +111,12 @@
 
     state.contacts = contactsResult.data || [];
     state.anniversaries = anniversariesResult.data || [];
+    const extras = await db.from('anniversaries').select('celebration_message,celebration_location_confirmed').limit(0);
+    invitationFieldsAvailable = !extras.error;
+    $('#invitation-fields').disabled = !invitationFieldsAvailable;
+    $('#invitation-schema-note').textContent = invitationFieldsAvailable
+      ? 'Invitación: el mensaje y la confirmación del lugar se guardan con la celebración.'
+      : 'Las invitaciones requieren aplicar sql/03_invitaciones_aniversarios.sql en Supabase. Los demás campos siguen disponibles.';
     renderContacts();
     renderAnniversaries();
   };
@@ -302,6 +309,8 @@
     $('#anniversary-start-year').value = item.recovery_year ?? '';
     $('#anniversary-public-visible').checked = item.public_visible !== false;
     $('#celebration-date').value = item.celebration_date || '';
+    $('#celebration-message').value = item.celebration_message || '';
+    $('#celebration-location-confirmed').checked = item.celebration_location_confirmed === true;
     $('#celebration-location').value = item.celebration_location || '';
     $('#celebration-latitude').value = item.celebration_latitude ?? '';
     $('#celebration-longitude').value = item.celebration_longitude ?? '';
@@ -335,6 +344,12 @@
     };
 
     try {
+      if (invitationFieldsAvailable) {
+        payload.celebration_message = $('#celebration-message').value.trim() || null;
+        payload.celebration_location_confirmed = $('#celebration-location-confirmed').checked;
+        if ((payload.celebration_message || payload.celebration_location_confirmed) && !payload.celebration_date) throw new Error('Indica la fecha de celebración para publicar la invitación.');
+        if (payload.celebration_location_confirmed && !payload.celebration_location && !payload.celebration_map_url && !(latitudeRaw && longitudeRaw)) throw new Error('Añade el lugar, sus coordenadas o su enlace de Maps antes de confirmarlo.');
+      }
       let result;
       if (id) {
         result = await db.from('anniversaries').update(payload).eq('id', id).select().single();
@@ -377,6 +392,7 @@
     navigator.geolocation.getCurrentPosition(position => {
       const lat = Number(position.coords.latitude.toFixed(7));
       const lon = Number(position.coords.longitude.toFixed(7));
+      $('#celebration-location-confirmed').checked = false;
       $('#celebration-latitude').value = lat;
       $('#celebration-longitude').value = lon;
       $('#celebration-map-url').value = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lon}`)}`;
@@ -614,6 +630,11 @@
 
   const initAnniversaryForm = () => {
     $('#anniversary-form')?.addEventListener('submit', saveAnniversary);
+    ['celebration-date', 'celebration-location', 'celebration-latitude', 'celebration-longitude', 'celebration-map-url'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', () => {
+        $('#celebration-location-confirmed').checked = false;
+      });
+    });
     $('#btn-new-anniversary')?.addEventListener('click', () => { resetAnniversaryForm(); $('#anniversary-editor')?.scrollIntoView({ behavior:'smooth', block:'start' }); });
     $('#btn-reset-anniversary')?.addEventListener('click', resetAnniversaryForm);
     $('#btn-cancel-anniversary')?.addEventListener('click', resetAnniversaryForm);

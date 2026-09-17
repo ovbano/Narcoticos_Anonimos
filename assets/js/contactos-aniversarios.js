@@ -206,7 +206,8 @@
       location: String(celebration.location || '').trim(),
       latitude: Number.isFinite(latitude) && latitude >= -90 && latitude <= 90 ? latitude : null,
       longitude: Number.isFinite(longitude) && longitude >= -180 && longitude <= 180 ? longitude : null,
-      mapUrl: String(celebration.mapUrl || '').trim()
+      mapUrl: String(celebration.mapUrl || '').trim(),
+      confirmed: celebration.confirmed
     };
   };
 
@@ -215,22 +216,9 @@
   }).format(date);
 
   const getAnniversaryStatus = (item, today) => {
-    const year = today.getFullYear();
-    let celebration = getCelebrationForYear(item, year);
-    // Una celebración cercana también puede cruzar diciembre/enero.
-    if (!celebration) {
-      const adjacent = getCelebrationForYear(item, year - 1) || getCelebrationForYear(item, year + 1);
-      if (adjacent) {
-        const celebrationYear = adjacent.date.getFullYear();
-        const nearestYear = [celebrationYear - 1, celebrationYear, celebrationYear + 1]
-          .sort((a, b) =>
-            Math.abs(dateOnlyUtc(makeClampedDate(a, item.month - 1, item.day)) - dateOnlyUtc(adjacent.date))
-            - Math.abs(dateOnlyUtc(makeClampedDate(b, item.month - 1, item.day)) - dateOnlyUtc(adjacent.date))
-          )[0];
-        if (nearestYear === year) celebration = adjacent;
-      }
-    }
-    const date = celebration?.date || makeClampedDate(year, item.month - 1, item.day);
+    const event = getCardEvent(item, today);
+    const date = event.date;
+    const celebration = event.celebration ? {...event.celebration, date} : null;
     const difference = dateOnlyUtc(date) - dateOnlyUtc(today);
     if (difference < 0) return { date, celebration, className: 'is-celebrated', label: 'Celebrado', icon: 'bi-check-circle-fill' };
     if (difference === 0) return { date, celebration, className: 'is-today', label: '¡Hoy celebramos!', icon: 'bi-calendar-heart-fill' };
@@ -246,16 +234,14 @@
     }
   };
 
-  const buildCelebrationMapUrl = (celebration) => {
-    if (!celebration) return '';
-    if (Number.isFinite(celebration.latitude) && Number.isFinite(celebration.longitude)) {
-      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${celebration.latitude},${celebration.longitude}`)}`;
-    }
-    if (isSafeHttpUrl(celebration.mapUrl)) return celebration.mapUrl;
-    if (celebration.location) {
-      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(celebration.location)}`;
-    }
-    return '';
+  const buildCelebrationMapUrl = celebration => window.AnniversaryModel.map(celebration)?.link || '';
+
+  const getCardEvent = (item, today) => {
+    const M = window.AnniversaryModel;
+    const scheduled = M.parse(item.celebration?.date);
+    const year = scheduled && scheduled.getFullYear() === today.getFullYear() && scheduled.getMonth() === today.getMonth()
+      ? M.celebrationYear(item) : today.getFullYear();
+    return M.occurrence(item, year);
   };
 
   const mapAnniversary = (row) => ({
@@ -269,7 +255,9 @@
       location: row.celebration_location || '',
       latitude: row.celebration_latitude,
       longitude: row.celebration_longitude,
-      mapUrl: row.celebration_map_url || ''
+      mapUrl: row.celebration_map_url || '',
+      message: row.celebration_message || '',
+      confirmed: row.celebration_location_confirmed === true
     } : null
   });
 
@@ -285,16 +273,21 @@
         .eq('public_visible', true)
     ]);
 
-    if (contactsResult.error) throw contactsResult.error;
+    if (contactsResult.error) console.warn('Contactos temporalmente no disponibles.');
     if (anniversariesResult.error) throw anniversariesResult.error;
 
+    // Las columnas nuevas son opcionales hasta aplicar la migración SQL.
+    const extras = await db.from('anniversaries')
+      .select('id,celebration_message,celebration_location_confirmed').eq('public_visible', true);
+    const byId = new Map((extras.error ? [] : extras.data || []).map(row => [row.id, row]));
     siteData = {
       contacts: contactsResult.data || [],
-      anniversaries: (anniversariesResult.data || []).map(mapAnniversary)
+      anniversaries: (anniversariesResult.data || []).map(row => mapAnniversary({...row, ...byId.get(row.id)})).filter(window.AnniversaryModel.valid)
     };
   };
 
   const showLoadError = () => {
+    window.dispatchEvent(new Event('anniversaries:error'));
     const list = document.getElementById('anniversary-list');
     const intro = document.getElementById('anniversary-intro');
     if (intro) intro.textContent = 'No pudimos consultar los aniversarios en este momento. Intenta nuevamente más tarde.';
@@ -328,7 +321,7 @@
     const monthLabel = monthNames[currentMonth - 1];
 
     const entries = siteData.anniversaries
-      .filter((item) => isAnniversaryRelevantThisMonth(item, currentMonth, currentYear))
+      .filter((item) => isAnniversaryRelevantThisMonth(item, currentMonth, currentYear) && getCardEvent(item, today))
       .sort((a, b) => {
         const aCelebration = getCelebrationForYear(a, currentYear)?.date?.getTime()
           || new Date(currentYear, a.month - 1, a.day, 12).getTime();
@@ -360,7 +353,8 @@
     } en sus aniversarios y celebraciones de recuperación.`;
 
     list.innerHTML = entries.map((item, index) => {
-      const milestone = getMilestoneForYear(item, currentYear);
+      const cardEvent = getCardEvent(item, today);
+      const milestone = getMilestoneForYear(item, cardEvent.year);
       const duration = getRecoveryDuration(item, today);
       const durationText = duration && !duration.future
         ? formatRecoveryDuration(duration)
@@ -404,7 +398,7 @@
              <div class="anniversary-celebration-info">
                <span>${celebrated ? 'CELEBRACIÓN REALIZADA' : 'CELEBRACIÓN PROGRAMADA'}</span>
                <strong>${escapeHtml(capitalize(formatCelebrationDate(celebration.date)))}</strong>
-               ${celebration.location
+               ${celebration.confirmed && celebration.location
                  ? `<small class="anniversary-celebration-place">
                       <i class="bi bi-geo-alt-fill"></i>
                       ${escapeHtml(celebration.location)}
@@ -458,6 +452,10 @@
 
               ${recoveryCopy}
               ${celebrationCopy}
+              <div class="ann-actions">
+                <a class="ann-button ann-primary" href="${escapeHtml(window.AnniversaryModel.url(item, cardEvent.year, location.href))}">Ver aniversario <i class="bi bi-arrow-up-right"></i></a>
+                <button type="button" class="ann-button" data-share-url="${escapeHtml(window.AnniversaryModel.url(item, cardEvent.year, location.href))}" data-share-name="${escapeHtml(item.name)}" aria-label="Compartir aniversario de ${escapeHtml(item.name)}"><i class="bi bi-share"></i> Compartir</button>
+              </div>
             </div>
 
             <i class="bi bi-stars anniversary-card-star" aria-hidden="true"></i>
@@ -469,122 +467,8 @@
 
 
   const renderFullCalendar = () => {
-    const calendar = document.getElementById('anniversary-calendar');
-    if (!calendar) return;
-
-    const currentDate = getGroupToday();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
-    const total = siteData.anniversaries.length;
-
-    const summary = `
-      <div class="anniversary-calendar-summary">
-        <div class="anniversary-calendar-summary-year">
-          <span>CALENDARIO</span>
-          <strong>${escapeHtml(currentYear)}</strong>
-        </div>
-        <div class="anniversary-calendar-summary-copy">
-          <span>GRUPO AMIGOS VERDADEROS</span>
-          <h3>${escapeHtml(total)} ${total === 1 ? 'historia de recuperación' : 'historias de recuperación'}</h3>
-          <p>Las fechas muestran el día original de inicio de la recuperación de cada compañero.</p>
-        </div>
-        <i class="bi bi-stars" aria-hidden="true"></i>
-      </div>`;
-
-    const months = monthNames.map((monthName, monthIndex) => {
-      const monthNumber = monthIndex + 1;
-      const entries = siteData.anniversaries
-        .filter((item) => Number(item.month) === monthNumber)
-        .sort((a, b) =>
-          Number(a.day) - Number(b.day)
-          || String(a.name).localeCompare(String(b.name), 'es')
-        );
-
-      const currentClass = monthNumber === currentMonth ? ' is-current' : '';
-      const countLabel = entries.length === 1
-        ? '1 aniversario'
-        : `${entries.length} aniversarios`;
-
-      const people = entries.length
-        ? entries.map((item) => {
-            const duration = getRecoveryDuration(item, currentDate);
-            const durationText = duration && !duration.future
-              ? formatRecoveryDuration(duration)
-              : '';
-            const milestone = getMilestoneForYear(item, currentYear);
-            const startDate = formatRecoveryStartDate(item);
-
-            const meta = item.startYear
-              ? `<div class="anniversary-calendar-meta">
-                   <span class="anniversary-calendar-start">
-                     <i class="bi bi-calendar4"></i>
-                     Inicio: ${escapeHtml(startDate)}
-                   </span>
-                   ${durationText
-                     ? `<span class="anniversary-calendar-duration">
-                          <i class="bi bi-hourglass-split"></i>
-                          ${escapeHtml(durationText)}
-                        </span>`
-                     : ''}
-                 </div>`
-              : `<div class="anniversary-calendar-meta">
-                   <span class="anniversary-calendar-duration is-missing">
-                     <i class="bi bi-info-circle"></i>
-                     Año de inicio por registrar
-                   </span>
-                 </div>`;
-
-            const milestoneTag = milestone
-              ? `<span class="anniversary-calendar-milestone">
-                   <strong>${escapeHtml(milestone)}</strong>
-                   <small>${milestone === 1 ? 'AÑO' : 'AÑOS'}</small>
-                 </span>`
-              : item.startYear
-                ? `<span class="anniversary-calendar-milestone is-current-journey">
-                     <i class="bi bi-sunrise-fill"></i>
-                     <small>EN CURSO</small>
-                   </span>`
-                : `<i class="bi bi-stars anniversary-calendar-star" aria-hidden="true"></i>`;
-
-            return `
-              <article class="anniversary-calendar-person">
-                <span class="anniversary-calendar-day" aria-label="Día ${escapeHtml(item.day)}">
-                  ${String(item.day).padStart(2, '0')}
-                </span>
-
-                <div class="anniversary-calendar-person-copy">
-                  <strong>${escapeHtml(item.name)}</strong>
-                  ${meta}
-                </div>
-
-                ${milestoneTag}
-              </article>`;
-          }).join('')
-        : `<div class="anniversary-calendar-empty">
-             <i class="bi bi-calendar2"></i>
-             <span>Sin fechas registradas</span>
-           </div>`;
-
-      return `
-        <section class="anniversary-month-card${currentClass}" data-anniversary-month="${monthNumber}">
-          <header class="anniversary-month-head">
-            <span class="anniversary-month-number">${String(monthNumber).padStart(2, '0')}</span>
-            <div>
-              <h3>${escapeHtml(capitalize(monthName))}</h3>
-              <span>${escapeHtml(countLabel)}</span>
-            </div>
-            ${monthNumber === currentMonth ? '<em>MES ACTUAL</em>' : ''}
-          </header>
-
-          <div class="anniversary-month-people">
-            ${people}
-          </div>
-        </section>`;
-    }).join('');
-
-    calendar.innerHTML = summary + months;
+    window.dispatchEvent(new CustomEvent('anniversaries:loaded', { detail: siteData.anniversaries }));
   };
-
 
   const renderContacts = () => {
     const contacts = [...siteData.contacts].sort((a, b) => {
@@ -699,3 +583,4 @@
     init();
   }
 })();
+
