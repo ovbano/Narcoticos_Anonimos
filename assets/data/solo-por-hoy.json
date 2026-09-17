@@ -1,7 +1,1716 @@
 {
   "schemaVersion": 1,
-  "coverage": "Septiembre completo; el resto del calendario está pendiente de verificación.",
+  "coverage": "Calendario anual completo: 366 fechas MM-DD, incluido el 29 de febrero. Reutilizable cada año.",
   "entries": {
+    "01-01": {
+      "title": "Vigilancia",
+      "summary": "Mantener la recuperación requiere atención cotidiana. Las reuniones, el inventario y la vida espiritual ayudan a reconocer dificultades antes de descuidarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2015/01/1-de-enero-vigilancia-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-02": {
+      "title": "Respira hondo y habla con Dios",
+      "summary": "Una pausa ante la frustración puede cambiar nuestra respuesta. Respirar y buscar orientación espiritual abre espacio a la paciencia.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/2-de-enero-respira-hondo-y-habla-con.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-03": {
+      "title": "Nuestra necesidad más importante",
+      "summary": "Los logros externos no satisfacen todas nuestras necesidades. La reflexión destaca el sentido y la orientación que aporta una relación espiritual.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/3-de-enero-nuestra-necesidad-mas.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-04": {
+      "title": "El amor de la confraternidad",
+      "summary": "El apoyo de la confraternidad permite recuperar confianza y dignidad. Sentirnos acompañados facilita acercarnos a los demás y seguir creciendo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-05": {
+      "title": "Recuperación en casa",
+      "summary": "Los principios cobran sentido en la convivencia diaria. Practicar respeto y responsabilidad en casa también forma parte de la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/5-de-enero-recuperacion-en-casa.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-06": {
+      "title": "¿Cómo funciona?",
+      "summary": "Aprender requiere admitir que nos faltan respuestas. Preguntar cómo practicar el programa puede ser más útil que quedarnos en explicaciones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/6-de-enero-como-funciona.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-07": {
+      "title": "Recuperación",
+      "summary": "Recuperarse puede significar descubrir posibilidades que nunca conocimos. El apoyo y los pasos permiten construir una vida con mayor sentido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/7-de-enero-recuperacion.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-08": {
+      "title": "Crecimiento",
+      "summary": "La madurez no se mide solo por la edad o las obligaciones. También crece al responsabilizarnos de nuestro bienestar espiritual.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/8-de-enero-crecimiento.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-09": {
+      "title": "Retribuir la bondad de nuestro padrino o madrina",
+      "summary": "El padrinazgo es una relación entre personas con necesidades y sentimientos. Un gesto de consideración permite expresar gratitud por el acompañamiento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/9-de-enero-retribuir-la-bondad-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-10": {
+      "title": "Gratitud",
+      "summary": "Reconocer el cuidado recibido ayuda a apreciar la recuperación. La gratitud puede sostenernos tanto en los momentos agradables como en los difíciles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/fwd-solo-por-hoy_10.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-11": {
+      "title": "Fe",
+      "summary": "La fe no elimina las dificultades, pero puede ofrecer estabilidad para atravesarlas. Se fortalece al practicarla en situaciones reales.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/11-de-enero-fe-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-12": {
+      "title": "Despertares espirituales",
+      "summary": "La espiritualidad también se descubre en momentos sencillos. Observar nuestros cambios y prestar atención a la vida ayuda a reconocerlos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/12-de-enero-despertares-espirituales.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-13": {
+      "title": "Rendirse para ganar",
+      "summary": "Admitir los límites de nuestro control abre la puerta a recibir ayuda. La rendición puede convertirse en el inicio de una libertad nueva.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/13-enero-rendirse-para-ganar-solo-por_13.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-14": {
+      "title": "Un Dios bondadoso",
+      "summary": "Una concepción amorosa del Poder Superior facilita confiar. La experiencia de recuperación permite revisar imágenes espirituales ligadas al miedo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/14-de-enero-un-dios-bondadoso-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-15": {
+      "title": "Miedo",
+      "summary": "Intentar controlarlo todo puede alimentar el temor. La reflexión propone volver a confiar y pedir apoyo ante la incertidumbre.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/15-de-enero-miedo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-16": {
+      "title": "¡Haz esa llamada!",
+      "summary": "Acercarnos a un compañero rompe el aislamiento. Una llamada puede brindar apoyo mutuo y recordarnos que nuestra presencia también importa.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/fwd-solo-por-hoy_16.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-17": {
+      "title": "Perdón",
+      "summary": "Reconocer nuestras propias limitaciones favorece el perdón. Podemos cuidar nuestra conducta sin exigir que los demás actúen siempre como esperamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/17-de-enero-perdon-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-18": {
+      "title": "Un sencillo inventario",
+      "summary": "Revisar el día no necesita convertirse en una tarea abrumadora. Unos minutos de honestidad permiten reconocer emociones, aciertos y reparaciones pendientes.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/18-de-enero-un-sencillo-inventario-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-19": {
+      "title": "Hacer una montaña de un grano de arena",
+      "summary": "Mirar los problemas con perspectiva ayuda a evitar que ocupen toda nuestra atención. Podemos actuar sobre lo concreto y reconocer lo que funciona.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/19-de-enero-hacer-una-montana-de-un.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-20": {
+      "title": "Una promesa, muchos regalos",
+      "summary": "La recuperación ofrece posibilidades, pero no garantiza riqueza ni una vida ideal. Valorar la libertad del consumo evita convertirla en expectativas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/20-de-enero-una-promesa-muchos-regalos.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-21": {
+      "title": "Unidad y uniformidad",
+      "summary": "Compartir un propósito no exige pensar igual. La diversidad puede convivir con la cooperación para recibir y acompañar a otros adictos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/21-de-enero-unidad-y-uniformidad-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-22": {
+      "title": "La escuela de recuperación",
+      "summary": "Las experiencias cotidianas permiten poner a prueba lo aprendido. En recuperación seguimos aprendiendo y también podemos compartir lo que nos sirve.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/22-de-enero-la-escuela-de-recuperacion.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-23": {
+      "title": "Control de serenidad",
+      "summary": "La irritabilidad puede invitarnos a revisar nuestro cuidado diario. Retomar prácticas sencillas y contactos de apoyo ayuda a recuperar serenidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/23-de-enero-control-de-serenidad-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-24": {
+      "title": "Del aislamiento al contacto",
+      "summary": "La honestidad y los pasos favorecen el reencuentro con la vida. Recuperarnos implica reconstruir vínculos, además de dejar el consumo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/24-de-enero-del-aislamiento-al-contacto.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-25": {
+      "title": "Un regalo extra",
+      "summary": "Acompañar el crecimiento de otra persona también enriquece nuestra recuperación. La ayuda compartida permite reconocer cambios y alegrarnos juntos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/25-de-enero-un-regalo-extra-solo-por-hoy_27.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-26": {
+      "title": "Egocentrismo",
+      "summary": "Dejar de situarnos en el centro de todo abre espacio a los demás. Los pasos y el servicio favorecen esa transformación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/26-de-enero-egocentrismo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-27": {
+      "title": "Aprender a vivir otra vez",
+      "summary": "Recuperarnos implica aprender habilidades para la vida diaria. Podemos aceptar responsabilidades y ensayar formas más respetuosas de relacionarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/27-de-enero-aprender-vivir-otra-vez.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-28": {
+      "title": "Adicto todos los días",
+      "summary": "El tiempo sin consumir no reemplaza el cuidado cotidiano. Seguir participando y practicando el programa ayuda a sostener la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/28-de-enero-adicto-todos-los-dias-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-29": {
+      "title": "El Primer Paso: un paso de acción",
+      "summary": "La rendición necesita expresarse en decisiones concretas. Pedir orientación y evitar situaciones de consumo son maneras de practicar el Primer Paso.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/29-de-enero-el-primer-paso-un-paso-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-30": {
+      "title": "Regalarlo",
+      "summary": "Compartir la ayuda recibida da expresión a la gratitud. El servicio permite que otras personas conozcan las posibilidades de recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/30-de-enero-regalarlo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "01-31": {
+      "title": "Confianza",
+      "summary": "Confiar puede costar después de experiencias dolorosas. Acercarnos gradualmente a alguien en recuperación facilita pedir ayuda y construir esperanza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/01/31-de-enero-confianza-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-01": {
+      "title": "Dificultades",
+      "summary": "Las dificultades no nos hacen incompatibles con el programa. Identificarnos con otros permite encontrar apoyo y abandonar la sensación de excepción.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/1-de-febrero-dificultades-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-02": {
+      "title": "Buena voluntad",
+      "summary": "La buena voluntad se expresa en cómo tratamos a otros. Revisar nuestras intenciones ayuda a actuar con menos egoísmo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/2-de-febrero-buena-voluntad-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-03": {
+      "title": "Nos necesitamos mutuamente",
+      "summary": "Un grupo diverso reúne experiencias que pueden ayudarnos en situaciones distintas. Recibir a personas de todos los orígenes fortalece el apoyo mutuo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/3-de-febrero-nos-necesitamos-mutuamente.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-04": {
+      "title": "No se trata sólo de sentirse bien",
+      "summary": "Recuperarse no significa sentirse bien permanentemente. Aprender a reconocer y atravesar las emociones también forma parte del proceso.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/4-de-febrero-no-se-trata-solo-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-05": {
+      "title": "¡Sigue viniendo!",
+      "summary": "Una bienvenida cercana puede ayudar a alguien a regresar. Recordar cómo fuimos recibidos invita a ofrecer atención al recién llegado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/5-de-febrero-sigue-viniendo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-06": {
+      "title": "Yo solo no puedo, nosotros sí",
+      "summary": "La autosuficiencia tiene límites. El acompañamiento de otros y una base espiritual permiten afrontar la vida con más recursos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/6-de-febrero-yo-solo-no-puedo-nosotros.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-07": {
+      "title": "Esto no es una prueba",
+      "summary": "El sufrimiento no tiene que interpretarse como un castigo espiritual. Podemos buscar consuelo y apoyo cuando atravesamos dificultades.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/7-de-febrero-esto-no-es-una-prueba-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-08": {
+      "title": "¿Qué es un padrino?",
+      "summary": "El padrino comparte experiencia y orientación, pero necesitamos comunicar lo que nos pasa. Pedir ayuda mantiene viva esa relación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/8-de-febrero-que-es-un-padrino-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-09": {
+      "title": "Autoaceptación",
+      "summary": "Sentirnos aceptados facilita aprender a aceptarnos. Al disminuir el miedo al rechazo, podemos permitir que otros se acerquen.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/9-de-febrero-autoaceptacion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-10": {
+      "title": "¡Diversión!",
+      "summary": "La recuperación deja espacio para disfrutar. Descubrir actividades y momentos agradables sin consumir forma parte de una vida nueva.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/10-de-febrero-diversion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-11": {
+      "title": "De maldición a bendición",
+      "summary": "Aceptar la adicción permite buscar recuperación en lugar de condenarnos. La confraternidad puede aportar compañía, propósito y crecimiento espiritual.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/11-de-febrero-de-maldicion-bendicion.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-12": {
+      "title": "Vivir el momento",
+      "summary": "La atención al presente ayuda a disfrutar lo que tenemos hoy. Pedir orientación puede interrumpir la preocupación por el pasado o el futuro.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/12-de-febrero-vivir-el-momento-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-13": {
+      "title": "Los lazos que nos unen",
+      "summary": "El servicio puede revelar aspectos personales que necesitamos trabajar. Recordar el propósito compartido permite seguir colaborando pese a las diferencias.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/13-de-febrero-los-lazos-que-nos-unen.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-14": {
+      "title": "Honestidad y espiritualidad",
+      "summary": "Las creencias necesitan ser sinceras y personales. Examinar nuestra concepción espiritual permite construir una relación que tenga sentido para nosotros.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/14-de-febrero-honestidad-y.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-15": {
+      "title": "Un despertar del espíritu",
+      "summary": "El trabajo de los pasos favorece una vida interior más consciente. El despertar espiritual se desarrolla al participar activamente en la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/15-de-febrero-un-despertar-del-espiritu.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-16": {
+      "title": "Los sentimientos tal como son",
+      "summary": "Las emociones incómodas no significan que todo vaya mal. Podemos atravesarlas con apoyo sin exigir que el día sea diferente.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/16-de-febrero-los-sentimientos-tal-como.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-17": {
+      "title": "Llevar el mensaje, no el adicto",
+      "summary": "Podemos ofrecer experiencia y compañía, pero no decidir por otra persona. Ayudar requiere reconocer los límites de nuestra responsabilidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/17-de-febrero-llevar-el-mensaje-no-el.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-18": {
+      "title": "La alianza de la recuperación",
+      "summary": "La confianza espiritual se acompaña de esfuerzo cotidiano. Cumplir nuestra parte del programa fortalece el compromiso con la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/18-de-febrero-la-alianza-de-la.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-19": {
+      "title": "Reservas",
+      "summary": "Conviene reconocer las condiciones que imaginamos como excusas para consumir. Compartirlas permite buscar apoyo antes de enfrentarnos a ellas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/19-de-febrero-reservas-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-20": {
+      "title": "Impotencia y responsabilidad personal",
+      "summary": "La impotencia ante la adicción no elimina la responsabilidad por nuestras decisiones. Reconocer lo que nos corresponde permite actuar y cambiar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/20-de-febrero-impotencia-y.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-21": {
+      "title": "Autocompasión o recuperación; la decisión es nuestra",
+      "summary": "Quedarnos en la lástima hacia nosotros puede frenar la acción. La gratitud y la ayuda disponible permiten orientar la energía hacia recuperarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/21-de-febrero-autocompasion-o.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-22": {
+      "title": "¿La voluntad de Dios o la mía?",
+      "summary": "El inventario ayuda a revisar si nuestras acciones siguen los valores elegidos. Reconocer errores permite recuperar armonía y corregir el rumbo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/22-de-febrero-la-voluntad-de-dios-o-la.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-23": {
+      "title": "Mensajes y mensajeros",
+      "summary": "Podemos encontrar una idea útil incluso en alguien con quien discrepamos. Escuchar el contenido sin descalificar a la persona amplía el aprendizaje.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/23-de-febrero-mensajes-y-mensajeros.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-24": {
+      "title": "Una nueva influencia",
+      "summary": "Las nuevas relaciones y prácticas del programa transforman gradualmente nuestros hábitos. La recuperación requiere tiempo y participación en ese cambio.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/24-de-febrero-una-nueva-influencia-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-25": {
+      "title": "Tan enfermos como nuestros secretos",
+      "summary": "Compartir asuntos difíciles con alguien de confianza permite trabajarlos. El padrinazgo ofrece un espacio para practicar honestidad sin exponerlo todo públicamente.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/25-de-febrero-tan-enfermos-como.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-26": {
+      "title": "Remordimiento",
+      "summary": "El remordimiento puede señalar responsabilidades pendientes. Convertirlo en disposición para las enmiendas ayuda a dejar de usarlo como castigo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/26-de-febrero-remordimiento-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-27": {
+      "title": "Motivaciones «puras»",
+      "summary": "No necesitamos intenciones perfectas para empezar a actuar bien. Una mirada realista permite fortalecer lo positivo y reconocer motivaciones mezcladas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/27-de-febrero-motivaciones-puras-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-28": {
+      "title": "El mayor don",
+      "summary": "Volver a sentir incluye emociones agradables y difíciles. La recuperación permite aprender a recibirlas con valor en vez de huir de ellas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/02/28-de-febrero-el-mayor-don-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "02-29": {
+      "title": "¡Todo!",
+      "summary": "La recuperación abre posibilidades que antes parecían lejanas. Mantener una actitud receptiva permite explorar nuevas ideas y formas de vivir.",
+      "source": "https://fzla.org/",
+      "sourceType": "official",
+      "verifiedOn": "2026-09-17",
+      "sourceEvidence": "Título, fecha y tema consultados en resultado indexado para la búsqueda site:fzla.org/wp-content/uploads/meditaciones \"29 de febrero\" el 2026-09-17. La página individual no respondió."
+    },
+    "03-01": {
+      "title": "¡Ataque de ansiedad!",
+      "summary": "Ante la ansiedad, la reflexión propone buscar apoyo y orientación. Dar un paso concreto puede ayudarnos a salir de la preocupación circular.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/1-de-marzo-ataque-de-ansiedad-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-02": {
+      "title": "Éxito",
+      "summary": "Reconocer los avances permite disfrutar el esfuerzo realizado. Compartirlos con gratitud también puede ofrecer esperanza a quienes comienzan.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/2-de-marzo-exito-solo-por-hoy_3.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-03": {
+      "title": "Recaída",
+      "summary": "Las dificultades pueden afrontarse con los recursos de recuperación. Pedir ayuda permite buscar alternativas al consumo cuando aparecen desafíos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/3-de-marzo-recaida-solo-por-hoy_3.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-04": {
+      "title": "El proceso",
+      "summary": "El cambio personal se desarrolla con el tiempo. Practicar los pasos ayuda a participar en ese proceso sin exigir resultados inmediatos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/4-de-marzo-el-proceso-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-05": {
+      "title": "Del despertar brusco al despertar espiritual",
+      "summary": "Una experiencia incómoda puede mostrarnos algo que necesita atención. Revisarla con honestidad abre una oportunidad de crecimiento espiritual.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/5-de-marzo-del-despertar-brusco-al.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-06": {
+      "title": "Alejar nuestra recuperación con pretextos",
+      "summary": "Las justificaciones pueden esconder aquello que evitamos cambiar. Hablar con el padrino ayuda a reconocerlas y asumir acciones más honestas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/6-de-marzo-alejar-nuestra-recuperacion.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-07": {
+      "title": "Prioridades",
+      "summary": "Las cosas buenas de la vida también pueden distraernos del programa. Mantener la recuperación como prioridad permite cuidar lo que hemos construido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/7-de-marzo-prioridades-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-08": {
+      "title": "Aprender a quererse",
+      "summary": "Aprender a querernos incluye reconocer cualidades y tratarnos con respeto. Un gesto cotidiano de cuidado puede fortalecer esa relación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/8-de-marzo-aprender-quererse-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-09": {
+      "title": "Pequeñas cosas",
+      "summary": "Las molestias pequeñas no necesitan dominar el día. Practicar paciencia y perspectiva permite responder sin convertirlas en conflictos mayores.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/9-de-marzo-pequenas-cosas-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-10": {
+      "title": "Nuestra propia recuperación",
+      "summary": "La experiencia ajena orienta, pero no sustituye nuestro trabajo. Los beneficios del programa requieren participación personal en los pasos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/10-de-marzo-nuestra-propia-recuperacion.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-11": {
+      "title": "Aligerar la carga",
+      "summary": "Aferrarnos al resentimiento añade peso a la vida interior. La amabilidad, el perdón y el servicio ofrecen otras maneras de relacionarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/11-de-marzo-aligerar-la-carga-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-12": {
+      "title": "Salir del bache",
+      "summary": "Una rutina estancada puede renovarse con aprendizaje o servicio. Buscar un desafío posible ayuda a descubrir capacidades y recuperar interés.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/12-de-marzo-salir-del-bache-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-13": {
+      "title": "Esa persona especial",
+      "summary": "El padrinazgo aporta compañía y experiencia en momentos de incertidumbre. Valorar esa relación incluye reconocer el tiempo y la atención recibidos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/13-de-marzo-esa-persona-especial-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-14": {
+      "title": "Relaciones",
+      "summary": "Revisar nuestro papel en los vínculos permite asumir responsabilidades. Podemos trabajar en lo que aportamos en lugar de intentar cambiar al otro.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/14-de-marzo-relaciones-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-15": {
+      "title": "Sentirse integrado",
+      "summary": "La pertenencia se fortalece al participar y acercarnos. Dar pequeños pasos hacia el grupo puede ayudarnos a salir del aislamiento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/15-de-marzo-sentirse-integrado-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-16": {
+      "title": "Inventario",
+      "summary": "Un inventario permite reconocer patrones y posibilidades de cambio. Mirar con honestidad nuestra historia ayuda a decidir cómo queremos vivir.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/16-de-marzo-inventario-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-17": {
+      "title": "Auténtico valor",
+      "summary": "El valor no exige dejar de sentir miedo. Consiste también en avanzar con apoyo cuando algo importante nos resulta difícil.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/17-de-marzo-autentico-valor-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-18": {
+      "title": "El mensaje completo",
+      "summary": "Compartir incluye los días agradables y las dificultades. Una experiencia honesta de cómo afrontamos problemas puede ayudar a otra persona.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/18-de-marzo-el-mensaje-completo-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-19": {
+      "title": "Algo valioso que compartir",
+      "summary": "Cada experiencia de recuperación tiene algo propio que aportar. No necesitamos compararnos con otros para participar y compartir con sinceridad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/19-de-marzo-algo-valioso-que-compartir.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-20": {
+      "title": "Poder Superior",
+      "summary": "La apertura a recibir ayuda puede empezar con una posibilidad. No hace falta resolver todas las dudas espirituales para comenzar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/20-de-marzo-poder-superior-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-21": {
+      "title": "Una enfermedad tratable",
+      "summary": "La reflexión presenta la recuperación como un trabajo más amplio que la abstinencia. Los pasos permiten abordar actitudes y maneras de vivir.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/21-de-marzo-una-enfermedad-tratable.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-22": {
+      "title": "El principio de autofinanciación",
+      "summary": "Asumir el propio sostenimiento favorece autonomía y responsabilidad. Aportar según nuestras posibilidades forma parte de dejar de depender de otros.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/22-de-marzo-el-principio-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-23": {
+      "title": "Regalos de Dios",
+      "summary": "La relación espiritual incluye esfuerzo y receptividad. Podemos hacer lo que nos corresponde y aceptar con gratitud lo que no controlamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/23-de-marzo-regalos-de-dios-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-24": {
+      "title": "Desprenderse del pasado",
+      "summary": "El pasado puede enseñarnos sin determinar toda nuestra vida. La recuperación abre espacio para actuar hoy y construir nuevas posibilidades.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/24-de-marzo-desprenderse-del-pasado.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-25": {
+      "title": "Yo solo no puedo, pero nosotros sí",
+      "summary": "Reconocer que necesitamos ayuda permite participar de una experiencia compartida. El grupo ofrece recursos que no tenemos que producir solos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/25-de-marzo-yo-solo-no-puedo-pero.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-26": {
+      "title": "Confiar en un padrino; vale la pena el riesgo",
+      "summary": "Abrirnos a un padrino puede sentirse arriesgado. La confianza que se construye al compartir favorece el cambio y relaciones más cercanas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/26-de-marzo-confiar-en-un-padrino-vale.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-27": {
+      "title": "Buscar las cualidades",
+      "summary": "Buscar cualidades en los demás evita reducirlos a sus errores. Esa mirada también puede ayudarnos a reconocer lo valioso en nosotros.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/27-de-marzo-buscar-las-cualidades-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-28": {
+      "title": "Enfrentarse a los sentimientos",
+      "summary": "Hablar de emociones difíciles permite afrontarlas con compañía. La recuperación ofrece alternativas a escapar de lo que sentimos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/28-de-marzo-enfrentarse-los.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-29": {
+      "title": "Nuestra auténtica voluntad",
+      "summary": "El crecimiento espiritual transforma lo que valoramos. Actuar con integridad permite alinear nuestras decisiones con esos valores nuevos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/29-de-marzo-nuestra-autentica-voluntad.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-30": {
+      "title": "Centrados en Dios",
+      "summary": "La confianza espiritual ofrece una alternativa a la desesperación. Aceptar apoyo permite afrontar problemas sin depender únicamente del propio control.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/30-de-marzo-centrados-en-dios-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "03-31": {
+      "title": "El interior y el exterior",
+      "summary": "Los cambios interiores pueden reflejarse en nuestras elecciones. Revisar cómo vivimos ayuda a expresar de manera coherente lo que vamos descubriendo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/03/31-de-marzo-el-interior-y-el-exterior.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-01": {
+      "title": "Amor y adicción",
+      "summary": "La adicción también puede afectar nuestros vínculos afectivos. Examinar esos patrones permite empezar a relacionarnos con mayor honestidad y cuidado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/1-de-abril-amor-y-adiccion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-02": {
+      "title": "Atracción",
+      "summary": "El ejemplo y una acogida cercana pueden despertar interés por recuperarse. Recordar nuestro comienzo ayuda a acompañar al recién llegado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/2-de-abril-atraccion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-03": {
+      "title": "Para ti solo",
+      "summary": "Cada despertar espiritual tiene una expresión personal. Podemos reconocer sus efectos en nuestra manera de amar, participar y encontrar sentido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/3-de-abril-para-ti-solo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-04": {
+      "title": "Vigilar nuestra recuperación",
+      "summary": "Antes de exponernos a una situación difícil, conviene buscar orientación. Usar los recursos disponibles forma parte del cuidado responsable.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/4-de-abril-vigilar-nuestra-recuperacion.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-05": {
+      "title": "Identificación",
+      "summary": "Escuchar experiencias parecidas permite sentirnos comprendidos. Compartir las nuestras puede ayudar a otra persona a encontrar caminos posibles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/5-de-abril-identificacion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-06": {
+      "title": "Honestidad en aumento",
+      "summary": "La honestidad se profundiza con la práctica. Revisar pequeñas decisiones permite reconocer si nuestros actos coinciden con lo que valoramos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/6-de-abril-honestidad-en-aumento-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-07": {
+      "title": "El valor del pasado",
+      "summary": "Nuestra historia puede convertirse en una fuente de identificación. Compartirla con propósito permite ofrecer ayuda sin quedar atrapados en el arrepentimiento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/7-de-abril-el-valor-del-pasado-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-08": {
+      "title": "Felicidad",
+      "summary": "El servicio puede aportar alegría y sentido. Dejar espacio a las necesidades de otros permite descubrir satisfacciones que no dependen del beneficio propio.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/8-de-abril-felicidad-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-09": {
+      "title": "Dejarse arrastrar",
+      "summary": "Sentir una emoción intensa no obliga a actuar impulsivamente. El acompañamiento ayuda a elegir respuestas que cuiden nuestra recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/9-de-abril-dejarse-arrastrar-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-10": {
+      "title": "Demasiado ocupado",
+      "summary": "Una vida ocupada necesita conservar espacio para el programa. Cuidar la recuperación sostiene las responsabilidades y oportunidades que hoy tenemos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/10-de-abril-demasiado-ocupado-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-11": {
+      "title": "Una mente cerrada",
+      "summary": "Aferrarnos a todas nuestras ideas puede impedir aprender. La apertura permite considerar experiencias nuevas y cambiar lo que no funciona.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/11-de-abril-una-mente-cerrada-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-12": {
+      "title": "El gran escenario",
+      "summary": "Reconocer que somos parte de algo mayor ayuda a poner las cosas en perspectiva. La humildad favorece la conexión con los demás.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/12-de-abril-el-gran-escenario-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-13": {
+      "title": "Agradar a los demás",
+      "summary": "Buscar aprobación a cualquier precio puede alejarnos de nuestros valores. Actuar con principios permite construir una aceptación personal más estable.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/13-de-abril-agradar-los-demas-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-14": {
+      "title": "Una nueva visión",
+      "summary": "Imaginar una vida con menos patrones dañinos puede motivar el cambio. La disposición a soltar viejas conductas abre posibilidades.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/14-de-abril-una-nueva-vision-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-15": {
+      "title": "Sigue viniendo",
+      "summary": "El vínculo con la confraternidad sigue ofreciendo aprendizaje y compañía. Regresar permite recibir apoyo y participar en la vida compartida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/15-de-abril-sigue-viniendo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-16": {
+      "title": "Actuar como si",
+      "summary": "Una conducta nueva puede preceder a una actitud nueva. Ensayar respuestas más sanas permite aprender aun cuando todavía nos resulte extraño.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/16-de-abril-actuar-como-si-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-17": {
+      "title": "Prioridad: las reuniones",
+      "summary": "Las reuniones necesitan un lugar real en nuestros horarios. Asistir mantiene el contacto con experiencias y apoyos que favorecen la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/17-de-abril-prioridad-las-reuniones.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-18": {
+      "title": "Comprendo",
+      "summary": "Reconocer nuestras propias debilidades permite comprender mejor a otros. La humildad puede sustituir el juicio por una mirada más humana.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/18-de-abril-comprendo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-19": {
+      "title": "Trabajo básico",
+      "summary": "Los deseos requieren pasos concretos para convertirse en proyectos. Aclarar objetivos y buscar orientación permite realizar el trabajo necesario.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/19-de-abril-trabajo-basico-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-20": {
+      "title": "Desapego",
+      "summary": "Podemos cuidar a la familia sin dirigir su proceso. Ocuparnos de nuestra recuperación ayuda a respetar la responsabilidad de cada persona.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/20-de-abril-desapego-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-21": {
+      "title": "Miedo",
+      "summary": "El temor puede apoyarse en ideas antiguas. Revisarlas con ayuda permite dar oportunidades a nuevas experiencias y formas de vivir.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/21-de-abril-miedo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-22": {
+      "title": "Viajar por un camino abierto",
+      "summary": "La recuperación ofrece un camino continuo de aprendizaje. Practicar sus principios permite desarrollar habilidades y explorar posibilidades antes impensables.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/22-de-abril-viajar-por-un-camino.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-23": {
+      "title": "Un Dios tal como lo concebimos",
+      "summary": "No necesitamos una explicación completa de lo espiritual para empezar. La experiencia de recibir ayuda puede ser un primer apoyo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/23-de-abril-un-dios-tal-como-lo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-24": {
+      "title": "Doce Pasos de vida",
+      "summary": "Los pasos tienen aplicación en la vida cotidiana. Practicarlos favorece decisiones responsables y una participación más constructiva en la sociedad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/24-de-abril-doce-pasos-de-vida-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-25": {
+      "title": "Entregarse a la realidad",
+      "summary": "Aceptar apoyo permite mirar la realidad con mayor claridad. La conexión con otros ayuda a dejar de vivir encerrados en nuestra propia percepción.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/25-de-abril-entregarse-la-realidad-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-26": {
+      "title": "Autoaceptación",
+      "summary": "Aceptarnos se construye gradualmente. El trabajo personal permite reconocer tanto las limitaciones como las posibilidades de crecimiento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/26-de-abril-autoaceptacion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-27": {
+      "title": "Reconocer resentimientos y librarnos de ellos",
+      "summary": "Identificar un resentimiento permite empezar a trabajarlo. Examinar su origen con honestidad puede ayudarnos a dejar de alimentarlo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/27-de-abril-reconocer-resentimientos-y.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-28": {
+      "title": "¿Quién mejora en realidad?",
+      "summary": "Al cambiar nuestras actitudes también puede cambiar nuestra experiencia de las relaciones. La reflexión invita a observar nuestra parte antes de juzgar.",
+      "source": "https://www.facebook.com/GrupoAtzan/posts/solo-por-hoy-28-abrilqui%C3%A9n-mejora-en-realidadtambi%C3%A9n-podemos-usar-los-pasos-para/1098291373532523/",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-29": {
+      "title": "«¿Y si...?»",
+      "summary": "Las posibilidades imaginadas no son hechos presentes. La confianza y el apoyo permiten afrontar lo que ocurre sin vivir en anticipaciones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "04-30": {
+      "title": "Dios hace por nosotros",
+      "summary": "La recuperación incluye cambios que no conseguimos solo con fuerza de voluntad. La reflexión invita a reconocer la ayuda espiritual recibida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/04/30-de-abril-dios-hace-por-nosotros-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-01": {
+      "title": "La autovaloración y el servicio",
+      "summary": "Ser útiles puede ayudarnos a reconstruir el respeto propio. El servicio ofrece una manera concreta de participar y aportar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/1-de-mayo-la-autovaloracion-y-el.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-02": {
+      "title": "A lo mejor...",
+      "summary": "La apertura puede comenzar sin certezas. Considerar que una sugerencia podría ayudarnos permite probar formas nuevas de recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/2-de-mayo-lo-mejor-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-03": {
+      "title": "Compartir nuestra gratitud",
+      "summary": "No hace falta expresarnos perfectamente para mostrar agradecimiento. Compartir con sinceridad lo recibido puede transmitir más que un discurso preparado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/3-de-mayo-compartir-nuestra-gratitud.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-04": {
+      "title": "Y el recién llegado, ¿qué?",
+      "summary": "La cercanía entre amigos no debe dejar al recién llegado fuera. Ampliar el círculo de bienvenida mantiene el propósito del grupo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/4-de-mayo-y-el-recien-llegado-que-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-05": {
+      "title": "Lo que sea",
+      "summary": "La disposición a recibir orientación facilita comenzar. Hacer cambios concretos demuestra el compromiso de cuidar la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/5-de-mayo-lo-que-sea-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-06": {
+      "title": "¿Todavía no nos divertimos?",
+      "summary": "El humor también tiene lugar en una vida sin consumo. Aprender a reírnos de nosotros permite vivir con menos rigidez.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/6-de-mayo-todavia-no-nos-divertimos_6.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-07": {
+      "title": "Convertir la confusión en paz",
+      "summary": "No podemos resolver todos los conflictos del mundo. Sí podemos contribuir tratando a quienes nos rodean con más respeto y calma.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-08": {
+      "title": "Educable",
+      "summary": "Admitir que nos queda por aprender permite aprovechar la experiencia ajena. Escuchar con curiosidad abre alternativas que solos no vemos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/8-de-mayo-educable-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-09": {
+      "title": "¡Escribe sobre ello!",
+      "summary": "Escribir puede ordenar pensamientos y acercarnos a lo que sentimos. La práctica permite reconocer asuntos importantes para trabajar en recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/9-de-mayo-escribe-sobre-ello-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-10": {
+      "title": "Estar enteramente dispuesto",
+      "summary": "Reconocer las consecuencias de nuestros patrones puede aumentar la disposición a cambiarlos. El deseo de crecer también puede impulsarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/10-de-mayo-estar-enteramente-dispuesto.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-11": {
+      "title": "Equilibrar los platillos de la balanza",
+      "summary": "Equilibrar distintas responsabilidades requiere aprendizaje. Escuchar experiencias de otros ayuda a organizar una vida que incluya el cuidado personal.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/11-de-mayo-equilibrar-los-platillos-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-12": {
+      "title": "Vivir con experiencias espirituales",
+      "summary": "Una experiencia espiritual necesita integrarse en la vida cotidiana. Buscar orientación permite comprender sus efectos sin separarla del trabajo del programa.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/12-de-mayo-vivir-con-experiencias.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-13": {
+      "title": "Seguir viaje",
+      "summary": "Podemos seguir avanzando sin resolver todas las preguntas. La confianza permite convivir con la incertidumbre y continuar el proceso.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/fwd-solo-por-hoy_13.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-14": {
+      "title": "¡Uf!",
+      "summary": "Un error puede convertirse en aprendizaje. Revisarlo y modificar la conducta resulta más útil que repetirlo esperando otro resultado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/14-de-mayo-uf-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-15": {
+      "title": "Miedo al Cuarto Paso",
+      "summary": "Lo desconocido puede hacer que el inventario parezca amenazante. Hablar de nuestros temores ayuda a acercarnos a él con apoyo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/15-de-mayo-miedo-al-cuarto-paso-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-16": {
+      "title": "La voluntad de nuestro Poder Superior",
+      "summary": "La relación espiritual puede orientar nuestras decisiones. Escuchar y revisar el propio rumbo permite buscar una vida más coherente y serena.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/16-de-mayo-la-voluntad-de-nuestro-poder.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-17": {
+      "title": "«Defectos»",
+      "summary": "Examinar nuestros defectos permite reconocer su costo. La disposición al cambio crece cuando dejamos de verlos únicamente como ventajas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/17-de-mayo-defectos-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-18": {
+      "title": "Amigos y enmiendas… hazlo simple",
+      "summary": "Una enmienda sencilla reconoce nuestra responsabilidad sin exigir una respuesta. La otra persona conserva la libertad de decidir cómo recibirla.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/18-de-mayo-amigos-y-enmiendas-hazlo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-19": {
+      "title": "Inventario del crecimiento",
+      "summary": "Revisar el día permite reconocer avances y obstáculos. Un espacio tranquilo ayuda a contrastar nuestros actos con la dirección que deseamos seguir.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/19-de-mayo-inventario-del-crecimiento.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-20": {
+      "title": "Salir del aislamiento",
+      "summary": "La recuperación permite reencontrarnos con actividades corrientes. Participar en la vida diaria puede ofrecer disfrute y conexión antes ausentes.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/20-de-mayo-salir-del-aislamiento-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-21": {
+      "title": "¡Sigue viniendo!",
+      "summary": "Las reuniones nos conectan con nuestra historia y nuestras posibilidades. Seguir asistiendo ayuda a mantener presente el sentido del programa.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/21-de-mayo-sigue-viniendo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-22": {
+      "title": "Síntomas de un despertar espiritual",
+      "summary": "El crecimiento espiritual puede reconocerse en cambios de actitud y en nuestra capacidad de cuidar. No siempre llega como un acontecimiento extraordinario.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/22-de-mayo-sintomas-de-un-despertar.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-23": {
+      "title": "Enmiendas y padrinos",
+      "summary": "Las enmiendas requieren considerar intenciones y consecuencias. Consultar al padrino ayuda a asumir responsabilidad con cuidado hacia las personas implicadas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/23-de-mayo-enmiendas-y-padrinos-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-24": {
+      "title": "Arriesgarse a ser vulnerable",
+      "summary": "Mostrarnos con sinceridad puede dar miedo, pero favorece vínculos cercanos. La confianza permite compartir sin sostener una imagen perfecta.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/24-de-mayo-arriesgarse-ser-vulnerable.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-25": {
+      "title": "«Buenos» y «malos» sentimientos",
+      "summary": "Las experiencias agradables y difíciles pueden enseñarnos. El crecimiento depende también de cómo respondemos y de lo que aprendemos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/25-de-mayo-buenos-y-malos-sentimientos.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-26": {
+      "title": "El Poder en el grupo",
+      "summary": "La ayuda que surge en el grupo puede ser un primer contacto con lo espiritual. Observarla permite reconocer recursos compartidos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/fwd-solo-por-hoy_28.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-27": {
+      "title": "Enfrentarse a los desafíos de la vida",
+      "summary": "La recuperación no elimina los retos de vivir. El programa ofrece prácticas y apoyo para afrontarlos en lugar de escapar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/fwd-solo-por-hoy_8862.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-28": {
+      "title": "Como lo concebimos",
+      "summary": "Conocernos mejor permite expresar una identidad más auténtica. Los pasos ayudan a soltar obstáculos que dificultan aceptarnos y crecer.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/fwd-solo-por-hoy_8165.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-29": {
+      "title": "Llévame",
+      "summary": "En momentos de agotamiento podemos aceptar que necesitamos sostén. La confianza espiritual ofrece una forma de buscar consuelo y orientación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/29-de-mayo-llevame-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-30": {
+      "title": "Soledad versus estar solo",
+      "summary": "Estar sin compañía física no implica carecer de conexión. La vida espiritual puede aportar cercanía y bienestar en momentos de soledad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/05/30-de-mayo-soledad-versus-estar-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "05-31": {
+      "title": "Hazlo simple",
+      "summary": "Atender el siguiente paso hace más manejable el día. Podemos ocuparnos de lo presente sin intentar resolver ahora toda nuestra vida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/31-de-mayo-hazlo-simple-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-01": {
+      "title": "Sigue viniendo",
+      "summary": "Escuchar con apertura permite que el mensaje nos llegue de maneras nuevas. Seguir participando favorece una comprensión que va más allá de las ideas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/1-de-junio-sigue-viniendo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-02": {
+      "title": "Harto",
+      "summary": "El cansancio de repetir conductas puede impulsar una decisión distinta. Los pasos permiten abordar cambios de manera progresiva.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/2-de-junio-harto-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-03": {
+      "title": "Enmiendas directas e indirectas",
+      "summary": "Reparar incluye acciones posibles y una conducta diferente en adelante. Las enmiendas indirectas complementan aquello que podemos resolver personalmente.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/3-de-junio-enmiendas-directas-e.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-04": {
+      "title": "No destruyas, construye",
+      "summary": "Desvalorizar a otra persona no construye respeto propio. Podemos elegir interés y apoyo incluso cuando nuestro ánimo sea bajo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/04-junio-no-destruyas-construye-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-05": {
+      "title": "Oración honesta",
+      "summary": "La oración puede ser un espacio para dejar de fingir. Expresar con sinceridad lo que vivimos facilita extender esa honestidad a otras relaciones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/5-de-junio-oracion-honesta-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-06": {
+      "title": "No nos recuperamos de la noche a la mañana",
+      "summary": "La recuperación requiere paciencia con el proceso. Las acciones de hoy tienen valor aunque sus resultados todavía no sean visibles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/6-de-junio-no-nos-recuperamos-de-la.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-07": {
+      "title": "Alguien que crea en mí",
+      "summary": "Encontrar personas que confían en nuestras posibilidades puede fortalecer la esperanza. Aceptar su apoyo permite empezar a creer también en nosotros.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/7-de-junio-alguien-que-crea-en-mi-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-08": {
+      "title": "El único requisito",
+      "summary": "Cada miembro es responsable de su propio trabajo. El deseo de dejar el consumo permite pertenecer sin imponer a otros nuestras exigencias.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/8-de-junio-el-unico-requisito-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-09": {
+      "title": "Los viejos sueños no tienen por qué morir",
+      "summary": "La recuperación puede volver posibles proyectos abandonados. Convertir un sueño en pequeñas acciones permite explorar lo que hoy está a nuestro alcance.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/9-de-junio-los-viejos-suenos-no-tienen.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-10": {
+      "title": "Cambio de motivaciones",
+      "summary": "Las razones para actuar pueden transformarse con la recuperación. Revisarlas ayuda a incluir el bienestar ajeno junto al propio.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/10-de-junio-cambio-de-motivaciones-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-11": {
+      "title": "Vivir limpio",
+      "summary": "Vivir sin consumo también invita a revisar la conducta cotidiana. La coherencia entre acciones y valores favorece el respeto personal.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/11-de-junio-vivir-limpio-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-12": {
+      "title": "Una visión de esperanza",
+      "summary": "Afrontar una dificultad con apoyo puede ofrecer esperanza a otros. Nuestro ejemplo cotidiano tiene valor aun cuando no lo advirtamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/12-de-junio-una-vision-de-esperanza.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-13": {
+      "title": "Una vida plena",
+      "summary": "Las nuevas responsabilidades pueden recordar cuánto ha cambiado nuestra vida. La gratitud permite apreciarlas sin negar el esfuerzo que requieren.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/13-de-junio-una-vida-plena-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-14": {
+      "title": "Mantener nuestra fe",
+      "summary": "Las dificultades ponen en juego los recursos que hemos desarrollado. Conservar prácticas espirituales ayuda a mantener la confianza durante ellas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/14-de-junio-mantener-nuestra-fe-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-15": {
+      "title": "Resistencia al cambio",
+      "summary": "Soltar hábitos conocidos puede resultar incómodo. La apertura a nuevos vínculos e intereses permite descubrir posibilidades de crecimiento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/15-de-junio-resistencia-al-cambio-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-16": {
+      "title": "Aceptar la vida",
+      "summary": "Distinguir lo modificable de lo que debemos aceptar orienta nuestras acciones. Esa claridad permite emplear la energía con mayor serenidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/16-de-junio-aceptar-la-vida-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-17": {
+      "title": "Murallas",
+      "summary": "Las defensas que nos protegían también pueden aislarnos. Acercarnos de manera gradual a personas de confianza abre espacio al afecto.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/17-de-junio-murallas-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-18": {
+      "title": "Enmiendas indirectas",
+      "summary": "Ayudar en la comunidad puede expresar una forma de reparación. Cambiar nuestra manera de participar da continuidad a las enmiendas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/18-de-junio-enmiendas-indirectas-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-19": {
+      "title": "Sentido del humor",
+      "summary": "El humor puede aliviar la rigidez frente a los errores. Reconocer nuestras imperfecciones con amabilidad permite aprender sin castigarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/19-de-junio-sentido-del-humor-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-20": {
+      "title": "Meditación para principiantes",
+      "summary": "Meditar se aprende con práctica, sin exigir resultados inmediatos. Reservar un espacio para escuchar es un comienzo posible.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/20-de-junio-meditacion-para.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-21": {
+      "title": "Nuevos niveles de honestidad",
+      "summary": "La quietud permite reconocer verdades que evitamos entre distracciones. Escucharnos con honestidad puede mostrar qué necesitamos atender.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/21-de-junio-nuevos-niveles-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-22": {
+      "title": "Aceptar la vida tal cual es",
+      "summary": "Aceptarnos ayuda a recibir la vida con menos lucha. La práctica de los pasos permite responder mejor a circunstancias que no controlamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/06/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-23": {
+      "title": "Rendición",
+      "summary": "Recordar el alivio de pedir ayuda puede facilitar una nueva rendición. No necesitamos sostener indefinidamente una lucha que nos agota.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/23-de-junio-rendicion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-24": {
+      "title": "Tolerancia",
+      "summary": "La conciencia de nuestras limitaciones favorece la tolerancia. Podemos valorar a los compañeros sin exigirles una manera perfecta de recuperarse.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/24-de-junio-tolerancia-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-25": {
+      "title": "No sólo afortunado",
+      "summary": "La reflexión reconoce una fuente espiritual de apoyo en la recuperación. Recordar ese acompañamiento fortalece la confianza para continuar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-26": {
+      "title": "Renunciar a la terquedad",
+      "summary": "Soltar la exigencia de controlar los resultados permite concentrarnos en nuestra parte. La orientación espiritual ofrece otra manera de actuar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_2.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-27": {
+      "title": "Cambio y crecimiento",
+      "summary": "El cambio puede traer oportunidades además de incomodidad. Recibir nuevas experiencias con apertura permite seguir desarrollándonos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_1674.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-28": {
+      "title": "Conciencia de grupo",
+      "summary": "La conciencia de grupo requiere escuchar y participar sin imponer. Recordar el propósito común ayuda a aceptar decisiones distintas de las propias.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_3689.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-29": {
+      "title": "Mantener fresca la recuperación",
+      "summary": "La recuperación puede renovarse con nuevas maneras de servir y aprender. Mantener la curiosidad evita que la práctica se vuelva automática.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_5890.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "06-30": {
+      "title": "Cuidar la base",
+      "summary": "Disfrutar una vida nueva requiere cuidar sus fundamentos. Mantener el programa como prioridad ayuda a sostener lo que hemos conseguido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_9386.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-01": {
+      "title": "Un programa sencillo",
+      "summary": "Un programa sencillo puede ayudarnos a ordenar una vida compleja. Practicar principios concretos evita convertir cada dificultad en un enigma.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_4029.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-02": {
+      "title": "Comparar",
+      "summary": "Comparar nuestros avances puede distraernos de nuestro camino. Podemos aprender de otros sin exigir que nuestras experiencias sean iguales.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_125.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-03": {
+      "title": "Momento de tranquilidad",
+      "summary": "Reservar momentos tranquilos favorece una práctica espiritual constante. Un espacio breve de oración o meditación puede iniciar un hábito.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/3-de-julio-momento-de-tranquilidad-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-04": {
+      "title": "Conflictos",
+      "summary": "Los desacuerdos no exigen huir ni atacar. Los principios del programa ofrecen recursos para afrontarlos con honestidad y respeto.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/4-de-julio-conflictos-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-05": {
+      "title": "Explorar opciones espirituales",
+      "summary": "Existen distintas maneras de cultivar la espiritualidad. Escuchar experiencias y explorar con apertura permite encontrar una práctica personal.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/5-de-julio-explorar-opciones.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-06": {
+      "title": "Lo siento",
+      "summary": "Una disculpa necesita acompañarse de responsabilidad. Las enmiendas convierten el arrepentimiento en acciones y cambios concretos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/6-de-julio-lo-siento-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-07": {
+      "title": "Ver a Dios a través de los demás",
+      "summary": "Observar la transformación de otros puede fortalecer nuestra esperanza. La experiencia compartida permite reconocer posibilidades espirituales en nuestra propia vida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/7-de-julio-ver-dios-traves-de-los-demas.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-08": {
+      "title": "La palabra «Dios»",
+      "summary": "Las palabras sobre espiritualidad pueden despertar resistencia. La reflexión invita a mirar la ayuda que recibimos más allá de la etiqueta utilizada.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/8-de-julio-la-palabra-dios-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-09": {
+      "title": "¡Sí, nos recuperamos!",
+      "summary": "Los cambios cotidianos muestran que recuperarse es posible. Reconocerlos en nosotros y en otros permite valorar el camino recorrido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/9-de-julio-si-nos-recuperamos-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-10": {
+      "title": "Una actitud positiva",
+      "summary": "Nuestra manera de hablar puede influir en nuestra actitud. Elegir expresiones constructivas ayuda a reducir el hábito de la negatividad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/10-de-julio-una-actitud-positiva-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-11": {
+      "title": "Aliento",
+      "summary": "El ánimo recibido facilita enfrentar pasos nuevos. También podemos ofrecer a otros la confianza y compañía que necesitamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/11-de-julio-aliento-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-12": {
+      "title": "Paciencia",
+      "summary": "La paciencia ayuda a dedicar recursos a lo importante. No todo necesita resolverse al ritmo de nuestros deseos inmediatos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/12-de-julio-paciencia-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-13": {
+      "title": "La humildad en acción",
+      "summary": "Pedir ayuda es una forma concreta de humildad. Reconocer una necesidad permite utilizar recursos que solos no tenemos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/13-de-julio-la-humildad-en-accion-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-14": {
+      "title": "Un «trabajo interior»",
+      "summary": "La apariencia de bienestar no sustituye el trabajo personal. Una recuperación estable requiere atender lo que ocurre en nuestro interior.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/14-de-julio-un-trabajo-interior-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-15": {
+      "title": "Relaciones con los demás",
+      "summary": "Revisar cómo tratamos a otros ayuda a cuidar las amistades. Reconocer el daño y disponernos a repararlo fortalece la responsabilidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/15-de-julio-relaciones-con-los-demas.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-16": {
+      "title": "Autoestima",
+      "summary": "El respeto propio puede crecer mediante acciones coherentes. La recuperación permite reconocer nuestro valor sin depender únicamente de la opinión ajena.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/16-de-julio-autoestima-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-17": {
+      "title": "La utilidad de soñar que consumimos",
+      "summary": "Un sueño relacionado con consumir puede motivar una revisión del programa. Compartir la inquietud ayuda a buscar apoyo y fortalecer el cuidado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_17.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-18": {
+      "title": "El don de la desesperación",
+      "summary": "Una situación límite puede abrirnos a aceptar ayuda. La reflexión valora la honestidad y la disposición que hicieron posible empezar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_28.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-19": {
+      "title": "Realizar nuestros sueños",
+      "summary": "Permitirnos imaginar un futuro distinto puede impulsar acciones nuevas. La recuperación ofrece espacio para explorar proyectos con esperanza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_63.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-20": {
+      "title": "Primer Paso",
+      "summary": "Reconocer la impotencia no significa enfrentarla solos. El Primer Paso nos sitúa dentro de una experiencia de apoyo compartido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_18.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-21": {
+      "title": "La rendición es para todos",
+      "summary": "Nadie deja de necesitar orientación por llevar más tiempo en el programa. Participar y pedir ayuda mantienen viva la rendición.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_59.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-22": {
+      "title": "Muerte espiritual",
+      "summary": "El consumo puede poner en riesgo el bienestar interior recuperado. La reflexión invita a valorar y cuidar esa dimensión de la vida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_50.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-23": {
+      "title": "Renunciar a la terquedad",
+      "summary": "La voluntad personal necesita orientación para no convertirse en imposición. Revisar nuestros conflictos permite reconocer cuándo estamos aferrándonos al control.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_34.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-24": {
+      "title": "Las máscaras tienen que desaparecer",
+      "summary": "Sostener una apariencia puede impedir que nos conozcan. Mostrarnos con sinceridad ayuda a construir confianza y respeto propio.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_72.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-25": {
+      "title": "¿Duodécimo Paso «fallido»?",
+      "summary": "Ofrecer el mensaje tiene valor aunque no controlemos la respuesta. El servicio también fortalece la recuperación de quien lo realiza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_29.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-26": {
+      "title": "Rendición incondicional",
+      "summary": "Aceptar ayuda con condiciones puede mantenernos atrapados en viejas ideas. Una disposición más abierta permite empezar de otra manera.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_4.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-27": {
+      "title": "Sí, nos recuperamos",
+      "summary": "La recuperación se sostiene con participación constante. La reflexión anima a confiar en la experiencia del programa y seguir practicándolo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_14.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-28": {
+      "title": "Secretos e intimidad",
+      "summary": "Compartir aspectos personales con alguien de confianza favorece la intimidad. La honestidad permite relacionarnos sin depender de una imagen protegida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_56.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-29": {
+      "title": "Expectativas",
+      "summary": "Los demás también tienen límites y cometen errores. Ofrecer la comprensión que deseamos recibir ayuda a ajustar expectativas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_31.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-30": {
+      "title": "Inventario regular",
+      "summary": "Un inventario frecuente permite reconocer dificultades antes de que crezcan. También ayuda a identificar y continuar las conductas que funcionan.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_37.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "07-31": {
+      "title": "Liberarse de la adicción activa",
+      "summary": "La libertad del consumo tiene un valor que no se mide en dinero. Recordarla permite apreciar los cambios espirituales de la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/07/fwd-solo-por-hoy_90.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-01": {
+      "title": "Librarse de la culpabilidad",
+      "summary": "Una mirada equilibrada reconoce fortalezas y limitaciones. La humildad y la disposición al cambio ayudan a dejar de vivir bajo la culpa.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-02": {
+      "title": "Practicar la honestidad",
+      "summary": "La honestidad también importa cuando resulta incómoda. Practicarla en situaciones cotidianas fortalece nuestra relación con la realidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_7.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-03": {
+      "title": "Confiar en la gente",
+      "summary": "Confiar no exige que los compañeros sean perfectos. Reconocer su humanidad permite recibir la experiencia y el apoyo que ofrecen.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_13.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-04": {
+      "title": "¿Cuándo un secreto no es secreto?",
+      "summary": "Un asunto oculto puede perder fuerza al compartirlo con alguien adecuado. El padrinazgo ofrece un espacio para abordar la vergüenza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_0.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-05": {
+      "title": "La forma de mis pensamientos",
+      "summary": "Los valores que cultivamos influyen en nuestros pensamientos. Dar espacio a principios espirituales permite orientar la vida de otra manera.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_86.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-06": {
+      "title": "La felicidad interior",
+      "summary": "El bienestar no depende únicamente de lo que poseemos. El servicio, la compañía y el crecimiento interior pueden aportar satisfacción.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_49.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-07": {
+      "title": "La lista de gratitud",
+      "summary": "Escribir aquello que agradecemos ayuda a reconocer recursos olvidados. La lista puede incluir bienes materiales, vínculos y cambios interiores.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_96.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-08": {
+      "title": "Recuperación responsable",
+      "summary": "La ayuda ajena no reemplaza nuestra participación. Tomar decisiones y trabajar los pasos expresa responsabilidad por la propia recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/8-agosto-recuperacion-responsable-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-09": {
+      "title": "El poder del amor",
+      "summary": "El amor recibido puede convertirse en una fuente de fortaleza. La reflexión propone reconocer esa presencia en nuestra vida espiritual.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/09-agosto-el-poder-del-amor-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-10": {
+      "title": "Orar y meditar con regularidad",
+      "summary": "La constancia da profundidad a la práctica espiritual. Incluir momentos regulares de oración y meditación ayuda a mantener la conexión.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/10-agosto-orar-y-meditar-con.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-11": {
+      "title": "Escuchar atentamente",
+      "summary": "Escuchar requiere dejar espacio real a lo que otra persona expresa. La atención favorece comprensión y un intercambio más cercano.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/11-agosto-escuchar-atentamente-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-12": {
+      "title": "¡Basta!",
+      "summary": "Reconocer que el consumo ha llegado demasiado lejos puede abrir un comienzo. Aceptar esa realidad permite buscar ayuda y actuar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/12-agosto-basta-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-13": {
+      "title": "Personas difíciles",
+      "summary": "No necesitamos simpatizar con todos para tratarlos con respeto. Los principios permiten responder con consideración ante relaciones difíciles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/13-agosto-personas-dificiles-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-14": {
+      "title": "Desprendernos de nuestras limitaciones",
+      "summary": "Algunas limitaciones provienen de ideas que nunca revisamos. Abrirnos a experiencias nuevas permite descubrir capacidades y disfrutar con mayor libertad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/14-agosto-desprendernos-de-nuestras.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-15": {
+      "title": "Con el tiempo, no de la noche a la mañana",
+      "summary": "La recuperación avanza de manera gradual. Reconocer pequeños cambios ayuda a tener paciencia con el proceso personal.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/15-de-agosto-con-el-tiempo-no-de-la.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-16": {
+      "title": "Arriba o abajo",
+      "summary": "El bienestar espiritual necesita atención actual. Lo aprendido ayer ofrece una base, pero las acciones de hoy siguen siendo necesarias.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/16-de-agosto-arriba-o-abajo-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-17": {
+      "title": "Decir la verdad",
+      "summary": "Decir la verdad mantiene nuestro vínculo con la realidad. Revisar lo que expresamos ayuda a reconocer autoengaños y evasiones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/17-de-agosto-decir-la-verdad-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-18": {
+      "title": "«¿Durante cuánto tiempo tengo que ir?»",
+      "summary": "El programa puede seguir siendo útil después del comienzo. Cuidar la recuperación permite sostener una vida más plena.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/18-de-agosto-durante-cuanto-tiempo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-19": {
+      "title": "Lo primero es lo primero",
+      "summary": "Avanzar requiere atender el siguiente paso. La constancia resulta más útil que intentar completar de golpe todo el proceso.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/19-de-agosto-lo-primero-es-lo-primero.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-20": {
+      "title": "Enfrentarse a la muerte",
+      "summary": "La pérdida puede afrontarse con compañía y espacio para sentir. La reflexión invita a buscar fortaleza y cuidar los vínculos presentes.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/fwd-solo-por-hoy_20.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-21": {
+      "title": "Amistades",
+      "summary": "Las amistades necesitan participación, atención y reciprocidad. Cultivarlas mantiene una red de apoyo que no conviene dar por sentada.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/21-de-agosto-amistades-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-22": {
+      "title": "Contribución",
+      "summary": "Hay distintas maneras de contribuir al grupo. Una tarea sencilla, realizada con disposición, también puede marcar una diferencia.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/22-de-agosto-contribucion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-23": {
+      "title": "Tomar decisiones",
+      "summary": "Los principios ofrecen criterios para elegir. Pedir orientación y asumir las consecuencias ayuda a sostener decisiones responsables.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/23-de-agosto-tomar-decisiones-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-24": {
+      "title": "Buscar la voluntad de Dios",
+      "summary": "Aferrarnos a un resultado puede aumentar la frustración. La apertura permite actuar y aceptar que la vida no siempre sigue nuestros planes.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/24-de-agosto-buscar-la-voluntad-de-dios.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-25": {
+      "title": "El Noveno Paso: reforma de la vida",
+      "summary": "Las enmiendas permiten abordar responsabilidades del pasado. Reparar con cuidado puede abrir espacio para una vida menos condicionada por ellas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/25-de-agosto-el-noveno-paso-reforma-de.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-26": {
+      "title": "Inventario del Décimo Paso",
+      "summary": "Revisar las acciones del día permite corregir pronto. Reconocer el daño y considerar respuestas distintas mantiene activo el aprendizaje.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/08/26-de-agosto-inventario-del-decimo-paso.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-27": {
+      "title": "Elegir la vida",
+      "summary": "El cuidado personal se expresa en elecciones cotidianas. Apartarnos de conductas destructivas permite sostener una vida orientada a recuperarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/09/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-28": {
+      "title": "Exponerse a la luz",
+      "summary": "La confianza permite hablar de lo que nos avergüenza. Compartir con alguien adecuado puede disminuir el poder que tiene un secreto.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/09/fwd-solo-por-hoy_3.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-29": {
+      "title": "No mires atrás",
+      "summary": "Trabajar el pasado permite avanzar sin permanecer en el remordimiento. La recuperación ofrece oportunidades para orientar la atención al presente.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/09/fwd-solo-por-hoy_96.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-30": {
+      "title": "Obrar bien, sentirse bien",
+      "summary": "Tratar a otros con consideración puede influir en nuestro propio ánimo. Una acción constructiva abre posibilidades distintas de la reacción habitual.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/09/fwd-solo-por-hoy_64.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "08-31": {
+      "title": "Gratitud",
+      "summary": "Reconocer la libertad recuperada ayuda a apreciar el día. La gratitud permite mirar las oportunidades que ahora están disponibles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/09/fwd-solo-por-hoy_61.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
     "09-01": {
       "title": "Valores auténticos",
       "summary": "La recuperación invita a revisar qué guía nuestras decisiones. Practicar valores espirituales permite dejar atrás las justificaciones del consumo y relacionarnos con mayor consideración y responsabilidad.",
@@ -210,6 +1919,650 @@
       "summary": "No necesitamos encajar en todas las expectativas ajenas para aportar algo valioso. Aceptarnos y compartir nuestra experiencia con sinceridad puede ayudar a otros a sentirse comprendidos.",
       "source": "https://fzla.org/wp-content/uploads/meditaciones/09/30.html",
       "sourceType": "official",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-01": {
+      "title": "No sólo una motivación para crecer",
+      "summary": "Las emociones dolorosas forman parte de la experiencia humana. Reconocerlas puede ayudarnos a apreciar la alegría sin negar las dificultades.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_24.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-02": {
+      "title": "Conservar la fe",
+      "summary": "La confianza espiritual también necesita renovarse. Volver a pedir orientación permite afrontar desafíos sin abandonar los recursos del programa.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_5.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-03": {
+      "title": "Perder la terquedad",
+      "summary": "La insistencia en imponer nuestro criterio puede generar conflictos. Buscar orientación ayuda a actuar con más flexibilidad y respeto.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_12.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-04": {
+      "title": "La maravilla de los treinta días",
+      "summary": "El entusiasmo inicial necesita transformarse en compromiso cotidiano. La recuperación se construye como una forma de vivir, no como una etapa breve.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_68.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-05": {
+      "title": "Pide clemencia, no justicia",
+      "summary": "Recordar la compasión recibida puede modificar cómo tratamos a otros. La gratitud invita a responder con comprensión en lugar de dureza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_83.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-06": {
+      "title": "Enmiendas sin expectativa",
+      "summary": "Reparar no garantiza recibir perdón. Podemos asumir nuestra responsabilidad sin exigir a la otra persona una reacción determinada.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_3.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-07": {
+      "title": "Depender de nuestro Poder Superior",
+      "summary": "Aceptar orientación permite reconocer los límites de la autosuficiencia. La confianza espiritual puede ofrecer una base para pedir y recibir apoyo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_75.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-08": {
+      "title": "Un nuevo esquema de vida",
+      "summary": "Un cuidado regular sostiene los avances. Integrar el programa en la rutina evita depender solo de la motivación del momento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_34.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-09": {
+      "title": "Orden",
+      "summary": "Ordenar la vida implica revisar nuestra parte en los problemas. Reconocer responsabilidades pendientes permite pasar de la queja a la acción.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_66.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-10": {
+      "title": "Consecuencias",
+      "summary": "Las decisiones tienen efectos que conviene considerar antes de actuar. La responsabilidad incluye estar dispuestos a asumir esos resultados.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_64.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-11": {
+      "title": "Lentes y actitudes",
+      "summary": "Nuestras actitudes influyen en cómo interpretamos la realidad. Revisarlas permite reconocer posibilidades que una mirada negativa puede ocultar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_1.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-12": {
+      "title": "Tener razón",
+      "summary": "La necesidad de tener razón puede dificultar la convivencia. Reconocer límites y escuchar permite relacionarnos de manera más igualitaria.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_91.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-13": {
+      "title": "Cambiar las cosas",
+      "summary": "Un gesto amable puede tener un efecto importante para quien lo recibe. La ayuda cercana ofrece una manera concreta de contribuir.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_18.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-14": {
+      "title": "El fin de la soledad",
+      "summary": "La pertenencia crece cuando compartimos y participamos. Acercarnos al grupo permite desarrollar amistades y disminuir el aislamiento.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_35.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-15": {
+      "title": "Opciones",
+      "summary": "No elegimos toda nuestra historia, pero podemos participar en lo que hacemos ahora. La recuperación ofrece una dirección posible para nuestras decisiones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_25.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-16": {
+      "title": "La oración más sencilla",
+      "summary": "La oración puede ser sencilla y personal. Un momento tranquilo permite pedir orientación y disposición para actuar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_76.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-17": {
+      "title": "«La Verdad»",
+      "summary": "Nuestra comprensión puede cambiar conforme crecemos. La apertura ayuda a revisar certezas y reconocer con más honestidad lo que vivimos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_65.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-18": {
+      "title": "Todos formamos parte",
+      "summary": "Las circunstancias personales no eliminan la posibilidad de pertenecer. La experiencia común de adicción y recuperación permite encontrarnos en el grupo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_67.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-19": {
+      "title": "Apoyar algo",
+      "summary": "Identificar valores propios ayuda a orientar nuestras elecciones. Practicarlos da consistencia a la vida y reduce la dependencia de influencias externas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_39.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-20": {
+      "title": "Libertad de elegir",
+      "summary": "La libertad de elegir incluye hacerse cargo de las consecuencias. Tomar decisiones propias forma parte de una recuperación responsable.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_88.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-21": {
+      "title": "Hoy, la voluntad de Dios",
+      "summary": "El trabajo espiritual puede centrarse en las acciones de este día. Atender el presente evita exigir respuestas completas sobre el futuro.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/10/fwd-solo-por-hoy_51.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-22": {
+      "title": "Mira quién habla",
+      "summary": "Algunos pensamientos pueden alejarnos del cuidado personal. Escuchar otras perspectivas permite cuestionarlos y recurrir a los apoyos del programa.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/22-de-octubre-mira-quien-habla-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-23": {
+      "title": "Rendición",
+      "summary": "Manipular las circunstancias no garantiza una vida manejable. La rendición permite buscar orientación y abandonar parte de la lucha por controlar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/23-de-octubre-rendicion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-24": {
+      "title": "Responsabilidad",
+      "summary": "Las herramientas del programa pueden orientar decisiones cotidianas. La responsabilidad crece cuando llevamos nuestros valores a la práctica.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/24-de-octubre-responsabilidad-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-25": {
+      "title": "Anteponer los principios a las personalidades",
+      "summary": "Actuar con principios no debería depender de quién tengamos delante. La conciencia ayuda a elegir con respeto aun ante diferencias personales.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/25-de-octubre-anteponer-los-principios.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-26": {
+      "title": "La senda de la autoaceptación",
+      "summary": "La autoaceptación se fortalece mediante honestidad y trabajo personal. Mostrarnos sin fingir permite construir relaciones más auténticas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/26-de-octubre-la-senda-de-la.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-27": {
+      "title": "Vivir el presente",
+      "summary": "El pasado influye, pero no necesita dirigir cada decisión. Hoy podemos practicar formas de vivir acordes con los cambios realizados.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/27-de-octubre-vivir-el-presente-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-28": {
+      "title": "Actitudes",
+      "summary": "Una dificultad también puede invitar a revisar nuestra actitud. Trabajar en nuestras respuestas permite actuar donde sí tenemos responsabilidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/28-de-octubre-actitudes-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-29": {
+      "title": "Vivir el ahora",
+      "summary": "Aceptar lo que ocurre permite distinguir hechos de expectativas. La recuperación ayuda a participar en la vida disponible ahora.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/29-de-octubre-vivir-el-ahora-solo-por_2.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-30": {
+      "title": "Valor",
+      "summary": "La confianza en el apoyo recibido puede sostener el valor. Afrontar el día no exige saber de antemano cómo saldrá todo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/30-de-octubre-valor-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "10-31": {
+      "title": "Nuestra relación con un Poder Superior",
+      "summary": "La relación espiritual puede sostener la disposición para trabajar los pasos. Cultivarla ofrece una base para actuar con mayor confianza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/31-de-octubre-nuestra-relacion-con-un.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-01": {
+      "title": "Despertar",
+      "summary": "El crecimiento espiritual puede expresarse en ayudar. Compartir el cuidado recibido fortalece los vínculos y mantiene viva la gratitud.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/01-noviembre-despertar-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-02": {
+      "title": "Vivir con problemas sin solución",
+      "summary": "No todos los problemas tienen una solución inmediata. Hablar con alguien comprensivo puede hacer más llevadero atravesarlos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/02-noviembre-vivir-con-problemas-sin.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-03": {
+      "title": "Pase lo que pase",
+      "summary": "La recuperación no promete una vida sin dificultades. Compartir cómo buscamos apoyo ante ellas ofrece una esperanza realista al recién llegado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/03-noviembre-pase-lo-que-pase-solo-por.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-04": {
+      "title": "Intercambio de amor",
+      "summary": "Dar y recibir afecto abre nuevas formas de relacionarnos. La generosidad permite extender el apoyo que hizo posible nuestro comienzo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/4-noviembre-intercambio-de-amor-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-05": {
+      "title": "La orientación de Dios",
+      "summary": "La confusión puede ser una señal para detenernos y pedir orientación. La práctica espiritual ofrece un espacio para revisar el rumbo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/5-noviembre-la-orientacion-de-dios-solo.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-06": {
+      "title": "Comprender la humildad",
+      "summary": "La humildad incluye reconocer cualidades y limitaciones. Una visión equilibrada permite ocupar nuestro lugar sin engrandecernos ni desvalorizarnos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/06-noviembre-comprender-la-humildad.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-07": {
+      "title": "Percibir la voluntad de Dios",
+      "summary": "Prestar atención a la vida interior puede orientar nuestras decisiones. La oración permite revisar si actuamos de acuerdo con los valores elegidos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-08": {
+      "title": "Libres de la locura",
+      "summary": "Reconocer cambios en nuestra conducta ayuda a apreciar la recuperación. La reflexión invita a agradecer una vida con mayor claridad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_19.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-09": {
+      "title": "Los planes mejor trazados",
+      "summary": "Planificar no equivale a garantizar resultados. Podemos actuar responsablemente y conservar flexibilidad ante lo que termine ocurriendo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_92.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-10": {
+      "title": "¿Miedo o fe?",
+      "summary": "La confianza puede ofrecer una alternativa a huir del miedo. Aceptar acompañamiento facilita avanzar aun con incertidumbre.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_79.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-11": {
+      "title": "De la rendición a la aceptación",
+      "summary": "El compromiso necesita superar el entusiasmo inicial. Cultivar una relación espiritual permite seguir aceptando ayuda de manera cotidiana.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_90.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-12": {
+      "title": "Nuestra propia historia",
+      "summary": "No necesitamos una historia espectacular para compartir. Hablar con sinceridad de nuestra experiencia puede transmitir identificación y esperanza.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_25.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-13": {
+      "title": "Perfectos, no",
+      "summary": "Esperar hacerlo todo perfectamente puede impedir intentar algo nuevo. Aceptar errores posibles permite aprender y ampliar nuestra experiencia.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_63.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-14": {
+      "title": "No sólo sobrevivir",
+      "summary": "La recuperación abre posibilidades de disfrute y participación. Reconocerlas invita a vivir con más amplitud que la simple supervivencia.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_64.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-15": {
+      "title": "Soltar las riendas",
+      "summary": "Aferrarnos al control puede agotar nuestros recursos. Soltar parte de esa exigencia abre espacio a escuchar orientación y recibir apoyo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_94.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-16": {
+      "title": "Nunca más solos",
+      "summary": "Las amistades del grupo ofrecen una posibilidad de compañía. Aceptarlas requiere también acercarnos y permitir que otros nos conozcan.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_53.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-17": {
+      "title": "Atravesar el dolor",
+      "summary": "Un día doloroso no define todo el proceso. Mantener contacto y prácticas de recuperación ofrece sostén mientras lo atravesamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_89.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-18": {
+      "title": "Autodescubrimiento",
+      "summary": "Aprender sobre nosotros lleva tiempo. Reconocer lo que hoy sabemos permite actuar mejor sin exigirnos haberlo comprendido todo antes.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_17.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-19": {
+      "title": "El idioma de la identificación",
+      "summary": "La identificación va más allá de compartir detalles iguales. Escuchar las emociones y experiencias comunes ayuda a sentirnos comprendidos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_68.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-20": {
+      "title": "Realizarse",
+      "summary": "La satisfacción interior no se mide comparando vidas. Reconocer el crecimiento propio permite valorar lo que la recuperación nos ha aportado.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/20-noviembre-realizarse-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-21": {
+      "title": "Desprenderse de los defectos",
+      "summary": "Soltar patrones conocidos puede requerir confianza y disposición. Reconocer su costo ayuda a abrirnos a formas nuevas de actuar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_27.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-22": {
+      "title": "Primero, la base",
+      "summary": "Los proyectos necesitan una base estable de recuperación. Cuidar las prácticas fundamentales permite sostener lo que construimos sobre ellas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_45.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-23": {
+      "title": "Voluntad de Dios",
+      "summary": "La aceptación permite vivir con alegrías y desilusiones sin controlar cada resultado. La rendición puede abrir espacio a mayor serenidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_78.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-24": {
+      "title": "Recuperarse con gratitud",
+      "summary": "Valorar lo recibido ayuda a salir de la comparación y la queja. La gratitud puede convivir con una mirada honesta de las dificultades.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_9.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-25": {
+      "title": "Meditación",
+      "summary": "La meditación ofrece un espacio para escuchar y reconocer lo importante. La quietud puede ayudar a orientar nuestras acciones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_72.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-26": {
+      "title": "Responsabilidad",
+      "summary": "Las responsabilidades también pueden expresar vínculos y oportunidades recuperadas. Atenderlas conscientemente permite reconocer su sentido y sus satisfacciones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_76.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-27": {
+      "title": "Buscar la ayuda de Dios",
+      "summary": "Pedir ayuda puede acompañar cada etapa, no solo las crisis. La confianza espiritual recuerda que no necesitamos hacerlo todo solos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_55.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-28": {
+      "title": "Ser uno mismo",
+      "summary": "Conocer nuestras fortalezas y limitaciones permite actuar sin tantas apariencias. La autenticidad se practica viviendo con mayor honestidad.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/11/fwd-solo-por-hoy_28.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-29": {
+      "title": "El cuidado de nuestro Poder Superior",
+      "summary": "El contacto espiritual se cultiva antes y durante las dificultades. La práctica constante ayuda a recurrir a ese apoyo cuando lo necesitamos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "11-30": {
+      "title": "Compartir mi verdadero yo",
+      "summary": "El inventario y la comunicación sincera favorecen relaciones cercanas. Conocernos mejor permite compartir más de lo que realmente somos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_21.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-01": {
+      "title": "Recompensas de la vida",
+      "summary": "Los deseos no siempre coinciden con lo que podemos sostener. Buscar orientación permite recibir oportunidades con responsabilidad y realismo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_71.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-02": {
+      "title": "Recuperación, nuestra primera prioridad",
+      "summary": "La recuperación sostiene muchas de nuestras nuevas oportunidades. Conservarla como prioridad ayuda a cuidar el resto de la vida.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_72.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-03": {
+      "title": "Una visión sin límites",
+      "summary": "Los límites del pasado no describen todas las posibilidades actuales. Una mirada abierta permite reconocer oportunidades y dar pasos hacia ellas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_26.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-04": {
+      "title": "La voluntad de Dios, no la nuestra",
+      "summary": "Podemos expresar nuestros deseos sin exigir que todo ocurra a nuestra manera. La apertura espiritual permite revisar y ajustar los planes.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_17.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-05": {
+      "title": "Quienes quieren recuperarse",
+      "summary": "Compartir recuperación no exige controlar quién aprovechará el mensaje. Podemos ofrecerlo con disposición y respetar el proceso de cada persona.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_58.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-06": {
+      "title": "Romance y recuperación",
+      "summary": "Una relación afectiva no sustituye el cuidado del programa. Mantener apoyos y prácticas propias permite atender ambas dimensiones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_65.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-07": {
+      "title": "Sobrevivir a nuestras emociones",
+      "summary": "Reconocer emociones difíciles permite buscar recursos para atravesarlas. La honestidad y el acompañamiento ofrecen alternativas a negarlas o escapar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_28.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-08": {
+      "title": "Llamar a un defecto",
+      "summary": "Llamar a nuestras conductas por su nombre evita justificarlas. Pedir otra perspectiva puede ayudarnos a reconocer lo que necesitamos cambiar.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_68.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-09": {
+      "title": "Escuchar",
+      "summary": "Escuchar implica suspender por un momento el diálogo interno. Prestar atención real facilita comprender y acompañar a otra persona.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_93.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-10": {
+      "title": "Ganadores",
+      "summary": "El progreso se expresa en el esfuerzo cotidiano, no en la perfección. Practicar nuestros valores permite reconocer avances posibles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_85.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-11": {
+      "title": "El sufrimiento es optativo",
+      "summary": "La reflexión invita a revisar respuestas que prolongan el malestar. Aceptar ayuda y probar cambios puede abrir posibilidades de alivio.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_99.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-12": {
+      "title": "Miedo al cambio",
+      "summary": "Un cambio puede despertar temor aunque traiga oportunidades. La confianza y el apoyo permiten acercarnos a lo nuevo con mayor calma.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_9.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-13": {
+      "title": "Ser miembro",
+      "summary": "Pertenecer nace de una decisión personal. Podemos dar la bienvenida y compartir experiencia sin decidir por quien busca ayuda.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_12.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-14": {
+      "title": "Adicción, drogas y recuperación",
+      "summary": "La recuperación aborda más aspectos que el consumo. El trabajo de los pasos invita a revisar relaciones, actitudes y conductas.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_18.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-15": {
+      "title": "El placer de compartir",
+      "summary": "Compartir lo recibido permite expresar agradecimiento. La ayuda generosa puede aportar alegría tanto a quien la ofrece como a quien la recibe.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_6.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-16": {
+      "title": "Donde hay humo...",
+      "summary": "Pequeñas señales de descuido merecen atención. Mantener participación en el programa ayuda a reconocer dificultades antes de que crezcan.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_2.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-17": {
+      "title": "Motivaciones del servicio",
+      "summary": "El servicio pierde sentido si solo busca reconocimiento. Revisar nuestras motivaciones permite mantener la atención en quien necesita ayuda.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_97.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-18": {
+      "title": "El mensaje de nuestras reuniones",
+      "summary": "Lo que compartimos influye en el ambiente de una reunión. Una experiencia centrada en recuperación puede contribuir al propósito común.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_10.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-19": {
+      "title": "Hacer lo que decimos",
+      "summary": "La coherencia entre palabras y acciones fortalece el mensaje. Los principios también importan cuando nadie observa lo que hacemos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_7.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-20": {
+      "title": "Superar la autoobsesión",
+      "summary": "Atender a los demás ayuda a salir de la preocupación exclusiva por nosotros. La generosidad permite reconocer un mundo compartido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_70.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-21": {
+      "title": "Aceptación y cambio",
+      "summary": "Aceptar lo que somos ahora facilita empezar a cambiar. Una mirada honesta permite trabajar sin depender de la negación ni del miedo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_30.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-22": {
+      "title": "Una nueva forma de vida",
+      "summary": "Una vida nueva se expresa en acciones de cuidado. Tratar con consideración a otros y a nosotros da forma cotidiana a la recuperación.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_48.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-23": {
+      "title": "Nuevas ideas",
+      "summary": "La apertura permite revisar ideas que ya no nos ayudan. Probar sugerencias nuevas puede ampliar nuestra manera de vivir.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_5.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-24": {
+      "title": "El grupo",
+      "summary": "El grupo es un espacio de intercambio y pertenencia. Compartir nuestra experiencia puede sostener a otros mientras fortalece nuestro propio proceso.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_62.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-25": {
+      "title": "Anonimato y terquedad",
+      "summary": "El anonimato invita a disminuir la importancia del reconocimiento personal. Servir sin imponer protagonismo favorece el propósito compartido.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_14.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-26": {
+      "title": "Un Poder que nunca falla",
+      "summary": "Las personas tienen límites, incluso cuando nos quieren. La reflexión propone una base espiritual que complemente los apoyos humanos.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_35.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-27": {
+      "title": "Dios podía devolvernos el sano juicio",
+      "summary": "Reconocer decisiones más sensatas permite apreciar el cambio. La esperanza crece al observar que los patrones antiguos no son inamovibles.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_40.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-28": {
+      "title": "Depresión",
+      "summary": "El ánimo bajo puede favorecer el aislamiento. La reflexión invita a hablar de lo que sentimos y mantener vínculos de apoyo.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/28-de-diciembre-depresion-solo-por-hoy.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-29": {
+      "title": "A través de los ojos de los demás",
+      "summary": "Las personas cercanas pueden mostrarnos aspectos que no vemos. Escuchar sus observaciones con apertura permite una percepción más equilibrada.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_29.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-30": {
+      "title": "Acción y oración",
+      "summary": "Desear el cambio necesita acompañarse de acción. La práctica espiritual y las decisiones concretas pueden apoyarse mutuamente.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/fwd-solo-por-hoy_79.html",
+      "sourceType": "secondary",
+      "verifiedOn": "2026-09-17"
+    },
+    "12-31": {
+      "title": "Prestar servicio",
+      "summary": "El servicio puede estar presente en tareas cotidianas. Buscar maneras de ser útiles amplía el cuidado más allá de las reuniones.",
+      "source": "https://hoysoloporhoy.blogspot.com/2014/12/31-de-diciembre-prestar-servicio-solo.html",
+      "sourceType": "secondary",
       "verifiedOn": "2026-09-17"
     }
   }

@@ -6,12 +6,21 @@ const root = path.join(__dirname, '..');
 const code = fs.readFileSync(path.join(root, 'assets/js/solo-por-hoy.js'), 'utf8');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'assets/data/solo-por-hoy.json'), 'utf8'));
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (let day = 1; day <= 30; day++) {
-  const entry = data.entries['09-' + String(day).padStart(2, '0')];
-  assert.ok(entry.title && entry.summary && entry.source && entry.verifiedOn);
-  assert.ok(['official', 'secondary'].includes(entry.sourceType));
+const pad = number => String(number).padStart(2, '0');
+const monthLengths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+for (let month = 1; month <= 12; month++) {
+  for (let day = 1; day <= monthLengths[month - 1]; day++) {
+    const key = pad(month) + '-' + pad(day);
+    const entry = data.entries[key];
+    assert.ok(entry, 'Falta la fecha ' + key);
+    assert.ok(entry.title.trim() && entry.summary.trim() && entry.source && entry.verifiedOn, key);
+    assert.ok(['official', 'secondary'].includes(entry.sourceType), key);
+    assert.equal(new URL(entry.source).protocol, 'https:');
+    assert.ok(!/<[^>]+>/.test(entry.title + entry.summary), 'No HTML en ' + key);
+  }
 }
-assert.equal(Object.keys(data.entries).length, 30);
+assert.equal(Object.keys(data.entries).length, 366);
+assert.equal(new Set(Object.values(data.entries).map(entry => entry.summary)).size, 366);
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
 assert.equal(new Set(ids).size, ids.length);
 
@@ -86,14 +95,48 @@ async function setup(iso, options = {}) {
   app.click('stop');
   assert.equal(app.nodes['sph-stop'].hidden, true);
   app.advance('2026-10-01T05:00:00Z');
-  assert.equal(app.nodes['sph-title'].textContent, 'Tu lectura de hoy');
-  assert.equal(app.nodes['sph-audio'].hidden, true);
-  assert.equal(app.nodes['sph-summary-label'].hidden, true);
-  for (const iso of ['2028-02-29T05:00:00Z', '2027-01-01T05:00:00Z']) {
+  assert.equal(app.nodes['sph-title'].textContent, 'No sólo una motivación para crecer');
+  assert.equal(app.nodes['sph-audio'].hidden, false);
+  assert.equal(app.nodes['sph-summary-label'].hidden, false);
+  const boundaries = [
+    ['2027-01-01T04:59:59Z', '2026-12-31', 'Prestar servicio'],
+    ['2027-01-01T05:00:00Z', '2027-01-01', 'Vigilancia'],
+    ['2027-03-01T04:59:59Z', '2027-02-28', 'El mayor don'],
+    ['2027-03-01T05:00:00Z', '2027-03-01', '¡Ataque de ansiedad!'],
+    ['2028-02-29T04:59:59Z', '2028-02-28', 'El mayor don'],
+    ['2028-02-29T05:00:00Z', '2028-02-29', '¡Todo!'],
+    ['2028-03-01T04:59:59Z', '2028-02-29', '¡Todo!'],
+    ['2028-03-01T05:00:00Z', '2028-03-01', '¡Ataque de ansiedad!']
+  ];
+  for (const [iso, expectedDate, expectedTitle] of boundaries) {
     app.advance(iso);
-    assert.equal(app.nodes['sph-date'].dateTime, iso.slice(0, 10));
-    assert.equal(app.nodes['sph-title'].textContent, 'Tu lectura de hoy');
+    assert.equal(app.nodes['sph-date'].dateTime, expectedDate);
+    assert.equal(app.nodes['sph-title'].textContent, expectedTitle);
   }
+  // Ejecutar el render real para cada día de años comunes, bisiestos y siglos.
+  let renderedDays = 0;
+  for (const year of [2026, 2027, 2028, 2029, 2030, 2100, 2400]) {
+    for (let month = 1; month <= 12; month++) {
+      const days = new Date(Date.UTC(year, month, 0)).getUTCDate();
+      for (let day = 1; day <= days; day++) {
+        const key = pad(month) + '-' + pad(day);
+        const isoDate = year + '-' + key;
+        app.advance(isoDate + 'T05:00:00Z');
+        assert.equal(app.nodes['sph-date'].dateTime, isoDate);
+        assert.equal(app.nodes['sph-title'].textContent, data.entries[key].title);
+        assert.equal(app.nodes['sph-summary'].textContent, data.entries[key].summary);
+        assert.equal(app.nodes['sph-audio'].hidden, false);
+        renderedDays++;
+      }
+    }
+  }
+  assert.equal(renderedDays, 2557);
+  const incomplete = structuredClone(data);
+  delete incomplete.entries['10-01'];
+  const missing = await setup('2028-10-01T05:00:00Z', { payload: incomplete });
+  assert.equal(missing.nodes['sph-title'].textContent, 'Tu lectura de hoy');
+  assert.equal(missing.nodes['sph-audio'].hidden, true);
+  assert.equal(missing.nodes['sph-summary-label'].hidden, true);
   const noAudio = await setup('2026-09-17T15:00:00Z', { noAudio: true });
   assert.equal(noAudio.nodes['sph-audio'].hidden, true);
   assert.equal(noAudio.nodes['sph-summary-label'].hidden, false);
@@ -102,5 +145,5 @@ async function setup(iso, options = {}) {
     assert.match(failed.nodes['sph-summary'].textContent, /No pudimos cargar/);
     assert.equal(failed.nodes['sph-audio'].hidden, true);
   }
-  console.log('OK: cobertura, HTML, medianoche de Ecuador, cambio de mes/año, bisiesto, audio y fallos.');
+  console.log('OK: 366 entradas; 2557 días simulados; medianoche de Ecuador, 2027/2028, siglos, audio y fallos.');
 })().catch(error => { console.error(error); process.exitCode = 1; });
