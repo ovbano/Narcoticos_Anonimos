@@ -57,4 +57,7 @@ test('calendario permite buscar, seleccionar día y navegar de diciembre a enero
   assert.match(elements.get('#ann-month-label').textContent,/enero de 2027/);
   assert.match(elements.get('#ann-agenda-list').innerHTML,/Celebración/);
   assert.match(elements.get('#ann-agenda-list').innerHTML,/year=2026/);
+  elements.get('#ann-month-shortcuts').onclick({target:{closest:()=>({dataset:{month:'12'}})}});
+  assert.match(elements.get('#ann-month-label').textContent,/diciembre de 2027/);
+  assert.match(elements.get('#ann-month-shortcuts').innerHTML,/data-month="12" aria-pressed="true"/);
 });
