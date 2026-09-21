@@ -60,7 +60,7 @@
     root.querySelector('#ann-clear').hidden=!selected;
     root.querySelector('#ann-agenda-title').textContent=selected?fmt(M.parse(selected)):'La agenda del mes';
     root.querySelector('#ann-count').textContent=`${filtered.length} ${filtered.length===1?'fecha':'fechas'}${query?' para «'+query+'»':''}`;
-    root.querySelector('#ann-agenda-list').innerHTML=filtered.length?filtered.map(e=>`<a class="ann-agenda-card ${M.key(e.date)<now?'is-past':M.key(e.date)===now?'is-current':''}" href="${esc(link(e))}"><span class="ann-agenda-date">${e.day.getDate()}<small>${esc(e.kind)}</small></span><span><strong>${esc(e.item.name)}</strong><small>${e.milestone?`${e.milestone} ${e.milestone===1?'año':'años'} de recuperación`:'Un día a la vez'}</small><em>${esc(M.status(e))}</em></span><span class="ann-agenda-arrow" aria-hidden="true">↗</span></a>`).join(''):'<div class="ann-no-events"><i class="bi bi-calendar2-heart" aria-hidden="true"></i><strong>No hay fechas para esta selección.</strong><p>Prueba otro día, cambia el mes o borra la búsqueda.</p></div>';
+    root.querySelector('#ann-agenda-list').innerHTML=filtered.length?filtered.map(e=>`<a class="ann-agenda-card ${M.key(e.date)<now?'is-past':M.key(e.date)===now?'is-current':''}" href="${esc(link(e))}"><span class="ann-agenda-date">${e.day.getDate()}<small>${esc(e.kind)}</small></span><span><strong>${esc(e.item.name)}</strong><small>${e.milestone?`${e.milestone} ${e.milestone===1?'año':'años'} de recuperación`:'Un día a la vez'}</small><em>${esc(M.status(e))}${e.kind.includes('celebración') || e.kind === 'Celebración' ? (M.time(e.celebration?.time) ? ` · ${esc(M.time(e.celebration.time))}` : '') : ''}</em></span><span class="ann-agenda-arrow" aria-hidden="true">↗</span></a>`).join(''):'<div class="ann-no-events"><i class="bi bi-calendar2-heart" aria-hidden="true"></i><strong>No hay fechas para esta selección.</strong><p>Prueba otro día, cambia el mes o borra la búsqueda.</p></div>';
   }
   function renderDetail() {
     const root=document.getElementById('anniversary-detail');if(!root)return;
@@ -80,10 +80,34 @@
       <div class="ann-hero-art"><div class="ann-orbit ann-orbit-one" aria-hidden="true"></div><div class="ann-orbit ann-orbit-two" aria-hidden="true"></div><span class="ann-art-star ann-art-star-one" aria-hidden="true">✦</span><span class="ann-art-star ann-art-star-two" aria-hidden="true">✦</span><div class="ann-medallion"><i class="bi bi-stars ann-medal-spark" aria-hidden="true"></i><span class="ann-medallion-top">SOLO POR HOY</span><strong>${event.milestone || 'HOY'}</strong><span class="ann-medallion-unit">${event.milestone?(event.milestone===1?'AÑO':'AÑOS'):'UN DÍA'}</span><span class="ann-medallion-bottom">DE RECUPERACIÓN</span></div><span class="ann-art-caption">UNIDAD · SERVICIO · RECUPERACIÓN</span></div></section>
       <div class="ann-event-strip"><div class="ann-event-date"><span class="ann-date-number">${event.date.getDate()}</span><span><strong>${esc(month)}</strong><small>${esc(weekday)} · ${event.date.getFullYear()}</small></span></div><span class="ann-invitation-status ${past?'is-past':''}"><i class="bi ${past?'bi-check-circle':'bi-calendar-heart'}" aria-hidden="true"></i>${esc(status)}</span><a href="#ann-invitation-info" class="ann-event-anchor">Los detalles <span aria-hidden="true">↗</span></a></div>
       <div class="ann-detail-grid" id="ann-invitation-info"><section class="ann-detail-panel ann-message"><span class="ann-section-number">01 / NOS ACOMPAÑAMOS</span><h2>Tu presencia<br><em>es parte de la historia.</em></h2><p class="ann-message-text">${esc(celebration?.message || 'Acompañar una historia de recuperación es recordar que no estamos solos. Te invitamos a compartir este día con gratitud, respeto y esperanza.')}</p><div class="ann-message-signature"><span aria-hidden="true">✦</span><span>${celebration?.message?'Mensaje de invitación':'Con cariño,'}<strong>Grupo Amigos Verdaderos</strong></span></div></section>
-      <section class="ann-detail-panel ann-information"><span class="ann-section-number">02 / LA CELEBRACIÓN</span><h2>Nos vemos para<br>compartir.</h2><dl class="ann-facts"><div><dt><i class="bi bi-calendar2-heart" aria-hidden="true"></i> Fecha de celebración</dt><dd>${esc(fmt(event.date))}<small>${celebration?'Fecha programada por el grupo':'Fecha del aniversario; celebración por coordinar'}</small></dd></div><div><dt><i class="bi bi-geo-alt" aria-hidden="true"></i> Lugar</dt><dd>${celebration?.confirmed?esc(celebration.location || 'Ubicación confirmada en el mapa'):'Por confirmar'}</dd></div><div><dt><i class="bi bi-clock" aria-hidden="true"></i> Hora</dt><dd>Consulta al grupo</dd></div></dl><p class="ann-original-date">Aniversario original: ${esc(fmt(event.original))}.<br>Fechas según Ecuador.</p></section></div>
+      <section class="ann-detail-panel ann-information"><span class="ann-section-number">02 / LA CELEBRACIÓN</span><h2>Nos vemos para<br>compartir.</h2><dl class="ann-facts"><div><dt><i class="bi bi-calendar2-heart" aria-hidden="true"></i> Fecha de celebración</dt><dd>${esc(fmt(event.date))}<small>${celebration?'Fecha programada por el grupo':'Fecha del aniversario; celebración por coordinar'}</small></dd></div><div><dt><i class="bi bi-geo-alt" aria-hidden="true"></i> Lugar</dt><dd>${celebration?.confirmed?esc(celebration.location || 'Ubicación confirmada en el mapa'):'Por confirmar'}</dd></div><div><dt><i class="bi bi-clock" aria-hidden="true"></i> Hora</dt><dd>${M.time(celebration?.time) ? `${esc(M.time(celebration.time))}<small>Hora de Ecuador</small>` : 'Por confirmar'}</dd></div></dl><p class="ann-original-date">Aniversario original: ${esc(fmt(event.original))}.<br>Fechas según Ecuador.</p></section></div>
       <section class="ann-map-panel"><div class="ann-map-copy"><span class="ann-section-number">03 / EL PUNTO DE ENCUENTRO</span><h2>${maps?'Aquí nos<br><em>encontramos.</em>':'Un lugar<br><em>para reunirnos.</em>'}</h2><p>${maps?esc(celebration.location || 'Ubicación confirmada de la celebración.'):'El lugar está por confirmar. Cuando el grupo lo confirme, lo encontrarás en esta invitación.'}</p>${maps?`<a class="ann-button" href="${esc(maps.link)}" target="_blank" rel="noopener">Cómo llegar <span aria-hidden="true">↗</span></a>`:'<span class="ann-pending-label"><i class="bi bi-clock" aria-hidden="true"></i> Ubicación pendiente</span>'}</div>${maps?.embed?`<iframe title="Mapa del lugar de celebración de ${esc(item.name)}" src="${esc(maps.embed)}" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>`:`<div class="ann-map-placeholder"><div class="ann-map-pin" aria-hidden="true"><i class="bi bi-geo-alt"></i></div><span>${maps?'Abre el enlace para ver la ubicación':'Pronto, un punto de encuentro'}</span><small>${maps?'Google Maps':'El mapa aparecerá al confirmar el lugar'}</small></div>`}</section>
       <footer class="ann-invitation-footer"><div><span class="ann-kicker">LA RECUPERACIÓN SE COMPARTE</span><h2>Haz llegar esta invitación.</h2><p>Una fecha. Una historia. Un grupo que acompaña.</p></div><div class="ann-actions">${shareAction}<a class="ann-button ann-whatsapp" href="https://wa.me/?text=${encodeURIComponent(`Aniversario de ${item.name} · ${fmt(event.date)}\n${link(event)}`)}" target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i> Enviar por WhatsApp</a></div></footer>
       <div class="ann-closing"><span>UNIDAD</span><span aria-hidden="true">✦</span><span>SERVICIO</span><span aria-hidden="true">✦</span><span>RECUPERACIÓN</span></div></article><p class="ann-small ann-detail-footnote">Información pública vigente. Si el grupo modifica la celebración, consulta de nuevo este enlace.</p>`;
+    resolveMap(root, maps, item.name);
+  }
+  async function resolveMap(root, maps, name) {
+    if (!maps?.resolve) return;
+    const placeholder = root.querySelector('.ann-map-placeholder');
+    if (!placeholder) return;
+    const label = placeholder.querySelector('span');
+    label.textContent = 'Cargando ubicación…';
+    try {
+      const response = await fetch(`/api/resolve-map?url=${encodeURIComponent(maps.link)}`, {signal: AbortSignal.timeout(9000)});
+      if (!response.ok) throw new Error('No disponible');
+      const data = await response.json();
+      const resolved = M.map({confirmed:true, mapUrl:data.url});
+      if (!resolved?.embed || !placeholder.isConnected) throw new Error('Sin mapa');
+      const frame = document.createElement('iframe');
+      frame.title = `Mapa del lugar de celebración de ${name}`;
+      frame.src = resolved.embed;
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer';
+      frame.allowFullscreen = true;
+      placeholder.replaceWith(frame);
+    } catch {
+      label.textContent = 'Abre el enlace para ver la ubicación';
+    }
   }
   function shareFallback(url) {
     let dialog=document.getElementById('ann-share-dialog');
@@ -101,6 +125,7 @@
     for(const id of ['anniversary-calendar','anniversary-detail']){const root=document.getElementById(id);if(root)root.innerHTML='<div class="ann-detail-panel" role="alert"><h2>No pudimos cargar los aniversarios</h2><p>Revisa tu conexión e intenta nuevamente.</p><button type="button" class="ann-button ann-primary" onclick="location.reload()">Reintentar</button></div>';}
   });
 })();
+
 
 
 
