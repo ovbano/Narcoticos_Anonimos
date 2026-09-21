@@ -309,6 +309,7 @@
     $('#anniversary-start-year').value = item.recovery_year ?? '';
     $('#anniversary-public-visible').checked = item.public_visible !== false;
     $('#celebration-date').value = item.celebration_date || '';
+    $('#celebration-time').value = window.AnniversaryModel.time(item.celebration_time);
     $('#celebration-message').value = item.celebration_message || '';
     $('#celebration-location-confirmed').checked = item.celebration_location_confirmed === true;
     $('#celebration-location').value = item.celebration_location || '';
@@ -335,6 +336,7 @@
       recovery_month: Number($('#anniversary-month').value),
       recovery_year: startYearRaw ? Number(startYearRaw) : null,
       celebration_date: $('#celebration-date').value || null,
+      celebration_time: $('#celebration-time').value || null,
       celebration_location: $('#celebration-location').value.trim() || null,
       celebration_latitude: latitudeRaw ? Number(latitudeRaw) : null,
       celebration_longitude: longitudeRaw ? Number(longitudeRaw) : null,
@@ -344,6 +346,9 @@
     };
 
     try {
+      if (payload.celebration_time && !window.AnniversaryModel.time(payload.celebration_time)) throw new Error('Indica una hora válida.');
+      if (payload.celebration_time && !payload.celebration_date) throw new Error('Indica la fecha de celebración para guardar su hora.');
+      if (payload.celebration_map_url && !window.AnniversaryModel.mapsUrl(payload.celebration_map_url)) throw new Error('Pega un enlace válido de Google Maps.');
       if (invitationFieldsAvailable) {
         payload.celebration_message = $('#celebration-message').value.trim() || null;
         payload.celebration_location_confirmed = $('#celebration-location-confirmed').checked;
@@ -679,3 +684,4 @@
 
   document.addEventListener('DOMContentLoaded', boot, { once:true });
 })();
+

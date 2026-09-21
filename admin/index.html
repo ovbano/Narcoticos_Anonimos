@@ -151,6 +151,7 @@
                 <div class="divider"><span>Celebración programada</span></div>
 
                 <label class="field full"><span>Fecha de celebración <em>opcional</em></span><input type="date" id="celebration-date"><small>Puede ser antes o después de la fecha original.</small></label>
+                <label class="field full"><span>Hora de celebración <em>opcional</em></span><input type="time" id="celebration-time" step="60"><small>Hora de Ecuador. Si aún no está definida, deja este campo vacío.</small></label>
                 <label class="field full"><span>Lugar <em>opcional</em></span><input type="text" id="celebration-location" maxlength="160" placeholder="Ej. Salón del Grupo Amigos Verdaderos"></label>
 
                 <div class="field-grid two">
@@ -159,9 +160,9 @@
                 </div>
 
                 <button type="button" class="btn-secondary full-width" id="btn-use-location"><i class="bi bi-crosshair"></i> Usar mi ubicación actual</button>
-                <p class="location-help" id="location-help">Puedes usar coordenadas, un enlace de Maps o solamente escribir el lugar.</p>
+                <p class="location-help" id="location-help">Basta con pegar el enlace de Google Maps; no necesitas completar las coordenadas. También puedes usar coordenadas o escribir la dirección.</p>
 
-                <label class="field full"><span>Enlace de Google Maps <em>opcional</em></span><input type="url" id="celebration-map-url" maxlength="500" placeholder="https://maps.google.com/..."></label>
+                <label class="field full"><span>Enlace de Google Maps <em>opcional</em></span><input type="url" id="celebration-map-url" maxlength="2048" placeholder="https://maps.app.goo.gl/..."></label>
 
                 <p id="invitation-schema-note" class="location-help">Comprobando opciones de invitación…</p>
                 <fieldset id="invitation-fields" disabled style="border:0;padding:0;margin:0;min-width:0">
@@ -231,7 +232,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/js/supabase-config.js"></script>
+  <script src="../assets/js/anniversary-model.js"></script>
   <script src="admin.js"></script>
 </body>
 </html>
+
 

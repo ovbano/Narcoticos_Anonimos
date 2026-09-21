@@ -252,6 +252,7 @@
     startYear: row.recovery_year === null ? null : Number(row.recovery_year),
     celebration: row.celebration_date ? {
       date: row.celebration_date,
+      time: row.celebration_time || '',
       location: row.celebration_location || '',
       latitude: row.celebration_latitude,
       longitude: row.celebration_longitude,
@@ -269,7 +270,7 @@
         .select('role,name,phone,active')
         .eq('active', true),
       db.from('anniversaries')
-        .select('id,name,recovery_day,recovery_month,recovery_year,celebration_date,celebration_location,celebration_latitude,celebration_longitude,celebration_map_url,public_visible')
+        .select('id,name,recovery_day,recovery_month,recovery_year,celebration_date,celebration_time,celebration_location,celebration_latitude,celebration_longitude,celebration_map_url,public_visible')
         .eq('public_visible', true)
     ]);
 
@@ -398,6 +399,7 @@
              <div class="anniversary-celebration-info">
                <span>${celebrated ? 'CELEBRACIÓN REALIZADA' : 'CELEBRACIÓN PROGRAMADA'}</span>
                <strong>${escapeHtml(capitalize(formatCelebrationDate(celebration.date)))}</strong>
+               ${window.AnniversaryModel.time(celebration.time) ? `<small><i class="bi bi-clock"></i> ${escapeHtml(window.AnniversaryModel.time(celebration.time))} · hora de Ecuador</small>` : ''}
                ${celebration.confirmed && celebration.location
                  ? `<small class="anniversary-celebration-place">
                       <i class="bi bi-geo-alt-fill"></i>
@@ -583,4 +585,5 @@
     init();
   }
 })();
+
 
