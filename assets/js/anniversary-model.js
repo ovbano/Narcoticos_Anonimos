@@ -41,9 +41,10 @@
     let link = '';
     try { const u = new URL(celebration.mapUrl); if(u.protocol==='https:' && (['maps.app.goo.gl','maps.google.com','www.google.com','google.com','goo.gl'].includes(u.hostname))) link=u.href; } catch {}
     if (coords || (!link && query)) link=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-    return link ? {link,embed:query ? `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed` : ''} : null;
+    return link ? {link,embed:coords ? `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=18&output=embed` : (!celebration.mapUrl && query ? `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed` : '')} : null;
   };
   const api = {date,key,today,parse,valid,celebrationYear,occurrence,status,url,map};
   if (typeof module !== 'undefined' && module.exports) module.exports=api;
   else root.AnniversaryModel=api;
 })(typeof window !== 'undefined' ? window : globalThis);
+
