@@ -13,8 +13,10 @@ insert into public.profiles(id,display_name,role,active) values
  on conflict(id) do update set role=excluded.role,active=true;
 insert into storage.objects(bucket_id,name) values('treasury-receipts','9f748e57-a567-45da-b259-fac37a493120/9f748e57-a567-45da-b259-fac37a493199.png');
 set local role authenticated;
-select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493101',true);
+select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493102',true);
 do $$ begin if exists(select 1 from public.treasury_entries) then raise exception 'Run on an empty treasury test database';end if; perform public.treasury_command(case when exists(select 1 from public.treasury_settings) then 'initial_update' else 'setup' end,'{"start_month":"2026-08-01","opening_general":10000,"opening_rent":1000,"note":"Prueba transaccional; se revierte","reason":"Prueba transaccional"}');end $$;
+select public.treasury_command('initial_update','{"start_month":"2026-08-01","opening_general":10000,"opening_rent":1000,"note":"Conteo de prueba corregido","reason":"Corrección por tesorería"}');
+do $$ begin if not exists(select 1 from public.treasury_audit where action='initial_update' and actor='9f748e57-a567-45da-b259-fac37a493102') then raise exception 'FAIL treasurer initial correction';end if;end $$;
 select public.treasury_command('member','{"id":"9f748e57-a567-45da-b259-fac37a493110","name":"QA Compañero","start_month":"2026-08-01","monthly_cents":1200}');
 select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493102',true);
 select public.treasury_command('save','{"id":"9f748e57-a567-45da-b259-fac37a493120","version":0,"status":"draft","entry_date":"2026-08-15","kind":"income","fund":"general","category":"seventh"}');

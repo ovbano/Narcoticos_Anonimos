@@ -5,7 +5,7 @@
 1. Incorporar este cambio a `main` y esperar el despliegue de Vercel. La ruta será `/tesoreria/`.
 2. Entrar como administrador en `/admin/`. En **Accesos**, crear una cuenta con correo, nombre, contraseña inicial y rol **Tesorería**. Entregar las credenciales de forma privada; se muestran una sola vez en el panel. También existe la opción de invitar por correo. No se comparte la contraseña del administrador. Para revisión sin edición, elegir **Revisión de Tesorería**.
 3. La invitación usa el retorno existente `/admin/`, que debe estar permitido en Supabase → Authentication → URL Configuration → Redirect URLs. Después de autenticar, las cuentas de Tesorería pasan a `/tesoreria/`. La persona establece su propia contraseña desde el enlace o desde **Contraseña**.
-4. El administrador abre **Tesorería** y registra el primer mes, saldo inicial general, saldo reservado al local y cómo se verificaron. Los saldos se expresan en dólares; no incluyen valores por cobrar. Si se cometió un error, el administrador puede usar **Corregir saldo inicial** e indicar el motivo. Esto reabre los informes cerrados para recalcularlos; debe revisarse antes de volver a cerrarlos.
+4. El tesorero o el administrador abre **Tesorería** y registra el primer mes, saldo inicial general, saldo reservado al local y cómo se verificaron. Los saldos se expresan en dólares; no incluyen valores por cobrar. Si se cometió un error, el tesorero o el administrador puede usar **Corregir saldo inicial** e indicar el motivo. Esto reabre los informes cerrados para recalcularlos; debe revisarse antes de volver a cerrarlos.
 5. En **Local**, buscar por nombre o apellido y seleccionar al compañero del registro existente. Al guardar su primer aporte se vincula una sola vez a Tesorería. La búsqueda y la selección son un solo campo: escribir, tocar el resultado y guardar. No se vuelve a escribir el nombre. Si falta una persona, el administrador debe agregarla al registro del grupo. Los registros manuales anteriores se conservan y pueden editarse. La cuota de referencia es $12 mensuales por defecto.
 6. Probar el acceso real de la servidora y de un revisor antes de usarlo durante la reunión. La aplicación requiere conexión para guardar. Confirmar siempre el mensaje de guardado.
 
@@ -56,7 +56,7 @@ Se pueden transcribir apuntes después de la reunión: usar la fecha real del co
 
 ## Control del administrador y auditoría
 
-El administrador activo tiene acceso a todas las operaciones de Tesorería, correcciones, configuración, cierres, reaperturas y administración de usuarios. La tesorería activa registra y corrige movimientos de períodos abiertos; no administra accesos ni cambia el saldo inicial. Revisión de Tesorería es de consulta. Los controles también se validan en la base de datos.
+El administrador activo tiene acceso a todas las operaciones de Tesorería, correcciones, configuración, cierres, reaperturas y administración de usuarios. La tesorería activa registra y corrige movimientos de períodos abiertos; también registra y corrige los saldos iniciales con motivo e historial; no administra accesos. Revisión de Tesorería es de consulta. Los controles también se validan en la base de datos.
 
 En **Historial**, el administrador puede filtrar por usuario, fecha y acción. Se registran identidad, fecha, motivo y valores anteriores/nuevos. Preparar un PDF o una impresión registra `report_prepared` con usuario, mes y formato; esto prueba la preparación del informe, no que la persona haya terminado una descarga o impreso físicamente. El cierre también conserva quién lo realizó y la instantánea de los datos.
 
@@ -69,3 +69,11 @@ La migración `treasury_initial_balance_where` limita la corrección al identifi
 El selector de compañeros permite ratón, tacto y teclado (flechas, Enter, Escape); muestra coincidencias sin distinguir tildes ni mayúsculas y no acepta un nombre escrito sin selección. Los PDF tienen encabezado azul, detalle dorado, tarjetas de totales y tablas alternadas; conservan importes y trazabilidad.
 
 La Edge Function se despliega con los archivos versionados en `supabase/functions/admin-users/`. La creación se valida con adaptadores de prueba, sin crear cuentas reales ni enviar invitaciones. Para comprobación real, el administrador debe registrar al responsable elegido desde Accesos.
+
+## Consulta mensual e inicio desde cero
+
+El 27 de septiembre de 2026 se reinició únicamente la información de Tesorería por solicitud del administrador: configuración inicial y auditoría de pruebas; no existían movimientos, miembros de aportes, cierres ni comprobantes. Se conservaron las tres cuentas, sus perfiles y el registro de compañeros del grupo. El reinicio fue una operación puntual, no forma parte de las migraciones ni se repite al desplegar.
+
+El tesorero activo puede iniciar ambos fondos y corregirlos con motivo. Una corrección recalcula el arrastre y reabre los informes afectados, conservando auditoría. El administrador mantiene todos sus permisos.
+
+El saldo **al inicio del mes** suma ambos fondos al comenzar ese período: en el primer mes es el saldo configurado; después incluye ingresos menos egresos de meses anteriores. Ingresos y egresos muestran solo el mes consultado. Si no hay movimientos, el saldo al inicio y al cierre coincide. Un mes anterior al inicio muestra un aviso y saldos sin datos, sin cambiar silenciosamente la selección ni reutilizar valores de otro mes.

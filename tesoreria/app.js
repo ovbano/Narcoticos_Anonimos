@@ -167,26 +167,34 @@
     ]);
     if (token !== refreshToken) return;
     settings = s;
+    $("#workspace").classList.toggle("needs-setup", !settings);
     members = mem;
     drafts = dr;
-    $("#setup").hidden =
-      (!!settings && !initialEditing) || profile.role !== "admin";
-    $("#edit-initial").hidden = profile.role !== "admin" || !settings;
+    $("#setup").hidden = (!!settings && !initialEditing) || !writable();
+    $("#edit-initial").hidden = !writable() || !settings;
+    $("#month-title").textContent = M.monthName($("#month").value + "-01");
     if (!settings) {
-      report = null;
-      $("#close-form").hidden = true;
-      $("#reopen").hidden = true;
-      $("#period-status").textContent = "Configuración pendiente";
-      $("#alerts").innerHTML =
-        '<div class="notice">El administrador debe registrar el saldo inicial verificado para comenzar.</div>';
-      $$(
-        "[data-new],#quick-photo,#draft-new,#member-new,#download-pdf,#print-report",
-      ).forEach((b) => (b.disabled = true));
+      clearPeriod(
+        "Registra los dos fondos para comenzar. El tesorero o el administrador pueden hacerlo; no se incluyen cuotas pendientes.",
+        "Sin saldo inicial",
+      );
+      $("#month-help").textContent =
+        "Primero elige el mes de inicio y registra el dinero verificado.";
       return;
     }
-    $("#month").min = settings.start_month.slice(0, 7);
-    if ($("#month").value < settings.start_month.slice(0, 7))
-      $("#month").value = settings.start_month.slice(0, 7);
+    $("#month").removeAttribute("min");
+    if ($("#month").value < settings.start_month.slice(0, 7)) {
+      clearPeriod(
+        "No hay registros para este mes. La Tesorería comienza en " +
+          M.monthName(settings.start_month) +
+          ". Para incluir meses anteriores, corrige el primer mes y sus saldos iniciales.",
+        "Anterior al inicio",
+      );
+      $("#month-help").textContent =
+        "El mes elegido se conserva. No se muestran saldos de otro mes.";
+      await loadAudit(true);
+      return;
+    }
     const r = await result(
       db.rpc("treasury_report", { p_month: $("#month").value + "-01" }),
     );
@@ -197,6 +205,41 @@
     ).forEach((b) => (b.disabled = false));
     render();
     await loadAudit(true);
+  }
+  function clearPeriod(message, status) {
+    report = null;
+    ["balance", "opening", "income", "expense"].forEach(
+      (id) => ($("#" + id).textContent = "—"),
+    );
+    [
+      "fund-cards",
+      "recent-list",
+      "movement-list",
+      "dues-list",
+      "dues-summary",
+      "member-list",
+      "closure-info",
+      "draft-list",
+    ].forEach((id) => $("#" + id).replaceChildren());
+    $("#period-status").textContent = status;
+    $("#alerts").innerHTML = '<div class="notice">' + M.esc(message) + "</div>";
+    $("#recent-list").innerHTML =
+      '<div class="empty"><strong>' +
+      M.esc(status) +
+      "</strong><p>" +
+      M.esc(message) +
+      "</p></div>";
+    $("#movement-list").innerHTML =
+      '<div class="empty">' + M.esc(message) + "</div>";
+    $("#draft-list").innerHTML =
+      drafts.map(entryHTML).join("") ||
+      '<div class="empty">No tienes borradores pendientes.</div>';
+    $("#draft-count").textContent = drafts.length;
+    $("#close-form").hidden = $("#reopen").hidden = true;
+    $("[data-view] #period-context")?.replaceChildren();
+    $$(
+      "[data-new],#quick-photo,#draft-new,#member-new,#download-pdf,#print-report",
+    ).forEach((b) => (b.disabled = true));
   }
   function entryHTML(e) {
     const status =
@@ -230,6 +273,16 @@
       $("#" + k).textContent = M.money(t[k]);
     $("#balance").textContent = M.money(t.closing);
     $("#period-status").textContent = closed ? "Mes cerrado" : "Mes abierto";
+    $("#month-help").textContent =
+      "Consulta de " +
+      M.monthName(report.month) +
+      ". Ingresos y egresos corresponden solamente a este mes.";
+    $("#period-context").textContent =
+      report.month === settings.start_month
+        ? "El saldo al inicio es la suma de los dos fondos registrados al comenzar."
+        : "El saldo al inicio es lo que quedó del mes anterior, sumando ambos fondos.";
+    $("#period-context").textContent +=
+      " Saldo al cierre = saldo al inicio + ingresos − egresos. Si no hubo movimientos, ambos saldos serán iguales.";
     $("#fund-cards").innerHTML = report.funds
       .map(
         (f) =>
@@ -319,7 +372,7 @@
     correcting = false,
   ) {
     if (!settings) {
-      toast("Primero configura el saldo inicial.", true);
+      toast("Primero registra los saldos iniciales de los dos fondos.", true);
       return;
     }
     correctionMode = correcting;
@@ -1076,6 +1129,7 @@
           opening_rent: M.cents(f.elements.opening_rent.value),
           note: f.elements.note.value.trim(),
         });
+        if (!initialEditing) $("#month").value = f.elements.start_month.value;
         initialEditing = false;
         toast("Saldos iniciales guardados.");
         await refresh();
