@@ -96,6 +96,7 @@
 
         <div id="admin-alert" class="admin-alert" hidden></div>
 
+        <a href="../tesoreria/" class="btn-secondary admin-only" style="display:inline-flex;margin-bottom:16px">Abrir Tesorería →</a>
         <nav class="admin-tabs" aria-label="Secciones del panel">
           <button type="button" class="admin-tab is-active" data-tab="anniversaries"><i class="bi bi-award"></i> Aniversarios</button>
           <button type="button" class="admin-tab" data-tab="contacts"><i class="bi bi-people"></i> Servidores y contactos</button>
@@ -204,8 +205,8 @@
               <form id="invite-form" class="admin-form">
                 <label class="field"><span>Nombre *</span><input type="text" id="invite-name" required maxlength="100"></label>
                 <label class="field"><span>Correo *</span><input type="email" id="invite-email" required></label>
-                <label class="field"><span>Nivel de acceso *</span><select id="invite-role"><option value="editor">Editor</option><option value="admin">Administrador</option></select></label>
-                <div class="role-help"><strong>Editor:</strong> aniversarios y contactos.<br><strong>Administrador:</strong> además administra usuarios.</div>
+                <label class="field"><span>Nivel de acceso *</span><select id="invite-role"><option value="editor">Editor</option><option value="admin">Administrador</option><option value="treasurer">Tesorería</option><option value="auditor">Revisión de Tesorería (solo lectura)</option></select></label>
+                <div class="role-help"><strong>Editor:</strong> aniversarios y contactos.<br><strong>Administrador:</strong> además administra usuarios y Tesorería.<br><strong>Tesorería:</strong> ingresos, gastos, comprobantes e informes.<br><strong>Revisión:</strong> consulta las cuentas sin modificarlas.</div>
                 <button type="submit" class="btn-primary"><i class="bi bi-send"></i> Enviar invitación</button>
               </form>
             </aside>
@@ -236,5 +237,6 @@
   <script src="admin.js"></script>
 </body>
 </html>
+
 
 

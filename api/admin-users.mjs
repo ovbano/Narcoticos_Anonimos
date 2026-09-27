@@ -91,7 +91,8 @@ export default async function handler(request) {
     if (action === 'invite') {
       const email = String(body.email || '').trim().toLowerCase();
       const displayName = String(body.displayName || '').trim();
-      const role = body.role === 'admin' ? 'admin' : 'editor';
+      const role = String(body.role || 'editor');
+      if (!['admin','editor','treasurer','auditor'].includes(role)) return json({ok:false,message:'Rol inválido.'},422);
       const redirectTo = String(body.redirectTo || '').trim();
 
       if (!email || !displayName) {
@@ -129,7 +130,10 @@ export default async function handler(request) {
       }
 
       const changes = { updated_at: new Date().toISOString() };
-      if (body.role !== undefined) changes.role = body.role === 'admin' ? 'admin' : 'editor';
+      if (body.role !== undefined) {
+        if (!['admin','editor','treasurer','auditor'].includes(body.role)) return json({ok:false,message:'Rol inválido.'},422);
+        changes.role = body.role;
+      }
       if (body.active !== undefined) changes.active = Boolean(body.active);
       if (body.displayName !== undefined && String(body.displayName).trim()) changes.display_name = String(body.displayName).trim();
 
@@ -145,3 +149,4 @@ export default async function handler(request) {
     return json({ ok: false, message: error?.message || 'Error interno.' }, Number(error?.status) || 500);
   }
 }
+

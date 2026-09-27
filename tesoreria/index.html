@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#0b2345" />
+    <title>Tesorería · Amigos Verdaderos</title>
+    <link rel="icon" href="../assets/img/favicon-amigos-verdaderos.png" />
+    <link rel="stylesheet" href="tesoreria.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="brand" href="../"
+        ><img
+          src="../assets/img/logo-amigos-verdaderos.png"
+          alt="Logo Amigos Verdaderos"
+        /><span
+          >AMIGOS VERDADEROS<small
+            >Unidad · Servicio · Recuperación</small
+          ></span
+        ></a
+      ><a class="home-link" href="../">Volver al grupo ↗</a>
+    </header>
+    <main>
+      <section id="auth-panel" class="auth-layout">
+        <div class="auth-copy">
+          <span class="eyebrow">SERVIMOS CON RESPONSABILIDAD</span>
+          <h1>Cuentas claras.<br /><em>Confianza compartida.</em></h1>
+          <p>
+            Un espacio de nuestro grupo para cuidar los fondos, guardar cada
+            comprobante y presentar las cuentas con claridad.
+          </p>
+          <span class="seal">TESORERÍA · ACCESO PRIVADO</span>
+        </div>
+        <div class="panel login-card">
+          <span class="eyebrow">BIENVENIDO A TU SERVICIO</span>
+          <h2>Iniciar sesión</h2>
+          <p>Ingresa con el acceso autorizado por nuestro grupo.</p>
+          <form id="login-form">
+            <label
+              >Correo electrónico<input
+                id="email"
+                type="email"
+                required
+                autocomplete="username" /></label
+            ><label
+              >Contraseña<input
+                id="password"
+                type="password"
+                required
+                autocomplete="current-password" /></label
+            ><button class="primary wide" type="submit">
+              Entrar a Tesorería →
+            </button>
+          </form>
+          <button class="text-button" id="recover">Olvidé mi contraseña</button>
+          <p id="auth-message" role="status"></p>
+        </div>
+      </section>
+      <section id="workspace" hidden>
+        <div class="workspace-title">
+          <div>
+            <span class="eyebrow">NUESTRO GRUPO · NUESTROS FONDOS</span>
+            <h1>Tesorería</h1>
+            <p id="welcome"></p>
+          </div>
+          <div class="header-actions">
+            <a href="../admin/" id="admin-link" hidden>Administración</a
+            ><button id="password-open" class="secondary">Contraseña</button
+            ><button id="logout" class="secondary">Salir</button>
+          </div>
+        </div>
+        <div id="network" class="notice" hidden>
+          Sin conexión. Conserva esta pantalla: puedes intentar guardar de nuevo
+          cuando vuelva internet. Una foto no está respaldada hasta ver
+          «Borrador guardado».
+        </div>
+        <nav class="tabs" aria-label="Tesorería">
+          <button data-tab="overview" aria-current="page">Resumen</button
+          ><button data-tab="movements">Movimientos</button
+          ><button data-tab="drafts">
+            Borradores <span id="draft-count">0</span></button
+          ><button data-tab="dues">Local</button
+          ><button data-tab="reports">Informes</button
+          ><button data-tab="guide">Guía</button>
+        </nav>
+        <div class="month-bar">
+          <label
+            >Mes de consulta<input id="month" type="month" required /></label
+          ><span id="period-status" class="badge"></span
+          ><button id="refresh" class="text-button">Actualizar ↻</button>
+        </div>
+        <section id="setup" class="panel" hidden>
+          <span class="eyebrow">ANTES DE EMPEZAR</span>
+          <h2>Un punto de partida verificado</h2>
+          <p>
+            Registra el dinero realmente disponible al comienzo del primer mes.
+            Los valores pendientes de cobro no son saldo disponible. Este saldo
+            se guarda una sola vez.
+          </p>
+          <form id="setup-form" class="form-grid">
+            <label
+              >Primer mes<input
+                name="start_month"
+                type="month"
+                required /></label
+            ><label
+              >Fondo general · USD<input
+                name="opening_general"
+                type="text"
+                inputmode="decimal"
+                required
+                placeholder="0,00" /></label
+            ><label
+              >Fondo del local · USD<input
+                name="opening_rent"
+                type="text"
+                inputmode="decimal"
+                required
+                placeholder="0,00" /></label
+            ><label class="full"
+              >Cómo se verificó el saldo<textarea
+                name="note"
+                required
+                minlength="5"
+                maxlength="1000"
+                placeholder="Fecha del conteo, revisión de efectivo y cuenta, responsables presentes…"
+              ></textarea></label
+            ><button class="primary" type="submit">
+              Confirmar saldo inicial
+            </button>
+          </form>
+        </section>
+        <section id="view-overview" data-view>
+          <div class="balance-hero">
+            <div>
+              <span class="eyebrow">SALDO AL FINAL DEL MES CONSULTADO</span>
+              <div id="balance" class="balance">—</div>
+              <p>
+                Dinero registrado. Compáralo con el efectivo y la cuenta del
+                grupo.
+              </p>
+            </div>
+            <div class="balance-details">
+              <div>
+                <span>Saldo inicial</span><strong id="opening">—</strong>
+              </div>
+              <div>
+                <span>Ingresos del mes</span><strong id="income">—</strong>
+              </div>
+              <div>
+                <span>Egresos del mes</span><strong id="expense">—</strong>
+              </div>
+            </div>
+          </div>
+          <div class="quick-actions">
+            <button class="action-card" data-new="income">
+              <span class="action-icon income">↙</span
+              ><span
+                ><strong>Registrar ingreso</strong
+                ><small>Séptima, aporte u otro ingreso</small></span
+              ><b>+</b></button
+            ><button class="action-card" data-new="expense">
+              <span class="action-icon expense">↗</span
+              ><span
+                ><strong>Registrar gasto</strong
+                ><small>Compras y pagos del grupo</small></span
+              ><b>+</b></button
+            ><button class="action-card capture" id="quick-photo">
+              <span class="action-icon">▣</span
+              ><span
+                ><strong>Foto y borrador</strong
+                ><small>Guarda ahora. Completa después.</small></span
+              ><b>+</b>
+            </button>
+          </div>
+          <div id="fund-cards" class="two-columns"></div>
+          <div id="alerts"></div>
+          <div class="section-heading">
+            <h2>Últimos movimientos del mes</h2>
+            <button class="text-button" data-tab="movements">
+              Ver todos →
+            </button>
+          </div>
+          <div id="recent-list" class="entry-list"></div>
+        </section>
+        <section id="view-movements" data-view hidden>
+          <div class="section-heading">
+            <div>
+              <h2>Cada movimiento cuenta</h2>
+              <p>
+                Los registros confirmados se conservan. Las correcciones se
+                hacen con una anulación y un nuevo registro.
+              </p>
+            </div>
+            <button class="primary" data-new="expense">+ Registrar</button>
+          </div>
+          <div class="filters">
+            <label
+              >Buscar<input
+                id="search"
+                type="search"
+                placeholder="Concepto o compañero" /></label
+            ><label
+              >Tipo<select id="filter-kind">
+                <option value="">Todos</option>
+                <option value="income">Ingresos</option>
+                <option value="expense">Egresos</option>
+              </select></label
+            >
+          </div>
+          <div id="movement-list" class="entry-list"></div>
+        </section>
+        <section id="view-drafts" data-view hidden>
+          <div class="section-heading">
+            <div>
+              <h2>Tu bandeja de pendientes</h2>
+              <p>
+                Todos los borradores, incluso de otros meses. Todavía no afectan
+                el saldo.
+              </p>
+            </div>
+            <button id="draft-new" class="primary">+ Borrador</button>
+          </div>
+          <div id="draft-list" class="entry-list"></div>
+        </section>
+        <section id="view-dues" data-view hidden>
+          <div class="section-heading">
+            <div>
+              <h2>Aportes para nuestro local</h2>
+              <p>
+                Referencia mensual de $12. Los abonos se registran una sola vez
+                y se asignan al mes que corresponda.
+              </p>
+            </div>
+            <button id="member-new" class="primary">+ Compañero</button>
+          </div>
+          <div id="dues-summary" class="notice"></div>
+          <div id="dues-list" class="dues-grid"></div>
+          <details class="panel">
+            <summary>Compañeros registrados</summary>
+            <div id="member-list"></div>
+          </details>
+        </section>
+        <section id="view-reports" data-view hidden>
+          <div class="report-layout">
+            <div class="panel">
+              <span class="eyebrow">CLARIDAD PARA COMPARTIR</span>
+              <h2>Informe mensual</h2>
+              <p>
+                Logo de nuestro grupo, resumen por fondo, ingresos y egresos,
+                detalle de movimientos y observaciones del cierre.
+              </p>
+              <label class="check"
+                ><input id="include-dues" type="checkbox" /> Incluir anexo
+                individual de aportes</label
+              >
+              <div class="button-row">
+                <button id="download-pdf" class="primary">
+                  Descargar PDF ↓</button
+                ><button id="print-report" class="secondary">Imprimir</button>
+              </div>
+              <p class="muted">
+                Un mes abierto se identifica como informe provisional.
+                Borradores y registros anulados no suman al saldo.
+              </p>
+            </div>
+            <div class="panel">
+              <span class="eyebrow">REVISIÓN DEL MES</span>
+              <h2>Conciliar y cerrar</h2>
+              <div id="closure-info"></div>
+              <form id="close-form">
+                <label
+                  >Dinero contado · USD<input
+                    name="counted"
+                    inputmode="decimal"
+                    required
+                    placeholder="Efectivo + saldo de la cuenta" /></label
+                ><label
+                  >Observaciones<textarea
+                    name="note"
+                    maxlength="2000"
+                    placeholder="Explica diferencias y anota la revisión realizada."
+                  ></textarea></label
+                ><button class="primary" type="submit">
+                  Revisar y cerrar mes
+                </button>
+              </form>
+              <button id="reopen" class="secondary" hidden>
+                Reabrir último mes cerrado
+              </button>
+            </div>
+          </div>
+          <details class="panel">
+            <summary>Historial de cambios</summary>
+            <p>
+              Quién hizo cada operación y cuándo. Conserva los valores
+              anteriores y nuevos.
+            </p>
+            <div id="audit-list"></div>
+            <button id="audit-more" class="secondary">Cargar más</button>
+          </details>
+        </section>
+        <section id="view-guide" data-view hidden>
+          <article id="guide-content" class="panel guide">
+            <span class="eyebrow">GUÍA DEL SERVICIO</span>
+            <h2>De la reunión al informe, paso a paso.</h2>
+            <ol>
+              <li>
+                <strong>Empieza con un saldo verificado.</strong> El
+                administrador registra el primer mes y el dinero disponible por
+                fondo. No se cargan automáticamente cifras de informes
+                anteriores.
+              </li>
+              <li>
+                <strong>Registra la séptima.</strong> Pulsa «Registrar ingreso»,
+                selecciona Séptima tradición y escribe el total recogido en la
+                reunión. No necesitas nombres de donantes.
+              </li>
+              <li>
+                <strong>Controla el aporte para el local.</strong> Registra al
+                compañero con su nombre e inicial. Pulsa «Registrar abono» y
+                elige el mes al que corresponde. Para varios meses, registra un
+                movimiento por mes.
+              </li>
+              <li>
+                <strong>¿Tienes prisa?</strong> Pulsa «Foto y borrador», toma o
+                elige una foto y guarda. Espera el mensaje «Borrador guardado».
+                Después completa fecha, monto y concepto en Borradores y
+                confirma. Necesitas conexión para respaldarlo; si falla, la
+                pantalla conserva lo que escribiste para reintentar.
+              </li>
+              <li>
+                <strong>Registra cada gasto.</strong> Selecciona su categoría y
+                el fondo del que salió el dinero. Adjunta el comprobante o
+                explica su ausencia. La aplicación no inventa valores a partir
+                de una foto.
+              </li>
+              <li>
+                <strong>Corrige sin borrar el rastro.</strong> Un borrador se
+                puede editar o descartar. Un registro confirmado se anula con un
+                motivo y se crea de nuevo correctamente. El historial conserva
+                ambas operaciones.
+              </li>
+              <li>
+                <strong>Revisa el mes.</strong> Completa los borradores, cuenta
+                el efectivo y revisa la cuenta. En Informes, compara el dinero
+                contado con el saldo registrado. Las diferencias quedan
+                visibles; no se ajustan automáticamente.
+              </li>
+              <li>
+                <strong>Cierra y comparte.</strong> Cuando termine el mes,
+                ciérralo y descarga el PDF. Se cierran en orden; solo el
+                administrador puede reabrir el último, dejando un motivo. El
+                saldo se arrastra al siguiente mes.
+              </li>
+            </ol>
+            <h3>Cuida tu acceso</h3>
+            <p>
+              No compartas tu contraseña. Cierra sesión al terminar en un
+              teléfono prestado. Los comprobantes son privados. La persona con
+              permiso de revisión puede consultar y descargar informes, pero no
+              modificar registros.
+            </p>
+            <h3>Si cambia la persona encargada</h3>
+            <p>
+              El administrador invita a la nueva servidora y desactiva el acceso
+              anterior desde Administración → Usuarios. Los registros y
+              comprobantes permanecen en el grupo.
+            </p>
+            <button id="print-guide" class="secondary">
+              Imprimir guía / Guardar como PDF
+            </button>
+          </article>
+        </section>
+      </section>
+    </main>
+    <dialog id="entry-dialog">
+      <form id="entry-form">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">REGISTRO DEL GRUPO</span>
+            <h2 id="entry-title">Nuevo movimiento</h2>
+          </div>
+          <button
+            type="button"
+            data-close="entry-dialog"
+            class="close"
+            aria-label="Cerrar"
+          >
+            ×
+          </button>
+        </div>
+        <div class="form-grid">
+          <label
+            >Tipo<select name="kind">
+              <option value="income">Ingreso</option>
+              <option value="expense">Egreso</option>
+            </select></label
+          ><label>Fecha<input name="entry_date" type="date" required /></label
+          ><label>Categoría<select name="category"></select></label
+          ><label
+            >Fondo<select name="fund">
+              <option value="general">Fondo general</option>
+              <option value="rent">Fondo del local</option>
+            </select></label
+          ><label class="amount-field"
+            >Monto · USD<input
+              name="amount"
+              inputmode="decimal"
+              placeholder="0,00"
+              autocomplete="off" /></label
+          ><label
+            >Concepto<input
+              name="description"
+              maxlength="500"
+              placeholder="¿Qué recibimos o pagamos?" /></label
+          ><label class="rent-field" hidden
+            >Compañero<select name="member_id">
+              <option value="">Seleccionar</option>
+            </select></label
+          ><label class="rent-field" hidden
+            >Mes del aporte<input name="due_month" type="month"
+          /></label>
+          <div class="full receipt-box">
+            <span class="eyebrow">COMPROBANTE OPCIONAL EN BORRADOR</span>
+            <p id="receipt-label">
+              Toma una foto o adjunta un archivo. Máximo 10 MB.
+            </p>
+            <div class="button-row">
+              <label class="secondary file-button"
+                >Tomar foto<input
+                  id="camera"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  capture="environment"
+                  hidden /></label
+              ><label class="secondary file-button"
+                >Adjuntar archivo<input
+                  id="attachment"
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,application/pdf"
+                  hidden /></label
+              ><button
+                id="view-receipt"
+                type="button"
+                class="text-button"
+                hidden
+              >
+                Ver comprobante ↗
+              </button>
+            </div>
+            <img
+              id="receipt-preview"
+              alt="Vista previa del comprobante"
+              hidden
+            />
+          </div>
+          <label class="full"
+            >Si no hay comprobante, explica el motivo<textarea
+              name="no_receipt_reason"
+              maxlength="500"
+              placeholder="Obligatorio al confirmar un gasto sin comprobante."
+            ></textarea>
+          </label>
+        </div>
+        <p id="entry-message" role="status"></p>
+        <div class="dialog-actions">
+          <button id="save-draft" type="button" class="secondary">
+            Guardar borrador</button
+          ><button id="post-entry" type="submit" class="primary">
+            Confirmar movimiento
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="member-dialog">
+      <form id="member-form">
+        <div class="dialog-heading">
+          <h2>Compañero y aporte</h2>
+          <button
+            type="button"
+            data-close="member-dialog"
+            class="close"
+            aria-label="Cerrar"
+          >
+            ×
+          </button>
+        </div>
+        <label
+          >Nombre e inicial<input
+            name="name"
+            required
+            minlength="2"
+            maxlength="80"
+            placeholder="Ej. Juan A." /></label
+        ><label
+          >Primer mes de aportes<input
+            name="start_month"
+            type="month"
+            required /></label
+        ><label
+          >Aporte mensual · USD<input
+            name="monthly"
+            inputmode="decimal"
+            value="12,00"
+            required /></label
+        ><label
+          >Último mes, si deja de aportar<input name="end_month" type="month"
+        /></label>
+        <p class="muted">
+          Con movimientos registrados se conserva el nombre, el inicio y la
+          cuota para proteger el historial.
+        </p>
+        <button type="submit" class="primary wide">Guardar compañero</button>
+      </form>
+    </dialog>
+    <dialog id="password-dialog">
+      <form id="password-form">
+        <div class="dialog-heading">
+          <h2>Tu contraseña</h2>
+          <button
+            type="button"
+            data-close="password-dialog"
+            class="close"
+            aria-label="Cerrar"
+          >
+            ×
+          </button>
+        </div>
+        <label
+          >Nueva contraseña<input
+            name="new_password"
+            type="password"
+            minlength="12"
+            required
+            autocomplete="new-password" /></label
+        ><label
+          >Repite la contraseña<input
+            name="confirm_password"
+            type="password"
+            minlength="12"
+            required
+            autocomplete="new-password"
+        /></label>
+        <p>Usa al menos 12 caracteres.</p>
+        <button type="submit" class="primary wide">Guardar contraseña</button>
+      </form>
+    </dialog>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+    <footer class="page-footer">
+      AMIGOS VERDADEROS <span>Un servicio de confianza.</span>
+    </footer>
+    <div id="print-area"></div>
+    <script src="../assets/vendor/supabase/supabase.js"></script>
+    <script src="../assets/js/supabase-config.js"></script>
+    <script src="../assets/vendor/jspdf/jspdf.umd.min.js"></script>
+    <script src="../assets/vendor/jspdf/fonts.js"></script>
+    <script src="model.js"></script>
+    <script src="report.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
