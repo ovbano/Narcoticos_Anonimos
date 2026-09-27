@@ -358,7 +358,7 @@
       field("member_id").value = payment;
       field("description").value = "Aporte para el local";
     }
-    categoryChanged();
+    populateCompanions();
     const editable =
       writable() && (!entry || entry.status === "draft" || correcting);
     for (const el of form.querySelectorAll("input,select,textarea"))
@@ -536,38 +536,134 @@
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase();
-  function populateCompanions() {
-    const selected = field("member_id").value,
-      query = normalized($("#member-search").value);
-    const choices = [
+  let paymentPicker, sourcePicker;
+  function paymentChoices() {
+    return [
       ...members.map((m) => ({ value: m.id, name: m.name })),
       ...companions
         .filter((c) => !members.some((m) => m.source_anniversary_id === c.id))
         .map((c) => ({ value: "source:" + c.id, name: c.name })),
     ];
-    field("member_id").innerHTML =
-      '<option value="">Selecciona un compañero</option>' +
-      choices
-        .filter(
-          (c) => c.value === selected || normalized(c.name).includes(query),
-        )
-        .map(
-          (c) => `<option value="${M.esc(c.value)}">${M.esc(c.name)}</option>`,
-        )
-        .join("");
-    field("member_id").value = selected;
+  }
+  function sourceChoices() {
+    const choices = companions
+      .filter(
+        (c) =>
+          !members.some(
+            (m) =>
+              m.source_anniversary_id === c.id && m.id !== activeMember?.id,
+          ),
+      )
+      .map((c) => ({ value: c.id, name: c.name }));
+    if (activeMember && !activeMember.source_anniversary_id)
+      choices.unshift({
+        value: "existing:" + activeMember.id,
+        name: activeMember.name,
+      });
+    return choices;
+  }
+  function picker(rootId, inputId, optionsId, choices, choose) {
+    const root = $(rootId),
+      input = $(inputId),
+      list = $(optionsId);
+    let selected = null,
+      matches = [],
+      index = -1;
+    const close = () => {
+      list.hidden = true;
+      input.setAttribute("aria-expanded", "false");
+      input.removeAttribute("aria-activedescendant");
+    };
+    function render(all = false) {
+      if (input.disabled) return;
+      matches = choices().filter(
+        (c) => all || normalized(c.name).includes(normalized(input.value)),
+      );
+      index = -1;
+      list.innerHTML =
+        matches
+          .map(
+            (c, i) =>
+              `<div role="option" id="${list.id}-${i}" data-option="${i}" aria-selected="${selected?.value === c.value}"><span class="picker-avatar" aria-hidden="true">${M.esc(c.name.trim().slice(0, 1))}</span><span>${M.esc(c.name)}</span><span class="picker-check" aria-hidden="true">${selected?.value === c.value ? "✓" : "+"}</span></div>`,
+          )
+          .join("") ||
+        '<p class="picker-empty">No hay coincidencias. Revisa el nombre o pide al administrador que lo registre.</p>';
+      list.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+    }
+    function select(c) {
+      selected = c;
+      input.value = c?.name || "";
+      input.setCustomValidity("");
+      choose(c);
+      close();
+    }
+    input.addEventListener("focus", () => render(!!selected));
+    input.addEventListener("click", () => render(!!selected));
+    input.addEventListener("input", () => {
+      selected = null;
+      choose(null);
+      input.setCustomValidity(
+        input.value ? "Elige un compañero de los resultados." : "",
+      );
+      render();
+    });
+    list.addEventListener("mousedown", (e) => e.preventDefault());
+    list.addEventListener("click", (e) => {
+      const option = e.target.closest("[data-option]");
+      if (option) {
+        select(matches[Number(option.dataset.option)]);
+        input.focus();
+        close();
+      }
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !list.hidden) {
+        e.preventDefault();
+        e.stopPropagation();
+        close();
+        return;
+      }
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        if (list.hidden) render(!!selected);
+        if (!matches.length) return;
+        index =
+          (index + (e.key === "ArrowDown" ? 1 : -1) + matches.length) %
+          matches.length;
+        list
+          .querySelectorAll('[role="option"]')
+          .forEach((el, i) => el.classList.toggle("highlighted", i === index));
+        const option = list.children[index];
+        input.setAttribute("aria-activedescendant", option.id);
+        option.scrollIntoView({ block: "nearest" });
+      }
+      if (e.key === "Enter" && !list.hidden) {
+        e.preventDefault();
+        if (index >= 0) select(matches[index]);
+        else if (matches.length === 1) select(matches[0]);
+      }
+    });
+    root.addEventListener("focusout", () =>
+      setTimeout(() => {
+        if (!root.contains(document.activeElement)) close();
+      }, 0),
+    );
+    return {
+      set(value) {
+        selected = choices().find((c) => c.value === value) || null;
+        input.value = selected?.name || "";
+        input.setCustomValidity("");
+        close();
+      },
+      close,
+    };
+  }
+  function populateCompanions() {
+    paymentPicker?.set(field("member_id").value);
   }
   function populateSource() {
-    const f = $("#member-form"),
-      selected = f.elements.source_anniversary_id.value,
-      q = normalized($("#source-member-search").value);
-    f.elements.source_anniversary_id.innerHTML =
-      '<option value="">Registro manual / compañero nuevo</option>' +
-      companions
-        .filter((c) => c.id === selected || normalized(c.name).includes(q))
-        .map((c) => `<option value="${M.esc(c.id)}">${M.esc(c.name)}</option>`)
-        .join("");
-    f.elements.source_anniversary_id.value = selected;
+    sourcePicker?.set($("#member-form").elements.source_anniversary_id.value);
   }
   function openMember(id) {
     activeMember = members.find((m) => m.id === id) || null;
@@ -584,6 +680,10 @@
     f.elements.monthly.value = (
       (activeMember?.monthly_cents ?? 1200) / 100
     ).toFixed(2);
+    sourcePicker.set(
+      activeMember?.source_anniversary_id ||
+        (activeMember ? "existing:" + activeMember.id : ""),
+    );
     $("#member-dialog").showModal();
   }
   function auditSummary(data) {
@@ -878,6 +978,8 @@
       e.preventDefault();
       busy(e.submitter, async () => {
         const f = e.target;
+        if (!f.elements.name.value)
+          throw Error("Selecciona un compañero del registro.");
         await cmd("member", {
           id: activeMember?.id,
           source_anniversary_id: f.elements.source_anniversary_id.value || null,
@@ -908,14 +1010,31 @@
       }
     };
     $("#setup-form").addEventListener("input", initialTotal);
-    $("#member-search").oninput = populateCompanions;
-    $("#source-member-search").oninput = populateSource;
-    $("#member-form").elements.source_anniversary_id.onchange = () => {
-      const c = companions.find(
-        (x) => x.id === $("#member-form").elements.source_anniversary_id.value,
-      );
-      if (c) $("#member-form").elements.name.value = c.name;
-    };
+    paymentPicker = picker(
+      "#payment-picker",
+      "#member-search",
+      "#payment-options",
+      paymentChoices,
+      (c) => {
+        field("member_id").value = c?.value || "";
+        dirty = true;
+      },
+    );
+    sourcePicker = picker(
+      "#source-picker",
+      "#source-member-search",
+      "#source-options",
+      sourceChoices,
+      (c) => {
+        const f = $("#member-form");
+        f.elements.source_anniversary_id.value = c?.value.startsWith(
+          "existing:",
+        )
+          ? ""
+          : c?.value || "";
+        f.elements.name.value = c?.name || "";
+      },
+    );
     $("#audit-filter").onclick = () =>
       busy($("#audit-filter"), () => loadAudit(true));
     $("#edit-initial").onclick = () => {

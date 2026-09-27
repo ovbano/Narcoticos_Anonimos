@@ -3,7 +3,10 @@ const { test } = require("node:test"),
   fs = require("node:fs");
 const source = fs
   .readFileSync(
-    require("node:path").join(__dirname, "../api/admin-users.mjs"),
+    require("node:path").join(
+      __dirname,
+      "../supabase/functions/admin-users/handler.mjs",
+    ),
     "utf8",
   )
   .replace(
@@ -72,7 +75,7 @@ test("GET uses authorized list and returns a Node JSON response", async () => {
   process.env.SUPABASE_PUBLISHABLE_KEY = "test";
   const f = factory(),
     res = response();
-  await (await modulePromise).makeHandler(f.client)(
+  await (await modulePromise).makeHandler(f.client, process.env)(
     { method: "GET", headers: { authorization: "Bearer test" } },
     res,
   );
@@ -87,7 +90,7 @@ test("treasurer and inactive admin cannot provision accounts", async () => {
   ]) {
     const f = factory(role, active),
       res = response();
-    await (await modulePromise).makeHandler(f.client)(
+    await (await modulePromise).makeHandler(f.client, process.env)(
       {
         method: "POST",
         headers: { authorization: "Bearer test" },
@@ -110,7 +113,7 @@ test("create delivers password only to Auth, not response/audit", async () => {
     role: "treasurer",
     password: "Long-QA-Password-123",
   };
-  await (await modulePromise).makeHandler(f.client)(
+  await (await modulePromise).makeHandler(f.client, process.env)(
     { method: "POST", headers: { authorization: "Bearer test" }, body },
     res,
   );
@@ -124,7 +127,7 @@ test("invalid request and missing provisioning secret respond with clear error",
   delete process.env.SUPABASE_SECRET_KEY;
   const f = factory(),
     res = response();
-  await (await modulePromise).makeHandler(f.client)(
+  await (await modulePromise).makeHandler(f.client, process.env)(
     {
       method: "POST",
       headers: { authorization: "Bearer test" },

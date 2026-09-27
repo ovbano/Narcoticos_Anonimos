@@ -106,7 +106,10 @@ const fixture = () => {
         return { data: {} };
       },
       onAuthStateChange: () => ({}),
-      updateUser: async () => { S.passwordChanges=(S.passwordChanges||0)+1; return {data:{user}}; },
+      updateUser: async () => {
+        S.passwordChanges = (S.passwordChanges || 0) + 1;
+        return { data: { user } };
+      },
       resetPasswordForEmail: async () => ({ data: {} }),
     },
     from(table) {
@@ -326,17 +329,59 @@ const fixture = () => {
     await page.locator('[data-new="income"]').first().click();
     await page.locator('[name="category"]').selectOption("rent_contribution");
     await page.locator("#member-search").fill("perez");
-    assert(
-      await page
-        .locator('[name="member_id"] option')
-        .filter({ hasText: "Ana Pérez QA" })
-        .count(),
+    await page
+      .locator('#payment-options [role="option"]')
+      .filter({ hasText: "Ana Pérez QA" })
+      .click();
+    assert.equal(
+      await page.locator('[name="member_id"]').inputValue(),
+      "source:source-1",
     );
-    await page.locator('[name="member_id"]').selectOption("source:source-1");
+    assert.equal(
+      await page.locator("#member-search").inputValue(),
+      "Ana Pérez QA",
+    );
     page.once("dialog", (d) => d.accept());
     await page.locator('[data-close="entry-dialog"]').click();
     await page.locator('.tabs [data-tab="dues"]').click();
-    await page.locator("[data-payment]").click();
+    await page.locator("#member-new").click();
+    assert.equal(
+      await page
+        .locator('#member-form input[name="name"]')
+        .getAttribute("type"),
+      "hidden",
+    );
+    await page.locator("#source-member-search").fill("sin coincidencias");
+    await page.locator("#source-options .picker-empty").waitFor();
+    await page.locator("#source-member-search").fill("perez");
+    await page.locator("#source-member-search").press("ArrowDown");
+    await page.locator("#source-member-search").press("Enter");
+    assert.equal(
+      await page.locator('#member-form [name="name"]').inputValue(),
+      "Ana Pérez QA",
+    );
+    assert.equal(
+      await page
+        .locator('#member-form [name="source_anniversary_id"]')
+        .inputValue(),
+      "source-1",
+    );
+    await page.screenshot({
+      path: path.join(out, "member-mobile.png"),
+      fullPage: true,
+    });
+    await page.locator('#member-form button[type="submit"]').click();
+    await page.locator("#member-dialog").waitFor({ state: "hidden" });
+    assert.equal(
+      await page.evaluate(
+        () =>
+          window.__fixture.members.filter(
+            (m) => m.source_anniversary_id === "source-1",
+          ).length,
+      ),
+      1,
+    );
+    await page.locator('[data-payment="member-1"]').click();
     await page.locator('[name="entry_date"]').fill("2026-09-15");
     await page.locator('[name="amount"]').fill("6");
     await page.locator("#post-entry").click();
@@ -375,12 +420,15 @@ const fixture = () => {
       printBackground: true,
     });
     await page.emulateMedia({ media: "screen" });
-    for (const password of ["QA-password-first-2026", "QA-password-second-2026"]) {
+    for (const password of [
+      "QA-password-first-2026",
+      "QA-password-second-2026",
+    ]) {
       await page.locator("#password-open").click();
       await page.locator('[name="new_password"]').fill(password);
       await page.locator('[name="confirm_password"]').fill(password);
       await page.locator('#password-form button[type="submit"]').click();
-      await page.locator("#password-dialog").waitFor({state:"hidden"});
+      await page.locator("#password-dialog").waitFor({ state: "hidden" });
     }
     await page.addInitScript(() => (window.__qaRole = "auditor"));
     await page.reload();
