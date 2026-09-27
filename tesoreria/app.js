@@ -20,6 +20,10 @@
     saving = false,
     dirty = false,
     refreshToken = 0;
+  let companions = [],
+    accessUsers = [],
+    correctionMode = false,
+    initialEditing = false;
   const writable = () =>
     profile && ["admin", "treasurer"].includes(profile.role);
   const form = $("#entry-form"),
@@ -127,6 +131,17 @@
     $$("[data-new],#quick-photo,#draft-new,#member-new").forEach(
       (b) => (b.hidden = !writable()),
     );
+    companions = await result(db.rpc("treasury_companions"));
+    accessUsers =
+      profile.role === "admin" ? await result(db.rpc("admin_list_users")) : [];
+    $("#audit-user").innerHTML =
+      '<option value="">Todos los usuarios</option>' +
+      accessUsers
+        .map(
+          (u) =>
+            `<option value="${M.esc(u.id)}">${M.esc(u.profile?.display_name || u.email)}${u.profile?.active === false ? " · Inactivo" : ""}</option>`,
+        )
+        .join("");
     await refresh();
   }
   async function all(table, configure = (q) => q) {
@@ -154,7 +169,9 @@
     settings = s;
     members = mem;
     drafts = dr;
-    $("#setup").hidden = !!settings || profile.role !== "admin";
+    $("#setup").hidden =
+      (!!settings && !initialEditing) || profile.role !== "admin";
+    $("#edit-initial").hidden = profile.role !== "admin" || !settings;
     if (!settings) {
       report = null;
       $("#close-form").hidden = true;
@@ -295,11 +312,17 @@
       cat,
     );
   }
-  function openEntry(kind = "expense", entry = null, payment = null) {
+  function openEntry(
+    kind = "expense",
+    entry = null,
+    payment = null,
+    correcting = false,
+  ) {
     if (!settings) {
       toast("Primero configura el saldo inicial.", true);
       return;
     }
+    correctionMode = correcting;
     activeEntry = entry
       ? { ...entry }
       : { id: crypto.randomUUID(), version: 0 };
@@ -317,11 +340,8 @@
     field("entry_date").min = settings.start_month;
     field("entry_date").max = M.today();
     categories();
-    field("member_id").innerHTML =
-      '<option value="">Seleccionar</option>' +
-      members
-        .map((m) => `<option value="${M.esc(m.id)}">${M.esc(m.name)}</option>`)
-        .join("");
+    $("#member-search").value = "";
+    populateCompanions();
     field("due_month").value =
       entry?.due_month?.slice(0, 7) || $("#month").value;
     field("amount").value =
@@ -339,33 +359,41 @@
       field("description").value = "Aporte para el local";
     }
     categoryChanged();
-    const editable = writable() && (!entry || entry.status === "draft");
+    const editable =
+      writable() && (!entry || entry.status === "draft" || correcting);
     for (const el of form.querySelectorAll("input,select,textarea"))
       el.disabled = !editable;
     categoryChanged();
     if (!editable) field("fund").disabled = true;
-    $("#save-draft").hidden = $("#post-entry").hidden = !editable;
+    $("#save-draft").hidden = !editable || correcting;
+    $("#post-entry").hidden = !editable;
+    $("#post-entry").textContent = correcting
+      ? "Guardar corrección"
+      : "Confirmar movimiento";
+    $("#correction-reason-field").hidden = !correcting;
+    field("correction_reason").required = correcting;
     $("#entry-title").textContent =
       entry?.status === "void"
         ? "Movimiento anulado"
         : entry?.status === "posted"
-          ? "Movimiento confirmado"
+          ? correcting
+            ? "Corregir datos"
+            : "Movimiento confirmado"
           : entry
             ? "Completar borrador"
             : "Nuevo movimiento";
     $("#receipt-label").textContent = uploadedPath
-      ? "Comprobante guardado. Se conserva el original."
+      ? "Comprobante guardado. Si adjuntas otro, el anterior quedará en el historial."
       : "Toma una foto o adjunta un archivo. Máximo 10 MB.";
     $("#view-receipt").hidden = !uploadedPath;
-    $("#camera").disabled = $("#attachment").disabled =
-      !editable || !!uploadedPath;
+    $("#camera").disabled = $("#attachment").disabled = !editable;
     $("#entry-form .record-actions")?.remove();
     if (entry && writable()) {
       const box = document.createElement("div");
       box.className = "record-actions";
       if (entry.status === "posted")
         box.innerHTML =
-          '<button type="button" class="text-button" id="void-entry">Anular con motivo</button>';
+          '<button type="button" class="secondary" id="correct-entry">Corregir datos</button><button type="button" class="text-button" id="void-entry">Anular con motivo</button>';
       if (entry.status === "draft")
         box.innerHTML =
           '<button type="button" class="text-button" id="discard-entry">Descartar borrador</button>';
@@ -388,6 +416,8 @@
       return;
     }
     selectedFile = file;
+    uploadedPath = null;
+    $("#view-receipt").hidden = true;
     dirty = true;
     $("#receipt-label").textContent = file.name + " · Pendiente de guardar";
     if (previewURL) URL.revokeObjectURL(previewURL);
@@ -432,12 +462,10 @@
         }[selectedFile.type];
         const path = activeEntry.id + "/" + crypto.randomUUID() + "." + ext;
         await result(
-          db.storage
-            .from("treasury-receipts")
-            .upload(path, selectedFile, {
-              contentType: selectedFile.type,
-              upsert: false,
-            }),
+          db.storage.from("treasury-receipts").upload(path, selectedFile, {
+            contentType: selectedFile.type,
+            upsert: false,
+          }),
         );
         uploadedPath = path;
       }
@@ -463,14 +491,22 @@
         receipt_path: uploadedPath,
         no_receipt_reason: field("no_receipt_reason").value.trim(),
       };
-      const data = await cmd("save", payload);
+      if (field("member_id").value.startsWith("source:")) {
+        payload.source_anniversary_id = field("member_id").value.slice(7);
+        payload.member_id = null;
+      }
+      if (correctionMode)
+        payload.reason = field("correction_reason").value.trim();
+      const data = await cmd(correctionMode ? "correct" : "save", payload);
       activeEntry = data.record;
       dirty = false;
       $("#entry-dialog").close();
       toast(
-        post
-          ? "Movimiento confirmado."
-          : "Borrador guardado. Puedes completarlo después.",
+        correctionMode
+          ? "Corrección guardada. El historial conserva el dato anterior."
+          : post
+            ? "Movimiento confirmado."
+            : "Borrador guardado. Puedes completarlo después.",
       );
       await refresh();
     } catch (e) {
@@ -482,23 +518,65 @@
       $("#save-draft").disabled = $("#post-entry").disabled = false;
     }
   }
-  async function receipt() {
-    if (!uploadedPath) return;
+  async function receipt(path = uploadedPath) {
+    if (!path) return;
     const blob = await result(
-      db.storage.from("treasury-receipts").download(uploadedPath),
+      db.storage.from("treasury-receipts").download(path),
     );
     const url = URL.createObjectURL(blob),
       a = document.createElement("a");
     a.href = url;
     a.download =
-      "Comprobante_" + activeEntry.id + "." + uploadedPath.split(".").pop();
+      "Comprobante_" + path.split("/")[0] + "." + path.split(".").pop();
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+  const normalized = (value) =>
+    String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  function populateCompanions() {
+    const selected = field("member_id").value,
+      query = normalized($("#member-search").value);
+    const choices = [
+      ...members.map((m) => ({ value: m.id, name: m.name })),
+      ...companions
+        .filter((c) => !members.some((m) => m.source_anniversary_id === c.id))
+        .map((c) => ({ value: "source:" + c.id, name: c.name })),
+    ];
+    field("member_id").innerHTML =
+      '<option value="">Selecciona un compañero</option>' +
+      choices
+        .filter(
+          (c) => c.value === selected || normalized(c.name).includes(query),
+        )
+        .map(
+          (c) => `<option value="${M.esc(c.value)}">${M.esc(c.name)}</option>`,
+        )
+        .join("");
+    field("member_id").value = selected;
+  }
+  function populateSource() {
+    const f = $("#member-form"),
+      selected = f.elements.source_anniversary_id.value,
+      q = normalized($("#source-member-search").value);
+    f.elements.source_anniversary_id.innerHTML =
+      '<option value="">Registro manual / compañero nuevo</option>' +
+      companions
+        .filter((c) => c.id === selected || normalized(c.name).includes(q))
+        .map((c) => `<option value="${M.esc(c.id)}">${M.esc(c.name)}</option>`)
+        .join("");
+    f.elements.source_anniversary_id.value = selected;
   }
   function openMember(id) {
     activeMember = members.find((m) => m.id === id) || null;
     const f = $("#member-form");
     f.reset();
+    $("#source-member-search").value = "";
+    populateSource();
+    f.elements.source_anniversary_id.value =
+      activeMember?.source_anniversary_id || "";
     f.elements.name.value = activeMember?.name || "";
     f.elements.start_month.value =
       activeMember?.start_month.slice(0, 7) || $("#month").value;
@@ -541,6 +619,25 @@
       ["reason", "Motivo", String],
       ["note", "Observaciones", String],
       ["closed_name", "Responsable del cierre", String],
+      ["display_name", "Usuario", String],
+      [
+        "role",
+        "Permiso",
+        (v) =>
+          ({
+            admin: "Administrador",
+            treasurer: "Tesorería",
+            auditor: "Solo consulta",
+            editor: "Editor",
+          })[v] || v,
+      ],
+      ["active", "Estado del acceso", (v) => (v ? "Activo" : "Inactivo")],
+      ["format", "Formato", (v) => (v === "pdf" ? "PDF" : "Impresión")],
+      [
+        "include_dues",
+        "Anexo de aportes",
+        (v) => (v ? "Incluido" : "No incluido"),
+      ],
     ];
     return (
       fields
@@ -558,19 +655,35 @@
       auditOffset = 0;
       audit = [];
     }
-    const rows = await result(
-      db
-        .from("treasury_audit")
-        .select("*")
-        .order("id", { ascending: false })
-        .range(auditOffset, auditOffset + 29),
-    );
+    let query = db
+      .from("treasury_audit")
+      .select("*")
+      .order("id", { ascending: false });
+    if ($("#audit-user").value)
+      query = query.eq("actor", $("#audit-user").value);
+    if ($("#audit-action").value)
+      query = query.eq("action", $("#audit-action").value);
+    if ($("#audit-from").value)
+      query = query.gte(
+        "happened_at",
+        $("#audit-from").value + "T00:00:00-05:00",
+      );
+    if ($("#audit-to").value)
+      query = query.lte(
+        "happened_at",
+        $("#audit-to").value + "T23:59:59.999999-05:00",
+      );
+    const rows = await result(query.range(auditOffset, auditOffset + 29));
     if (!user || user.id !== owner) return;
     audit.push(...rows);
     auditOffset += rows.length;
     $("#audit-more").hidden = rows.length < 30;
     const names = {
       setup: "Saldo inicial registrado",
+      initial_update: "Saldos iniciales corregidos",
+      correct: "Movimiento corregido",
+      access_update: "Acceso de usuario actualizado",
+      report_prepared: "Informe preparado",
       save: "Registro guardado / confirmado",
       void: "Movimiento anulado",
       discard: "Borrador descartado",
@@ -582,14 +695,28 @@
       audit
         .map(
           (a) =>
-            `<details class="audit-row"><summary>${M.esc(names[a.action] || a.action)} · ${M.esc(a.actor_name)}<br><small>${M.esc(new Date(a.happened_at).toLocaleString("es-EC", { timeZone: "America/Guayaquil" }))}</small></summary><pre>${M.esc("ANTES\n" + auditSummary(a.before_data) + "\n\nDESPUÉS\n" + auditSummary(a.after_data))}</pre></details>`,
+            `<details class="audit-row"><summary>${M.esc(names[a.action] || a.action)} <span class="badge">${M.esc(a.actor_name)}</span>${a.action === "report_prepared" ? ' <span class="badge">' + M.esc(M.monthName(a.after_data.month)) + "</span>" : ""}<br><small>${M.esc(new Date(a.happened_at).toLocaleString("es-EC", { timeZone: "America/Guayaquil" }))}</small></summary><pre>${M.esc("ANTES\n" + auditSummary(a.before_data) + "\n\nDESPUÉS\n" + auditSummary(a.after_data))}</pre>${[
+              [a.before_data?.receipt_path, "Comprobante anterior"],
+              [a.after_data?.receipt_path, "Comprobante guardado"],
+            ]
+              .filter(([path]) => path)
+              .map(
+                ([path, label]) =>
+                  `<button class="secondary" data-audit-receipt="${M.esc(path)}">${label}</button>`,
+              )
+              .join(" ")}</details>`,
         )
         .join("") || "<p>Todavía no hay cambios registrados.</p>";
   }
-  async function reportFresh() {
+  async function reportFresh(format = null) {
     if (!report) throw Error("Primero configura los fondos.");
     report = await result(
-      db.rpc("treasury_report", { p_month: $("#month").value + "-01" }),
+      db.rpc(format ? "treasury_prepare_report" : "treasury_report", {
+        p_month: $("#month").value + "-01",
+        ...(format
+          ? { p_format: format, p_include_dues: $("#include-dues").checked }
+          : {}),
+      }),
     );
     return report;
   }
@@ -678,6 +805,10 @@
       }
       if (b.dataset.payment) openEntry("income", null, b.dataset.payment);
       if (b.dataset.member) openMember(b.dataset.member);
+      if (b.id === "correct-entry") {
+        $("#entry-dialog").close();
+        openEntry(activeEntry.kind, activeEntry, null, true);
+      }
       if (b.id === "void-entry" || b.id === "discard-entry")
         busy(b, async () => {
           const discard = b.id === "discard-entry";
@@ -719,6 +850,10 @@
     $("#camera").onchange = (e) => fileSelected(e.target.files[0]);
     $("#attachment").onchange = (e) => fileSelected(e.target.files[0]);
     $("#view-receipt").onclick = () => receipt().catch(fail);
+    $("#audit-list").onclick = (e) => {
+      const b = e.target.closest("[data-audit-receipt]");
+      if (b) busy(b, () => receipt(b.dataset.auditReceipt));
+    };
     field("kind").onchange = categories;
     field("category").onchange = categoryChanged;
     form.addEventListener("input", () => (dirty = true));
@@ -745,6 +880,7 @@
         const f = e.target;
         await cmd("member", {
           id: activeMember?.id,
+          source_anniversary_id: f.elements.source_anniversary_id.value || null,
           name: f.elements.name.value.trim(),
           start_month: f.elements.start_month.value + "-01",
           end_month: f.elements.end_month.value
@@ -757,23 +893,72 @@
         await refresh();
       });
     };
+    const initialTotal = () => {
+      try {
+        const f = $("#setup-form");
+        $("#initial-total").textContent =
+          "Total de dinero al inicio: " +
+          M.money(
+            (M.cents(f.elements.opening_general.value, true) || 0) +
+              (M.cents(f.elements.opening_rent.value, true) || 0),
+          );
+      } catch {
+        $("#initial-total").textContent =
+          "Revisa los montos para calcular el total.";
+      }
+    };
+    $("#setup-form").addEventListener("input", initialTotal);
+    $("#member-search").oninput = populateCompanions;
+    $("#source-member-search").oninput = populateSource;
+    $("#member-form").elements.source_anniversary_id.onchange = () => {
+      const c = companions.find(
+        (x) => x.id === $("#member-form").elements.source_anniversary_id.value,
+      );
+      if (c) $("#member-form").elements.name.value = c.name;
+    };
+    $("#audit-filter").onclick = () =>
+      busy($("#audit-filter"), () => loadAudit(true));
+    $("#edit-initial").onclick = () => {
+      initialEditing = true;
+      $("#setup").hidden = false;
+      const f = $("#setup-form");
+      f.elements.start_month.value = settings.start_month.slice(0, 7);
+      f.elements.opening_general.value = (
+        settings.opening_general / 100
+      ).toFixed(2);
+      f.elements.opening_rent.value = (settings.opening_rent / 100).toFixed(2);
+      f.elements.note.value = settings.note || "";
+      $("#initial-reason-field").hidden = false;
+      f.elements.reason.required = true;
+      $("#cancel-initial").hidden = false;
+      initialTotal();
+      $("#setup").scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    $("#cancel-initial").onclick = () => {
+      initialEditing = false;
+      $("#setup").hidden = true;
+    };
     $("#setup-form").onsubmit = (e) => {
       e.preventDefault();
       busy(e.submitter, async () => {
         const f = e.target;
         if (
           !confirm(
-            "¿Confirmas que estos saldos corresponden al dinero verificado al inicio del primer mes?",
+            initialEditing
+              ? "Esta corrección recalculará todos los saldos y reabrirá los meses cerrados para revisarlos. ¿Continuar?"
+              : "¿Confirmas que la suma corresponde al dinero verificado al inicio del primer mes?",
           )
         )
           return;
-        await cmd("setup", {
+        await cmd(initialEditing ? "initial_update" : "setup", {
+          reason: f.elements.reason.value.trim(),
           start_month: f.elements.start_month.value + "-01",
           opening_general: M.cents(f.elements.opening_general.value),
           opening_rent: M.cents(f.elements.opening_rent.value),
           note: f.elements.note.value.trim(),
         });
-        toast("Saldo inicial registrado.");
+        initialEditing = false;
+        toast("Saldos iniciales guardados.");
         await refresh();
       });
     };
@@ -806,7 +991,9 @@
     };
     $("#reopen").onclick = () =>
       busy($("#reopen"), async () => {
-        const reason = prompt("Motivo para reabrir este mes:");
+        const reason = prompt(
+          "Se reabrirán este mes y los posteriores para recalcularlos. Indica el motivo:",
+        );
         if (reason === null) return;
         await cmd("reopen", { month: report.month, reason });
         toast("Mes reabierto. La operación quedó registrada.");
@@ -815,7 +1002,7 @@
     $("#download-pdf").onclick = () =>
       busy($("#download-pdf"), async () => {
         await window.TreasuryReport.download(
-          await reportFresh(),
+          await reportFresh("pdf"),
           $("#include-dues").checked,
           profile.display_name || "Servidor",
         );
@@ -824,7 +1011,7 @@
       busy($("#print-report"), async () => {
         printHTML(
           window.TreasuryReport.html(
-            await reportFresh(),
+            await reportFresh("print"),
             $("#include-dues").checked,
             profile.display_name || "Servidor",
           ),

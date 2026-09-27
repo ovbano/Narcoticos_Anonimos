@@ -106,7 +106,7 @@ const fixture = () => {
         return { data: {} };
       },
       onAuthStateChange: () => ({}),
-      updateUser: async () => ({ data: { user } }),
+      updateUser: async () => { S.passwordChanges=(S.passwordChanges||0)+1; return {data:{user}}; },
       resetPasswordForEmail: async () => ({ data: {} }),
     },
     from(table) {
@@ -142,10 +142,17 @@ const fixture = () => {
       };
       return q;
     },
-    rpc: async (name, { p_action: a, p_data: d, p_month: m }) => {
-      if (name === "treasury_report") return { data: calc(m) };
+    rpc: async (name, { p_action: a, p_data: d, p_month: m } = {}) => {
+      if (name === "treasury_companions")
+        return { data: [{ id: "source-1", name: "Ana Pérez QA" }] };
+      if (name === "admin_list_users")
+        return {
+          data: [{ id: user.id, email: user.email, profile: profile() }],
+        };
+      if (name === "treasury_report" || name === "treasury_prepare_report")
+        return { data: calc(m) };
       let record;
-      if (a === "save") {
+      if (a === "save" || a === "correct") {
         const idx = S.entries.findIndex((e) => e.id === d.id);
         record = {
           ...d,
@@ -252,15 +259,13 @@ const fixture = () => {
     }
     await page.setViewportSize({ width: 390, height: 844 });
     await page.locator('[data-new="expense"]').first().click();
-    await page
-      .locator("#attachment")
-      .setInputFiles({
-        name: "comprobante.png",
-        mimeType: "image/png",
-        buffer: fs.readFileSync(
-          path.join(root, "assets/img/logo-amigos-verdaderos.png"),
-        ),
-      });
+    await page.locator("#attachment").setInputFiles({
+      name: "comprobante.png",
+      mimeType: "image/png",
+      buffer: fs.readFileSync(
+        path.join(root, "assets/img/logo-amigos-verdaderos.png"),
+      ),
+    });
     await page.evaluate(() => (window.__fixture.uploadFail = true));
     await page.locator("#save-draft").click();
     await page
@@ -303,6 +308,33 @@ const fixture = () => {
       await page.evaluate(() => window.__fixture.entries[0].amount_cents),
       234,
     );
+    await page.locator('.tabs [data-tab="movements"]').click();
+    await page.locator("#movement-list [data-entry]").first().click();
+    await page.locator("#correct-entry").click();
+    await page.locator('[name="amount"]').fill("3,45");
+    await page
+      .locator('[name="correction_reason"]')
+      .fill("Monto escrito incorrectamente");
+    await page.locator("#post-entry").click();
+    await page.locator("#entry-dialog").waitFor({ state: "hidden" });
+    assert.equal(
+      await page.evaluate(() => window.__fixture.entries[0].amount_cents),
+      345,
+    );
+    assert.equal(await page.evaluate(() => window.__fixture.entries.length), 1);
+    await page.locator('.tabs [data-tab="overview"]').click();
+    await page.locator('[data-new="income"]').first().click();
+    await page.locator('[name="category"]').selectOption("rent_contribution");
+    await page.locator("#member-search").fill("perez");
+    assert(
+      await page
+        .locator('[name="member_id"] option')
+        .filter({ hasText: "Ana Pérez QA" })
+        .count(),
+    );
+    await page.locator('[name="member_id"]').selectOption("source:source-1");
+    page.once("dialog", (d) => d.accept());
+    await page.locator('[data-close="entry-dialog"]').click();
     await page.locator('.tabs [data-tab="dues"]').click();
     await page.locator("[data-payment]").click();
     await page.locator('[name="entry_date"]').fill("2026-09-15");
@@ -343,6 +375,13 @@ const fixture = () => {
       printBackground: true,
     });
     await page.emulateMedia({ media: "screen" });
+    for (const password of ["QA-password-first-2026", "QA-password-second-2026"]) {
+      await page.locator("#password-open").click();
+      await page.locator('[name="new_password"]').fill(password);
+      await page.locator('[name="confirm_password"]').fill(password);
+      await page.locator('#password-form button[type="submit"]').click();
+      await page.locator("#password-dialog").waitFor({state:"hidden"});
+    }
     await page.addInitScript(() => (window.__qaRole = "auditor"));
     await page.reload();
     await page.locator("#welcome").filter({ hasText: "Consulta" }).waitFor();
