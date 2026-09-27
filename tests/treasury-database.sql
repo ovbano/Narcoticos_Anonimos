@@ -14,7 +14,7 @@ insert into public.profiles(id,display_name,role,active) values
 insert into storage.objects(bucket_id,name) values('treasury-receipts','9f748e57-a567-45da-b259-fac37a493120/9f748e57-a567-45da-b259-fac37a493199.png');
 set local role authenticated;
 select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493101',true);
-select public.treasury_command('setup','{"start_month":"2026-08-01","opening_general":10000,"opening_rent":1000,"note":"Prueba transaccional; se revierte"}');
+do $$ begin if exists(select 1 from public.treasury_entries) then raise exception 'Run on an empty treasury test database';end if; perform public.treasury_command(case when exists(select 1 from public.treasury_settings) then 'initial_update' else 'setup' end,'{"start_month":"2026-08-01","opening_general":10000,"opening_rent":1000,"note":"Prueba transaccional; se revierte","reason":"Prueba transaccional"}');end $$;
 select public.treasury_command('member','{"id":"9f748e57-a567-45da-b259-fac37a493110","name":"QA Compañero","start_month":"2026-08-01","monthly_cents":1200}');
 select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493102',true);
 select public.treasury_command('save','{"id":"9f748e57-a567-45da-b259-fac37a493120","version":0,"status":"draft","entry_date":"2026-08-15","kind":"income","fund":"general","category":"seventh"}');
@@ -78,4 +78,39 @@ do $$ declare denied boolean:=false;begin
  if not denied then raise exception 'FAIL anonymous treasury access';end if;
  if exists(select 1 from storage.objects where bucket_id='treasury-receipts') then raise exception 'FAIL anonymous receipt access';end if;
 end $$;
+reset role;
+insert into public.anniversaries(id,name,recovery_day,recovery_month,recovery_year,public_visible) values('9f748e57-a567-45da-b259-fac37a493130','Compañero QA Buscable',15,8,2010,false);
+set local role authenticated;
+select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493101',true);
+select public.admin_set_user_access('9f748e57-a567-45da-b259-fac37a493102','treasurer',true);
+do $$ begin
+ if not exists(select 1 from jsonb_array_elements(public.admin_list_users()) x where x->>'id'='9f748e57-a567-45da-b259-fac37a493102' and (x->'profile'->>'active')::boolean) then raise exception 'FAIL access list/reactivation';end if;
+end $$;
+select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493102',true);
+do $$ declare denied boolean:=false;begin
+ begin perform public.admin_list_users();exception when others then denied:=true;end;
+ if not denied then raise exception 'FAIL treasurer lists credentials';end if;
+ if not exists(select 1 from jsonb_array_elements(public.treasury_companions()) c where c->>'id'='9f748e57-a567-45da-b259-fac37a493130') then raise exception 'FAIL companion search';end if;
+end $$;
+select public.treasury_command('correct','{"id":"9f748e57-a567-45da-b259-fac37a493120","version":2,"status":"posted","entry_date":"2026-08-15","kind":"income","fund":"general","category":"seventh","amount_cents":1500,"description":"Séptima corregida QA","reason":"Monto mal digitado"}');
+do $$ begin
+ if not exists(select 1 from public.treasury_audit where action='correct' and (before_data->>'amount_cents')::int=1234 and (after_data->>'amount_cents')::int=1500) then raise exception 'FAIL correction history';end if;
+end $$;
+insert into storage.objects(bucket_id,name) values('treasury-receipts','9f748e57-a567-45da-b259-fac37a493120/9f748e57-a567-45da-b259-fac37a493198.png');
+select public.treasury_command('correct','{"id":"9f748e57-a567-45da-b259-fac37a493120","version":3,"status":"posted","entry_date":"2026-08-15","kind":"income","fund":"general","category":"seventh","amount_cents":1500,"description":"Séptima corregida QA","reason":"Adjuntar comprobante correcto","receipt_path":"9f748e57-a567-45da-b259-fac37a493120/9f748e57-a567-45da-b259-fac37a493198.png"}');
+do $$ begin
+ if not exists(select 1 from storage.objects where name='9f748e57-a567-45da-b259-fac37a493120/9f748e57-a567-45da-b259-fac37a493199.png') then raise exception 'FAIL original evidence lost';end if;
+ if not exists(select 1 from public.treasury_audit where action='correct' and after_data->>'receipt_path' like '%198.png') then raise exception 'FAIL replacement audit';end if;
+end $$;
+select public.treasury_command('save','{"id":"9f748e57-a567-45da-b259-fac37a493125","version":0,"status":"posted","entry_date":"2026-08-15","kind":"income","fund":"rent","category":"rent_contribution","amount_cents":1200,"description":"Aporte desde registro","source_anniversary_id":"9f748e57-a567-45da-b259-fac37a493130","due_month":"2026-08-01"}');
+select public.treasury_command('save','{"id":"9f748e57-a567-45da-b259-fac37a493126","version":0,"status":"posted","entry_date":"2026-08-15","kind":"income","fund":"rent","category":"rent_contribution","amount_cents":600,"description":"Abono desde registro","source_anniversary_id":"9f748e57-a567-45da-b259-fac37a493130","due_month":"2026-08-01"}');
+do $$ declare r jsonb;begin
+ if (select count(*) from public.treasury_members where source_anniversary_id='9f748e57-a567-45da-b259-fac37a493130')<>1 then raise exception 'FAIL duplicate companion';end if;
+ r:=public.treasury_prepare_report('2026-08-01','pdf',true);
+ if not exists(select 1 from public.treasury_audit where action='report_prepared' and actor='9f748e57-a567-45da-b259-fac37a493102' and after_data->>'month'='2026-08-01') then raise exception 'FAIL report attribution';end if;
+end $$;
+select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493101',true);
+select public.admin_set_user_access('9f748e57-a567-45da-b259-fac37a493102',null,false);
+select set_config('request.jwt.claim.sub','9f748e57-a567-45da-b259-fac37a493102',true);
+do $$ begin if public.treasury_access() then raise exception 'FAIL deactivation';end if;end $$;
 rollback;

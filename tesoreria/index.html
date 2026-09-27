@@ -69,6 +69,9 @@
             <p id="welcome"></p>
           </div>
           <div class="header-actions">
+            <button id="edit-initial" class="secondary" hidden>
+              Corregir saldo inicial
+            </button>
             <a href="../admin/" id="admin-link" hidden>Administración</a
             ><button id="password-open" class="secondary">Contraseña</button
             ><button id="logout" class="secondary">Salir</button>
@@ -99,9 +102,32 @@
           <h2>Un punto de partida verificado</h2>
           <p>
             Registra el dinero realmente disponible al comienzo del primer mes.
-            Los valores pendientes de cobro no son saldo disponible. Este saldo
-            se guarda una sola vez.
+            Los valores pendientes de cobro no son saldo disponible. El
+            administrador puede corregirlo dejando un motivo en el historial.
           </p>
+          <div class="fund-explainer">
+            <div>
+              <strong>Dinero para gastos del grupo</strong>
+              <p>
+                Séptimas y otros ingresos que pueden pagar café, azúcar,
+                literatura y actividades.
+              </p>
+            </div>
+            <div>
+              <strong>Dinero apartado para el arriendo</strong>
+              <p>
+                Aportes de $12 y otros valores que el grupo reservó para pagar
+                el local.
+              </p>
+            </div>
+            <p>
+              <b>Ejemplo:</b> si hay $100 y $30 están reservados para el
+              arriendo, escribe $70 en gastos del grupo y $30 en arriendo. La
+              suma debe ser el dinero real disponible. No escribas el mismo
+              dinero dos veces. Si todavía no saben la distribución, cuéntenla y
+              acuerden el reparto antes de guardar.
+            </p>
+          </div>
           <form id="setup-form" class="form-grid">
             <label
               >Primer mes<input
@@ -109,14 +135,14 @@
                 type="month"
                 required /></label
             ><label
-              >Fondo general · USD<input
+              >Dinero para gastos del grupo · USD<input
                 name="opening_general"
                 type="text"
                 inputmode="decimal"
                 required
                 placeholder="0,00" /></label
             ><label
-              >Fondo del local · USD<input
+              >Dinero apartado para arriendo · USD<input
                 name="opening_rent"
                 type="text"
                 inputmode="decimal"
@@ -131,7 +157,18 @@
                 placeholder="Fecha del conteo, revisión de efectivo y cuenta, responsables presentes…"
               ></textarea></label
             ><button class="primary" type="submit">
-              Confirmar saldo inicial
+              Guardar saldos iniciales
+            </button>
+            <output class="full notice good" id="initial-total"
+              >Total inicial: $0,00</output
+            ><label class="full" id="initial-reason-field" hidden
+              >Motivo de la corrección<textarea
+                name="reason"
+                minlength="5"
+                maxlength="1000"
+              ></textarea></label
+            ><button id="cancel-initial" class="secondary" type="button" hidden>
+              Cancelar
             </button>
           </form>
         </section>
@@ -193,8 +230,8 @@
             <div>
               <h2>Cada movimiento cuenta</h2>
               <p>
-                Los registros confirmados se conservan. Las correcciones se
-                hacen con una anulación y un nuevo registro.
+                Puedes corregir errores de fecha, monto o concepto. Cada cambio
+                queda en el historial.
               </p>
             </div>
             <button class="primary" data-new="expense">+ Registrar</button>
@@ -291,12 +328,30 @@
                 </button>
               </form>
               <button id="reopen" class="secondary" hidden>
-                Reabrir último mes cerrado
+                Reabrir este mes y los siguientes
               </button>
             </div>
           </div>
           <details class="panel">
-            <summary>Historial de cambios</summary>
+            <summary>Auditoría · Usuarios e informes</summary>
+            <div class="audit-filters">
+              <label
+                >Usuario<select id="audit-user">
+                  <option value="">Todos los usuarios</option>
+                </select></label
+              ><label>Desde<input id="audit-from" type="date" /></label
+              ><label>Hasta<input id="audit-to" type="date" /></label
+              ><label
+                >Operación<select id="audit-action">
+                  <option value="">Todas</option>
+                  <option value="report_prepared">Informes preparados</option>
+                  <option value="correct">Correcciones</option>
+                  <option value="access_update">Cambios de acceso</option>
+                  <option value="close">Cierres</option>
+                  <option value="initial_update">Saldos iniciales</option>
+                </select></label
+              ><button id="audit-filter" class="secondary">Buscar</button>
+            </div>
             <p>
               Quién hizo cada operación y cuándo. Conserva los valores
               anteriores y nuevos.
@@ -342,9 +397,10 @@
               </li>
               <li>
                 <strong>Corrige sin borrar el rastro.</strong> Un borrador se
-                puede editar o descartar. Un registro confirmado se anula con un
-                motivo y se crea de nuevo correctamente. El historial conserva
-                ambas operaciones.
+                puede editar o descartar. Para un registro confirmado, usa
+                «Corregir datos» e indica el motivo. Si el movimiento no debió
+                existir, anúlalo. El historial conserva las versiones
+                anteriores.
               </li>
               <li>
                 <strong>Revisa el mes.</strong> Completa los borradores, cuenta
@@ -354,11 +410,47 @@
               </li>
               <li>
                 <strong>Cierra y comparte.</strong> Cuando termine el mes,
-                ciérralo y descarga el PDF. Se cierran en orden; solo el
-                administrador puede reabrir el último, dejando un motivo. El
-                saldo se arrastra al siguiente mes.
+                ciérralo y descarga el PDF. Se cierran en orden; el
+                administrador puede reabrir el período necesario, dejando un
+                motivo. También se reabren los posteriores para recalcularlos.
+                El saldo se arrastra al siguiente mes.
               </li>
             </ol>
+            <h3>¿Qué significa cada fondo?</h3>
+            <p>
+              <strong>Gastos del grupo:</strong> dinero disponible para café,
+              azúcar, literatura y actividades.
+              <strong>Arriendo:</strong> dinero reservado para pagar el local,
+              incluidos los aportes mensuales. Son dos partes del mismo dinero
+              total, no dos saldos para duplicar. Ejemplo: de $100, si se
+              apartaron $30 para el local, quedan $70 para gastos del grupo.
+            </p>
+            <h3>Pasar apuntes a limpio</h3>
+            <p>
+              Usa la fecha en que realmente recibiste o gastaste el dinero,
+              aunque lo registres días después. Revisa monto y concepto antes de
+              confirmar. Puedes guardar un borrador y volver después. Para
+              corregir un registro confirmado, abre su detalle → Corregir datos
+              y explica el error. En un mes cerrado, solicita al administrador
+              la reapertura.
+            </p>
+            <h3>Buscar a un compañero</h3>
+            <p>
+              En un aporte para el local, escribe el nombre o apellido y elige a
+              la persona en la lista. El sistema usa el registro existente del
+              grupo. Al guardar el primer aporte, lo incorpora al control
+              mensual con referencia de $12. Si no está registrado, usa Local →
+              Compañero.
+            </p>
+            <h3>Administración y trazabilidad</h3>
+            <p>
+              El administrador controla accesos, activa o da de baja servidores,
+              corrige saldos iniciales y reabre períodos. En Informes →
+              Auditoría puede filtrar por usuario, fecha y operación, y ver
+              quién preparó cada informe. Los cambios conservan el valor
+              anterior y el nuevo. Cada persona puede cambiar su contraseña
+              desde Contraseña, cuantas veces necesite.
+            </p>
             <h3>Cuida tu acceso</h3>
             <p>
               No compartas tu contraseña. Cierra sesión al terminar en un
@@ -368,9 +460,9 @@
             </p>
             <h3>Si cambia la persona encargada</h3>
             <p>
-              El administrador invita a la nueva servidora y desactiva el acceso
-              anterior desde Administración → Usuarios. Los registros y
-              comprobantes permanecen en el grupo.
+              El administrador crea el acceso de la nueva servidora y da de baja
+              el acceso anterior desde Administración → Usuarios. Los registros
+              y comprobantes permanecen en el grupo.
             </p>
             <button id="print-guide" class="secondary">
               Imprimir guía / Guardar como PDF
@@ -420,7 +512,12 @@
               maxlength="500"
               placeholder="¿Qué recibimos o pagamos?" /></label
           ><label class="rent-field" hidden
-            >Compañero<select name="member_id">
+            >Busca al compañero<input
+              type="search"
+              id="member-search"
+              placeholder="Nombre o apellido"
+              autocomplete="off"
+            /><select name="member_id">
               <option value="">Seleccionar</option>
             </select></label
           ><label class="rent-field" hidden
@@ -468,6 +565,14 @@
             ></textarea>
           </label>
         </div>
+        <label id="correction-reason-field" hidden
+          >¿Qué dato estás corrigiendo y por qué?<textarea
+            name="correction_reason"
+            minlength="5"
+            maxlength="1000"
+            placeholder="Ej. Escribí 15 por error; el comprobante indica 12."
+          ></textarea>
+        </label>
         <p id="entry-message" role="status"></p>
         <div class="dialog-actions">
           <button id="save-draft" type="button" class="secondary">
@@ -492,6 +597,14 @@
           </button>
         </div>
         <label
+          >Elegir del registro del grupo<input
+            id="source-member-search"
+            type="search"
+            placeholder="Buscar por nombre o apellido"
+          /><select name="source_anniversary_id">
+            <option value="">Registro manual / compañero nuevo</option>
+          </select></label
+        ><label
           >Nombre e inicial<input
             name="name"
             required
@@ -513,8 +626,8 @@
           >Último mes, si deja de aportar<input name="end_month" type="month"
         /></label>
         <p class="muted">
-          Con movimientos registrados se conserva el nombre, el inicio y la
-          cuota para proteger el historial.
+          Puedes corregir datos de meses abiertos. Para revisar períodos
+          cerrados, pide al administrador que los reabra.
         </p>
         <button type="submit" class="primary wide">Guardar compañero</button>
       </form>

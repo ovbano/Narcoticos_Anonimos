@@ -1027,3 +1027,77 @@ dialog::backdrop {
     overflow-wrap: anywhere;
   }
 }
+.fund-explainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background: #edf3f8;
+  padding: 22px;
+  border-radius: 16px;
+  margin: 20px 0;
+}
+.fund-explainer > p {
+  grid-column: 1/-1;
+  margin: 0;
+  font-size: 14px;
+}
+.fund-explainer > div p {
+  font-size: 14px;
+  margin: 8px 0 0;
+}
+.audit-filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 15px 0;
+}
+.audit-filters button {
+  align-self: end;
+  margin-bottom: 16px;
+}
+.record-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.audit-row .badge {
+  display: inline-block;
+  margin: 4px 3px;
+}
+#initial-total {
+  font-weight: 700;
+}
+#member-search,
+#source-member-search {
+  margin-bottom: 8px;
+}
+#correction-reason-field {
+  background: #fff7e6;
+  padding: 15px;
+  border-radius: 12px;
+}
+@media (max-width: 760px) {
+  .fund-explainer,
+  .audit-filters {
+    grid-template-columns: 1fr;
+  }
+  .fund-explainer {
+    padding: 18px;
+  }
+  .audit-filters {
+    gap: 0;
+  }
+  .audit-filters label {
+    margin-bottom: 10px;
+  }
+  .form-grid label:has(#member-search) {
+    grid-column: 1/-1;
+  }
+  #edit-initial {
+    max-width: 160px;
+  }
+}
+
+@media print { #print-area h2, #print-area h3 { break-after: avoid; } }
+@media (max-width: 480px) { #entry-form .form-grid > label:has(select[name="category"]), #entry-form .form-grid > label:has(select[name="fund"]) { grid-column: 1 / -1; } }
