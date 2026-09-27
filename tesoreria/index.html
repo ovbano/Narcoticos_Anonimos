@@ -65,7 +65,8 @@
         <div class="workspace-title">
           <div>
             <span class="eyebrow">NUESTRO GRUPO · NUESTROS FONDOS</span>
-            <h1>Tesorería</h1>
+            <h1>Cuidamos lo que<br />construimos juntos.</h1>
+            <p class="workspace-subtitle">TESORERÍA · AMIGOS VERDADEROS</p>
             <p id="welcome"></p>
           </div>
           <div class="header-actions">
@@ -82,392 +83,437 @@
           cuando vuelva internet. Una foto no está respaldada hasta ver
           «Borrador guardado».
         </div>
-        <nav class="tabs" aria-label="Tesorería">
-          <button data-tab="overview" aria-current="page">Resumen</button
-          ><button data-tab="movements">Movimientos</button
-          ><button data-tab="drafts">
-            Borradores <span id="draft-count">0</span></button
-          ><button data-tab="dues">Local</button
-          ><button data-tab="reports">Informes</button
-          ><button data-tab="guide">Guía</button>
-        </nav>
-        <div class="month-bar">
-          <label
-            >Mes de consulta<input id="month" type="month" required /></label
-          ><span id="period-status" class="badge"></span
-          ><button id="refresh" class="text-button">Actualizar ↻</button>
-        </div>
-        <section id="setup" class="panel" hidden>
-          <span class="eyebrow">ANTES DE EMPEZAR</span>
-          <h2>Un punto de partida verificado</h2>
-          <p>
-            Registra el dinero realmente disponible al comienzo del primer mes.
-            Los valores pendientes de cobro no son saldo disponible. El
-            administrador puede corregirlo dejando un motivo en el historial.
-          </p>
-          <div class="fund-explainer">
-            <div>
-              <strong>Dinero para gastos del grupo</strong>
-              <p>
-                Séptimas y otros ingresos que pueden pagar café, azúcar,
-                literatura y actividades.
-              </p>
-            </div>
-            <div>
-              <strong>Dinero apartado para el arriendo</strong>
-              <p>
-                Aportes de $12 y otros valores que el grupo reservó para pagar
-                el local.
-              </p>
-            </div>
-            <p>
-              <b>Ejemplo:</b> si hay $100 y $30 están reservados para el
-              arriendo, escribe $70 en gastos del grupo y $30 en arriendo. La
-              suma debe ser el dinero real disponible. No escribas el mismo
-              dinero dos veces. Si todavía no saben la distribución, cuéntenla y
-              acuerden el reparto antes de guardar.
-            </p>
-          </div>
-          <form id="setup-form" class="form-grid">
-            <label
-              >Primer mes<input
-                name="start_month"
-                type="month"
-                required /></label
-            ><label
-              >Dinero para gastos del grupo · USD<input
-                name="opening_general"
-                type="text"
-                inputmode="decimal"
-                required
-                placeholder="0,00" /></label
-            ><label
-              >Dinero apartado para arriendo · USD<input
-                name="opening_rent"
-                type="text"
-                inputmode="decimal"
-                required
-                placeholder="0,00" /></label
-            ><label class="full"
-              >Cómo se verificó el saldo<textarea
-                name="note"
-                required
-                minlength="5"
-                maxlength="1000"
-                placeholder="Fecha del conteo, revisión de efectivo y cuenta, responsables presentes…"
-              ></textarea></label
-            ><button class="primary" type="submit">
-              Guardar saldos iniciales
+        <div class="workspace-grid">
+          <nav class="tabs" aria-label="Tesorería">
+            <span class="nav-caption">TU ESPACIO</span>
+            <button data-tab="overview" aria-current="page">
+              <span class="nav-symbol" aria-hidden="true">◈</span
+              >Resumen</button
+            ><button data-tab="movements">
+              <span class="nav-symbol" aria-hidden="true">↗</span
+              >Movimientos</button
+            ><button data-tab="drafts">
+              <span class="nav-symbol" aria-hidden="true">▤</span>Borradores
+              <span id="draft-count">0</span></button
+            ><button data-tab="dues">
+              <span class="nav-symbol" aria-hidden="true">⌂</span>Local</button
+            ><button data-tab="reports">
+              <span class="nav-symbol" aria-hidden="true">▥</span
+              >Informes</button
+            ><button data-tab="guide">
+              <span class="nav-symbol" aria-hidden="true">?</span>Guía
             </button>
-            <output class="full notice good" id="initial-total"
-              >Total inicial: $0,00</output
-            ><label class="full" id="initial-reason-field" hidden
-              >Motivo de la corrección<textarea
-                name="reason"
-                minlength="5"
-                maxlength="1000"
-              ></textarea></label
-            ><button id="cancel-initial" class="secondary" type="button" hidden>
-              Cancelar
-            </button>
-          </form>
-        </section>
-        <section id="view-overview" data-view>
-          <div class="balance-hero">
-            <div>
-              <span class="eyebrow">SALDO AL FINAL DEL MES CONSULTADO</span>
-              <div id="balance" class="balance">—</div>
-              <p>
-                Dinero registrado. Compáralo con el efectivo y la cuenta del
-                grupo.
-              </p>
+            <div class="nav-note">
+              Unidad · Servicio<br /><strong>Recuperación</strong>
+              <p>Cuentas claras para servir con confianza.</p>
             </div>
-            <div class="balance-details">
-              <div>
-                <span>Saldo inicial</span><strong id="opening">—</strong>
+          </nav>
+          <div class="workspace-content">
+            <div class="month-bar">
+              <div class="period-heading">
+                <span class="eyebrow">RESUMEN DEL PERÍODO</span>
+                <h2 id="month-title"></h2>
               </div>
-              <div>
-                <span>Ingresos del mes</span><strong id="income">—</strong>
+              <label
+                >Mes de consulta<input
+                  id="month"
+                  type="month"
+                  required /></label
+              ><span id="period-status" class="badge"></span
+              ><button id="refresh" class="text-button">Actualizar ↻</button>
+            </div>
+            <p id="month-help" class="period-help" aria-live="polite"></p>
+            <section id="setup" class="panel" hidden>
+              <span class="eyebrow">ANTES DE EMPEZAR</span>
+              <h2>Un punto de partida verificado</h2>
+              <p>
+                Registra el dinero realmente disponible al comienzo del primer
+                mes. Los valores pendientes de cobro no son saldo disponible. El
+                tesorero y el administrador pueden corregirlo dejando un motivo
+                en el historial.
+              </p>
+              <div class="fund-explainer">
+                <div>
+                  <strong>Dinero para gastos del grupo</strong>
+                  <p>
+                    Séptimas y otros ingresos que pueden pagar café, azúcar,
+                    literatura y actividades.
+                  </p>
+                </div>
+                <div>
+                  <strong>Dinero apartado para el arriendo</strong>
+                  <p>
+                    Aportes de $12 y otros valores que el grupo reservó para
+                    pagar el local.
+                  </p>
+                </div>
+                <p>
+                  <b>Ejemplo:</b> si hay $100 y $30 están reservados para el
+                  arriendo, escribe $70 en gastos del grupo y $30 en arriendo.
+                  La suma debe ser el dinero real disponible. No escribas el
+                  mismo dinero dos veces. Si todavía no saben la distribución,
+                  cuéntenla y acuerden el reparto antes de guardar.
+                </p>
               </div>
-              <div>
-                <span>Egresos del mes</span><strong id="expense">—</strong>
-              </div>
-            </div>
-          </div>
-          <div class="quick-actions">
-            <button class="action-card" data-new="income">
-              <span class="action-icon income">↙</span
-              ><span
-                ><strong>Registrar ingreso</strong
-                ><small>Séptima, aporte u otro ingreso</small></span
-              ><b>+</b></button
-            ><button class="action-card" data-new="expense">
-              <span class="action-icon expense">↗</span
-              ><span
-                ><strong>Registrar gasto</strong
-                ><small>Compras y pagos del grupo</small></span
-              ><b>+</b></button
-            ><button class="action-card capture" id="quick-photo">
-              <span class="action-icon">▣</span
-              ><span
-                ><strong>Foto y borrador</strong
-                ><small>Guarda ahora. Completa después.</small></span
-              ><b>+</b>
-            </button>
-          </div>
-          <div id="fund-cards" class="two-columns"></div>
-          <div id="alerts"></div>
-          <div class="section-heading">
-            <h2>Últimos movimientos del mes</h2>
-            <button class="text-button" data-tab="movements">
-              Ver todos →
-            </button>
-          </div>
-          <div id="recent-list" class="entry-list"></div>
-        </section>
-        <section id="view-movements" data-view hidden>
-          <div class="section-heading">
-            <div>
-              <h2>Cada movimiento cuenta</h2>
-              <p>
-                Puedes corregir errores de fecha, monto o concepto. Cada cambio
-                queda en el historial.
-              </p>
-            </div>
-            <button class="primary" data-new="expense">+ Registrar</button>
-          </div>
-          <div class="filters">
-            <label
-              >Buscar<input
-                id="search"
-                type="search"
-                placeholder="Concepto o compañero" /></label
-            ><label
-              >Tipo<select id="filter-kind">
-                <option value="">Todos</option>
-                <option value="income">Ingresos</option>
-                <option value="expense">Egresos</option>
-              </select></label
-            >
-          </div>
-          <div id="movement-list" class="entry-list"></div>
-        </section>
-        <section id="view-drafts" data-view hidden>
-          <div class="section-heading">
-            <div>
-              <h2>Tu bandeja de pendientes</h2>
-              <p>
-                Todos los borradores, incluso de otros meses. Todavía no afectan
-                el saldo.
-              </p>
-            </div>
-            <button id="draft-new" class="primary">+ Borrador</button>
-          </div>
-          <div id="draft-list" class="entry-list"></div>
-        </section>
-        <section id="view-dues" data-view hidden>
-          <div class="section-heading">
-            <div>
-              <h2>Aportes para nuestro local</h2>
-              <p>
-                Referencia mensual de $12. Los abonos se registran una sola vez
-                y se asignan al mes que corresponda.
-              </p>
-            </div>
-            <button id="member-new" class="primary">+ Compañero</button>
-          </div>
-          <div id="dues-summary" class="notice"></div>
-          <div id="dues-list" class="dues-grid"></div>
-          <details class="panel">
-            <summary>Compañeros registrados</summary>
-            <div id="member-list"></div>
-          </details>
-        </section>
-        <section id="view-reports" data-view hidden>
-          <div class="report-layout">
-            <div class="panel">
-              <span class="eyebrow">CLARIDAD PARA COMPARTIR</span>
-              <h2>Informe mensual</h2>
-              <p>
-                Logo de nuestro grupo, resumen por fondo, ingresos y egresos,
-                detalle de movimientos y observaciones del cierre.
-              </p>
-              <label class="check"
-                ><input id="include-dues" type="checkbox" /> Incluir anexo
-                individual de aportes</label
-              >
-              <div class="button-row">
-                <button id="download-pdf" class="primary">
-                  Descargar PDF ↓</button
-                ><button id="print-report" class="secondary">Imprimir</button>
-              </div>
-              <p class="muted">
-                Un mes abierto se identifica como informe provisional.
-                Borradores y registros anulados no suman al saldo.
-              </p>
-            </div>
-            <div class="panel">
-              <span class="eyebrow">REVISIÓN DEL MES</span>
-              <h2>Conciliar y cerrar</h2>
-              <div id="closure-info"></div>
-              <form id="close-form">
+              <form id="setup-form" class="form-grid">
                 <label
-                  >Dinero contado · USD<input
-                    name="counted"
+                  >Primer mes<input
+                    name="start_month"
+                    type="month"
+                    required /></label
+                ><label
+                  >Dinero para gastos del grupo · USD<input
+                    name="opening_general"
+                    type="text"
                     inputmode="decimal"
                     required
-                    placeholder="Efectivo + saldo de la cuenta" /></label
+                    placeholder="0,00" /></label
                 ><label
-                  >Observaciones<textarea
+                  >Dinero apartado para arriendo · USD<input
+                    name="opening_rent"
+                    type="text"
+                    inputmode="decimal"
+                    required
+                    placeholder="0,00" /></label
+                ><label class="full"
+                  >Cómo se verificó el saldo<textarea
                     name="note"
-                    maxlength="2000"
-                    placeholder="Explica diferencias y anota la revisión realizada."
+                    required
+                    minlength="5"
+                    maxlength="1000"
+                    placeholder="Fecha del conteo, revisión de efectivo y cuenta, responsables presentes…"
                   ></textarea></label
                 ><button class="primary" type="submit">
-                  Revisar y cerrar mes
+                  Guardar saldos iniciales
+                </button>
+                <output class="full notice good" id="initial-total"
+                  >Total inicial: $0,00</output
+                ><label class="full" id="initial-reason-field" hidden
+                  >Motivo de la corrección<textarea
+                    name="reason"
+                    minlength="5"
+                    maxlength="1000"
+                  ></textarea></label
+                ><button
+                  id="cancel-initial"
+                  class="secondary"
+                  type="button"
+                  hidden
+                >
+                  Cancelar
                 </button>
               </form>
-              <button id="reopen" class="secondary" hidden>
-                Reabrir este mes y los siguientes
-              </button>
-            </div>
+            </section>
+            <section id="view-overview" data-view>
+              <div class="balance-hero">
+                <div>
+                  <span class="eyebrow">DISPONIBLE AL CIERRE DEL MES</span>
+                  <div id="balance" class="balance">—</div>
+                  <p>
+                    Dinero registrado. Compáralo con el efectivo y la cuenta del
+                    grupo.
+                  </p>
+                </div>
+                <div class="balance-details">
+                  <div>
+                    <span>Saldo al inicio del mes</span
+                    ><strong id="opening">—</strong>
+                  </div>
+                  <div>
+                    <span>Ingresos del mes</span><strong id="income">—</strong>
+                  </div>
+                  <div>
+                    <span>Egresos del mes</span><strong id="expense">—</strong>
+                  </div>
+                </div>
+              </div>
+              <p id="period-context" class="balance-explanation"></p>
+              <div class="quick-actions">
+                <button class="action-card" data-new="income">
+                  <span class="action-icon income">↙</span
+                  ><span
+                    ><strong>Registrar ingreso</strong
+                    ><small>Séptima, aporte u otro ingreso</small></span
+                  ><b>+</b></button
+                ><button class="action-card" data-new="expense">
+                  <span class="action-icon expense">↗</span
+                  ><span
+                    ><strong>Registrar gasto</strong
+                    ><small>Compras y pagos del grupo</small></span
+                  ><b>+</b></button
+                ><button class="action-card capture" id="quick-photo">
+                  <span class="action-icon">▣</span
+                  ><span
+                    ><strong>Foto y borrador</strong
+                    ><small>Guarda ahora. Completa después.</small></span
+                  ><b>+</b>
+                </button>
+              </div>
+              <div id="fund-cards" class="two-columns"></div>
+              <div id="alerts"></div>
+              <div class="section-heading">
+                <h2>Últimos movimientos del mes</h2>
+                <button class="text-button" data-tab="movements">
+                  Ver todos →
+                </button>
+              </div>
+              <div id="recent-list" class="entry-list"></div>
+            </section>
+            <section id="view-movements" data-view hidden>
+              <div class="section-heading">
+                <div>
+                  <h2>Cada movimiento cuenta</h2>
+                  <p>
+                    Puedes corregir errores de fecha, monto o concepto. Cada
+                    cambio queda en el historial.
+                  </p>
+                </div>
+                <button class="primary" data-new="expense">+ Registrar</button>
+              </div>
+              <div class="filters">
+                <label
+                  >Buscar<input
+                    id="search"
+                    type="search"
+                    placeholder="Concepto o compañero" /></label
+                ><label
+                  >Tipo<select id="filter-kind">
+                    <option value="">Todos</option>
+                    <option value="income">Ingresos</option>
+                    <option value="expense">Egresos</option>
+                  </select></label
+                >
+              </div>
+              <div id="movement-list" class="entry-list"></div>
+            </section>
+            <section id="view-drafts" data-view hidden>
+              <div class="section-heading">
+                <div>
+                  <h2>Tu bandeja de pendientes</h2>
+                  <p>
+                    Todos los borradores, incluso de otros meses. Todavía no
+                    afectan el saldo.
+                  </p>
+                </div>
+                <button id="draft-new" class="primary">+ Borrador</button>
+              </div>
+              <div id="draft-list" class="entry-list"></div>
+            </section>
+            <section id="view-dues" data-view hidden>
+              <div class="section-heading">
+                <div>
+                  <h2>Aportes para nuestro local</h2>
+                  <p>
+                    Referencia mensual de $12. Los abonos se registran una sola
+                    vez y se asignan al mes que corresponda.
+                  </p>
+                </div>
+                <button id="member-new" class="primary">+ Compañero</button>
+              </div>
+              <div id="dues-summary" class="notice"></div>
+              <div id="dues-list" class="dues-grid"></div>
+              <details class="panel">
+                <summary>Compañeros registrados</summary>
+                <div id="member-list"></div>
+              </details>
+            </section>
+            <section id="view-reports" data-view hidden>
+              <div class="report-layout">
+                <div class="panel">
+                  <span class="eyebrow">CLARIDAD PARA COMPARTIR</span>
+                  <h2>Informe mensual</h2>
+                  <p>
+                    Logo de nuestro grupo, resumen por fondo, ingresos y
+                    egresos, detalle de movimientos y observaciones del cierre.
+                  </p>
+                  <label class="check"
+                    ><input id="include-dues" type="checkbox" /> Incluir anexo
+                    individual de aportes</label
+                  >
+                  <div class="button-row">
+                    <button id="download-pdf" class="primary">
+                      Descargar PDF ↓</button
+                    ><button id="print-report" class="secondary">
+                      Imprimir
+                    </button>
+                  </div>
+                  <p class="muted">
+                    Un mes abierto se identifica como informe provisional.
+                    Borradores y registros anulados no suman al saldo.
+                  </p>
+                </div>
+                <div class="panel">
+                  <span class="eyebrow">REVISIÓN DEL MES</span>
+                  <h2>Conciliar y cerrar</h2>
+                  <div id="closure-info"></div>
+                  <form id="close-form">
+                    <label
+                      >Dinero contado · USD<input
+                        name="counted"
+                        inputmode="decimal"
+                        required
+                        placeholder="Efectivo + saldo de la cuenta" /></label
+                    ><label
+                      >Observaciones<textarea
+                        name="note"
+                        maxlength="2000"
+                        placeholder="Explica diferencias y anota la revisión realizada."
+                      ></textarea></label
+                    ><button class="primary" type="submit">
+                      Revisar y cerrar mes
+                    </button>
+                  </form>
+                  <button id="reopen" class="secondary" hidden>
+                    Reabrir este mes y los siguientes
+                  </button>
+                </div>
+              </div>
+              <details class="panel">
+                <summary>Auditoría · Usuarios e informes</summary>
+                <div class="audit-filters">
+                  <label
+                    >Usuario<select id="audit-user">
+                      <option value="">Todos los usuarios</option>
+                    </select></label
+                  ><label>Desde<input id="audit-from" type="date" /></label
+                  ><label>Hasta<input id="audit-to" type="date" /></label
+                  ><label
+                    >Operación<select id="audit-action">
+                      <option value="">Todas</option>
+                      <option value="report_prepared">
+                        Informes preparados
+                      </option>
+                      <option value="correct">Correcciones</option>
+                      <option value="access_update">Cambios de acceso</option>
+                      <option value="close">Cierres</option>
+                      <option value="initial_update">Saldos iniciales</option>
+                    </select></label
+                  ><button id="audit-filter" class="secondary">Buscar</button>
+                </div>
+                <p>
+                  Quién hizo cada operación y cuándo. Conserva los valores
+                  anteriores y nuevos.
+                </p>
+                <div id="audit-list"></div>
+                <button id="audit-more" class="secondary">Cargar más</button>
+              </details>
+            </section>
+            <section id="view-guide" data-view hidden>
+              <article id="guide-content" class="panel guide">
+                <span class="eyebrow">GUÍA DEL SERVICIO</span>
+                <h2>De la reunión al informe, paso a paso.</h2>
+                <ol>
+                  <li>
+                    <strong>Empieza con un saldo verificado.</strong> El
+                    tesorero o el administrador registra el primer mes y el
+                    dinero disponible por fondo. No se cargan automáticamente
+                    cifras de informes anteriores.
+                  </li>
+                  <li>
+                    <strong>Registra la séptima.</strong> Pulsa «Registrar
+                    ingreso», selecciona Séptima tradición y escribe el total
+                    recogido en la reunión. No necesitas nombres de donantes.
+                  </li>
+                  <li>
+                    <strong>Controla el aporte para el local.</strong> Registra
+                    al compañero desde el selector con búsqueda. Pulsa
+                    «Registrar abono» y elige el mes al que corresponde. Para
+                    varios meses, registra un movimiento por mes.
+                  </li>
+                  <li>
+                    <strong>¿Tienes prisa?</strong> Pulsa «Foto y borrador»,
+                    toma o elige una foto y guarda. Espera el mensaje «Borrador
+                    guardado». Después completa fecha, monto y concepto en
+                    Borradores y confirma. Necesitas conexión para respaldarlo;
+                    si falla, la pantalla conserva lo que escribiste para
+                    reintentar.
+                  </li>
+                  <li>
+                    <strong>Registra cada gasto.</strong> Selecciona su
+                    categoría y el fondo del que salió el dinero. Adjunta el
+                    comprobante o explica su ausencia. La aplicación no inventa
+                    valores a partir de una foto.
+                  </li>
+                  <li>
+                    <strong>Corrige sin borrar el rastro.</strong> Un borrador
+                    se puede editar o descartar. Para un registro confirmado,
+                    usa «Corregir datos» e indica el motivo. Si el movimiento no
+                    debió existir, anúlalo. El historial conserva las versiones
+                    anteriores.
+                  </li>
+                  <li>
+                    <strong>Revisa el mes.</strong> Completa los borradores,
+                    cuenta el efectivo y revisa la cuenta. En Informes, compara
+                    el dinero contado con el saldo registrado. Las diferencias
+                    quedan visibles; no se ajustan automáticamente.
+                  </li>
+                  <li>
+                    <strong>Cierra y comparte.</strong> Cuando termine el mes,
+                    ciérralo y descarga el PDF. Se cierran en orden; el
+                    administrador puede reabrir el período necesario, dejando un
+                    motivo. También se reabren los posteriores para
+                    recalcularlos. El saldo se arrastra al siguiente mes.
+                  </li>
+                </ol>
+                <h3>¿Qué significa cada fondo?</h3>
+                <p>
+                  <strong>Gastos del grupo:</strong> dinero disponible para
+                  café, azúcar, literatura y actividades.
+                  <strong>Arriendo:</strong> dinero reservado para pagar el
+                  local, incluidos los aportes mensuales. Son dos partes del
+                  mismo dinero total, no dos saldos para duplicar. Ejemplo: de
+                  $100, si se apartaron $30 para el local, quedan $70 para
+                  gastos del grupo.
+                </p>
+                <h3>Pasar apuntes a limpio</h3>
+                <p>
+                  Usa la fecha en que realmente recibiste o gastaste el dinero,
+                  aunque lo registres días después. Revisa monto y concepto
+                  antes de confirmar. Puedes guardar un borrador y volver
+                  después. Para corregir un registro confirmado, abre su detalle
+                  → Corregir datos y explica el error. En un mes cerrado,
+                  solicita al administrador la reapertura.
+                </p>
+                <h3>Buscar a un compañero</h3>
+                <p>
+                  En un aporte para el local, escribe el nombre o apellido y
+                  elige a la persona en la lista. El sistema usa el registro
+                  existente del grupo. Al guardar el primer aporte, lo incorpora
+                  al control mensual con referencia de $12. Si no aparece en la
+                  búsqueda, pide al administrador que lo incorpore al registro
+                  del grupo.
+                </p>
+                <h3>Administración y trazabilidad</h3>
+                <p>
+                  El administrador controla accesos, activa o da de baja
+                  servidores y reabre períodos. Tanto el tesorero como el
+                  administrador pueden registrar y corregir los saldos
+                  iniciales. En Informes → Auditoría puede filtrar por usuario,
+                  fecha y operación, y ver quién preparó cada informe. Los
+                  cambios conservan el valor anterior y el nuevo. Cada persona
+                  puede cambiar su contraseña desde Contraseña, cuantas veces
+                  necesite.
+                </p>
+                <h3>Cuida tu acceso</h3>
+                <p>
+                  No compartas tu contraseña. Cierra sesión al terminar en un
+                  teléfono prestado. Los comprobantes son privados. La persona
+                  con permiso de revisión puede consultar y descargar informes,
+                  pero no modificar registros.
+                </p>
+                <h3>Si cambia la persona encargada</h3>
+                <p>
+                  El administrador crea el acceso de la nueva servidora y da de
+                  baja el acceso anterior desde Administración → Usuarios. Los
+                  registros y comprobantes permanecen en el grupo.
+                </p>
+                <button id="print-guide" class="secondary">
+                  Imprimir guía / Guardar como PDF
+                </button>
+              </article>
+            </section>
           </div>
-          <details class="panel">
-            <summary>Auditoría · Usuarios e informes</summary>
-            <div class="audit-filters">
-              <label
-                >Usuario<select id="audit-user">
-                  <option value="">Todos los usuarios</option>
-                </select></label
-              ><label>Desde<input id="audit-from" type="date" /></label
-              ><label>Hasta<input id="audit-to" type="date" /></label
-              ><label
-                >Operación<select id="audit-action">
-                  <option value="">Todas</option>
-                  <option value="report_prepared">Informes preparados</option>
-                  <option value="correct">Correcciones</option>
-                  <option value="access_update">Cambios de acceso</option>
-                  <option value="close">Cierres</option>
-                  <option value="initial_update">Saldos iniciales</option>
-                </select></label
-              ><button id="audit-filter" class="secondary">Buscar</button>
-            </div>
-            <p>
-              Quién hizo cada operación y cuándo. Conserva los valores
-              anteriores y nuevos.
-            </p>
-            <div id="audit-list"></div>
-            <button id="audit-more" class="secondary">Cargar más</button>
-          </details>
-        </section>
-        <section id="view-guide" data-view hidden>
-          <article id="guide-content" class="panel guide">
-            <span class="eyebrow">GUÍA DEL SERVICIO</span>
-            <h2>De la reunión al informe, paso a paso.</h2>
-            <ol>
-              <li>
-                <strong>Empieza con un saldo verificado.</strong> El
-                administrador registra el primer mes y el dinero disponible por
-                fondo. No se cargan automáticamente cifras de informes
-                anteriores.
-              </li>
-              <li>
-                <strong>Registra la séptima.</strong> Pulsa «Registrar ingreso»,
-                selecciona Séptima tradición y escribe el total recogido en la
-                reunión. No necesitas nombres de donantes.
-              </li>
-              <li>
-                <strong>Controla el aporte para el local.</strong> Registra al
-                compañero desde el selector con búsqueda. Pulsa «Registrar abono» y
-                elige el mes al que corresponde. Para varios meses, registra un
-                movimiento por mes.
-              </li>
-              <li>
-                <strong>¿Tienes prisa?</strong> Pulsa «Foto y borrador», toma o
-                elige una foto y guarda. Espera el mensaje «Borrador guardado».
-                Después completa fecha, monto y concepto en Borradores y
-                confirma. Necesitas conexión para respaldarlo; si falla, la
-                pantalla conserva lo que escribiste para reintentar.
-              </li>
-              <li>
-                <strong>Registra cada gasto.</strong> Selecciona su categoría y
-                el fondo del que salió el dinero. Adjunta el comprobante o
-                explica su ausencia. La aplicación no inventa valores a partir
-                de una foto.
-              </li>
-              <li>
-                <strong>Corrige sin borrar el rastro.</strong> Un borrador se
-                puede editar o descartar. Para un registro confirmado, usa
-                «Corregir datos» e indica el motivo. Si el movimiento no debió
-                existir, anúlalo. El historial conserva las versiones
-                anteriores.
-              </li>
-              <li>
-                <strong>Revisa el mes.</strong> Completa los borradores, cuenta
-                el efectivo y revisa la cuenta. En Informes, compara el dinero
-                contado con el saldo registrado. Las diferencias quedan
-                visibles; no se ajustan automáticamente.
-              </li>
-              <li>
-                <strong>Cierra y comparte.</strong> Cuando termine el mes,
-                ciérralo y descarga el PDF. Se cierran en orden; el
-                administrador puede reabrir el período necesario, dejando un
-                motivo. También se reabren los posteriores para recalcularlos.
-                El saldo se arrastra al siguiente mes.
-              </li>
-            </ol>
-            <h3>¿Qué significa cada fondo?</h3>
-            <p>
-              <strong>Gastos del grupo:</strong> dinero disponible para café,
-              azúcar, literatura y actividades.
-              <strong>Arriendo:</strong> dinero reservado para pagar el local,
-              incluidos los aportes mensuales. Son dos partes del mismo dinero
-              total, no dos saldos para duplicar. Ejemplo: de $100, si se
-              apartaron $30 para el local, quedan $70 para gastos del grupo.
-            </p>
-            <h3>Pasar apuntes a limpio</h3>
-            <p>
-              Usa la fecha en que realmente recibiste o gastaste el dinero,
-              aunque lo registres días después. Revisa monto y concepto antes de
-              confirmar. Puedes guardar un borrador y volver después. Para
-              corregir un registro confirmado, abre su detalle → Corregir datos
-              y explica el error. En un mes cerrado, solicita al administrador
-              la reapertura.
-            </p>
-            <h3>Buscar a un compañero</h3>
-            <p>
-              En un aporte para el local, escribe el nombre o apellido y elige a
-              la persona en la lista. El sistema usa el registro existente del
-              grupo. Al guardar el primer aporte, lo incorpora al control
-              mensual con referencia de $12. Si no aparece en la búsqueda, pide al administrador que lo incorpore al registro del grupo.
-            </p>
-            <h3>Administración y trazabilidad</h3>
-            <p>
-              El administrador controla accesos, activa o da de baja servidores,
-              corrige saldos iniciales y reabre períodos. En Informes →
-              Auditoría puede filtrar por usuario, fecha y operación, y ver
-              quién preparó cada informe. Los cambios conservan el valor
-              anterior y el nuevo. Cada persona puede cambiar su contraseña
-              desde Contraseña, cuantas veces necesite.
-            </p>
-            <h3>Cuida tu acceso</h3>
-            <p>
-              No compartas tu contraseña. Cierra sesión al terminar en un
-              teléfono prestado. Los comprobantes son privados. La persona con
-              permiso de revisión puede consultar y descargar informes, pero no
-              modificar registros.
-            </p>
-            <h3>Si cambia la persona encargada</h3>
-            <p>
-              El administrador crea el acceso de la nueva servidora y da de baja
-              el acceso anterior desde Administración → Usuarios. Los registros
-              y comprobantes permanecen en el grupo.
-            </p>
-            <button id="print-guide" class="secondary">
-              Imprimir guía / Guardar como PDF
-            </button>
-          </article>
-        </section>
+        </div>
       </section>
     </main>
     <dialog id="entry-dialog">
@@ -669,7 +715,9 @@
           Puedes corregir datos de meses abiertos. Para revisar períodos
           cerrados, pide al administrador que los reabra.
         </p>
-        <div class="dialog-actions"><button type="submit" class="primary wide">Guardar compañero</button></div>
+        <div class="dialog-actions">
+          <button type="submit" class="primary wide">Guardar compañero</button>
+        </div>
       </form>
     </dialog>
     <dialog id="password-dialog">

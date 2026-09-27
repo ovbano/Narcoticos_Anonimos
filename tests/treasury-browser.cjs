@@ -19,12 +19,14 @@ const fixture = () => {
         monthly_cents: 1200,
       },
     ],
-    settings: {
-      id: true,
-      start_month: "2026-09-01",
-      opening_general: 14465,
-      opening_rent: 0,
-    },
+    settings: window.__qaEmpty
+      ? null
+      : {
+          id: true,
+          start_month: "2026-09-01",
+          opening_general: 14465,
+          opening_rent: 0,
+        },
     audit: [],
     files: {},
     logged: true,
@@ -47,7 +49,9 @@ const fixture = () => {
           (e) => e.status === "posted" && e.fund === f && e.entry_date < month,
         );
         const opening =
-            (f === "general" ? 14465 : 0) +
+            (f === "general"
+              ? S.settings.opening_general
+              : S.settings.opening_rent) +
             prior.reduce(
               (n, e) =>
                 n + (e.kind === "income" ? e.amount_cents : -e.amount_cents),
@@ -155,6 +159,10 @@ const fixture = () => {
       if (name === "treasury_report" || name === "treasury_prepare_report")
         return { data: calc(m) };
       let record;
+      if (a === "setup" || a === "initial_update") {
+        S.settings = { id: true, ...d };
+        record = S.settings;
+      }
       if (a === "save" || a === "correct") {
         const idx = S.entries.findIndex((e) => e.id === d.id);
         record = {
@@ -393,6 +401,13 @@ const fixture = () => {
     assert.equal(await page.evaluate(() => window.__fixture.entries.length), 2);
     await page.locator('.tabs [data-tab="reports"]').click();
     await page.locator("#include-dues").check();
+    for (const view of ["movements", "dues", "reports"]) {
+      await page.locator('.tabs [data-tab="' + view + '"]').click();
+      await page.screenshot({
+        path: path.join(out, view + "-mobile.png"),
+        fullPage: true,
+      });
+    }
     const downloadPromise = page.waitForEvent("download");
     await page.locator("#download-pdf").click();
     const download = await downloadPromise;
@@ -437,6 +452,73 @@ const fixture = () => {
     await page.locator('.tabs [data-tab="reports"]').click();
     assert(await page.locator("#close-form").isHidden());
     assert(await page.locator("#download-pdf").isVisible());
+    await page.addInitScript(() => {
+      window.__qaRole = "treasurer";
+      window.__qaEmpty = true;
+    });
+    await page.reload();
+    await page.locator("#setup").waitFor({ state: "visible" });
+    assert(await page.locator("#edit-initial").isHidden());
+    await page.screenshot({
+      path: path.join(out, "first-start-mobile.png"),
+      fullPage: true,
+    });
+    await page.locator('#setup-form [name="start_month"]').fill("2026-08");
+    await page.locator('#setup-form [name="opening_general"]').fill("70");
+    await page.locator('#setup-form [name="opening_rent"]').fill("30");
+    await page
+      .locator('#setup-form [name="note"]')
+      .fill("Conteo inicial de ambos fondos");
+    page.once("dialog", (d) => d.accept());
+    await page.locator('#setup-form button[type="submit"]').click();
+    await page.locator("#setup").waitFor({ state: "hidden" });
+    assert.equal(await page.locator("#month").inputValue(), "2026-08");
+    assert.match(await page.locator("#balance").textContent(), /100/);
+    assert(await page.locator("#edit-initial").isVisible());
+    await page.locator("#edit-initial").click();
+    await page.locator('#setup-form [name="opening_general"]').fill("80");
+    await page
+      .locator('#setup-form [name="reason"]')
+      .fill("Corrección tras revisar el conteo");
+    page.once("dialog", (d) => d.accept());
+    await page.locator('#setup-form button[type="submit"]').click();
+    await page.locator("#setup").waitFor({ state: "hidden" });
+    assert.match(await page.locator("#balance").textContent(), /110/);
+    await page.evaluate(() =>
+      window.__fixture.entries.push({
+        id: "month-test",
+        entry_date: "2026-08-15",
+        status: "posted",
+        kind: "income",
+        fund: "general",
+        category: "seventh",
+        amount_cents: 1000,
+        description: "Séptima de agosto",
+        version: 1,
+      }),
+    );
+    await page.locator("#refresh").click();
+    await page.locator("#income").filter({ hasText: "10,00" }).waitFor();
+    await page.locator("#month").fill("2026-09");
+    await page.locator("#month").dispatchEvent("change");
+    await page
+      .locator("#month-title")
+      .filter({ hasText: "septiembre" })
+      .waitFor();
+    await page.locator("#income").filter({ hasText: "0,00" }).waitFor();
+    assert.match(await page.locator("#opening").textContent(), /120/);
+    await page.locator("#month").fill("2026-07");
+    await page.locator("#month").dispatchEvent("change");
+    await page
+      .locator("#period-status")
+      .filter({ hasText: "Anterior al inicio" })
+      .waitFor();
+    assert.equal(await page.locator("#month").inputValue(), "2026-07");
+    assert.equal(await page.locator("#balance").textContent(), "—");
+    assert(await page.locator("#download-pdf").isDisabled());
+    await page.locator("#month").fill("2026-08");
+    await page.locator("#month").dispatchEvent("change");
+    await page.locator("#income").filter({ hasText: "10,00" }).waitFor();
     assert.deepEqual(errors, []);
     console.log(
       "PASS: mobile 320/360/390 + desktop, photo draft, retry, cents, confirm, partial dues, annulment, PDF, read-only controls; no JS errors.",

@@ -1245,3 +1245,700 @@ dialog::backdrop {
     font-size: 26px;
   }
 }
+
+/* Treasury workspace: clear hierarchy across every section. */
+:root {
+  --navy: #102d50;
+  --blue: #255b8a;
+  --bg: #edf2f7;
+  --line: #d5e0eb;
+  --muted: #526b83;
+  --radius: 20px;
+}
+body {
+  background: linear-gradient(180deg, #e5edf5 0, #f5f7fa 800px);
+}
+main {
+  max-width: 1420px;
+  padding: 24px 28px 60px;
+}
+.masthead {
+  padding: 14px max(28px, calc((100vw - 1364px) / 2));
+  background: #091d36;
+  border-bottom: 1px solid #ffffff18;
+}
+.workspace-title {
+  padding: 34px 38px;
+  margin: 0 0 24px;
+  border-radius: 24px;
+  background: linear-gradient(115deg, #102d50, #163e66);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 30px #0a294916;
+}
+.workspace-title:after {
+  content: "";
+  width: 280px;
+  height: 280px;
+  border: 1px solid #ffffff10;
+  border-radius: 50%;
+  position: absolute;
+  right: 21%;
+  top: -150px;
+  pointer-events: none;
+}
+.workspace-title .eyebrow {
+  color: #cab582;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+.workspace-title h1 {
+  font-size: clamp(30px, 3.3vw, 46px);
+  line-height: 1.13;
+  letter-spacing: -0.03em;
+  margin: 12px 0 18px;
+}
+.workspace-subtitle {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  font-weight: 750;
+  color: #c8dbee;
+}
+#welcome {
+  color: #b5cbe0;
+  font-size: 12px;
+  margin-top: 8px;
+}
+.header-actions {
+  max-width: 300px;
+  justify-content: flex-end;
+  z-index: 1;
+}
+.header-actions .secondary {
+  background: #ffffff0d;
+  border: 1px solid #ffffff35;
+  color: #fff;
+  border-radius: 11px;
+}
+.header-actions a {
+  color: #e5d3a5;
+  padding: 8px;
+}
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 192px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.workspace-content {
+  min-width: 0;
+}
+.tabs {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow: visible;
+  border: 0;
+  background: white;
+  border-radius: 18px;
+  padding: 20px 12px;
+  box-shadow: 0 6px 20px #102d5006;
+  margin: 0;
+}
+.nav-caption {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: #708398;
+  font-weight: 750;
+  padding: 0 12px 12px;
+}
+.tabs button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  min-height: 48px;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px;
+  color: #526b83;
+  font-size: 14px;
+  white-space: normal;
+}
+.tabs button[aria-current="page"] {
+  background: #102d50;
+  color: #fff;
+  border: 0;
+  box-shadow: 0 5px 10px #102d5020;
+}
+.nav-symbol {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.tabs #draft-count {
+  font-size: 10px;
+  margin-left: auto;
+  background: #dce7f2;
+  color: #254b70;
+  border-radius: 6px;
+}
+.nav-note {
+  padding: 24px 12px 0;
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: #6d8297;
+  line-height: 1.7;
+}
+.nav-note strong {
+  font:
+    italic 21px Georgia,
+    serif;
+  color: #1e4164;
+}
+.nav-note p {
+  margin-top: 14px;
+  font-size: 11px;
+}
+.month-bar {
+  background: #fff;
+  border: 1px solid #dce5ed;
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.period-heading {
+  margin-right: auto;
+}
+.period-heading .eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #72849a;
+}
+#month-title {
+  font:
+    600 24px/1.3 Georgia,
+    serif;
+  margin: 3px 0 0;
+  text-transform: capitalize;
+}
+.month-bar label {
+  font-size: 11px;
+  display: block;
+  color: #526b83;
+}
+.month-bar input {
+  display: block;
+  margin-top: 4px;
+  width: 165px;
+  padding: 8px 12px;
+  min-height: 44px;
+  border-radius: 10px;
+}
+.month-bar .badge {
+  font-size: 11px;
+  padding: 6px 10px;
+  background: #edf5f0;
+  color: #2c6652;
+  border: 1px solid #d6e8dc;
+}
+.month-bar .text-button {
+  font-size: 12px;
+  margin-left: 0;
+}
+.period-help {
+  font-size: 12px;
+  margin: 10px 4px 24px;
+  color: #657c92;
+}
+.balance-hero {
+  background: #102d50;
+  border: 0;
+  box-shadow: 0 10px 25px #102d5014;
+  border-radius: 20px;
+  padding: 30px;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+}
+.balance-hero .eyebrow {
+  color: #dbc997;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+}
+.balance {
+  font-size: clamp(40px, 4.4vw, 64px);
+  font-weight: 700;
+  font-family: system-ui, sans-serif;
+  letter-spacing: -0.055em;
+  margin: 8px 0;
+  line-height: 1.15;
+}
+.balance-hero p {
+  font-size: 12px;
+  max-width: 340px;
+  color: #b6cce0;
+}
+.balance-details {
+  background: #ffffff07;
+  border: 1px solid #ffffff19;
+  border-radius: 14px;
+  padding: 12px 18px;
+}
+.balance-details > div {
+  padding: 10px 0;
+  border-bottom: 1px solid #ffffff14;
+}
+.balance-details > div:last-child {
+  border-bottom: 0;
+}
+.balance-details span {
+  font-size: 11px;
+  color: #bfd2e5;
+}
+.balance-details strong {
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+}
+.balance-explanation {
+  background: #e8eef5;
+  border-left: 3px solid #bdab7d;
+  padding: 14px 18px;
+  border-radius: 0 0 12px 12px;
+  margin: -4px 8px 22px;
+  font-size: 12px;
+  color: #526981;
+  line-height: 1.65;
+}
+.quick-actions {
+  gap: 12px;
+  margin: 24px 0;
+}
+.action-card {
+  box-shadow: 0 5px 12px #102d5005;
+  padding: 20px 16px;
+  border-radius: 16px;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+.action-card:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px #102d5012;
+}
+.action-card small {
+  font-size: 12px;
+}
+.action-card strong {
+  font-size: 14px;
+}
+.action-card.capture {
+  background: #f1f5f9;
+}
+.fund-card {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid #d7e1ec;
+  background: #fff;
+  padding: 24px;
+  border-top: 3px solid #5885ae;
+}
+.fund-card:last-child {
+  border-top-color: #b9a16e;
+}
+.fund-card h3 {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #60778e;
+}
+.fund-card strong {
+  font-size: 31px;
+  letter-spacing: -0.04em;
+}
+.fund-card p {
+  font-size: 12px;
+  margin: 8px 0 0;
+  color: #73879a;
+}
+.section-heading {
+  margin: 28px 0 18px;
+}
+.section-heading h2,
+.panel h2 {
+  font-size: 28px;
+  letter-spacing: -0.025em;
+}
+.section-heading p {
+  font-size: 14px;
+  max-width: 600px;
+  color: #60778e;
+}
+.panel {
+  border-radius: 18px;
+  box-shadow: 0 8px 24px #102d5005;
+  padding: 26px;
+}
+.entry {
+  border-radius: 14px;
+  border: 1px solid #dae4ed;
+  background: white;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+.entry h3 {
+  font-size: 16px;
+}
+.entry small {
+  font-size: 12px;
+}
+.entry-value strong {
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.empty {
+  background: #fff;
+  border: 1px dashed #c7d5e2;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  color: #6c8196;
+}
+.empty strong {
+  display: block;
+  color: #183e63;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+.empty p {
+  font-size: 13px;
+  margin: 0;
+}
+.dues-grid {
+  gap: 18px;
+}
+.due-card {
+  border-radius: 18px;
+  border: 1px solid #d6e1eb;
+  box-shadow: 0 6px 14px #102d5006;
+}
+.due-card h3 {
+  font-size: 21px;
+}
+.progress {
+  height: 7px;
+  border-radius: 8px;
+}
+.progress i {
+  background: #5885ae;
+}
+.filters {
+  background: white;
+  padding: 20px;
+  border: 1px solid #d7e1eb;
+  border-radius: 16px;
+}
+.report-layout {
+  gap: 20px;
+}
+.guide {
+  margin: 0;
+  max-width: none;
+  background: #fff;
+  padding: 34px;
+  border: 1px solid #d7e1eb;
+  border-radius: 20px;
+}
+.guide h2 {
+  font-size: 30px;
+}
+.guide h3 {
+  color: #214e76;
+  border-top: 1px solid #e2e9f1;
+  padding-top: 22px;
+}
+.audit-row {
+  background: white;
+  border: 1px solid #dae4ed;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 8px;
+}
+.primary {
+  background: #153c62;
+  border-radius: 12px;
+}
+.secondary {
+  border-radius: 11px;
+}
+#setup {
+  border-top: 4px solid #bba16a;
+  margin-bottom: 24px;
+}
+#setup .fund-explainer {
+  background: #f3f6f9;
+}
+#setup-form {
+  margin-top: 24px;
+}
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: 168px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+  .action-card {
+    flex-wrap: nowrap;
+  }
+  .action-card b {
+    display: block;
+  }
+  .balance-hero {
+    grid-template-columns: 1fr;
+  }
+  .report-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 760px) {
+  main {
+    padding: 16px 14px 36px;
+  }
+  .masthead {
+    padding: 14px 18px;
+  }
+  .workspace-title {
+    padding: 24px;
+    border-radius: 20px;
+    display: block;
+  }
+  .workspace-title h1 {
+    font-size: 33px;
+  }
+  .workspace-title .eyebrow {
+    font-size: 8px;
+  }
+  .header-actions {
+    margin-top: 20px;
+    justify-content: flex-start;
+    max-width: none;
+  }
+  .header-actions button {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+  .workspace-grid {
+    display: block;
+  }
+  .tabs {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 8px;
+    margin: 0 0 20px;
+    gap: 5px;
+  }
+  .tabs button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    text-align: center;
+    font-size: 11px;
+    padding: 9px 3px;
+    min-height: 65px;
+    position: relative;
+  }
+  .tabs #draft-count {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    margin: 0;
+  }
+  .nav-caption,
+  .nav-note {
+    display: none;
+  }
+  .nav-symbol {
+    font-size: 21px;
+  }
+  .month-bar {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+  .period-heading {
+    width: 100%;
+  }
+  #month-title {
+    font-size: 26px;
+  }
+  .month-bar .text-button {
+    margin-left: auto;
+  }
+  .period-help {
+    margin-bottom: 18px;
+  }
+  .balance-hero {
+    padding: 24px;
+    gap: 20px;
+  }
+  .balance {
+    font-size: 49px;
+  }
+  .balance-details {
+    padding: 8px 14px;
+  }
+  .balance-details > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .balance-details span {
+    font-size: 12px;
+  }
+  .balance-explanation {
+    font-size: 12px;
+    margin: 0 4px 20px;
+  }
+  .quick-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .action-card {
+    padding: 18px;
+  }
+  .action-card strong {
+    font-size: 16px;
+  }
+  .action-card small {
+    font-size: 12px;
+  }
+  .two-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .fund-card {
+    padding: 20px 15px;
+  }
+  .fund-card h3 {
+    font-size: 9px;
+  }
+  .fund-card strong {
+    font-size: 28px;
+  }
+  .fund-card p {
+    font-size: 11px;
+  }
+  .section-heading {
+    gap: 12px;
+  }
+  .section-heading h2,
+  .panel h2 {
+    font-size: 25px;
+  }
+  .entry {
+    padding: 16px;
+  }
+  .entry h3 {
+    font-size: 15px;
+  }
+  .entry small {
+    font-size: 11px;
+  }
+  .entry-value strong {
+    font-size: 18px;
+  }
+  .panel,
+  .guide {
+    padding: 22px 18px;
+  }
+  .guide h2 {
+    font-size: 27px;
+  }
+  .filters {
+    padding: 16px;
+  }
+  .dues-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 360px) {
+  .workspace-title {
+    padding: 22px 18px;
+  }
+  .workspace-title h1 {
+    font-size: 30px;
+  }
+  .balance {
+    font-size: 43px;
+  }
+  .balance-hero {
+    padding: 21px;
+  }
+  .month-bar input {
+    width: 145px;
+  }
+  .two-columns {
+    grid-template-columns: 1fr;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .action-card {
+    transition: none;
+  }
+}
+@media print {
+  .workspace-grid {
+    display: block;
+  }
+}
+
+.tabs .nav-caption {
+  background: none;
+  border-radius: 0;
+}
+.tabs .nav-symbol {
+  background: none;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.2;
+  color: inherit;
+  border-radius: 0;
+}
+#month-title {
+  text-transform: none;
+}
+#month-title::first-letter {
+  text-transform: uppercase;
+}
+.needs-setup #view-overview {
+  display: none;
+}
+@media (max-width: 760px) {
+  #setup-form {
+    grid-template-columns: 1fr;
+  }
+  #setup-form label {
+    font-size: 14px;
+  }
+  #setup-form .primary {
+    width: 100%;
+    min-height: 52px;
+  }
+  .month-bar .text-button {
+    padding: 4px;
+    font-size: 11px;
+  }
+}
