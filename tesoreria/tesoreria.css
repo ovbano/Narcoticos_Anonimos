@@ -1099,5 +1099,149 @@ dialog::backdrop {
   }
 }
 
-@media print { #print-area h2, #print-area h3 { break-after: avoid; } }
-@media (max-width: 480px) { #entry-form .form-grid > label:has(select[name="category"]), #entry-form .form-grid > label:has(select[name="fund"]) { grid-column: 1 / -1; } }
+@media print {
+  #print-area h2,
+  #print-area h3 {
+    break-after: avoid;
+  }
+}
+@media (max-width: 480px) {
+  #entry-form .form-grid > label:has(select[name="category"]),
+  #entry-form .form-grid > label:has(select[name="fund"]) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* A single searchable field, with large touch targets and visible selection. */
+.member-picker {
+  position: relative;
+}
+.member-picker > input[role="combobox"] {
+  padding-right: 42px;
+  background: #fff;
+  border: 1.5px solid #aabdd1;
+  cursor: text;
+}
+.member-picker::after {
+  content: "⌄";
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  color: #33567b;
+  pointer-events: none;
+}
+.picker-options {
+  position: relative;
+  margin-top: 8px;
+  border: 1px solid #d6e0ed;
+  border-radius: 16px;
+  max-height: 240px;
+  overflow-y: auto;
+  background: #fff;
+  box-shadow: 0 12px 28px #10294b12;
+  padding: 6px;
+}
+.picker-options [role="option"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  min-height: 52px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #10294b;
+  font-weight: 600;
+}
+.picker-options [role="option"]:hover,
+.picker-options .highlighted,
+.picker-options [aria-selected="true"] {
+  background: #edf3fa;
+}
+.picker-avatar {
+  flex: 0 0 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #10294b;
+  color: #fff;
+  font-size: 14px;
+}
+.picker-check {
+  margin-left: auto;
+  color: #406c92;
+}
+.picker-empty {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #596e83;
+}
+#member-dialog {
+  max-width: 620px;
+  border: 1px solid #d6e0ed;
+  background: #fbfcfe;
+}
+#member-dialog .dialog-heading {
+  padding-bottom: 18px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #dce4ed;
+}
+#member-dialog h2 {
+  font-size: clamp(28px, 5vw, 37px);
+}
+.modal-intro {
+  color: #52677f;
+  line-height: 1.6;
+  margin: 18px 0 24px;
+}
+.member-section {
+  background: white;
+  border: 1px solid #dce4ed;
+  border-radius: 18px;
+  padding: 20px;
+  margin: 0 0 18px;
+}
+.section-step {
+  display: block;
+  color: #32638a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 16px;
+}
+.field-hint {
+  color: #677b91;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+#member-form .primary {
+  min-height: 56px;
+  border-radius: 14px;
+  box-shadow: 0 8px 18px #10294b20;
+}
+@media (max-width: 480px) {
+  .member-section {
+    padding: 16px;
+  }
+  #member-dialog {
+    padding: 20px;
+  }
+  .picker-options {
+    max-height: 210px;
+  }
+}
+@media print {
+  .print-header {
+    padding: 16px;
+    background: #0d2445 !important;
+    color: white !important;
+    border-bottom: 4px solid #c4ab74;
+  }
+  #print-area table tbody tr:nth-child(even) {
+    background: #f0f4f8 !important;
+  }
+  #print-area h1 {
+    font-size: 26px;
+  }
+}

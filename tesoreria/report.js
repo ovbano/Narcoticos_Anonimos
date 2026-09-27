@@ -25,6 +25,7 @@
       doc.addFont("Treasury-" + style + ".ttf", "Treasury", style);
     }
     let y = 20;
+    let section = 0;
     const W = 178;
     const clean = (s) =>
       String(s ?? "")
@@ -32,7 +33,11 @@
         .replace(/[—–]/g, "-");
     function newPage() {
       doc.addPage();
-      y = 20;
+      doc.setFillColor(13, 36, 69);
+      doc.rect(0, 0, 210, 14, "F");
+      doc.setFillColor(193, 168, 111);
+      doc.rect(0, 14, 210, 1, "F");
+      y = 25;
       doc.setTextColor(13, 36, 69);
       doc.setFont("Treasury", "bold");
       doc.setFontSize(10);
@@ -59,7 +64,9 @@
     function title(s) {
       ensure(20);
       y += 5;
-      text(s, 14, true);
+      doc.setFillColor(193, 168, 111);
+      doc.rect(16, y - 5, 1.2, 7, "F");
+      text(String(++section).padStart(2, "0") + "   " + s, 13, true);
     }
     function table(headers, rows, widths) {
       const height = 5;
@@ -78,6 +85,7 @@
       }
       ensure(20);
       header();
+      let rowIndex = 0;
       for (const row of rows) {
         doc.setFont("Treasury", "normal");
         doc.setFontSize(8);
@@ -94,6 +102,10 @@
             available = Math.floor((274 - y - 4) / height);
           }
           const count = Math.min(max - offset, available);
+          if (rowIndex % 2 === 0) {
+            doc.setFillColor(242, 246, 250);
+            doc.rect(16, y, W, count * height + 4, "F");
+          }
           let x = 18;
           doc.setTextColor(32, 51, 70);
           doc.setFont("Treasury", "normal");
@@ -111,9 +123,14 @@
             header();
           }
         }
+        rowIndex++;
       }
       y += 4;
     }
+    doc.setFillColor(13, 36, 69);
+    doc.rect(0, 0, 210, 48, "F");
+    doc.setFillColor(193, 168, 111);
+    doc.rect(0, 48, 210, 1.2, "F");
     try {
       const img = new Image();
       img.src = "../assets/img/logo-amigos-verdaderos.png";
@@ -126,18 +143,45 @@
     } catch {}
     doc.setFont("Treasury", "bold");
     doc.setFontSize(15);
-    doc.setTextColor(13, 36, 69);
+    doc.setTextColor(255);
     doc.text("AMIGOS VERDADEROS", 43, 21);
     doc.setFontSize(9);
     doc.text("NARCÓTICOS ANÓNIMOS", 43, 28);
-    doc.setDrawColor(140, 160, 180);
-    doc.line(16, 40, 194, 40);
-    y = 52;
-    text("Informe mensual de Tesorería", 23, true);
+    doc.setFont("Treasury", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(207, 219, 234);
+    doc.text("UNIDAD  /  SERVICIO  /  RECUPERACIÓN", 43, 35);
+    y = 63;
+    text("Informe de Tesorería", 24, true);
     text(M.monthName(r.month), 13);
-    text(r.closure ? "MES CERRADO" : "PROVISIONAL - MES ABIERTO", 10, true);
-    text("Emitido por: " + person + " | " + M.date(M.today()), 9);
+    text(
+      (r.closure ? "CIERRE MENSUAL" : "PROVISIONAL - MES ABIERTO") +
+        "  |  " +
+        M.date(M.today()),
+      8,
+      true,
+    );
     const total = M.totals(r);
+    ensure(32);
+    const cards = [
+      ["SALDO DISPONIBLE", total.closing],
+      ["INGRESOS DEL MES", total.income],
+      ["EGRESOS DEL MES", total.expense],
+    ];
+    cards.forEach(([label, value], i) => {
+      const x = 16 + i * 61;
+      doc.setFillColor(...(i === 0 ? [13, 36, 69] : [238, 243, 248]));
+      doc.roundedRect(x, y, 56, 25, 2, 2, "F");
+      doc.setTextColor(...(i === 0 ? [220, 230, 242] : [70, 92, 118]));
+      doc.setFont("Treasury", "bold");
+      doc.setFontSize(7);
+      doc.text(label, x + 4, y + 7);
+      doc.setFontSize(15);
+      doc.setTextColor(...(i === 0 ? [255, 255, 255] : [13, 36, 69]));
+      doc.text(clean(M.money(value)), x + 4, y + 18, { maxWidth: 48 });
+    });
+    y += 34;
+    text("Preparado por: " + person, 9);
     title("Resumen de fondos");
     table(
       ["Fondo", "Saldo inicial", "Ingresos", "Egresos", "Saldo final"],
@@ -176,6 +220,7 @@
       }),
       [35, 105, 38],
     );
+    newPage();
     title("Detalle de movimientos");
     table(
       ["Fecha", "Concepto / fondo", "Ingreso", "Egreso"],
@@ -243,6 +288,8 @@
     );
     for (let n = 1; n <= doc.getNumberOfPages(); n++) {
       doc.setPage(n);
+      doc.setDrawColor(193, 168, 111);
+      doc.line(16, 282, 194, 282);
       doc.setFont("Treasury", "normal");
       doc.setFontSize(8);
       doc.setTextColor(89, 110, 132);

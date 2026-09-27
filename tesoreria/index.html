@@ -378,7 +378,7 @@
               </li>
               <li>
                 <strong>Controla el aporte para el local.</strong> Registra al
-                compañero con su nombre e inicial. Pulsa «Registrar abono» y
+                compañero desde el selector con búsqueda. Pulsa «Registrar abono» y
                 elige el mes al que corresponde. Para varios meses, registra un
                 movimiento por mes.
               </li>
@@ -439,8 +439,7 @@
               En un aporte para el local, escribe el nombre o apellido y elige a
               la persona en la lista. El sistema usa el registro existente del
               grupo. Al guardar el primer aporte, lo incorpora al control
-              mensual con referencia de $12. Si no está registrado, usa Local →
-              Compañero.
+              mensual con referencia de $12. Si no aparece en la búsqueda, pide al administrador que lo incorpore al registro del grupo.
             </p>
             <h3>Administración y trazabilidad</h3>
             <p>
@@ -510,17 +509,31 @@
             >Concepto<input
               name="description"
               maxlength="500"
-              placeholder="¿Qué recibimos o pagamos?" /></label
-          ><label class="rent-field" hidden
-            >Busca al compañero<input
-              type="search"
-              id="member-search"
-              placeholder="Nombre o apellido"
-              autocomplete="off"
-            /><select name="member_id">
-              <option value="">Seleccionar</option>
-            </select></label
-          ><label class="rent-field" hidden
+              placeholder="¿Qué recibimos o pagamos?"
+          /></label>
+          <div class="rent-field full" hidden>
+            <label for="member-search">Compañero</label>
+            <div class="member-picker" id="payment-picker">
+              <input
+                id="member-search"
+                type="text"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="payment-options"
+                autocomplete="off"
+                placeholder="Selecciona o escribe un nombre…"
+              /><input type="hidden" name="member_id" />
+              <div
+                id="payment-options"
+                class="picker-options"
+                role="listbox"
+                aria-label="Compañeros"
+                hidden
+              ></div>
+            </div>
+          </div>
+          <label class="rent-field" hidden
             >Mes del aporte<input name="due_month" type="month"
           /></label>
           <div class="full receipt-box">
@@ -596,40 +609,67 @@
             ×
           </button>
         </div>
-        <label
-          >Elegir del registro del grupo<input
-            id="source-member-search"
-            type="search"
-            placeholder="Buscar por nombre o apellido"
-          /><select name="source_anniversary_id">
-            <option value="">Registro manual / compañero nuevo</option>
-          </select></label
-        ><label
-          >Nombre e inicial<input
-            name="name"
-            required
-            minlength="2"
-            maxlength="80"
-            placeholder="Ej. Juan A." /></label
-        ><label
-          >Primer mes de aportes<input
-            name="start_month"
-            type="month"
-            required /></label
-        ><label
-          >Aporte mensual · USD<input
-            name="monthly"
-            inputmode="decimal"
-            value="12,00"
-            required /></label
-        ><label
-          >Último mes, si deja de aportar<input name="end_month" type="month"
-        /></label>
+        <p class="modal-intro">
+          Organiza su aporte al local. Selecciona al compañero y revisa desde
+          qué mes participa.
+        </p>
+        <div class="member-section">
+          <span class="section-step">01 · COMPAÑERO</span>
+          <label for="source-member-search"
+            >Elegir del registro del grupo</label
+          >
+          <div class="member-picker" id="source-picker">
+            <input
+              id="source-member-search"
+              type="text"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded="false"
+              aria-controls="source-options"
+              autocomplete="off"
+              required
+              placeholder="Selecciona o busca por nombre…"
+            /><input type="hidden" name="source_anniversary_id" /><input
+              type="hidden"
+              name="name"
+            />
+            <div
+              id="source-options"
+              class="picker-options"
+              role="listbox"
+              aria-label="Registro del grupo"
+              hidden
+            ></div>
+          </div>
+          <p class="field-hint">
+            Escribe un nombre o apellido y toca el resultado. No necesitas
+            volver a escribirlo.
+          </p>
+        </div>
+        <div class="member-section">
+          <span class="section-step">02 · APORTE AL LOCAL</span
+          ><label
+            >Primer mes de aportes<input
+              name="start_month"
+              type="month"
+              required /></label
+          ><label
+            >Aporte mensual · USD<input
+              name="monthly"
+              inputmode="decimal"
+              value="12,00"
+              required /></label
+          ><label
+            >Último mes de participación (opcional)<input
+              name="end_month"
+              type="month"
+          /></label>
+        </div>
         <p class="muted">
           Puedes corregir datos de meses abiertos. Para revisar períodos
           cerrados, pide al administrador que los reabra.
         </p>
-        <button type="submit" class="primary wide">Guardar compañero</button>
+        <div class="dialog-actions"><button type="submit" class="primary wide">Guardar compañero</button></div>
       </form>
     </dialog>
     <dialog id="password-dialog">
