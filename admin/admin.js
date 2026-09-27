@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const treasurySetup = /type=(invite|recovery)/.test(window.location.hash);
 
   const db = window.amigosSupabase;
   if (!db) {
@@ -79,6 +80,11 @@
     state.user = userData.user;
     const profile = await getProfile(userData.user.id);
     state.profile = profile;
+
+    if (profile?.active && ['treasurer','auditor'].includes(profile.role)) {
+      window.location.replace('../tesoreria/' + (treasurySetup ? '?setup=1' : ''));
+      return false;
+    }
 
     if (!profile || !profile.active || !['admin', 'editor'].includes(profile.role)) {
       $('#denied-copy').textContent = profile && !profile.active
@@ -505,6 +511,8 @@
         <div class="user-actions">
           <select class="user-role-select" data-user-id="${escapeHtml(user.id)}" ${isSelf ? 'disabled' : ''}>
             <option value="editor" ${profile.role === 'editor' ? 'selected' : ''}>Editor</option>
+            <option value="treasurer" ${profile.role === 'treasurer' ? 'selected' : ''}>Tesorería</option>
+            <option value="auditor" ${profile.role === 'auditor' ? 'selected' : ''}>Revisión de Tesorería</option>
             <option value="admin" ${profile.role === 'admin' ? 'selected' : ''}>Administrador</option>
           </select>
           <button type="button" class="user-toggle ${profile.active === false ? 'is-inactive' : ''}" data-user-id="${escapeHtml(user.id)}" data-active="${profile.active !== false}" ${isSelf ? 'disabled' : ''}>${profile.active === false ? 'Activar' : 'Desactivar'}</button>
@@ -670,18 +678,22 @@
       showLoginError('No se pudo verificar tu sesión.');
     }
 
-    db.auth.onAuthStateChange(async (event) => {
+    db.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_OUT') setView('login');
       if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
-        try {
-          if (await authorizeCurrentUser()) await loadData();
-        } catch (error) {
-          console.error(error);
-        }
+        // Avoid awaiting Auth methods inside Supabase's auth-state lock.
+        setTimeout(async () => {
+          try {
+            if (await authorizeCurrentUser()) await loadData();
+          } catch (error) {
+            console.error(error);
+          }
+        }, 0);
       }
     });
   };
 
   document.addEventListener('DOMContentLoaded', boot, { once:true });
 })();
+
 
