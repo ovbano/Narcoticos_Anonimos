@@ -2,303 +2,418 @@
   "use strict";
   const M = root.TreasuryModel,
     esc = M.esc;
-  function reportData(report) {
-    return report.closure?.summary
-      ? { ...report.closure.summary, closure: report.closure }
-      : report;
+  const fundName = (f) => (f === "rent" ? "Arriendo" : "General");
+  const fields = ["opening", "income", "expense", "closing"];
+  function reportData(r) {
+    return r.closure?.summary
+      ? { ...r.closure.summary, closure: r.closure }
+      : r;
   }
-  function html(input, includeDues, person) {
+  function sections(input, includeDues) {
     const r = reportData(input),
-      t = M.totals(r),
-      entries = r.entries.filter((e) => e.status === "posted");
-    return `<div class="print-header"><img src="../assets/img/logo-amigos-verdaderos.png" alt="Amigos Verdaderos"><div><b>GRUPO AMIGOS VERDADEROS</b><br>Narcóticos Anónimos<br>Unidad · Servicio · Recuperación</div></div><h1>Informe de Tesorería</h1><p>${esc(M.monthName(r.month))} · ${r.closure ? "MES CERRADO" : "PROVISIONAL · MES ABIERTO"}<br>Emitido por: ${esc(person)} · ${M.date(M.today())}</p><table><thead><tr><th>Fondo</th><th>Saldo inicial</th><th>Ingresos</th><th>Egresos</th><th>Saldo final</th></tr></thead><tbody>${r.funds.map((f) => `<tr><td>${f.fund === "rent" ? "Local" : "General"}</td>${["opening", "income", "expense", "closing"].map((k) => `<td>${esc(M.money(f[k]))}</td>`).join("")}</tr>`).join("")}<tr><th>Total</th>${["opening", "income", "expense", "closing"].map((k) => `<th>${esc(M.money(t[k]))}</th>`).join("")}</tr></tbody></table><h2>Movimientos confirmados</h2><table><thead><tr><th>Fecha</th><th>Concepto / fondo</th><th>Ingreso</th><th>Egreso</th><th>Respaldo</th></tr></thead><tbody>${entries.map((e) => `<tr><td>${M.date(e.entry_date)}</td><td>${esc(e.description)}<br>${esc(M.categories[e.category])} · ${e.fund === "rent" ? "Local" : "General"}${e.due_month ? "<br>Aporte de " + esc(M.monthName(e.due_month)) : ""}</td><td>${e.kind === "income" ? esc(M.money(e.amount_cents)) : ""}</td><td>${e.kind === "expense" ? esc(M.money(e.amount_cents)) : ""}</td><td>${e.receipt_path ? "Adjunto privado" : e.no_receipt_reason ? esc(e.no_receipt_reason) : "Sin adjunto"}</td></tr>`).join("") || '<tr><td colspan="5">No hay movimientos confirmados.</td></tr>'}</tbody></table>${r.closure ? `<h2>Revisión y cierre</h2><p>Dinero contado: ${esc(M.money(r.closure.counted_cents))}<br>Diferencia: ${esc(M.money(r.closure.difference_cents))}<br>Cerrado por: ${esc(r.closure.closed_name)}</p><p class="print-note">${esc(r.closure.note || "Sin observaciones.")}</p>` : "<p>Este informe puede cambiar mientras el mes permanezca abierto.</p>"}${includeDues ? `<h2>Anexo privado · Aportes para el local</h2><table><thead><tr><th>Compañero</th><th>Referencia</th><th>Pagado</th><th>Pendiente</th><th>Estado</th></tr></thead><tbody>${r.dues.map((d) => `<tr><td>${esc(d.name)}</td><td>${esc(M.money(d.expected))}</td><td>${esc(M.money(d.paid))}</td><td>${esc(M.money(Math.max(0, d.expected - d.paid)))}</td><td>${M.dueStatus(d)}</td></tr>`).join("")}</tbody></table><p>Los aportes se asignan al mes que corresponden; el flujo de caja usa la fecha en que se recibió el dinero. Un pendiente no es dinero disponible.</p>` : ""}<p>Borradores: ${r.entries.filter((e) => e.status === "draft").length}. Anulados: ${r.entries.filter((e) => e.status === "void").length}. Excluidos de los totales. Los comprobantes y el historial completo se consultan con acceso autorizado.</p>`;
-  }
-  async function download(input, includeDues, person) {
-    const r = reportData(input),
-      doc = new root.jspdf.jsPDF({
-        unit: "mm",
-        format: "a4",
-        putOnlyUsedFonts: true,
-      });
-    for (const style of ["normal", "bold"]) {
-      doc.addFileToVFS("Treasury-" + style + ".ttf", root.TreasuryFonts[style]);
-      doc.addFont("Treasury-" + style + ".ttf", "Treasury", style);
-    }
-    let y = 20;
-    let section = 0;
-    const W = 178;
-    const clean = (s) =>
-      String(s ?? "")
-        .replace(/[↗↙→↓·]/g, " - ")
-        .replace(/[—–]/g, "-");
-    function newPage() {
-      doc.addPage();
-      doc.setFillColor(13, 36, 69);
-      doc.rect(0, 0, 210, 14, "F");
-      doc.setFillColor(193, 168, 111);
-      doc.rect(0, 14, 210, 1, "F");
-      y = 25;
-      doc.setTextColor(13, 36, 69);
-      doc.setFont("Treasury", "bold");
-      doc.setFontSize(10);
-      doc.text("AMIGOS VERDADEROS / TESORERÍA", 16, y);
-      y += 12;
-    }
-    function ensure(h) {
-      if (y + h > 277) newPage();
-    }
-    function text(s, size = 10, bold = false) {
-      doc.setFont("Treasury", bold ? "bold" : "normal");
-      doc.setFontSize(size);
-      doc.setTextColor(13, 36, 69);
-      const lines = doc.splitTextToSize(clean(s), W);
-      for (const line of lines) {
-        ensure(size * 0.46 + 2);
-        doc.setFont("Treasury", bold ? "bold" : "normal");
-        doc.setFontSize(size);
-        doc.text(line, 16, y);
-        y += size * 0.46 + 2;
-      }
-      y += 2;
-    }
-    function title(s) {
-      ensure(20);
-      y += 5;
-      doc.setFillColor(193, 168, 111);
-      doc.rect(16, y - 5, 1.2, 7, "F");
-      text(String(++section).padStart(2, "0") + "   " + s, 13, true);
-    }
-    function table(headers, rows, widths) {
-      const height = 5;
-      function header() {
-        doc.setFillColor(13, 36, 69);
-        doc.rect(16, y, W, 9, "F");
-        doc.setFont("Treasury", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(255);
-        let x = 18;
-        headers.forEach((h, i) => {
-          doc.text(clean(h), x, y + 6);
-          x += widths[i];
-        });
-        y += 11;
-      }
-      ensure(20);
-      header();
-      let rowIndex = 0;
-      for (const row of rows) {
-        doc.setFont("Treasury", "normal");
-        doc.setFontSize(8);
-        const cells = row.map((v, i) =>
-          doc.splitTextToSize(clean(v), widths[i] - 4),
-        );
-        const max = Math.max(...cells.map((c) => c.length));
-        let offset = 0;
-        while (offset < max) {
-          let available = Math.floor((274 - y - 4) / height);
-          if (available < 1) {
-            newPage();
-            header();
-            available = Math.floor((274 - y - 4) / height);
-          }
-          const count = Math.min(max - offset, available);
-          if (rowIndex % 2 === 0) {
-            doc.setFillColor(242, 246, 250);
-            doc.rect(16, y, W, count * height + 4, "F");
-          }
-          let x = 18;
-          doc.setTextColor(32, 51, 70);
-          doc.setFont("Treasury", "normal");
-          doc.setFontSize(8);
-          cells.forEach((c, i) => {
-            doc.text(c.slice(offset, offset + count), x, y + 4);
-            x += widths[i];
-          });
-          y += count * height + 4;
-          doc.setDrawColor(214, 224, 232);
-          doc.line(16, y - 1, 194, y - 1);
-          offset += count;
-          if (offset < max) {
-            newPage();
-            header();
-          }
-        }
-        rowIndex++;
-      }
-      y += 4;
-    }
-    doc.setFillColor(13, 36, 69);
-    doc.rect(0, 0, 210, 48, "F");
-    doc.setFillColor(193, 168, 111);
-    doc.rect(0, 48, 210, 1.2, "F");
-    try {
-      const img = new Image();
-      img.src = "../assets/img/logo-amigos-verdaderos.png";
-      await img.decode();
-      const canvas = document.createElement("canvas");
-      canvas.width = 240;
-      canvas.height = 240;
-      canvas.getContext("2d").drawImage(img, 0, 0, 240, 240);
-      doc.addImage(canvas.toDataURL("image/png"), "PNG", 16, 13, 22, 22);
-    } catch {}
-    doc.setFont("Treasury", "bold");
-    doc.setFontSize(15);
-    doc.setTextColor(255);
-    doc.text("AMIGOS VERDADEROS", 43, 21);
-    doc.setFontSize(9);
-    doc.text("NARCÓTICOS ANÓNIMOS", 43, 28);
-    doc.setFont("Treasury", "normal");
-    doc.setFontSize(8);
-    doc.setTextColor(207, 219, 234);
-    doc.text("UNIDAD  /  SERVICIO  /  RECUPERACIÓN", 43, 35);
-    y = 63;
-    text("Informe de Tesorería", 24, true);
-    text(M.monthName(r.month), 13);
-    text(
-      (r.closure ? "CIERRE MENSUAL" : "PROVISIONAL - MES ABIERTO") +
-        "  |  " +
-        M.date(M.today()),
-      8,
-      true,
-    );
-    const total = M.totals(r);
-    ensure(32);
-    const cards = [
-      ["SALDO DISPONIBLE", total.closing],
-      ["INGRESOS DEL MES", total.income],
-      ["EGRESOS DEL MES", total.expense],
-    ];
-    cards.forEach(([label, value], i) => {
-      const x = 16 + i * 61;
-      doc.setFillColor(...(i === 0 ? [13, 36, 69] : [238, 243, 248]));
-      doc.roundedRect(x, y, 56, 25, 2, 2, "F");
-      doc.setTextColor(...(i === 0 ? [220, 230, 242] : [70, 92, 118]));
-      doc.setFont("Treasury", "bold");
-      doc.setFontSize(7);
-      doc.text(label, x + 4, y + 7);
-      doc.setFontSize(15);
-      doc.setTextColor(...(i === 0 ? [255, 255, 255] : [13, 36, 69]));
-      doc.text(clean(M.money(value)), x + 4, y + 18, { maxWidth: 48 });
-    });
-    y += 34;
-    text("Preparado por: " + person, 9);
-    title("Resumen de fondos");
+      total = M.totals(r),
+      notes = [],
+      receipts = [];
+    const entries = r.entries
+      .filter((e) => e.status === "posted")
+      .slice()
+      .sort(
+        (a, b) =>
+          a.entry_date.localeCompare(b.entry_date) ||
+          String(a.created_at || a.id).localeCompare(
+            String(b.created_at || b.id),
+          ),
+      );
+    const blocks = [];
+    const text = (value) => blocks.push({ type: "text", value });
+    const title = (value) => blocks.push({ type: "title", value });
+    const table = (headers, rows, widths, numeric = []) =>
+      blocks.push({ type: "table", headers, rows, widths, numeric });
+    title("Resumen del mes");
     table(
-      ["Fondo", "Saldo inicial", "Ingresos", "Egresos", "Saldo final"],
+      ["Fondo", "Al iniciar", "Ingresó", "Se gastó", "Al finalizar"],
       [
         ...r.funds.map((f) => [
-          f.fund === "rent" ? "Local" : "General",
-          ...["opening", "income", "expense", "closing"].map((k) =>
-            M.money(f[k]),
-          ),
+          fundName(f.fund),
+          ...fields.map((k) => M.money(f[k])),
         ]),
-        [
-          "TOTAL",
-          ...["opening", "income", "expense", "closing"].map((k) =>
-            M.money(total[k]),
-          ),
-        ],
+        ["TOTAL", ...fields.map((k) => M.money(total[k]))],
       ],
       [34, 36, 36, 36, 36],
+      [1, 2, 3, 4],
     );
-    const entries = r.entries.filter((e) => e.status === "posted"),
-      grouped = {};
-    for (const e of entries) {
-      const k = e.kind + ":" + e.category;
-      grouped[k] = (grouped[k] || 0) + Number(e.amount_cents);
-    }
-    title("Totales por categoría");
-    table(
-      ["Tipo", "Categoría", "Total"],
-      Object.entries(grouped).map(([k, n]) => {
-        const [kind, cat] = k.split(":");
-        return [
-          kind === "income" ? "Ingreso" : "Egreso",
-          M.categories[cat],
-          M.money(n),
-        ];
-      }),
-      [35, 105, 38],
+    text(
+      "General: dinero para café, agua, insumos y otros gastos del grupo. Arriendo: dinero reservado para pagar el alquiler del local; no se cuenta como dinero libre para otros gastos.",
     );
-    newPage();
-    title("Detalle de movimientos");
-    table(
-      ["Fecha", "Concepto / fondo", "Ingreso", "Egreso"],
-      entries.map((e) => [
-        M.date(e.entry_date),
-        e.description +
-          "\n" +
-          M.categories[e.category] +
-          " / " +
-          (e.fund === "rent" ? "Local" : "General") +
-          (e.due_month ? "\nAporte: " + M.monthName(e.due_month) : "") +
-          "\n" +
-          (e.receipt_path
-            ? "Comprobante adjunto"
-            : e.no_receipt_reason
-              ? "Sin comprobante: " + e.no_receipt_reason
-              : "Sin adjunto"),
-        e.kind === "income" ? M.money(e.amount_cents) : "",
-        e.kind === "expense" ? M.money(e.amount_cents) : "",
-      ]),
-      [25, 91, 31, 31],
+    text(
+      "Al iniciar es el saldo que viene del período anterior. Al finalizar = al iniciar + lo que ingresó − lo que se gastó. El total reúne ambos fondos; no es un ingreso adicional.",
     );
-    if (!entries.length) text("No hay movimientos confirmados.");
     if (r.closure) {
-      title("Conciliación y cierre");
       text(
-        "Dinero contado: " +
+        "Cierre revisado por " +
+          r.closure.closed_name +
+          ". Dinero contado: " +
           M.money(r.closure.counted_cents) +
-          " | Diferencia: " +
-          M.money(r.closure.difference_cents),
-        11,
-        true,
+          ". Diferencia con el registro: " +
+          M.money(r.closure.difference_cents) +
+          ".",
       );
-      text("Cerrado por: " + r.closure.closed_name);
-      text(r.closure.note || "Sin observaciones.");
+      if (r.closure.note) text("Observación del cierre: " + r.closure.note);
     } else
       text(
-        "Informe provisional. Los valores pueden cambiar mientras el mes permanezca abierto.",
+        "Informe provisional: el mes sigue abierto y sus valores pueden cambiar.",
       );
-    if (includeDues) {
-      title("Anexo privado / Aportes para el local");
+    const excluded = r.entries.filter((e) => e.status !== "posted").length;
+    if (excluded)
+      text(
+        excluded +
+          " registros en borrador o anulados no forman parte de estos totales.",
+      );
+    for (const kind of ["income", "expense"]) {
+      blocks.push({ type: "page" });
+      const label = kind === "income" ? "Ingresos" : "Egresos",
+        list = entries.filter((e) => e.kind === kind);
+      title(label + " · " + list.length + " movimientos");
+      text(
+        kind === "income"
+          ? "Dinero recibido durante el mes, separado por fondo."
+          : "Dinero utilizado durante el mes, separado por fondo.",
+      );
+      const rows = list.map((e, i) => {
+        const id =
+          (kind === "income" ? "I" : "E") + String(i + 1).padStart(2, "0");
+        let concept = e.description || M.categories[e.category] || "Movimiento";
+        if (concept.length > 105) {
+          notes.push([id, "Concepto completo: " + concept]);
+          concept = concept.slice(0, 102) + "… [nota]";
+        }
+        if (e.due_month)
+          notes.push([
+            id,
+            "Aporte asignado a " + M.monthName(e.due_month) + ".",
+          ]);
+        if (e.receipt_path) receipts.push({ ...e, ref: id });
+        else if (e.no_receipt_reason)
+          notes.push([id, "Sin comprobante: " + e.no_receipt_reason]);
+        return [
+          id,
+          M.date(e.entry_date),
+          concept,
+          fundName(e.fund),
+          M.money(e.amount_cents),
+        ];
+      });
+      if (rows.length)
+        table(
+          ["Ref.", "Fecha", "Concepto", "Fondo", "Valor"],
+          rows,
+          [13, 25, 87, 23, 30],
+          [4],
+        );
+      else text("No hay " + label.toLowerCase() + " confirmados en este mes.");
       table(
-        ["Compañero", "Referencia", "Pagado", "Pendiente", "Estado"],
-        r.dues.map((d) => [
+        ["Total " + label.toLowerCase(), "General", "Arriendo", "TOTAL"],
+        [
+          [
+            "Dinero " + (kind === "income" ? "recibido" : "utilizado"),
+            ...["general", "rent"].map((f) =>
+              M.money(
+                list
+                  .filter((e) => e.fund === f)
+                  .reduce((n, e) => n + Number(e.amount_cents), 0),
+              ),
+            ),
+            M.money(list.reduce((n, e) => n + Number(e.amount_cents), 0)),
+          ],
+        ],
+        [70, 36, 36, 36],
+        [1, 2, 3],
+      );
+    }
+    if (notes.length) {
+      blocks.push({ type: "page" });
+      title("Notas de los movimientos");
+      text(
+        "Las referencias I identifican ingresos; las E, egresos. Las notas repetidas se muestran una sola vez con todas sus referencias.",
+      );
+      const grouped = new Map();
+      for (const [ref, value] of notes)
+        grouped.set(value, [...(grouped.get(value) || []), ref]);
+      for (const [value, refs] of grouped)
+        text(refs.join(", ") + " — " + value);
+    }
+    if (includeDues) {
+      blocks.push({ type: "page" });
+      title("Anexo privado · Aportes para arriendo");
+      text(
+        "La cuota corresponde al mes asignado. Un pendiente no es dinero disponible; el ingreso se cuenta en la fecha en que se recibió.",
+      );
+      table(
+        ["Compañero", "Cuota", "Pagado", "Pendiente", "Estado"],
+        (r.dues || []).map((d) => [
           d.name,
           M.money(d.expected),
           M.money(d.paid),
           M.money(Math.max(0, d.expected - d.paid)),
           M.dueStatus(d),
         ]),
-        [46, 30, 30, 30, 42],
-      );
-      text(
-        "Los aportes corresponden al mes asignado; la caja registra la fecha del ingreso. Los pendientes no se suman al saldo disponible.",
-        9,
+        [54, 29, 29, 29, 37],
+        [1, 2, 3],
       );
     }
+    if (receipts.length) {
+      blocks.push({ type: "page" });
+      title("Comprobantes registrados");
+      text(
+        "Cada referencia corresponde al movimiento de las tablas anteriores. Los originales se conservan en Tesorería, con acceso autorizado.",
+      );
+      table(
+        ["Ref.", "Fecha", "Fondo", "Valor", "Archivo"],
+        receipts.map((e) => [
+          e.ref,
+          M.date(e.entry_date),
+          fundName(e.fund),
+          M.money(e.amount_cents),
+          /\.pdf$/i.test(e.receipt_path) ? "PDF original" : "Fotografía",
+        ]),
+        [16, 30, 36, 36, 60],
+        [3],
+      );
+      text(
+        "Las fotografías se añaden al final solo si se selecciona «Incluir fotos de comprobantes». Los archivos PDF originales se consultan y descargan desde Tesorería; no se reproducen en este informe.",
+      );
+    }
+    return { r, blocks, receipts };
+  }
+  async function prepare(input, options = {}) {
+    if (!options.includeReceipts) return [];
+    const { receipts } = sections(input, false),
+      result = [];
+    for (const e of receipts) {
+      if (/\.pdf$/i.test(e.receipt_path)) continue;
+      let url;
+      try {
+        const blob = await options.loadReceipt(e.receipt_path);
+        url = URL.createObjectURL(blob);
+        const img = new Image();
+        img.src = url;
+        await img.decode();
+        const scale = Math.min(
+          1,
+          1800 / Math.max(img.naturalWidth, img.naturalHeight),
+        );
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(img.naturalWidth * scale);
+        canvas.height = Math.round(img.naturalHeight * scale);
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        result.push({
+          ...e,
+          image: canvas.toDataURL("image/jpeg", 0.88),
+          width: canvas.width,
+          height: canvas.height,
+        });
+      } catch {
+        result.push({ ...e, error: true });
+      } finally {
+        if (url) URL.revokeObjectURL(url);
+      }
+    }
+    return result;
+  }
+  function html(input, includeDues, person, evidence = []) {
+    const { r, blocks } = sections(input, includeDues);
+    return (
+      `<div class="print-header"><img src="../assets/img/logo-amigos-verdaderos.png" alt="Logo"><div><b>GRUPO AMIGOS VERDADEROS</b><br>Narcóticos Anónimos</div></div><h1>Informe mensual de tesorería</h1><p>${esc(M.monthName(r.month))} · ${r.closure ? "MES CERRADO" : "PROVISIONAL"}<br>Preparado por: ${esc(person)} · ${esc(M.date(M.today()))}</p>` +
+      blocks
+        .map((b) =>
+          b.type === "page"
+            ? '<div class="report-page-break"></div>'
+            : b.type === "title"
+              ? `<h2>${esc(b.value)}</h2>`
+              : b.type === "text"
+                ? `<p class="report-paragraph">${esc(b.value)}</p>`
+                : `<table class="report-table"><thead><tr>${b.headers.map((h, i) => `<th class="${b.numeric.includes(i) ? "amount" : ""}" style="width:${(b.widths[i] / 178) * 100}%">${esc(h)}</th>`).join("")}</tr></thead><tbody>${b.rows.map((row) => `<tr>${row.map((v, i) => `<td class="${b.numeric.includes(i) ? "amount" : ""}">${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>`,
+        )
+        .join("") +
+      evidence
+        .map(
+          (e) =>
+            `<section class="report-evidence"><h2>Comprobante ${esc(e.ref)}</h2><p>${esc(M.date(e.entry_date))} · ${esc(fundName(e.fund))} · ${esc(M.money(e.amount_cents))}</p>${e.error ? "<p>No se pudo cargar esta fotografía. Consulte el original en Tesorería.</p>" : `<img src="${e.image}" alt="Comprobante ${esc(e.ref)}">`}</section>`,
+        )
+        .join("")
+    );
+  }
+  async function download(input, includeDues, person, options = {}) {
+    const { r, blocks } = sections(input, includeDues),
+      evidence = await prepare(input, options);
+    const doc = new root.jspdf.jsPDF({
+      unit: "mm",
+      format: "a4",
+      putOnlyUsedFonts: true,
+      compress: true,
+    });
+    for (const style of ["normal", "bold"]) {
+      doc.addFileToVFS("Treasury-" + style + ".ttf", root.TreasuryFonts[style]);
+      doc.addFont("Treasury-" + style + ".ttf", "Treasury", style);
+    }
+    let y = 22,
+      section = "Informe mensual";
+    const font = (size = 10, bold = false) => {
+      doc.setFont("Treasury", bold ? "bold" : "normal");
+      doc.setFontSize(size);
+      doc.setTextColor(20, 40, 68);
+    };
+    function page() {
+      doc.addPage();
+      y = 22;
+      font(9, true);
+      doc.text("AMIGOS VERDADEROS · " + M.monthName(r.month), 16, y);
+      y += 12;
+    }
+    function ensure(h) {
+      if (y + h > 274) page();
+    }
+    function text(value, size = 10, bold = false) {
+      font(size, bold);
+      const lines = doc.splitTextToSize(String(value), 178);
+      for (const line of lines) {
+        ensure(6);
+        font(size, bold);
+        doc.text(line, 16, y);
+        y += 5.3;
+      }
+      y += 4;
+    }
+    function table(b) {
+      function header() {
+        font(9, true);
+        doc.setFillColor(229, 236, 244);
+        doc.rect(16, y, 178, 10, "F");
+        let x = 16;
+        b.headers.forEach((h, i) => {
+          doc.text(
+            h,
+            b.numeric.includes(i) ? x + b.widths[i] - 2 : x + 2,
+            y + 6.5,
+            { align: b.numeric.includes(i) ? "right" : "left" },
+          );
+          x += b.widths[i];
+        });
+        y += 11;
+      }
+      ensure(24);
+      header();
+      b.rows.forEach((row, index) => {
+        font(9);
+        const cells = row.map((v, i) =>
+          doc.splitTextToSize(String(v), b.widths[i] - 4),
+        );
+        const max = Math.max(1, ...cells.map((c) => c.length));
+        let offset = 0;
+        if (max * 4.8 + 5 < 225 && y + max * 4.8 + 5 > 274) {
+          page();
+          text(section + " · continuación", 11, true);
+          header();
+        }
+        while (offset < max) {
+          let count = Math.min(max - offset, Math.floor((274 - y - 5) / 4.8));
+          if (count < 1) {
+            page();
+            text(section + " · continuación", 11, true);
+            header();
+            count = Math.min(max - offset, Math.floor((274 - y - 5) / 4.8));
+          }
+          const h = count * 4.8 + 5;
+          if (index % 2 === 0) {
+            doc.setFillColor(247, 249, 252);
+            doc.rect(16, y, 178, h, "F");
+          }
+          font(9, row[0] === "TOTAL" || b.headers[0].startsWith("Total "));
+          let x = 16;
+          cells.forEach((c, i) => {
+            const lines = c.slice(offset, offset + count);
+            lines.forEach((line, j) =>
+              doc.text(
+                line,
+                b.numeric.includes(i) ? x + b.widths[i] - 2 : x + 2,
+                y + 5 + j * 4.8,
+                { align: b.numeric.includes(i) ? "right" : "left" },
+              ),
+            );
+            x += b.widths[i];
+          });
+          y += h;
+          offset += count;
+        }
+      });
+      y += 7;
+    }
+    try {
+      const img = new Image();
+      img.src = "../assets/img/logo-amigos-verdaderos.png";
+      await img.decode();
+      doc.addImage(img, "PNG", 16, 12, 19, 19);
+    } catch {}
+    font(13, true);
+    doc.text("AMIGOS VERDADEROS", 40, 20);
+    font(9);
+    doc.text("NARCÓTICOS ANÓNIMOS", 40, 27);
+    y = 44;
+    text("Informe mensual de tesorería", 19, true);
+    text(M.monthName(r.month), 13, true);
     text(
-      "Borradores: " +
-        r.entries.filter((e) => e.status === "draft").length +
-        ". Anulados: " +
-        r.entries.filter((e) => e.status === "void").length +
-        ". Excluidos de los totales. Comprobantes e historial disponibles con acceso autorizado.",
+      (r.closure ? "MES CERRADO" : "PROVISIONAL · MES ABIERTO") +
+        " · Emitido el " +
+        M.date(M.today()),
       9,
     );
+    text("Preparado por: " + person, 9);
+    for (const b of blocks) {
+      if (b.type === "page") page();
+      else if (b.type === "title") {
+        section = b.value;
+        ensure(24);
+        text(b.value, 14, true);
+      } else if (b.type === "text") text(b.value);
+      else table(b);
+    }
+    for (const e of evidence) {
+      page();
+      text("Comprobante " + e.ref, 15, true);
+      text(
+        M.date(e.entry_date) +
+          " · " +
+          fundName(e.fund) +
+          " · " +
+          M.money(e.amount_cents),
+        11,
+      );
+      if (e.error)
+        text(
+          "No se pudo cargar esta fotografía. Consulte el original en Tesorería.",
+        );
+      else {
+        const scale = Math.min(178 / e.width, (269 - y) / e.height);
+        const w = e.width * scale,
+          h = e.height * scale;
+        doc.addImage(e.image, "JPEG", 16 + (178 - w) / 2, y, w, h);
+      }
+    }
     for (let n = 1; n <= doc.getNumberOfPages(); n++) {
       doc.setPage(n);
-      doc.setDrawColor(193, 168, 111);
-      doc.line(16, 282, 194, 282);
-      doc.setFont("Treasury", "normal");
-      doc.setFontSize(8);
-      doc.setTextColor(89, 110, 132);
-      doc.text("Unidad - Servicio - Recuperación", 16, 288);
-      doc.text(n + " / " + doc.getNumberOfPages(), 194, 288, {
+      doc.setDrawColor(178, 190, 205);
+      doc.line(16, 281, 194, 281);
+      font(8);
+      doc.text("Tesorería · " + M.monthName(r.month), 16, 287);
+      doc.text(n + " / " + doc.getNumberOfPages(), 194, 287, {
         align: "right",
       });
     }
     doc.save("Tesoreria_Amigos_Verdaderos_" + r.month.slice(0, 7) + ".pdf");
+    return { missingReceipts: evidence.filter((e) => e.error).length };
   }
-  root.TreasuryReport = { html, download };
+  root.TreasuryReport = { html, download, prepare };
 })(window);

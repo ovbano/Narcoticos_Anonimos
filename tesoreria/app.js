@@ -1174,21 +1174,47 @@
       });
     $("#download-pdf").onclick = () =>
       busy($("#download-pdf"), async () => {
-        await window.TreasuryReport.download(
+        const outcome = await window.TreasuryReport.download(
           await reportFresh("pdf"),
           $("#include-dues").checked,
           profile.display_name || "Servidor",
+          {
+            includeReceipts: $("#include-receipts").checked,
+            loadReceipt: (path) =>
+              result(db.storage.from("treasury-receipts").download(path)),
+          },
         );
+        if (outcome.missingReceipts)
+          toast(
+            "El PDF indica " +
+              outcome.missingReceipts +
+              " fotografías que no se pudieron cargar. Puedes volver a intentarlo.",
+          );
       });
     $("#print-report").onclick = () =>
       busy($("#print-report"), async () => {
-        printHTML(
-          window.TreasuryReport.html(
-            await reportFresh("print"),
-            $("#include-dues").checked,
-            profile.display_name || "Servidor",
+        const report = await reportFresh("print");
+        const evidence = await window.TreasuryReport.prepare(report, {
+          includeReceipts: $("#include-receipts").checked,
+          loadReceipt: (path) =>
+            result(db.storage.from("treasury-receipts").download(path)),
+        });
+        $("#print-area").innerHTML = window.TreasuryReport.html(
+          report,
+          $("#include-dues").checked,
+          profile.display_name || "Servidor",
+          evidence,
+        );
+        await Promise.all(
+          Array.from($("#print-area").querySelectorAll("img"), (img) =>
+            img.decode().catch(() => {}),
           ),
         );
+        if (evidence.some((e) => e.error))
+          toast(
+            "Hay fotografías que no se pudieron cargar; el informe las identifica.",
+          );
+        window.print();
       });
     $("#print-guide").onclick = () =>
       printHTML(
