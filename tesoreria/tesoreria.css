@@ -1942,3 +1942,47 @@ main {
     font-size: 11px;
   }
 }
+
+/* Printed monthly report: same section order as the downloadable PDF. */
+@media print {
+  #print-area .report-page-break {
+    break-before: page;
+  }
+  #print-area .report-table {
+    table-layout: fixed;
+    font-size: 10pt;
+  }
+  #print-area .report-table th {
+    background: #e5ecf4;
+    color: #142844;
+  }
+  #print-area .report-table td,
+  #print-area .report-table th {
+    padding: 7px 5px;
+    overflow-wrap: anywhere;
+    vertical-align: top;
+  }
+  #print-area .amount {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  #print-area .report-paragraph {
+    font-size: 10.5pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  #print-area .report-evidence {
+    break-before: page;
+    break-inside: avoid;
+  }
+  #print-area .report-evidence img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 220mm;
+    margin: 8mm auto 0;
+    object-fit: contain;
+  }
+}
