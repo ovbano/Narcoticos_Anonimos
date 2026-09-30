@@ -507,16 +507,19 @@
       $("#save-draft").disabled = $("#post-entry").disabled = true;
       $("#entry-message").textContent = "Guardando… No cierres esta pantalla.";
       if (selectedFile && !uploadedPath) {
+        $("#entry-message").textContent =
+          "Optimizando comprobante y guardando…";
+        const uploadFile = await window.TreasuryReport.optimizeUpload(selectedFile);
         const ext = {
           "image/jpeg": "jpg",
           "image/png": "png",
           "image/webp": "webp",
           "application/pdf": "pdf",
-        }[selectedFile.type];
+        }[uploadFile.type];
         const path = activeEntry.id + "/" + crypto.randomUUID() + "." + ext;
         await result(
-          db.storage.from("treasury-receipts").upload(path, selectedFile, {
-            contentType: selectedFile.type,
+          db.storage.from("treasury-receipts").upload(path, uploadFile, {
+            contentType: uploadFile.type,
             upsert: false,
           }),
         );
@@ -1223,7 +1226,8 @@
           toast(
             "El PDF indica " +
               outcome.missingReceipts +
-              " fotografías que no se pudieron cargar. Puedes volver a intentarlo.",
+              " fotografías pendientes. " +
+              outcome.receiptErrors.join("; "),
           );
       });
     $("#print-report").onclick = () =>
@@ -1247,7 +1251,11 @@
         );
         if (evidence.some((e) => e.error))
           toast(
-            "Hay fotografías que no se pudieron cargar; el informe las identifica.",
+            "Comprobantes pendientes: " +
+              evidence
+                .filter((e) => e.error)
+                .map((e) => e.ref + ": " + e.errorMessage)
+                .join("; "),
           );
         window.print();
       });
