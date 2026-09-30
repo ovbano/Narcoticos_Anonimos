@@ -861,6 +861,41 @@
         )
         .join("") || "<p>Todavía no hay cambios registrados.</p>";
   }
+  async function loadReportReceipt(path) {
+    // Short-lived private URL, downloaded directly from Storage with cancellation.
+    const signed = await window.TreasuryReport.deadline(() =>
+      result(db.storage.from("treasury-receipts").createSignedUrl(path, 60)),
+    );
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 18000);
+    try {
+      const response = await fetch(signed.signedUrl, {
+        signal: controller.signal,
+        cache: "no-store",
+      });
+      if (!response.ok) throw new Error("No se pudo descargar el comprobante");
+      const blob = await response.blob();
+      return blob;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  async function exporting(button, action) {
+    const controls = [$("#download-pdf"), $("#print-report")];
+    if (controls.some((b) => b.disabled)) return;
+    const label = button.textContent;
+    controls.forEach((b) => (b.disabled = true));
+    const progress = (message) => (button.textContent = message);
+    try {
+      progress("Preparando informe…");
+      await action(progress);
+    } catch (e) {
+      fail(e);
+    } finally {
+      button.textContent = label;
+      controls.forEach((b) => (b.disabled = false));
+    }
+  }
   async function reportFresh(format = null) {
     if (!report) throw Error("Primero configura los fondos.");
     report = await result(
@@ -1173,15 +1208,15 @@
         await refresh();
       });
     $("#download-pdf").onclick = () =>
-      busy($("#download-pdf"), async () => {
+      exporting($("#download-pdf"), async (onProgress) => {
         const outcome = await window.TreasuryReport.download(
           await reportFresh("pdf"),
           $("#include-dues").checked,
           profile.display_name || "Servidor",
           {
             includeReceipts: $("#include-receipts").checked,
-            loadReceipt: (path) =>
-              result(db.storage.from("treasury-receipts").download(path)),
+            loadReceipt: loadReportReceipt,
+            onProgress,
           },
         );
         if (outcome.missingReceipts)
@@ -1192,12 +1227,12 @@
           );
       });
     $("#print-report").onclick = () =>
-      busy($("#print-report"), async () => {
+      exporting($("#print-report"), async (onProgress) => {
         const report = await reportFresh("print");
         const evidence = await window.TreasuryReport.prepare(report, {
           includeReceipts: $("#include-receipts").checked,
-          loadReceipt: (path) =>
-            result(db.storage.from("treasury-receipts").download(path)),
+          loadReceipt: loadReportReceipt,
+          onProgress,
         });
         $("#print-area").innerHTML = window.TreasuryReport.html(
           report,
@@ -1207,7 +1242,7 @@
         );
         await Promise.all(
           Array.from($("#print-area").querySelectorAll("img"), (img) =>
-            img.decode().catch(() => {}),
+            window.TreasuryReport.deadline(() => img.decode()).catch(() => {}),
           ),
         );
         if (evidence.some((e) => e.error))
