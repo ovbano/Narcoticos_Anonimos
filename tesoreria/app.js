@@ -168,7 +168,7 @@
     ]);
     if (token !== refreshToken) return;
     settings = s;
-    await window.TreasuryActivities.load({db, companions, writable: writable(), toast, refresh, openEntry: e => openEntry(e.kind, e)});
+    await window.TreasuryActivities.load({db, companions, writable: writable(), toast, refresh, picker, openEntry: (e, attach = false) => { openEntry(e.kind, e, null, attach); if (attach) field("correction_reason").value = "Adjuntar comprobante del pago"; }});
     if (token !== refreshToken) return;
     $("#workspace").classList.toggle("needs-setup", !settings);
     members = mem;

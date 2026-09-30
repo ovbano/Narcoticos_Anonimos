@@ -8,7 +8,9 @@
     ctx,
     generation = 0,
     selected = null,
-    paymentId = null;
+    paymentId = null,
+    companionPicker = null,
+    companionId = null;
   const money = (n) => M.money(Number(n || 0));
   const fields = () => $("#activity-form").elements;
   async function rpc(name, args) {
@@ -39,7 +41,7 @@
       visible
         .map(
           (r) =>
-            `<article class="activity-card"><div class="activity-card-heading"><div><h3>${esc(r.name)}</h3><p>${esc(r.activity)}</p></div><span class="activity-badge ${r.pending_cents === 0 ? "settled" : ""}">${r.pending_cents > 0 ? "Pendiente" : "Al día"}</span></div><p class="activity-date">${r.activity_date ? esc(r.activity_date) : "Fecha de actividad no disponible"}${!r.companion_id ? " · Sin vincular al registro" : ""}</p><dl><div><dt>Valor original</dt><dd>${money(r.original_cents)}</dd></div><div><dt>Abonos anteriores al sistema</dt><dd>${money(r.historical_paid_cents)}</dd></div><div><dt>Pagos nuevos</dt><dd>${money(r.paid_cents)}</dd></div><div class="activity-balance"><dt>Por cobrar</dt><dd>${money(r.pending_cents)}</dd></div></dl>${r.note ? `<details><summary>Nota del registro</summary><p>${esc(r.note)}</p></details>` : ""}<div class="button-row">${ctx.writable && r.pending_cents > 0 ? `<button type="button" class="primary" data-activity-pay="${esc(r.id)}">Registrar pago</button>` : ""}${ctx.writable ? `<button type="button" class="secondary" data-activity-edit="${esc(r.id)}">Corregir datos</button>` : ""}</div>${r.payments.length ? `<details><summary>Ver pagos (${r.payments.length})</summary><ul class="activity-payments">${r.payments.map((e) => `<li><button type="button" class="text-button" data-activity-entry="${esc(e.id)}">${esc(e.entry_date)} · ${money(e.amount_cents)}${e.status === "void" ? " · Anulado" : ""}<small>Ver movimiento y comprobante</small></button></li>`).join("")}</ul></details>` : ""}</article>`,
+            `<article class="activity-card"><div class="activity-card-heading"><div><h3>${esc(r.name)}</h3><p>${esc(r.activity)}</p></div><span class="activity-badge ${r.pending_cents === 0 ? "settled" : ""}">${r.pending_cents > 0 ? "Pendiente" : "Al día"}</span></div><p class="activity-date">${r.activity_date ? esc(r.activity_date) : "Fecha de actividad no disponible"}${!r.companion_id ? " · Sin vincular al registro" : ""}</p><dl><div><dt>Valor original</dt><dd>${money(r.original_cents)}</dd></div><div><dt>Abonos anteriores al sistema</dt><dd>${money(r.historical_paid_cents)}</dd></div><div><dt>Pagos nuevos</dt><dd>${money(r.paid_cents)}</dd></div><div class="activity-balance"><dt>Por cobrar</dt><dd>${money(r.pending_cents)}</dd></div></dl>${r.note ? `<details><summary>Nota del registro</summary><p>${esc(r.note)}</p></details>` : ""}<div class="button-row">${ctx.writable && r.pending_cents > 0 ? `<button type="button" class="primary" data-activity-pay="${esc(r.id)}">Registrar pago</button>` : ""}${ctx.writable ? `<button type="button" class="secondary" data-activity-edit="${esc(r.id)}">Corregir datos</button>` : ""}</div><details class="activity-payment-history"><summary>Ver pagos y comprobantes (${r.payments.length})</summary>${r.payments.length ? `<ul class="activity-payments">${r.payments.map((e) => `<li><button type="button" class="text-button" data-activity-entry="${esc(e.id)}">${esc(e.entry_date)} · ${money(e.amount_cents)}${e.status === "void" ? " · Anulado" : ""}<small>Ver movimiento${e.receipt_path ? " y comprobante" : " · Sin comprobante"}</small></button>${ctx.writable && e.status === "posted" ? `<button type="button" class="secondary" data-activity-entry="${esc(e.id)}" data-activity-attach="true">${e.receipt_path ? "Cambiar comprobante" : "Adjuntar comprobante"}</button>` : ""}</li>`).join("")}</ul>` : `<p>Todavía no hay pagos registrados en el sistema para esta actividad. Los abonos anteriores son antecedentes, sin movimientos ni comprobantes individuales.</p><p>Cuando recibas un nuevo pago, usa «Registrar pago». Después aparecerá aquí con la opción «Adjuntar comprobante». No registres de nuevo los abonos antiguos.</p>`}</details></article>`,
         )
         .join("") ||
       '<p class="empty">No hay registros para esta búsqueda.</p>';
@@ -69,13 +71,10 @@
     $("#activity-reason-field").hidden = paying || !account;
     f.reason.required = !paying && !!account;
     f.reason.disabled = paying || !account;
-    $("#activity-companion-options").innerHTML = ctx.companions
-      .map((c) => `<option value="${esc(c.name)}"></option>`)
-      .join("");
-    f.companion.value =
-      ctx.companions.find((c) => c.id === account?.companion_id)?.name ||
-      account?.name ||
-      "";
+    companionId = account?.companion_id || null;
+    companionId =
+      companionId || (account && !account.companion_id ? "unlinked" : null);
+    companionPicker.set(companionId);
     f.activity.value = account?.activity || "";
     f.original.value = account ? (account.original_cents / 100).toFixed(2) : "";
     f.historical.value = ((account?.historical_paid_cents || 0) / 100).toFixed(
@@ -125,7 +124,7 @@
       const record = rows
         .flatMap((r) => r.payments)
         .find((p) => p.id === entry.dataset.activityEntry);
-      ctx.openEntry(record);
+      ctx.openEntry(record, entry.dataset.activityAttach === "true");
     }
   });
   $("#activity-form").addEventListener("submit", async (e) => {
@@ -147,19 +146,15 @@
           note: f.payment_note.value,
         };
       else {
-        const matches = ctx.companions.filter(
-          (c) => c.name === f.companion.value.trim(),
-        );
+        const companion = ctx.companions.find((c) => c.id === companionId);
         const keepUnlinked =
-          selected &&
-          !selected.companion_id &&
-          f.companion.value.trim() === selected.name;
-        if (matches.length !== 1 && !keepUnlinked)
-          throw Error("Selecciona un nombre exacto del registro del grupo.");
+          selected && !selected.companion_id && companionId === "unlinked";
+        if (!companion && !keepUnlinked)
+          throw Error("Selecciona un compañero del menú desplegable.");
         data = {
           id: selected?.id || paymentId,
           version: selected?.version || 0,
-          companion_id: matches[0]?.id || null,
+          companion_id: companion?.id || null,
           activity: f.activity.value,
           original_cents: cents(f.original.value),
           historical_paid_cents: cents(f.historical.value),
@@ -193,6 +188,24 @@
   window.TreasuryActivities = {
     async load(options) {
       ctx = options;
+      if (!companionPicker)
+        companionPicker = ctx.picker(
+          "#activity-companion-picker",
+          "#activity-companion-search",
+          "#activity-companion-options",
+          () => [
+            ...(ctx?.companions || []).map((c) => ({
+              value: c.id,
+              name: c.name,
+            })),
+            ...(selected && !selected.companion_id
+              ? [{ value: "unlinked", name: selected.name + " · Sin vincular" }]
+              : []),
+          ],
+          (c) => {
+            companionId = c?.value || null;
+          },
+        );
       const token = ++generation;
       try {
         const data = await rpc("treasury_activities");
