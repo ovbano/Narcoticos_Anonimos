@@ -202,6 +202,94 @@
       clearTimeout(timer);
     }
   }
+  async function raster(blob, maxSide = 1800, quality = 0.85) {
+    let source, canvas;
+    try {
+      // ImageBitmap avoids the blob-URL + HTMLImageElement.decode path.
+      if (typeof root.createImageBitmap === "function") {
+        try {
+          let expired = false;
+          const pending = root.createImageBitmap(blob).then((bitmap) => {
+            if (expired) {
+              bitmap.close();
+              throw Error("Lectura cancelada");
+            }
+            return bitmap;
+          });
+          try {
+            source = await deadline(() => pending, 8000);
+          } catch (error) {
+            expired = true;
+            throw error;
+          }
+        } catch {
+          /* Fall back to a data URL and the image load event. */
+        }
+      }
+      if (!source) {
+        const data = await deadline(
+          () =>
+            new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result);
+              reader.onerror = () =>
+                reject(Error("No se pudo leer el archivo"));
+              reader.readAsDataURL(blob);
+            }),
+        );
+        source = new Image();
+        await deadline(
+          () =>
+            new Promise((resolve, reject) => {
+              source.onload = resolve;
+              source.onerror = () =>
+                reject(
+                  Error("El archivo no se reconoce como una imagen válida"),
+                );
+              source.src = data;
+            }),
+        );
+      }
+      const width = source.naturalWidth || source.width,
+        height = source.naturalHeight || source.height;
+      if (!width || !height)
+        throw Error("La imagen no tiene dimensiones válidas");
+      const scale = Math.min(1, maxSide / Math.max(width, height));
+      canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(width * scale));
+      canvas.height = Math.max(1, Math.round(height * scale));
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw Error("El navegador no pudo preparar la imagen");
+      ctx.fillStyle = "white";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+      const image = canvas.toDataURL("image/jpeg", quality);
+      if (!image.startsWith("data:image/jpeg"))
+        throw Error("No se pudo convertir la imagen");
+      return { image, width: canvas.width, height: canvas.height };
+    } finally {
+      if (source?.close) source.close();
+      else if (source) {
+        source.onload = source.onerror = null;
+        source.src = "";
+      }
+      if (canvas) {
+        canvas.width = 0;
+        canvas.height = 0;
+      }
+    }
+  }
+  async function optimizeUpload(file) {
+    if (!file.type.startsWith("image/")) return file;
+    const converted = await raster(file, 2200, 0.88);
+    const bytes = atob(converted.image.split(",")[1]);
+    const buffer = Uint8Array.from(bytes, (c) => c.charCodeAt(0));
+    if (buffer.length >= file.size) return file;
+    return new File([buffer], file.name.replace(/\.[^.]+$/, "") + ".jpg", {
+      type: "image/jpeg",
+      lastModified: file.lastModified,
+    });
+  }
   async function* receiptImages(input, options = {}) {
     if (!options.includeReceipts) return;
     const photos = sections(input, false).receipts.filter(
@@ -212,46 +300,30 @@
       options.onProgress?.(
         "Preparando foto " + (index + 1) + " de " + photos.length + "…",
       );
-      let url, img, canvas, output;
+      let output,
+        stage = "descarga";
       try {
         if (Date.now() - started > 90000)
-          throw new Error("Límite de espera del anexo");
+          throw Error("Límite de espera del anexo");
         const blob = await deadline(
           () => options.loadReceipt(e.receipt_path),
           options.timeoutMs || 20000,
         );
-        if (!(blob instanceof Blob) || blob.size > 10 * 1024 * 1024)
-          throw new Error("Archivo inválido o demasiado grande");
-        url = URL.createObjectURL(blob);
-        img = new Image();
-        img.src = url;
-        await deadline(() => img.decode(), options.timeoutMs || 15000);
-        const scale = Math.min(
-          1,
-          1600 / Math.max(img.naturalWidth, img.naturalHeight),
-        );
-        canvas = document.createElement("canvas");
-        canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
-        canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
-        const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        if (
+          !blob ||
+          typeof blob.arrayBuffer !== "function" ||
+          blob.size > 10 * 1024 * 1024
+        )
+          throw Error("Archivo inválido o demasiado grande");
+        stage = "lectura de imagen";
+        output = { ...e, ...(await raster(blob)) };
+      } catch (error) {
         output = {
           ...e,
-          image: canvas.toDataURL("image/jpeg", 0.78),
-          width: canvas.width,
-          height: canvas.height,
+          error: true,
+          errorMessage:
+            "Falló la " + stage + ": " + (error.message || "error desconocido"),
         };
-      } catch {
-        output = { ...e, error: true };
-      } finally {
-        if (img) img.src = "";
-        if (url) URL.revokeObjectURL(url);
-        if (canvas) {
-          canvas.width = 0;
-          canvas.height = 0;
-        }
       }
       yield output;
       // Let the browser paint progress between photos, especially on phones.
@@ -281,7 +353,7 @@
       evidence
         .map(
           (e) =>
-            `<section class="report-evidence"><h2>Comprobante ${esc(e.ref)}</h2><p>${esc(M.date(e.entry_date))} · ${esc(fundName(e.fund))} · ${esc(M.money(e.amount_cents))}</p>${e.error ? "<p>No se pudo cargar esta fotografía. Consulte el original en Tesorería.</p>" : `<img src="${e.image}" alt="Comprobante ${esc(e.ref)}">`}</section>`,
+            `<section class="report-evidence"><h2>Comprobante ${esc(e.ref)}</h2><p>${esc(M.date(e.entry_date))} · ${esc(fundName(e.fund))} · ${esc(M.money(e.amount_cents))}</p>${e.error ? `<p>No se pudo cargar esta fotografía. ${esc(e.errorMessage || "Consulte el original en Tesorería.")}</p>` : `<img src="${e.image}" alt="Comprobante ${esc(e.ref)}">`}</section>`,
         )
         .join("")
     );
@@ -289,6 +361,7 @@
   async function download(input, includeDues, person, options = {}) {
     const { r, blocks } = sections(input, includeDues);
     let missingReceipts = 0;
+    const receiptErrors = [];
     const doc = new root.jspdf.jsPDF({
       unit: "mm",
       format: "a4",
@@ -421,7 +494,10 @@
       else table(b);
     }
     for await (const e of receiptImages(input, options)) {
-      if (e.error) missingReceipts++;
+      if (e.error) {
+        missingReceipts++;
+        receiptErrors.push(e.ref + ": " + e.errorMessage);
+      }
       page();
       text("Comprobante " + e.ref, 15, true);
       text(
@@ -434,7 +510,8 @@
       );
       if (e.error)
         text(
-          "No se pudo cargar esta fotografía. Consulte el original en Tesorería.",
+          "No se pudo cargar esta fotografía. " +
+            (e.errorMessage || "Consulte el original en Tesorería."),
         );
       else {
         const scale = Math.min(178 / e.width, (269 - y) / e.height);
@@ -464,7 +541,7 @@
       });
     }
     doc.save("Tesoreria_Amigos_Verdaderos_" + r.month.slice(0, 7) + ".pdf");
-    return { missingReceipts };
+    return { missingReceipts, receiptErrors };
   }
-  root.TreasuryReport = { html, download, prepare, deadline };
+  root.TreasuryReport = { html, download, prepare, deadline, optimizeUpload };
 })(window);

@@ -100,6 +100,39 @@ fs.mkdirSync(out, { recursive: true });
         },
       };
     });
+    const imageChecks = await page.evaluate(async () => {
+      const blob = await options.loadReceipt("photo");
+      const original = new File([blob], "receipt.png", { type: "image/png" });
+      const optimized = await TreasuryReport.optimizeUpload(original);
+      const pdf = new File(["pdf"], "receipt.pdf", { type: "application/pdf" });
+      const pdfSame = (await TreasuryReport.optimizeUpload(pdf)) === pdf;
+      const savedDecode = HTMLImageElement.prototype.decode;
+      const savedBitmap = window.createImageBitmap;
+      HTMLImageElement.prototype.decode = () =>
+        Promise.reject(Error("decode unavailable"));
+      window.createImageBitmap = () =>
+        Promise.reject(Error("bitmap unavailable"));
+      let fallback;
+      try {
+        fallback = await TreasuryReport.prepare(r, options);
+      } finally {
+        HTMLImageElement.prototype.decode = savedDecode;
+        window.createImageBitmap = savedBitmap;
+      }
+      return {
+        original: original.size,
+        optimized: optimized.size,
+        type: optimized.type,
+        pdfSame,
+        fallbackPhotos: fallback.filter((e) => e.image).length,
+        error: fallback.find((e) => e.error).errorMessage,
+      };
+    });
+    assert(imageChecks.optimized <= imageChecks.original);
+    assert(imageChecks.pdfSame);
+    assert.equal(imageChecks.fallbackPhotos, 1);
+    assert(imageChecks.error.includes("descarga"));
+    console.log("Image conversion and fallback:", imageChecks);
     const download = page.waitForEvent("download");
     const outcome = await page.evaluate(() =>
       TreasuryReport.download(r, false, "Servicio de prueba", options),
