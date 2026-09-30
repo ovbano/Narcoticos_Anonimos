@@ -97,6 +97,7 @@
               <span id="draft-count">0</span></button
             ><button data-tab="dues">
               <span class="nav-symbol" aria-hidden="true">⌂</span>Local</button
+            ><button data-tab="activities"><span class="nav-symbol" aria-hidden="true">◇</span>Actividades</button
             ><button data-tab="reports">
               <span class="nav-symbol" aria-hidden="true">▥</span
               >Informes</button
@@ -317,7 +318,16 @@
                 <div id="member-list"></div>
               </details>
             </section>
-            <section id="view-reports" data-view hidden>
+            <section id="view-activities" data-view hidden>
+ <div class="section-heading"><div><p class="eyebrow">RECAUDACIÓN DEL GRUPO</p><h2>Pendientes por actividades</h2></div><button id="activity-new" class="primary" type="button">Nuevo pendiente</button></div>
+ <p class="notice">Bingos, rifas y otras actividades. Aquí se controla lo que falta cobrar, sin sumarlo al dinero disponible. Al registrar un pago, el sistema lo suma una sola vez al fondo general, en la fecha del cobro.</p>
+ <div id="activity-totals" class="activity-totals"></div>
+ <div class="activity-filters"><label>Buscar compañero o actividad<input id="activity-search" type="search" placeholder="Nombre o actividad…" /></label><label>Mostrar<select id="activity-filter"><option value="pending">Pendientes</option><option value="settled">Al día</option><option value="all">Todos los registros</option></select></label></div>
+ <p class="muted">Este listado muestra el estado actual de las actividades, independientemente del mes de consulta. Los pagos sí aparecen en el informe del mes en que se recibieron.</p>
+ <div id="activity-list" class="activity-grid" aria-live="polite"></div>
+ <details class="panel"><summary>Cómo registrar y corregir</summary><p>El valor original es el compromiso total del compañero. Los abonos anteriores al sistema son antecedentes: no generan ingresos nuevos. Deja la fecha de actividad vacía si no la conoces.</p><p>Cuando recibas dinero, pulsa «Registrar pago» e indica la fecha real de cobro. Se admiten abonos parciales. No registres ese mismo pago otra vez en Movimientos.</p><p>En «Ver pagos», abre el movimiento para adjuntar un comprobante, corregir su importe o anularlo indicando el motivo. El saldo pendiente se recalcula. Un mes cerrado conserva sus protecciones habituales.</p></details>
+</section>
+<section id="view-reports" data-view hidden>
               <div class="report-layout">
                 <div class="panel">
                   <span class="eyebrow">CLARIDAD PARA COMPARTIR</span>
@@ -395,6 +405,9 @@
                         Informes preparados
                       </option>
                       <option value="correct">Correcciones</option>
+                      <option value="activity_save">Pendientes de actividades</option>
+                      <option value="activity_pay">Pagos de actividades</option>
+                      <option value="activity_import">Importación de actividades</option>
                       <option value="access_update">Cambios de acceso</option>
                       <option value="close">Cierres</option>
                       <option value="initial_update">Saldos iniciales</option>
@@ -768,12 +781,32 @@
       AMIGOS VERDADEROS <span>Un servicio de confianza.</span>
     </footer>
     <div id="print-area"></div>
+<dialog id="activity-dialog" aria-labelledby="activity-title"><form id="activity-form">
+ <h2 id="activity-title">Pendiente de actividad</h2>
+ <div id="activity-account-fields">
+ <label>Compañero del registro<input name="companion" list="activity-companion-options" required autocomplete="off" placeholder="Escribe para buscar y selecciona" /><datalist id="activity-companion-options"></datalist></label>
+ <label>Actividad<input name="activity" required maxlength="180" placeholder="Ej.: Bingo del grupo" /></label>
+ <label>Valor original · USD<input name="original" inputmode="decimal" required /></label>
+ <label>Abonos anteriores al sistema · USD<input name="historical" inputmode="decimal" required /></label>
+ <p class="muted">Son antecedentes informativos. No aumentan ni disminuyen los fondos actuales.</p>
+ <label>Fecha de la actividad (opcional)<input name="activity_date" type="date" /></label>
+ <label>Nota (opcional)<textarea name="note" maxlength="1000"></textarea></label>
+ <label id="activity-reason-field">Motivo de la corrección<textarea name="reason" minlength="5" maxlength="500"></textarea></label>
+ </div>
+ <div id="activity-payment-fields" hidden><p id="activity-pay-context" class="notice"></p>
+ <label>Fecha en que se recibió el dinero<input name="entry_date" type="date" required /></label>
+ <label>Dinero recibido · USD<input name="amount" type="number" step="0.01" min="0.01" inputmode="decimal" required /></label>
+ <label>Detalle (opcional)<textarea name="payment_note" maxlength="200"></textarea></label>
+ <p>Este pago se sumará al <strong>fondo general</strong>. Después podrás abrir el movimiento para adjuntar una fotografía del comprobante.</p></div>
+ <p id="activity-message" role="alert"></p><div class="button-row"><button id="activity-submit" class="primary" type="submit">Guardar</button><button id="activity-close" type="button" class="secondary">Cancelar</button></div>
+ </form></dialog>
     <script src="../assets/vendor/supabase/supabase.js"></script>
     <script src="../assets/js/supabase-config.js"></script>
     <script src="../assets/vendor/jspdf/jspdf.umd.min.js"></script>
     <script src="../assets/vendor/jspdf/fonts.js"></script>
     <script src="model.js"></script>
     <script src="report.js?v=17"></script>
-    <script src="app.js?v=17"></script>
+    <script src="activities.js?v=18"></script>
+    <script src="app.js?v=18"></script>
   </body>
 </html>
