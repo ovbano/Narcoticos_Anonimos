@@ -172,6 +172,7 @@ const fixture = () => {
       if (a === "save" || a === "correct") {
         const idx = S.entries.findIndex((e) => e.id === d.id);
         record = {
+          ...(idx < 0 ? {} : S.entries[idx]),
           ...d,
           version: idx < 0 ? 1 : S.entries[idx].version + 1,
           created_at: new Date().toISOString(),
@@ -534,13 +535,25 @@ const fixture = () => {
     await page.locator('#period-status').filter({hasText:'Mes abierto'}).waitFor();
     await page.locator('[data-tab="activities"]').click();
     await page.locator('#activity-new').click();
-    await page.locator('[name="companion"]').fill('Ana Pérez QA');
+    await page.locator('#activity-companion-search').click();
+    await page.locator('#activity-companion-options [role="option"]').filter({hasText:'Ana Pérez QA'}).waitFor();
+    await page.locator('#activity-companion-search').fill('nadie-xyz');
+    await page.locator('#activity-companion-options').filter({hasText:'No hay coincidencias'}).waitFor();
+    await page.locator('#activity-companion-search').fill('perez');
+    assert.equal(await page.locator('#activity-companion-options [role="option"]').count(),1);
+    await page.screenshot({path:path.join(out,'activity-search.png'),fullPage:true});
+    await page.locator('#activity-companion-search').press('ArrowDown');
+    await page.locator('#activity-companion-search').press('Enter');
+    assert.equal(await page.locator('#activity-companion-search').inputValue(),'Ana Pérez QA');
+    assert(await page.locator('#activity-companion-options').isHidden());
     await page.locator('[name="activity"]').fill('Bingo de prueba');
     await page.locator('[name="original"]').fill('10.00');
     await page.locator('[name="historical"]').fill('2.00');
     await page.locator('#activity-submit').click();
     await page.locator('#activity-dialog').waitFor({state:'hidden'});
     await page.locator('.activity-balance').filter({hasText:'8,00'}).waitFor();
+    await page.locator('.activity-payment-history summary').click();
+    await page.locator('.activity-payment-history').filter({hasText:'Todavía no hay pagos'}).waitFor();
     for(const width of [320,390,1440]){
       await page.setViewportSize({width,height:900});
       assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Activity overflow '+width);
@@ -555,9 +568,18 @@ const fixture = () => {
     await page.locator('.activity-balance').filter({hasText:'5,00'}).waitFor();
     assert.equal(await page.evaluate(()=>window.__fixture.entries.filter(e=>e.activity_account_id).length),1);
     await page.locator('#activity-list summary').filter({hasText:'Ver pagos'}).click();
-    await page.locator('[data-activity-entry]').click();
+    await page.locator('[data-activity-entry]').first().click();
     await page.locator('#entry-dialog').waitFor({state:'visible'});
     await page.evaluate(()=>document.querySelector('#entry-dialog').close());
+    await page.locator('[data-activity-attach="true"]').click();
+    assert(await page.locator('#attachment').isEnabled());
+    await page.locator('#attachment').setInputFiles({name:'pago.png',mimeType:'image/png',buffer:fs.readFileSync(path.join(root,'assets/img/logo-amigos-verdaderos.png'))});
+    await page.locator('#post-entry').click();
+    await page.locator('#entry-dialog').waitFor({state:'hidden'});
+    await page.locator('.activity-payment-history summary').click();
+    await page.locator('[data-activity-attach="true"]').filter({hasText:'Cambiar comprobante'}).waitFor();
+    assert.equal(await page.evaluate(()=>window.__fixture.entries.filter(e=>e.activity_account_id).length),1);
+    await page.locator('.activity-balance').filter({hasText:'5,00'}).waitFor();
     assert.deepEqual(errors, []);
     console.log(
       "PASS: mobile 320/360/390 + desktop, photo draft, retry, cents, confirm, partial dues, annulment, PDF, read-only controls; no JS errors.",

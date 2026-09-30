@@ -4,11 +4,11 @@ El apartado **Actividades** muestra cuentas por cobrar de bingos, rifas u otras 
 
 ## Uso
 
-1. Selecciona un compañero del registro del grupo y describe la actividad.
+1. Pulsa el menú desplegable, busca por nombre o apellido y selecciona un compañero del registro del grupo y describe la actividad.
 2. Registra el valor original y, si corresponde, los abonos **anteriores al sistema**. Son antecedentes informativos y no generan dinero en caja. Deja la fecha vacía cuando sea desconocida.
 3. Al recibir dinero, usa **Registrar pago**, con la fecha real y el importe recibido. Puedes registrar abonos parciales.
 4. El pago crea automáticamente un ingreso de «Otro ingreso» en el **fondo general**. No lo vuelvas a registrar en Movimientos. Se incluye en el informe mensual y PDF habitual.
-5. En **Ver pagos**, abre el movimiento para consultar o adjuntar comprobantes, corregir errores o anularlo con motivo. La deuda se recalcula automáticamente. Se respetan los meses cerrados.
+5. La sección **Ver pagos y comprobantes** está siempre visible. Si no hay pagos nuevos, explica que los abonos históricos no tienen movimientos individuales. Tras registrar un cobro, pulsa **Adjuntar comprobante** y guarda la corrección. Para consultar, corregir importes o anular con motivo, abre **Ver movimiento**. La deuda se recalcula automáticamente. Se respetan los meses cerrados.
 
 El selector mensual no cambia la lista de deudas: muestra el saldo pendiente **actual**. Los cobros sí pertenecen al mes de la fecha de recepción. Las cuotas del arriendo continúan en **Local**, separadas de las actividades.
 

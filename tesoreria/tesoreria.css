@@ -1992,3 +1992,6 @@ main {
 @media(max-width:720px){.activity-grid{grid-template-columns:1fr}.activity-card{padding:20px}.activity-totals{gap:10px}.activity-totals>div{padding:17px}.activity-totals strong{font-size:1.6rem}.activity-totals span{font-size:.88rem}.activity-filters{grid-template-columns:1fr}#activity-dialog .button-row button{width:100%;min-height:48px}}
 @media(max-width:380px){.activity-totals{grid-template-columns:1fr}.activity-card-heading{flex-wrap:wrap}}
 @media(max-width:720px){.tabs button[data-tab="guide"]{grid-column:1 / -1;flex-direction:row;min-height:40px;gap:8px}.activity-card .button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.activity-card .button-row button{padding:12px 10px;min-height:48px}}
+
+.activity-picker-input{position:relative}.activity-picker-input input{padding-right:36px}.activity-picker-input>span{position:absolute;right:16px;top:50%;transform:translateY(-50%);pointer-events:none;color:#102d50}.activity-payment-history summary{color:#173d64;font-weight:700;padding:12px 0}.activity-payments li{display:grid;gap:8px;padding:12px 0;border-bottom:1px solid #dbe2ee}.activity-payments li>button{text-align:left;min-height:44px}
+#activity-companion-picker::after{content:none}

@@ -325,7 +325,7 @@
  <div class="activity-filters"><label>Buscar compañero o actividad<input id="activity-search" type="search" placeholder="Nombre o actividad…" /></label><label>Mostrar<select id="activity-filter"><option value="pending">Pendientes</option><option value="settled">Al día</option><option value="all">Todos los registros</option></select></label></div>
  <p class="muted">Este listado muestra el estado actual de las actividades, independientemente del mes de consulta. Los pagos sí aparecen en el informe del mes en que se recibieron.</p>
  <div id="activity-list" class="activity-grid" aria-live="polite"></div>
- <details class="panel"><summary>Cómo registrar y corregir</summary><p>El valor original es el compromiso total del compañero. Los abonos anteriores al sistema son antecedentes: no generan ingresos nuevos. Deja la fecha de actividad vacía si no la conoces.</p><p>Cuando recibas dinero, pulsa «Registrar pago» e indica la fecha real de cobro. Se admiten abonos parciales. No registres ese mismo pago otra vez en Movimientos.</p><p>En «Ver pagos», abre el movimiento para adjuntar un comprobante, corregir su importe o anularlo indicando el motivo. El saldo pendiente se recalcula. Un mes cerrado conserva sus protecciones habituales.</p></details>
+ <details class="panel"><summary>Cómo registrar y corregir</summary><p>El valor original es el compromiso total del compañero. Los abonos anteriores al sistema son antecedentes: no generan ingresos nuevos. Deja la fecha de actividad vacía si no la conoces.</p><p>Cuando recibas dinero, pulsa «Registrar pago» e indica la fecha real de cobro. Se admiten abonos parciales. No registres ese mismo pago otra vez en Movimientos.</p><p>En cada tarjeta encontrarás «Ver pagos y comprobantes», incluso si todavía no hay pagos nuevos. Los abonos anteriores son solo antecedentes y no tienen movimientos individuales. Después de registrar un cobro, despliega esa sección y pulsa «Adjuntar comprobante». Para corregir el importe o anularlo, abre «Ver movimiento». El saldo pendiente se recalcula. Los pagos de meses cerrados requieren que administración reabra el período antes de modificarlos.</p></details>
 </section>
 <section id="view-reports" data-view hidden>
               <div class="report-layout">
@@ -784,7 +784,10 @@
 <dialog id="activity-dialog" aria-labelledby="activity-title"><form id="activity-form">
  <h2 id="activity-title">Pendiente de actividad</h2>
  <div id="activity-account-fields">
- <label>Compañero del registro<input name="companion" list="activity-companion-options" required autocomplete="off" placeholder="Escribe para buscar y selecciona" /><datalist id="activity-companion-options"></datalist></label>
+ <label for="activity-companion-search">Compañero del registro</label>
+ <div class="member-picker" id="activity-companion-picker"><div class="activity-picker-input">
+ <input id="activity-companion-search" name="companion" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="activity-companion-options" required autocomplete="off" placeholder="Selecciona o busca por nombre o apellido…" /><span aria-hidden="true">▾</span></div>
+ <div id="activity-companion-options" class="picker-options" role="listbox" aria-label="Compañeros del grupo" hidden></div></div>
  <label>Actividad<input name="activity" required maxlength="180" placeholder="Ej.: Bingo del grupo" /></label>
  <label>Valor original · USD<input name="original" inputmode="decimal" required /></label>
  <label>Abonos anteriores al sistema · USD<input name="historical" inputmode="decimal" required /></label>
@@ -806,7 +809,7 @@
     <script src="../assets/vendor/jspdf/fonts.js"></script>
     <script src="model.js"></script>
     <script src="report.js?v=17"></script>
-    <script src="activities.js?v=18"></script>
-    <script src="app.js?v=18"></script>
+    <script src="activities.js?v=19"></script>
+    <script src="app.js?v=19"></script>
   </body>
 </html>
