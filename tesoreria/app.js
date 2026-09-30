@@ -70,6 +70,7 @@
   }
   function cleanScreen() {
     refreshToken++;
+    window.TreasuryActivities.reset();
     user = profile = settings = report = null;
     members = [];
     drafts = [];
@@ -167,6 +168,8 @@
     ]);
     if (token !== refreshToken) return;
     settings = s;
+    await window.TreasuryActivities.load({db, companions, writable: writable(), toast, refresh, openEntry: e => openEntry(e.kind, e)});
+    if (token !== refreshToken) return;
     $("#workspace").classList.toggle("needs-setup", !settings);
     members = mem;
     drafts = dr;
@@ -760,6 +763,10 @@
       ],
       ["category", "Categoría", (v) => M.categories[v] || v],
       ["amount_cents", "Monto", M.money],
+      ["activity", "Actividad", String],
+      ["original_cents", "Valor original", M.money],
+      ["historical_paid_cents", "Abonos anteriores al sistema", M.money],
+      ["activity_date", "Fecha de actividad", M.date],
       ["opening_general", "Saldo inicial general", M.money],
       ["opening_rent", "Saldo inicial local", M.money],
       ["monthly_cents", "Aporte mensual", M.money],
@@ -844,6 +851,9 @@
       void: "Movimiento anulado",
       discard: "Borrador descartado",
       member: "Compañero actualizado",
+      activity_save: "Pendiente de actividad actualizado",
+      activity_pay: "Pago de actividad recibido",
+      activity_import: "Listado histórico de actividades importado",
       close: "Mes cerrado",
       reopen: "Mes reabierto",
     };

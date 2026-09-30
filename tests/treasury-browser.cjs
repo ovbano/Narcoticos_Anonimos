@@ -150,6 +150,12 @@ const fixture = () => {
       return q;
     },
     rpc: async (name, { p_action: a, p_data: d, p_month: m } = {}) => {
+      if (name === "treasury_activities") return {data:(S.activities||[]).map(r=>{const payments=S.entries.filter(e=>e.activity_account_id===r.id);const paid_cents=payments.filter(e=>e.status==='posted').reduce((n,e)=>n+e.amount_cents,0);return {...r,payments,paid_cents,pending_cents:r.original_cents-r.historical_paid_cents-paid_cents};})};
+      if (name === "treasury_activity_command") {
+        S.activities ||= [];
+        if(a==='save'){const i=S.activities.findIndex(r=>r.id===d.id);const row={...d,name:'Ana Pérez QA',version:1};if(i<0)S.activities.push(row);else S.activities[i]=row;return {data:{ok:true,record:row}};}
+        if(a==='pay'){S.entries.push({id:d.entry_id,activity_account_id:d.id,entry_date:d.entry_date,kind:'income',fund:'general',category:'other_income',status:'posted',amount_cents:d.amount_cents,description:'Activity payment',version:1});return {data:{ok:true}};}
+      }
       if (name === "treasury_companions")
         return { data: [{ id: "source-1", name: "Ana Pérez QA" }] };
       if (name === "admin_list_users")
@@ -307,8 +313,8 @@ const fixture = () => {
       fullPage: true,
     });
     await page.locator("#draft-list [data-entry]").click();
-    await page.locator('[name="entry_date"]').fill("2026-09-15");
-    await page.locator('[name="amount"]').fill("2,34");
+    await page.locator('#entry-form [name="entry_date"]').fill("2026-09-15");
+    await page.locator('#entry-form [name="amount"]').fill("2,34");
     await page.locator('[name="description"]').fill("Compra de café de prueba");
     await page.screenshot({
       path: path.join(out, "form-mobile.png"),
@@ -327,7 +333,7 @@ const fixture = () => {
     await page.locator('.tabs [data-tab="movements"]').click();
     await page.locator("#movement-list [data-entry]").first().click();
     await page.locator("#correct-entry").click();
-    await page.locator('[name="amount"]').fill("3,45");
+    await page.locator('#entry-form [name="amount"]').fill("3,45");
     await page
       .locator('[name="correction_reason"]')
       .fill("Monto escrito incorrectamente");
@@ -395,8 +401,8 @@ const fixture = () => {
       1,
     );
     await page.locator('[data-payment="member-1"]').click();
-    await page.locator('[name="entry_date"]').fill("2026-09-15");
-    await page.locator('[name="amount"]').fill("6");
+    await page.locator('#entry-form [name="entry_date"]').fill("2026-09-15");
+    await page.locator('#entry-form [name="amount"]').fill("6");
     await page.locator("#post-entry").click();
     await page.locator("#entry-dialog").waitFor({ state: "hidden" });
     await page
@@ -525,6 +531,33 @@ const fixture = () => {
     await page.locator("#month").fill("2026-08");
     await page.locator("#month").dispatchEvent("change");
     await page.locator("#income").filter({ hasText: "10,00" }).waitFor();
+    await page.locator('#period-status').filter({hasText:'Mes abierto'}).waitFor();
+    await page.locator('[data-tab="activities"]').click();
+    await page.locator('#activity-new').click();
+    await page.locator('[name="companion"]').fill('Ana Pérez QA');
+    await page.locator('[name="activity"]').fill('Bingo de prueba');
+    await page.locator('[name="original"]').fill('10.00');
+    await page.locator('[name="historical"]').fill('2.00');
+    await page.locator('#activity-submit').click();
+    await page.locator('#activity-dialog').waitFor({state:'hidden'});
+    await page.locator('.activity-balance').filter({hasText:'8,00'}).waitFor();
+    for(const width of [320,390,1440]){
+      await page.setViewportSize({width,height:900});
+      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Activity overflow '+width);
+      await page.screenshot({path:path.join(out,'activities-'+width+'.png'),fullPage:true});
+    }
+    await page.setViewportSize({width:390,height:844});
+    await page.locator('[data-activity-pay]').click();
+    await page.locator('#activity-form [name="amount"]').fill('3.00');
+    await page.screenshot({path:path.join(out,'activity-payment.png'),fullPage:true});
+    await page.locator('#activity-submit').click();
+    await page.locator('#activity-dialog').waitFor({state:'hidden'});
+    await page.locator('.activity-balance').filter({hasText:'5,00'}).waitFor();
+    assert.equal(await page.evaluate(()=>window.__fixture.entries.filter(e=>e.activity_account_id).length),1);
+    await page.locator('#activity-list summary').filter({hasText:'Ver pagos'}).click();
+    await page.locator('[data-activity-entry]').click();
+    await page.locator('#entry-dialog').waitFor({state:'visible'});
+    await page.evaluate(()=>document.querySelector('#entry-dialog').close());
     assert.deepEqual(errors, []);
     console.log(
       "PASS: mobile 320/360/390 + desktop, photo draft, retry, cents, confirm, partial dues, annulment, PDF, read-only controls; no JS errors.",
