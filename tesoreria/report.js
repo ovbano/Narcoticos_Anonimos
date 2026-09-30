@@ -185,43 +185,83 @@
     }
     return { r, blocks, receipts };
   }
-  async function prepare(input, options = {}) {
-    if (!options.includeReceipts) return [];
-    const { receipts } = sections(input, false),
-      result = [];
-    for (const e of receipts) {
-      if (/\.pdf$/i.test(e.receipt_path)) continue;
-      let url;
+  // Bound network and decoding waits; a missing receipt must never block the report.
+  async function deadline(work, ms = 20000) {
+    let timer;
+    try {
+      return await Promise.race([
+        Promise.resolve().then(work),
+        new Promise((_, reject) => {
+          timer = setTimeout(
+            () => reject(new Error("Tiempo de espera agotado")),
+            ms,
+          );
+        }),
+      ]);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  async function* receiptImages(input, options = {}) {
+    if (!options.includeReceipts) return;
+    const photos = sections(input, false).receipts.filter(
+      (e) => !/\.pdf$/i.test(e.receipt_path),
+    );
+    const started = Date.now();
+    for (const [index, e] of photos.entries()) {
+      options.onProgress?.(
+        "Preparando foto " + (index + 1) + " de " + photos.length + "…",
+      );
+      let url, img, canvas, output;
       try {
-        const blob = await options.loadReceipt(e.receipt_path);
+        if (Date.now() - started > 90000)
+          throw new Error("Límite de espera del anexo");
+        const blob = await deadline(
+          () => options.loadReceipt(e.receipt_path),
+          options.timeoutMs || 20000,
+        );
+        if (!(blob instanceof Blob) || blob.size > 10 * 1024 * 1024)
+          throw new Error("Archivo inválido o demasiado grande");
         url = URL.createObjectURL(blob);
-        const img = new Image();
+        img = new Image();
         img.src = url;
-        await img.decode();
+        await deadline(() => img.decode(), options.timeoutMs || 15000);
         const scale = Math.min(
           1,
-          1800 / Math.max(img.naturalWidth, img.naturalHeight),
+          1600 / Math.max(img.naturalWidth, img.naturalHeight),
         );
-        const canvas = document.createElement("canvas");
-        canvas.width = Math.round(img.naturalWidth * scale);
-        canvas.height = Math.round(img.naturalHeight * scale);
+        canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
+        canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
         const ctx = canvas.getContext("2d");
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        result.push({
+        output = {
           ...e,
-          image: canvas.toDataURL("image/jpeg", 0.88),
+          image: canvas.toDataURL("image/jpeg", 0.78),
           width: canvas.width,
           height: canvas.height,
-        });
+        };
       } catch {
-        result.push({ ...e, error: true });
+        output = { ...e, error: true };
       } finally {
+        if (img) img.src = "";
         if (url) URL.revokeObjectURL(url);
+        if (canvas) {
+          canvas.width = 0;
+          canvas.height = 0;
+        }
       }
+      yield output;
+      // Let the browser paint progress between photos, especially on phones.
+      await new Promise((resolve) => setTimeout(resolve, 0));
     }
-    return result;
+  }
+  async function prepare(input, options = {}) {
+    const images = [];
+    for await (const image of receiptImages(input, options)) images.push(image);
+    return images;
   }
   function html(input, includeDues, person, evidence = []) {
     const { r, blocks } = sections(input, includeDues);
@@ -247,8 +287,8 @@
     );
   }
   async function download(input, includeDues, person, options = {}) {
-    const { r, blocks } = sections(input, includeDues),
-      evidence = await prepare(input, options);
+    const { r, blocks } = sections(input, includeDues);
+    let missingReceipts = 0;
     const doc = new root.jspdf.jsPDF({
       unit: "mm",
       format: "a4",
@@ -354,7 +394,7 @@
     try {
       const img = new Image();
       img.src = "../assets/img/logo-amigos-verdaderos.png";
-      await img.decode();
+      await deadline(() => img.decode());
       doc.addImage(img, "PNG", 16, 12, 19, 19);
     } catch {}
     font(13, true);
@@ -380,7 +420,8 @@
       } else if (b.type === "text") text(b.value);
       else table(b);
     }
-    for (const e of evidence) {
+    for await (const e of receiptImages(input, options)) {
+      if (e.error) missingReceipts++;
       page();
       text("Comprobante " + e.ref, 15, true);
       text(
@@ -399,7 +440,17 @@
         const scale = Math.min(178 / e.width, (269 - y) / e.height);
         const w = e.width * scale,
           h = e.height * scale;
-        doc.addImage(e.image, "JPEG", 16 + (178 - w) / 2, y, w, h);
+        doc.addImage(
+          e.image,
+          "JPEG",
+          16 + (178 - w) / 2,
+          y,
+          w,
+          h,
+          undefined,
+          "FAST",
+        );
+        e.image = null;
       }
     }
     for (let n = 1; n <= doc.getNumberOfPages(); n++) {
@@ -413,7 +464,7 @@
       });
     }
     doc.save("Tesoreria_Amigos_Verdaderos_" + r.month.slice(0, 7) + ".pdf");
-    return { missingReceipts: evidence.filter((e) => e.error).length };
+    return { missingReceipts };
   }
-  root.TreasuryReport = { html, download, prepare };
+  root.TreasuryReport = { html, download, prepare, deadline };
 })(window);

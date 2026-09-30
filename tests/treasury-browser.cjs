@@ -206,6 +206,11 @@ const fixture = () => {
             return { data: { path: p } };
           },
           download: async (p) => ({ data: S.files[p] || new Blob(["test"]) }),
+          createSignedUrl: async (p) => ({
+            data: {
+              signedUrl: URL.createObjectURL(S.files[p] || new Blob(["test"])),
+            },
+          }),
         };
       },
     },
@@ -408,6 +413,7 @@ const fixture = () => {
         fullPage: true,
       });
     }
+    await page.locator("#include-receipts").check();
     const downloadPromise = page.waitForEvent("download");
     await page.locator("#download-pdf").click();
     const download = await downloadPromise;

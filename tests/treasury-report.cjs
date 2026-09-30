@@ -83,21 +83,20 @@ fs.mkdirSync(out, { recursive: true });
       };
       window.options = {
         includeReceipts: true,
+        timeoutMs: 1000,
         loadReceipt: async (p) => {
-          if (p.includes("broken")) throw Error("unavailable");
+          if (p.includes("broken")) return new Promise(() => {});
           const c = document.createElement("canvas");
-          c.width = 900;
-          c.height = 1300;
+          c.width = 3000;
+          c.height = 4000;
           const x = c.getContext("2d");
           x.fillStyle = "white";
-          x.fillRect(0, 0, 900, 1300);
+          x.fillRect(0, 0, 3000, 4000);
           x.fillStyle = "black";
           x.font = "40px sans-serif";
           x.fillText("COMPROBANTE DE PRUEBA", 80, 120);
           x.fillText("Café y azúcar · USD 12,00", 80, 220);
-          return await new Promise((resolve) =>
-            c.toBlob(resolve, "image/jpeg"),
-          );
+          return await new Promise((resolve) => c.toBlob(resolve, "image/png"));
         },
       };
     });
