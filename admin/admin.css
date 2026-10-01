@@ -1036,3 +1036,8 @@ img { max-width: 100%; }
   .topbar-actions .btn-ghost span,
   .topbar-actions .btn-danger-soft span { display: none; }
 }
+
+
+.session-profile{display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid #c4d5e6;border-radius:16px;background:#f0f5fa;color:#102d50;text-align:left;min-width:0}.session-avatar{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:#dce8f3;color:#173e66}.session-avatar svg{width:25px;height:25px}.session-identity{display:grid;gap:4px;min-width:0}.session-identity strong{font-size:15px;line-height:1.4;overflow-wrap:anywhere}.session-identity small{font-size:12px;overflow-wrap:anywhere}.session-role{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#366148}.session-profile #signed-user{display:block;padding:0;margin:0;max-width:none;white-space:normal;background:none}.workspace-title .session-profile{margin-top:18px;background:#ffffff10;border-color:#ffffff30;color:white}.workspace-title .session-role{color:#f0d798}@media(max-width:720px){.topbar-actions .session-profile{flex-basis:100%;width:100%}.session-profile{padding:12px}.session-identity strong{font-size:15px}}
+.topbar-actions{align-items:center}.topbar-actions .session-avatar{display:grid}.topbar-actions .session-role{display:block}
+@media(max-width:800px){.admin-topbar{position:static}.topbar-inner{flex-wrap:wrap;padding:14px 0;gap:12px}.topbar-actions{width:100%;flex-wrap:wrap}.topbar-actions .session-profile{flex:1 0 100%;box-sizing:border-box}.topbar-actions>.btn-ghost,.topbar-actions>.btn-danger-soft{flex:1;min-height:44px;justify-content:center}.topbar-actions .btn-ghost span,.topbar-actions .btn-danger-soft span{display:inline;font-size:12px}}

@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#0b2345" />
     <title>Tesorería · Amigos Verdaderos</title>
     <link rel="icon" href="../assets/img/favicon-amigos-verdaderos.png" />
-    <link rel="stylesheet" href="tesoreria.css" />
+    <link rel="stylesheet" href="tesoreria.css?v=20" />
   </head>
   <body>
     <header class="masthead">
@@ -58,7 +58,7 @@
             </button>
           </form>
           <button class="text-button" id="recover">Olvidé mi contraseña</button>
-          <p id="auth-message" role="status"></p>
+          <p id="auth-message" role="status"></p><button type="button" id="logout-retry" class="secondary" hidden>Reintentar cierre</button>
         </div>
       </section>
       <section id="workspace" hidden>
@@ -67,7 +67,7 @@
             <span class="eyebrow">NUESTRO GRUPO · NUESTROS FONDOS</span>
             <h1>Cuidamos lo que<br />construimos juntos.</h1>
             <p class="workspace-subtitle">TESORERÍA · AMIGOS VERDADEROS</p>
-            <p id="welcome"></p>
+            <div class="session-profile" aria-label="Cuenta activa"><span class="session-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg></span><div class="session-identity"><strong id="welcome"></strong><small id="session-email"></small><span class="session-role" id="session-role"></span></div></div>
           </div>
           <div class="header-actions">
             <button id="edit-initial" class="secondary" hidden>
@@ -810,6 +810,6 @@
     <script src="model.js"></script>
     <script src="report.js?v=17"></script>
     <script src="activities.js?v=19"></script>
-    <script src="app.js?v=19"></script>
+    <script src="app.js?v=20"></script>
   </body>
 </html>

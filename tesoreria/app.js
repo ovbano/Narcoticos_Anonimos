@@ -19,7 +19,9 @@
     previewURL = null,
     saving = false,
     dirty = false,
-    refreshToken = 0;
+    refreshToken = 0,
+    authVersion = 0,
+    signingOut = false;
   let companions = [],
     accessUsers = [],
     correctionMode = false,
@@ -70,8 +72,14 @@
   }
   function cleanScreen() {
     refreshToken++;
+    authVersion++;
     window.TreasuryActivities.reset();
     user = profile = settings = report = null;
+    companions = [];
+    accessUsers = [];
+    $("#welcome").textContent = $("#session-email").textContent = $("#session-role").textContent = "";
+    $("#password-form").reset();
+    $("#password").value = "";
     members = [];
     drafts = [];
     audit = [];
@@ -96,19 +104,24 @@
     if (previewURL) URL.revokeObjectURL(previewURL);
   }
   async function auth() {
+    if (signingOut) return;
+    const ticket = ++authVersion;
     const { data, error } = await db.auth.getUser();
+    if (ticket !== authVersion || signingOut) return;
     if (error || !data?.user) {
       cleanScreen();
       return;
     }
     user = data.user;
-    profile = await result(
+    const loadedProfile = await result(
       db
         .from("profiles")
         .select("id,display_name,role,active")
         .eq("id", user.id)
         .maybeSingle(),
     );
+    if (ticket !== authVersion || signingOut) return;
+    profile = loadedProfile;
     if (
       !profile?.active ||
       !["admin", "treasurer", "auditor"].includes(profile.role)
@@ -118,23 +131,23 @@
         "Tu cuenta no tiene acceso a Tesorería. Solicita al administrador el permiso correspondiente.";
       return;
     }
+    $("#logout-retry").hidden = true;
+    $("#auth-message").textContent = "";
     $("#auth-panel").hidden = true;
     $("#workspace").hidden = false;
-    $("#welcome").textContent =
-      (profile.display_name || user.email) +
-      " · " +
-      {
-        admin: "Administración",
-        treasurer: "Servicio de Tesorería",
-        auditor: "Consulta y revisión",
-      }[profile.role];
+    $("#welcome").textContent = profile.display_name || user.email;
+    $("#session-email").textContent = user.email || "";
+    $("#session-role").textContent = {admin:"Administrador",treasurer:"Tesorería",auditor:"Consulta y revisión"}[profile.role];
     $("#admin-link").hidden = profile.role !== "admin";
     $$("[data-new],#quick-photo,#draft-new,#member-new").forEach(
       (b) => (b.hidden = !writable()),
     );
-    companions = await result(db.rpc("treasury_companions"));
+    const loadedCompanions = await result(db.rpc("treasury_companions"));
+    if (ticket !== authVersion || signingOut) return;
+    companions = loadedCompanions;
     accessUsers =
       profile.role === "admin" ? await result(db.rpc("admin_list_users")) : [];
+    if (ticket !== authVersion || signingOut) return;
     $("#audit-user").innerHTML =
       '<option value="">Todos los usuarios</option>' +
       accessUsers
@@ -957,9 +970,23 @@
       busy($("#logout"), async () => {
         if (dirty && !confirm("Hay un registro sin guardar. ¿Deseas salir?"))
           return;
-        await result(db.auth.signOut());
+        signingOut = true;
         cleanScreen();
+        const loginButton = $("#login-form button[type=submit]");
+        loginButton.disabled = true;
+        $("#auth-message").textContent = "Cerrando sesión…";
+        try {
+          await result(db.auth.signOut({scope:"local"}));
+          $("#auth-message").textContent = "Sesión cerrada.";
+        } catch (error) {
+          $("#auth-message").textContent = "No se pudo confirmar el cierre. Revisa la conexión y pulsa Reintentar cierre.";
+          $("#logout-retry").hidden = false;
+        } finally {
+          signingOut = false;
+          loginButton.disabled = false;
+        }
       });
+    $("#logout-retry").onclick = () => { $("#logout-retry").hidden = true; $("#logout").click(); };
     $("#password-open").onclick = () => $("#password-dialog").showModal();
     $("#password-form").onsubmit = (e) => {
       e.preventDefault();
@@ -1293,7 +1320,7 @@
     new URLSearchParams(location.search).has("setup") ||
     /type=(invite|recovery)/.test(location.hash);
   db.auth.onAuthStateChange((event) => {
-    if (event === "SIGNED_OUT") cleanScreen();
+    if (event === "SIGNED_OUT") { cleanScreen(); $("#auth-message").textContent = "Sesión cerrada."; }
     if (event === "PASSWORD_RECOVERY")
       setTimeout(() => $("#password-dialog").showModal(), 0);
   });

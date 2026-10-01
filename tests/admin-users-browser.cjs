@@ -27,9 +27,14 @@ function fixture() {
   const S = (window.__adminFixture = { users: [admin, server], fail: true });
   window.amigosSupabase = {
     auth: {
-      getUser: async () => ({ data: { user: admin } }),
+      getUser: async () => ({ data: { user: S.loggedOut ? null : admin } }),
       getSession: async () => ({ data: { session: { access_token: "qa" } } }),
-      onAuthStateChange() {},
+      onAuthStateChange(cb) {S.authListener=cb;},
+      signOut: async (options) => {
+        S.scope=options.scope;
+        await new Promise(resolve=>S.finishLogout=resolve);
+        S.loggedOut=true;S.authListener?.("SIGNED_OUT");return {error:null};
+      },
       updateUser: async () => ({ data: {} }),
     },
     from(table) {
@@ -167,6 +172,17 @@ function fixture() {
     );
     await page.locator("#hide-credentials").click();
     assert.equal(await page.locator("#credential-password").innerText(), "");
+    assert.equal(await page.locator('#signed-user').textContent(),'Administrador QA');
+    assert.equal(await page.locator('#session-role').textContent(),'Administrador');
+    await page.locator('#logout-button').click();
+    await page.locator('#login-view').waitFor({state:'visible'});
+    assert(await page.locator('#admin-view').isHidden());
+    assert.equal(await page.locator('#signed-user').textContent(),'');
+    assert(await page.locator('#login-form button[type=submit]').isDisabled());
+    await page.evaluate(()=>window.__adminFixture.finishLogout());
+    await page.locator('#login-alert').filter({hasText:'Sesión cerrada.'}).waitFor();
+    assert.equal(await page.evaluate(()=>window.__adminFixture.scope),'local');
+    assert.equal(await page.evaluate(()=>window.__adminFixture.loggedOut),true);
     assert.deepEqual(errors, []);
     console.log(
       "PASS admin mobile: error terminates loading, retry, active/inactive, reactivation, credential creation and clearing.",

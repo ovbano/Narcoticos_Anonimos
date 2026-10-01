@@ -50,6 +50,7 @@
     },
   };
 
+  let authVersion = 0, signingOut = false;
   let state = {
     user: null,
     profile: null,
@@ -104,6 +105,18 @@
     $("#admin-view").hidden = name !== "admin";
   };
 
+  const clearSessionUI = () => {
+    authVersion++;
+    usersRequest++;
+    setView("login");
+    state = {user:null,profile:null,contacts:[],anniversaries:[],users:[]};
+    for (const id of ["users-list","anniversary-admin-list","credential-password","signed-user","session-email","session-role"]) $("#"+id)?.replaceChildren();
+    $("#credential-result").hidden = true;
+    $("#password-modal").hidden = true;
+    $("#password-form").reset();
+    $("#login-password").value = "";
+  };
+
   const getProfile = async (userId) => {
     const { data, error } = await db
       .from("profiles")
@@ -115,7 +128,10 @@
   };
 
   const authorizeCurrentUser = async () => {
+    if (signingOut) return false;
+    const ticket = ++authVersion;
     const { data: userData, error } = await db.auth.getUser();
+    if (ticket !== authVersion || signingOut) return false;
     if (error || !userData?.user) {
       state.user = null;
       state.profile = null;
@@ -125,6 +141,7 @@
 
     state.user = userData.user;
     const profile = await getProfile(userData.user.id);
+    if (ticket !== authVersion || signingOut) return false;
     state.profile = profile;
 
     if (profile?.active && ["treasurer", "auditor"].includes(profile.role)) {
@@ -147,9 +164,13 @@
       return false;
     }
 
+    $("#logout-retry").hidden = true;
+    $("#login-alert").hidden = true;
     setView("admin");
     $("#signed-user").textContent =
       `${profile.display_name || userData.user.email}`;
+    $("#session-email").textContent = userData.user.email || "";
+    $("#session-role").textContent = profile.role === "admin" ? "Administrador" : "Editor";
     $("#profile-role-label").textContent =
       profile.role === "admin" ? "Administrador" : "Editor";
 
@@ -162,6 +183,7 @@
 
   let invitationFieldsAvailable = false;
   const loadData = async () => {
+    const ticket = authVersion;
     const [contactsResult, anniversariesResult] = await Promise.all([
       db.from("service_contacts").select("role,name,phone,active"),
       db
@@ -172,6 +194,7 @@
         .order("name"),
     ]);
 
+    if (ticket !== authVersion || signingOut || !state.user) return;
     if (contactsResult.error) throw contactsResult.error;
     if (anniversariesResult.error) throw anniversariesResult.error;
 
@@ -181,6 +204,7 @@
       .from("anniversaries")
       .select("celebration_message,celebration_location_confirmed")
       .limit(0);
+    if (ticket !== authVersion || signingOut || !state.user) return;
     invitationFieldsAvailable = !extras.error;
     $("#invitation-fields").disabled = !invitationFieldsAvailable;
     $("#invitation-schema-note").textContent = invitationFieldsAvailable
@@ -893,7 +917,7 @@
         if (error) throw error;
         if (await authorizeCurrentUser()) {
           await loadData();
-          if (state.profile.role === "admin") await loadUsers();
+          if (state.profile?.role === "admin") await loadUsers();
         }
       } catch (error) {
         showLoginError(error.message || "No se pudo iniciar sesión.");
@@ -903,16 +927,25 @@
     });
 
     const logout = async () => {
-      await db.auth.signOut();
-      state = {
-        user: null,
-        profile: null,
-        contacts: [],
-        anniversaries: [],
-        users: [],
-      };
-      setView("login");
+      if (signingOut) return;
+      signingOut = true;
+      clearSessionUI();
+      const button = $("#login-form button[type=submit]");
+      button.disabled = true;
+      showLoginError("Cerrando sesión…");
+      try {
+        const {error} = await db.auth.signOut({scope:"local"});
+        if (error) throw error;
+        showLoginError("Sesión cerrada.");
+      } catch (error) {
+        showLoginError("No se pudo confirmar el cierre. Revisa la conexión y pulsa Reintentar cierre.");
+        $("#logout-retry").hidden = false;
+      } finally {
+        signingOut = false;
+        button.disabled = false;
+      }
     };
+    $("#logout-retry").onclick = () => { $("#logout-retry").hidden = true; logout(); };
     $("#logout-button")?.addEventListener("click", logout);
     $("#denied-logout")?.addEventListener("click", logout);
   };
@@ -959,7 +992,7 @@
     try {
       if (await authorizeCurrentUser()) {
         await loadData();
-        if (state.profile.role === "admin") await loadUsers();
+        if (state.profile?.role === "admin") await loadUsers();
 
         const hash = window.location.hash;
         if (hash.includes("type=invite") || hash.includes("type=recovery")) {
@@ -974,16 +1007,14 @@
 
     db.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_OUT") {
-        usersRequest++;
-        state.users = [];
-        $("#users-list").replaceChildren();
-        $("#credential-password").textContent = "";
-        $("#credential-result").hidden = true;
-        setView("login");
+        clearSessionUI();
+        showLoginError("Sesión cerrada.");
       }
       if (event === "SIGNED_IN" || event === "USER_UPDATED") {
         // Avoid awaiting Auth methods inside Supabase's auth-state lock.
+        const ticket = authVersion;
         setTimeout(async () => {
+          if (ticket !== authVersion || signingOut) return;
           try {
             if (await authorizeCurrentUser()) await loadData();
           } catch (error) {

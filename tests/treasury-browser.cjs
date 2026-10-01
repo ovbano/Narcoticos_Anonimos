@@ -105,11 +105,15 @@ const fixture = () => {
         S.logged = true;
         return { data: { user } };
       },
-      signOut: async () => {
+      signOut: async (options) => {
+        S.scope = options.scope;
+        if(S.holdLogout) await new Promise(resolve => S.finishLogout = resolve);
+        if(S.failLogout) return {error:{message:"QA network error"}};
         S.logged = false;
+        S.authListener?.("SIGNED_OUT");
         return { data: {} };
       },
-      onAuthStateChange: () => ({}),
+      onAuthStateChange: (cb) => { S.authListener=cb; return {}; },
       updateUser: async () => {
         S.passwordChanges = (S.passwordChanges || 0) + 1;
         return { data: { user } };
@@ -460,7 +464,7 @@ const fixture = () => {
     }
     await page.addInitScript(() => (window.__qaRole = "auditor"));
     await page.reload();
-    await page.locator("#welcome").filter({ hasText: "Consulta" }).waitFor();
+    await page.locator("#session-role").filter({ hasText: "Consulta" }).waitFor();
     assert(await page.locator("#quick-photo").isHidden());
     await page.locator('.tabs [data-tab="reports"]').click();
     assert(await page.locator("#close-form").isHidden());
@@ -580,6 +584,29 @@ const fixture = () => {
     await page.locator('[data-activity-attach="true"]').filter({hasText:'Cambiar comprobante'}).waitFor();
     assert.equal(await page.evaluate(()=>window.__fixture.entries.filter(e=>e.activity_account_id).length),1);
     await page.locator('.activity-balance').filter({hasText:'5,00'}).waitFor();
+    assert.match(await page.locator('#welcome').textContent(),/Servicio de prueba/);
+    assert.match(await page.locator('#session-role').textContent(),/Tesorería/);
+    await page.evaluate(()=>{window.__fixture.holdLogout=true;});
+    await page.locator('#logout').click();
+    await page.locator('#auth-panel').waitFor({state:'visible'});
+    assert(await page.locator('#workspace').isHidden());
+    assert.equal(await page.locator('#welcome').textContent(),'');
+    assert(await page.locator('#login-form button[type=submit]').isDisabled());
+    await page.evaluate(()=>window.__fixture.finishLogout());
+    await page.locator('#auth-message').filter({hasText:'Sesión cerrada.'}).waitFor();
+    assert.equal(await page.evaluate(()=>window.__fixture.logged),false);
+    assert.equal(await page.evaluate(()=>window.__fixture.scope),'local');
+    await page.locator('#email').fill('qa@example.invalid');
+    await page.locator('#password').fill('qa-password');
+    await page.locator('#login-form button[type=submit]').click();
+    await page.locator('#workspace').waitFor({state:'visible'});
+    await page.evaluate(()=>{window.__fixture.holdLogout=false;window.__fixture.failLogout=true;});
+    await page.locator('#logout').click();
+    await page.locator('#logout-retry').waitFor({state:'visible'});
+    await page.evaluate(()=>{window.__fixture.failLogout=false;});
+    await page.locator('#logout-retry').click();
+    await page.locator('#auth-message').filter({hasText:'Sesión cerrada.'}).waitFor();
+    assert.equal(await page.evaluate(()=>window.__fixture.logged),false);
     assert.deepEqual(errors, []);
     console.log(
       "PASS: mobile 320/360/390 + desktop, photo draft, retry, cents, confirm, partial dues, annulment, PDF, read-only controls; no JS errors.",
