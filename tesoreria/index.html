@@ -11,7 +11,7 @@
     <title>Tesorería · Amigos Verdaderos</title>
     <link rel="icon" href="../assets/img/favicon-amigos-verdaderos.png" />
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" />
-    <link rel="stylesheet" href="tesoreria.css?v=21" />
+    <link rel="stylesheet" href="tesoreria.css?v=22" />
   </head>
   <body>
     <header class="masthead">
@@ -63,22 +63,22 @@
         </div>
       </section>
       <section id="workspace" hidden>
-        <div class="workspace-title">
-          <div>
-            <span class="eyebrow">NUESTRO GRUPO · NUESTROS FONDOS</span>
-            <h1>Cuidamos lo que<br />construimos juntos.</h1>
-            <p class="workspace-subtitle">TESORERÍA · AMIGOS VERDADEROS</p>
-            <div class="session-profile" aria-label="Cuenta activa"><span class="session-avatar" aria-hidden="true"><i class="bi bi-person" aria-hidden="true"></i></span><div class="session-identity"><strong id="welcome"></strong><small id="session-email"></small><span class="session-role" id="session-role"></span></div></div>
-          </div>
-          <div class="header-actions">
+<nav class="account-nav" aria-label="Cuenta y administración"><div class="session-profile" aria-label="Cuenta activa"><span class="session-avatar" aria-hidden="true"><i class="bi bi-person" aria-hidden="true"></i></span><div class="session-identity"><strong id="welcome"></strong><small id="session-email"></small><span class="session-role" id="session-role"></span></div></div><div class="header-actions">
             <button id="edit-initial" class="secondary" hidden>
               <i class="bi bi-sliders" aria-hidden="true"></i> Corregir saldo inicial
             </button>
             <a href="../admin/" id="admin-link" hidden><i class="bi bi-grid" aria-hidden="true"></i> Administración</a
             ><button id="password-open" class="secondary"><i class="bi bi-key" aria-hidden="true"></i> Contraseña</button
             ><button id="logout" class="secondary"><i class="bi bi-box-arrow-right" aria-hidden="true"></i> Salir</button>
+          </div></nav>
+        <div class="workspace-title">
+          <div>
+            <span class="eyebrow">NUESTRO GRUPO · NUESTROS FONDOS</span>
+            <h1>Cuidamos lo que<br />construimos juntos.</h1>
+            <p class="workspace-subtitle">TESORERÍA · AMIGOS VERDADEROS</p>
           </div>
         </div>
+
         <div id="network" class="notice" hidden>
           Sin conexión. Conserva esta pantalla: puedes intentar guardar de nuevo
           cuando vuelva internet. Una foto no está respaldada hasta ver
@@ -233,19 +233,19 @@
                   ><span
                     ><strong>Registrar ingreso</strong
                     ><small>Séptima, aporte u otro ingreso</small></span
-                  ><b>+</b></button
+                  ><i class="bi bi-plus-lg" aria-hidden="true"></i></button
                 ><button class="action-card" data-new="expense">
                   <span class="action-icon expense"><i class="bi bi-arrow-up-right" aria-hidden="true"></i></span
                   ><span
                     ><strong>Registrar gasto</strong
                     ><small>Compras y pagos del grupo</small></span
-                  ><b>+</b></button
+                  ><i class="bi bi-plus-lg" aria-hidden="true"></i></button
                 ><button class="action-card capture" id="quick-photo">
                   <span class="action-icon"><i class="bi bi-camera" aria-hidden="true"></i></span
                   ><span
                     ><strong>Foto y borrador</strong
                     ><small>Guarda ahora. Completa después.</small></span
-                  ><b>+</b>
+                  ><i class="bi bi-plus-lg" aria-hidden="true"></i>
                 </button>
               </div>
               <div id="fund-cards" class="two-columns"></div>
@@ -253,7 +253,7 @@
               <div class="section-heading">
                 <h2>Últimos movimientos del mes</h2>
                 <button class="text-button" data-tab="movements">
-                  Ver todos →
+                  Ver todos
                 </button>
               </div>
               <div id="recent-list" class="entry-list"></div>
@@ -267,7 +267,7 @@
                     cambio queda en el historial.
                   </p>
                 </div>
-                <button class="primary" data-new="expense">+ Registrar</button>
+                <button class="primary" data-new="expense">Registrar</button>
               </div>
               <div class="filters">
                 <label
@@ -294,7 +294,7 @@
                     afectan el saldo.
                   </p>
                 </div>
-                <button id="draft-new" class="primary">+ Borrador</button>
+                <button id="draft-new" class="primary">Borrador</button>
               </div>
               <div id="draft-list" class="entry-list"></div>
             </section>
@@ -307,7 +307,7 @@
                     vez y se asignan al mes que corresponda.
                   </p>
                 </div>
-                <button id="member-new" class="primary">+ Compañero</button>
+                <button id="member-new" class="primary">Compañero</button>
               </div>
               <div id="dues-summary" class="notice"></div>
               <div id="dues-list" class="dues-grid"></div>
@@ -351,7 +351,7 @@
                   </p>
                   <div class="button-row">
                     <button id="download-pdf" class="primary">
-                      Descargar PDF ↓</button
+                      Descargar PDF</button
                     ><button id="print-report" class="secondary">
                       Imprimir
                     </button>
@@ -551,7 +551,7 @@
             class="close"
             aria-label="Cerrar"
           >
-            ×
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
           </button>
         </div>
         <div class="form-grid">
@@ -629,7 +629,7 @@
                 class="text-button"
                 hidden
               >
-                Ver comprobante ↗
+                Ver comprobante
               </button>
             </div>
             <img
@@ -674,7 +674,7 @@
             class="close"
             aria-label="Cerrar"
           >
-            ×
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
           </button>
         </div>
         <p class="modal-intro">
@@ -752,7 +752,7 @@
             class="close"
             aria-label="Cerrar"
           >
-            ×
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
           </button>
         </div>
         <label
@@ -784,7 +784,7 @@
  <div id="activity-account-fields">
  <label for="activity-companion-search">Compañero del registro</label>
  <div class="member-picker" id="activity-companion-picker"><div class="activity-picker-input">
- <input id="activity-companion-search" name="companion" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="activity-companion-options" required autocomplete="off" placeholder="Selecciona o busca por nombre o apellido…" /><span aria-hidden="true">▾</span></div>
+ <input id="activity-companion-search" name="companion" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="activity-companion-options" required autocomplete="off" placeholder="Selecciona o busca por nombre o apellido…" /><span aria-hidden="true"><i class="bi bi-chevron-down"></i></span></div>
  <div id="activity-companion-options" class="picker-options" role="listbox" aria-label="Compañeros del grupo" hidden></div></div>
  <label>Actividad<input name="activity" required maxlength="180" placeholder="Ej.: Bingo del grupo" /></label>
  <label>Valor original · USD<input name="original" inputmode="decimal" required /></label>
@@ -808,6 +808,7 @@
     <script src="model.js"></script>
     <script src="report.js?v=17"></script>
     <script src="activities.js?v=19"></script>
-    <script src="app.js?v=20"></script>
+    <script src="app.js?v=22"></script>
   </body>
 </html>
+
