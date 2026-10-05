@@ -2016,3 +2016,76 @@ main {
 @media (max-width: 720px) {
   .header-actions > a, .header-actions > button { min-height: 44px; }
 }
+
+
+/* Account navigation and the complete Treasury icon language. */
+.account-nav { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 20px; margin-bottom:22px; background:#fff; border:1px solid var(--line); border-radius:18px; box-shadow:0 8px 24px #102d5008; }
+.account-nav .session-profile { border:0; padding:0; background:transparent; flex:1; min-width:0; }
+.account-nav #welcome { color:var(--navy); font-size:15px; margin:0; }
+.account-nav .header-actions { display:flex; flex-wrap:wrap; max-width:none; gap:8px; margin:0; }
+.account-nav .header-actions .secondary, .account-nav .header-actions a { color:var(--navy); background:#f3f6fa; border:1px solid #dce4eb; border-radius:10px; padding:10px 12px; min-height:44px; font-size:13px; text-decoration:none; }
+.account-nav #logout { color:#9d352f; background:#fff3f1; border-color:#f0d5d1; }
+.account-nav .header-actions :is(a,button):hover { background:#e7eef6; }
+.workspace-title { padding:28px 32px; margin-bottom:24px; }
+.workspace-title h1 { font-size:clamp(28px,3vw,42px); }
+.tabs { padding:16px 10px; border:1px solid #dce4eb; box-shadow:0 8px 28px #102d5008; }
+.tabs .nav-caption { display:block; color:#365675; padding:8px 12px 16px; }
+.tabs button { min-height:54px; transition:background .15s,color .15s; }
+.tabs button:hover { background:#edf3f8; color:#102d50; }
+.tabs button[aria-current="page"] { background:#102d50; color:#fff; }
+.tabs .nav-symbol { border-radius:9px; width:32px; height:32px; background:#eaf0f6; color:#285078; }
+.tabs button[aria-current="page"] .nav-symbol { background:#ffffff20; color:#e8d29b; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline:3px solid #4d96d1; outline-offset:3px; }
+button::before, .file-button::before, .section-heading h2::before, .report-layout h2::before, .fund-card h3::before, .due-card h3::before, .activity-card h3::before, .guide h2::before { font-family:bootstrap-icons !important; font-style:normal; font-weight:normal; line-height:1; margin-right:.5em; display:inline-block; }
+button .bi { pointer-events:none; }
+.close .bi { font-size:18px; }
+@media(max-width:1000px) { .account-nav { flex-wrap:wrap; } .account-nav .header-actions { justify-content:flex-start; } }
+@media(max-width:760px) {
+ .account-nav { padding:16px; gap:16px; }
+ .account-nav .session-profile { flex-basis:100%; }
+ .account-nav .header-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; }
+ .account-nav .header-actions :is(a,button) { font-size:12px; padding:10px 8px; }
+ .workspace-title { padding:22px; }
+ .tabs { padding:12px; gap:8px; }
+ .tabs .nav-caption { grid-column:1/-1; padding:4px 6px 8px; }
+ .tabs button { min-height:78px; font-size:12px; gap:6px; border:1px solid #e4eaf0; }
+ .tabs button[data-tab="guide"] { grid-column:1/-1; flex-direction:row; min-height:48px; }
+ .tabs .nav-symbol { width:30px; height:30px; font-size:19px; }
+}
+
+#recover::before { content:"\f467" / ""; }
+#logout-retry::before { content:"\f1c3" / ""; }
+[data-tab="movements"]:not(.tabs button)::before { content:"\f138" / ""; }
+[data-new]:not(.action-card)::before { content:"\f4fa" / ""; }
+#draft-new::before { content:"\f37d" / ""; }
+#member-new::before { content:"\f4dd" / ""; }
+#activity-new::before { content:"\f4fa" / ""; }
+#download-pdf::before { content:"\f63e" / ""; }
+#print-report::before, #print-guide::before { content:"\f501" / ""; }
+#reopen::before { content:"\f600" / ""; }
+#audit-filter::before { content:"\f52a" / ""; }
+#audit-more::before { content:"\f282" / ""; }
+#cancel-initial::before, #activity-close::before { content:"\f623" / ""; }
+#save-draft::before { content:"\f38b" / ""; }
+#post-entry::before { content:"\f270" / ""; }
+#view-receipt::before { content:"\f42a" / ""; }
+#setup-form button[type="submit"]::before, #member-form button[type="submit"]::before, #password-form button[type="submit"]::before, #activity-submit::before { content:"\f270" / ""; }
+#close-form button[type="submit"]::before { content:"\f47b" / ""; }
+[data-entry]::before, [data-activity-entry]:not([data-activity-attach])::before { content:"\f341" / ""; }
+[data-payment]::before, [data-activity-pay]::before { content:"\f632" / ""; }
+[data-member]::before { content:"\f8a7" / ""; }
+[data-activity-edit]::before { content:"\f4ca" / ""; }
+[data-activity-attach]::before { content:"\f4b3" / ""; }
+.file-button:has(#camera)::before { content:"\f220" / ""; }
+.file-button:has(#attachment)::before { content:"\f4b3" / ""; }
+.fund-card h3::before { content:"\f615" / ""; }
+.due-card h3::before, .activity-card h3::before { content:"\f4d7" / ""; }
+.section-heading h2::before { content:"\f444" / ""; }
+.report-layout h2::before { content:"\f35a" / ""; }
+.guide h2::before { content:"\f194" / ""; }
+
+#correct-entry::before { content:"\f4ca" / ""; }
+
+#void-entry::before, #discard-entry::before { content:"\f78b" / ""; }
+
+[data-audit-receipt]::before { content:"\f50f" / ""; }

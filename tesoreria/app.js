@@ -264,7 +264,7 @@
         : e.status === "void"
           ? "Anulado"
           : "Confirmado";
-    return `<article class="entry ${e.status}"><span class="action-icon ${e.kind}">${e.kind === "income" ? "↙" : "↗"}</span><div class="entry-body"><h3>${M.esc(e.description || "Comprobante por completar")}</h3><small>${M.date(e.entry_date)} · ${M.esc(M.categories[e.category])}</small><small>${e.fund === "rent" ? "Local" : "General"} · ${status}${e.receipt_path ? " · Con comprobante" : ""}${e.member_name ? " · " + M.esc(e.member_name) : ""}</small></div><div class="entry-value"><strong class="${e.kind}">${e.amount_cents ? M.money(e.amount_cents) : "Por definir"}</strong><button class="text-button" data-entry="${M.esc(e.id)}">${e.status === "draft" && writable() ? "Completar" : "Ver detalle"} →</button></div></article>`;
+    return `<article class="entry ${e.status}"><span class="action-icon ${e.kind}"><i class="bi bi-${e.kind === "income" ? "arrow-down-left" : "arrow-up-right"}" aria-hidden="true"></i></span><div class="entry-body"><h3>${M.esc(e.description || "Comprobante por completar")}</h3><small>${M.date(e.entry_date)} · ${M.esc(M.categories[e.category])}</small><small>${e.fund === "rent" ? "Local" : "General"} · ${status}${e.receipt_path ? " · Con comprobante" : ""}${e.member_name ? " · " + M.esc(e.member_name) : ""}</small></div><div class="entry-value"><strong class="${e.kind}">${e.amount_cents ? M.money(e.amount_cents) : "Por definir"}</strong><button class="text-button" data-entry="${M.esc(e.id)}">${e.status === "draft" && writable() ? "Completar" : "Ver detalle"}</button></div></article>`;
   }
   function renderEntries() {
     if (!report) return;
@@ -656,7 +656,7 @@
         matches
           .map(
             (c, i) =>
-              `<div role="option" id="${list.id}-${i}" data-option="${i}" aria-selected="${selected?.value === c.value}"><span class="picker-avatar" aria-hidden="true">${M.esc(c.name.trim().slice(0, 1))}</span><span>${M.esc(c.name)}</span><span class="picker-check" aria-hidden="true">${selected?.value === c.value ? "✓" : "+"}</span></div>`,
+              `<div role="option" id="${list.id}-${i}" data-option="${i}" aria-selected="${selected?.value === c.value}"><span class="picker-avatar" aria-hidden="true">${M.esc(c.name.trim().slice(0, 1))}</span><span>${M.esc(c.name)}</span><span class="picker-check" aria-hidden="true"><i class="bi bi-${selected?.value === c.value ? "check-lg" : "plus-lg"}" aria-hidden="true"></i></span></div>`,
           )
           .join("") ||
         '<p class="picker-empty">No hay coincidencias. Revisa el nombre o pide al administrador que lo registre.</p>';
@@ -1330,3 +1330,4 @@
     })
     .catch(fail);
 })();
+
