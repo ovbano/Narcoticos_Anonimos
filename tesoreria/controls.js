@@ -21,7 +21,7 @@
     if(!active)return;
     const {panel,anchor}=active; active=null;
     panel.hidePopover(); panel.remove(); anchor.setAttribute('aria-expanded','false');
-    if(focus)anchor.focus();
+    if(focus)anchor.focus({preventScroll:true});
   }
   function open(anchor,label) {
     close();
@@ -37,15 +37,18 @@
     });
     return panel;
   }
-  function show(panel,anchor) {
-    panel.showPopover();
+  function position(panel,anchor) {
     const r=anchor.getBoundingClientRect();
     const width=Math.min(Math.max(r.width,310),window.innerWidth-24);
     panel.style.width=width+'px';
     panel.style.left=Math.max(12,Math.min(r.left,window.innerWidth-width-12))+'px';
     const height=panel.getBoundingClientRect().height;
     panel.style.top=Math.max(12,Math.min(r.bottom+8,window.innerHeight-height-12))+'px';
-    panel.querySelector('[aria-selected="true"],button:not(:disabled),input')?.focus();
+  }
+  function show(panel,anchor) {
+    panel.showPopover();
+    position(panel,anchor);
+    panel.querySelector('[aria-selected="true"],button:not(:disabled),input')?.focus({preventScroll:true});
   }
   document.querySelectorAll('select').forEach(select=>{
     select.classList.add('enhanced-select');select.setAttribute('aria-haspopup','dialog');
@@ -72,7 +75,9 @@
         all[e.key==='Home'?0:e.key==='End'?all.length-1:(i+(e.key==='ArrowUp'?-1:1)+all.length)%all.length]?.focus();
       });show(panel,select);
     }
-    select.addEventListener('pointerdown',e=>{if(e.button===0&&!select.disabled){e.preventDefault();chooser();}});
+    // Opening during pointerdown lets the same gesture dismiss the popover on release.
+    // Suppress the native picker, then open only after the completed click.
+    select.addEventListener('pointerdown',e=>{if(e.button===0&&!select.disabled)e.preventDefault();});
     select.addEventListener('click',e=>{e.preventDefault();if(active?.anchor!==select)chooser();});
     select.addEventListener('keydown',e=>{if(['Enter',' ','ArrowDown','ArrowUp'].includes(e.key)){e.preventDefault();chooser();}});
   });
@@ -120,7 +125,17 @@
       render();show(panel,trigger);
     }
   });
-  window.addEventListener('resize',()=>close());
+  let repositionFrame=0;
+  function reposition(){
+    if(!active || repositionFrame)return;
+    repositionFrame=requestAnimationFrame(()=>{
+      repositionFrame=0;
+      if(active)position(active.panel,active.anchor);
+    });
+  }
+  window.addEventListener('resize',reposition);
   document.addEventListener('close',e=>{if(e.target.matches('dialog'))close();},true);
-  document.addEventListener('scroll',e=>{if(active&&!active.panel.contains(e.target))close();},true);
+  // Focus, the mobile keyboard and scrolling a modal must not dismiss a choice.
+  document.addEventListener('scroll',e=>{if(active&&!active.panel.contains(e.target))reposition();},true);
+  window.visualViewport?.addEventListener('resize',reposition);
 })();
