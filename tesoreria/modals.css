@@ -46,3 +46,50 @@ dialog.treasury-modal[open] { animation:modal-arrive .2s ease-out; }
 @keyframes modal-arrive { from { opacity:0;transform:translateY(10px); } to { opacity:1;transform:translateY(0); } }
 @media(max-width:600px) { dialog.treasury-modal { width:calc(100% - 16px);max-height:94dvh;border-radius:20px; } .treasury-modal>form { max-height:94dvh; } .treasury-modal .dialog-heading { padding:18px 14px;gap:10px; } .treasury-modal .dialog-heading h2 { font-size:21px; } .modal-heading-icon { flex-basis:38px;height:38px;font-size:22px; } .treasury-modal .modal-body { padding:18px 16px; } .treasury-modal .form-grid { grid-template-columns:1fr; } .treasury-modal .dialog-actions { padding:12px 16px max(12px,env(safe-area-inset-bottom));gap:8px; } .treasury-modal .dialog-actions button { flex:1;padding:12px 8px;font-size:13px; } .treasury-modal .file-button { flex-basis:100%; } .treasury-modal .record-actions { padding:10px 16px; } }
 @media(prefers-reduced-motion:reduce) { dialog.treasury-modal[open] { animation:none; } }
+
+
+/* Resolve older ID-specific modal rules and keep actions inside the viewport. */
+#member-dialog.treasury-modal { padding:0; }
+#member-dialog.treasury-modal h2 { font-size:24px; }
+.treasury-modal .dialog-actions { position:static;bottom:auto;flex-wrap:wrap; }
+.treasury-modal .form-grid>* { min-width:0; }
+.treasury-modal .modal-body input:not([type="checkbox"]):not([type="file"]),.treasury-modal select,.treasury-modal textarea { width:100%;min-width:0;box-sizing:border-box; }
+.treasury-modal input[type="checkbox"] { min-height:0;width:20px;height:20px;padding:0;box-shadow:none; }
+.treasury-modal .record-actions { display:flex;flex-wrap:wrap;gap:10px;border-radius:12px;margin-top:16px; }
+.treasury-modal .picker-options { border-color:#c4d5e5;padding:6px;scrollbar-width:thin; }
+.treasury-modal .picker-options [role="option"] { border:1px solid transparent;min-height:52px;transition:background .15s; }
+.treasury-modal .picker-options :is(.highlighted,[aria-selected="true"]) { background:#e9f2fa;border-color:#bdd2e6;color:#123c64; }
+.treasury-modal .picker-options [role="option"]:hover { background:#f0f5fa; }
+.enhanced-select { cursor:pointer;min-height:48px;border:1px solid #c5d5e4;border-radius:12px;background-color:white;box-shadow:0 2px 5px #12345606;padding:12px;font-size:16px; }
+.enhanced-select:hover:not(:disabled) { border-color:#3d719d; }
+.calendar-field { display:flex;align-items:stretch;position:relative;min-width:0;width:100%; }
+.calendar-field input { min-width:0;max-width:100%;width:100%;padding-right:50px!important;min-height:48px;border:1px solid #c5d5e4;border-radius:12px;background:white;font-size:16px;box-sizing:border-box; }
+.calendar-field input::-webkit-calendar-picker-indicator { display:none; }
+.calendar-field .calendar-trigger { position:absolute;right:4px;top:4px;bottom:4px;width:40px;min-height:40px;padding:0;display:grid;place-items:center;background:#edf3f9;border:0;border-radius:9px;color:#234f77;font-size:19px; }
+.calendar-trigger:hover:not(:disabled) { background:#dce9f5; }
+.treasury-popover { box-sizing:border-box;position:fixed;inset:auto;margin:0;padding:16px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #c5d6e5;border-radius:20px;background:#fff;color:#173654;box-shadow:0 20px 70px #061b3d40;font-family:inherit; }
+.treasury-popover * { box-sizing:border-box; }
+.treasury-popover button { min-height:44px;border:0;border-radius:10px;padding:10px;background:transparent;color:#234867;font:inherit;font-size:14px;cursor:pointer; }
+.treasury-popover button:hover:not(:disabled),.treasury-popover button:focus-visible { background:#edf4fb;outline:2px solid #7ea9ce;outline-offset:-2px; }
+.treasury-popover button:disabled { opacity:.35;cursor:default; }
+.treasury-popover input { width:100%;min-height:46px;border:1px solid #c5d5e4;border-radius:10px;padding:10px;font-size:16px;margin-bottom:10px; }
+.control-caption { font-size:11px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:#64809a;margin:2px 4px 12px; }
+.control-options { display:grid;gap:4px;max-height:280px;overflow:auto; }
+.control-options button { display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;line-height:1.4; }
+.control-options [aria-selected="true"] { background:#102d50;color:white;font-weight:650; }
+.control-options [aria-selected="true"]::after { content:'\F26E';font-family:bootstrap-icons;margin-left:12px; }
+.control-options [aria-selected="true"]:is(:hover,:focus-visible) { background:#214c77;color:white; }
+.calendar-heading { display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px; }
+.calendar-heading strong { font-size:16px; }
+.calendar-heading button { background:#edf3f9;font-size:26px;line-height:1;width:44px; }
+.calendar-months { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px; }
+.calendar-months button { min-height:52px;background:#f5f8fb;font-weight:600; }
+.calendar-days { display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px; }
+.calendar-days button { padding:0;min-height:38px; }
+.calendar-weekday { text-align:center;font-size:11px;color:#688096;padding:8px 0; }
+.treasury-popover button.is-today { box-shadow:inset 0 0 0 1px #80a4c5; }
+.treasury-popover button.is-selected { background:#102d50;color:#fff; }
+.calendar-footer { display:flex;justify-content:space-between;gap:4px;border-top:1px solid #e0e8f0;margin-top:14px;padding-top:10px; }
+.calendar-footer button { font-size:12px;font-weight:650; }
+@media(max-width:600px) { #member-dialog.treasury-modal h2 { font-size:21px; } .treasury-modal .member-section { padding:14px; } .treasury-modal .dialog-actions button { min-width:120px; } .month-bar .calendar-field { max-width:100%; } }
+@media(prefers-reduced-motion:reduce) { .treasury-modal .picker-options [role="option"] { transition:none; } }
