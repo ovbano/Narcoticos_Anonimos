@@ -466,7 +466,7 @@
       if (entry.status === "draft")
         box.innerHTML =
           '<button type="button" class="text-button" id="discard-entry">Descartar borrador</button>';
-      form.append(box);
+      (form.querySelector(".modal-body") || form).append(box);
     }
     if (entry?.void_reason)
       $("#entry-message").textContent =
@@ -1324,5 +1324,6 @@
     })
     .catch(fail);
 })();
+
 
 
