@@ -1016,14 +1016,8 @@
       if (b.dataset.new) openEntry(b.dataset.new);
       if (b.dataset.close) {
         if (saving) return;
-        if (
-          b.dataset.close === "entry-dialog" &&
-          dirty &&
-          !confirm("El registro no se ha guardado. ¿Cerrar?")
-        )
-          return;
-        dirty = false;
-        $("#" + b.dataset.close).close();
+        const dialog = $("#" + b.dataset.close);
+        window.TreasuryModals.requestClose(dialog, () => { dirty = false; dialog.close(); }, b.dataset.close === "entry-dialog" && dirty);
       }
       if (b.dataset.entry) {
         const entry =
@@ -1091,9 +1085,9 @@
     };
     $("#save-draft").onclick = () => saveEntry(false);
     $("#entry-dialog").addEventListener("cancel", (e) => {
-      if (saving || (dirty && !confirm("¿Cerrar sin guardar?")))
-        e.preventDefault();
-      else dirty = false;
+      e.preventDefault();
+      if (saving) return;
+      window.TreasuryModals.requestClose($("#entry-dialog"), () => { dirty = false; $("#entry-dialog").close(); }, dirty);
     });
     window.addEventListener("beforeunload", (e) => {
       if (dirty || saving) {
@@ -1330,4 +1324,5 @@
     })
     .catch(fail);
 })();
+
 

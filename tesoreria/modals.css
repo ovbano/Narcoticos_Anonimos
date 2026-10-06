@@ -1,0 +1,48 @@
+/* Shared modal surfaces. Local icons; no additional remote dependencies. */
+dialog.treasury-modal { width:min(740px,calc(100% - 32px)); max-width:740px; max-height:92dvh; padding:0; overflow:hidden; border:1px solid #cbd7e4; border-radius:24px; background:#f7f9fc; box-shadow:0 32px 100px #03152c66; }
+dialog.treasury-modal::backdrop { background:#06172cb3; backdrop-filter:blur(6px); }
+dialog.treasury-modal[open] { animation:modal-arrive .2s ease-out; }
+.treasury-modal>form { display:flex;flex-direction:column;max-height:92dvh;margin:0; }
+.treasury-modal .dialog-heading { margin:0;padding:24px;gap:14px;align-items:center;background:#102d50;color:white;flex-shrink:0; }
+.treasury-modal .dialog-heading h2 { color:inherit;font-size:24px;line-height:1.2;margin:4px 0; }
+.treasury-modal .dialog-heading .eyebrow { color:#d9c38e;font-size:10px; }
+.modal-heading-icon { display:grid;place-items:center;flex:0 0 46px;height:46px;border-radius:14px;background:#ffffff14;color:#e9d6a5;font-size:25px; }
+.treasury-modal .dialog-heading>div, .treasury-modal .dialog-heading>h2 { flex:1;min-width:0; }
+.treasury-modal .close { display:grid;place-items:center;width:44px;height:44px;padding:0;margin-left:auto;border-radius:12px;background:#ffffff15;color:white; }
+.treasury-modal .modal-body { padding:24px;overflow-y:auto;overscroll-behavior:contain;min-height:0;scrollbar-gutter:stable; }
+.treasury-modal label { font-size:14px;font-weight:650;color:#2e4864; }
+.treasury-modal input,.treasury-modal select,.treasury-modal textarea { font-size:16px;border:1px solid #ccd8e4;background:white;border-radius:12px;min-height:48px;padding:12px;box-shadow:0 2px 4px #16375903; }
+.treasury-modal textarea { min-height:92px;resize:vertical; }
+.treasury-modal :is(input,select,textarea):focus { outline:3px solid #327db32b;border-color:#327db3; }
+.treasury-modal :is(input,select,textarea):disabled { color:#60748a;background:#edf2f7;opacity:1; }
+.treasury-modal .dialog-actions { flex-shrink:0;display:flex;justify-content:flex-end;gap:12px;margin:0;padding:16px 24px;background:white;border-top:1px solid #dce5ed;box-shadow:0 -6px 20px #102d5005; }
+.treasury-modal .dialog-actions button { min-height:48px;border-radius:12px;font-size:14px; }
+.treasury-modal .record-actions { padding:12px 24px;margin:0;background:#fff7f4;flex-shrink:0; }
+.treasury-modal .receipt-box { background:white;border:1px dashed #9ab2ca;border-radius:18px;padding:18px; }
+.treasury-modal .receipt-box .button-row { flex-wrap:wrap;gap:10px; }
+.treasury-modal .file-button { flex:1;justify-content:center;min-height:48px; }
+.treasury-modal #receipt-preview { max-height:200px;object-fit:contain;background:#edf2f7;border-radius:12px; }
+.treasury-modal .member-section { background:white;border:1px solid #dde6ef;border-radius:16px;padding:18px; }
+.treasury-modal .picker-options { position:relative;top:auto;max-height:220px;box-shadow:0 4px 14px #102d5010;margin:6px 0 12px; }
+.movement-preview { display:flex;align-items:center;gap:14px;padding:18px;margin-bottom:22px;border:1px solid #bcded1;border-radius:16px;background:#edf8f2;color:#175b43; }
+.movement-preview[data-kind="expense"] { background:#fcf3ee;border-color:#efd5c7;color:#8d4930; }
+.preview-icon { font-size:26px; }
+.movement-preview span:not(.preview-icon) { display:block;font-size:12px;font-weight:650; }
+.movement-preview strong { display:block;font-size:28px;line-height:1.35; }
+.password-control { display:flex;position:relative; }
+.password-control input { width:100%;padding-right:55px; }
+.password-control button { position:absolute;right:4px;top:4px;min-width:44px;height:40px;padding:0;border:0;background:transparent;color:#385779; }
+.password-feedback { color:#53697f;font-size:13px;min-height:22px; }
+.password-feedback.matches { color:#147355; }
+.treasury-modal #entry-message:empty,.treasury-modal #activity-message:empty { display:none; }
+.treasury-modal #entry-message:not(:empty),.treasury-modal #activity-message:not(:empty) { padding:12px;border-radius:10px;background:#fff0e5;color:#7d3e1c; }
+.discard-confirm { position:absolute;inset:0;display:grid;place-items:center;padding:24px;background:#0c203bcc;z-index:20; }
+.discard-confirm>div { max-width:390px;background:white;padding:26px;border-radius:20px;box-shadow:0 16px 60px #0003; }
+.discard-confirm h3 { font-size:23px;margin:12px 0; }
+.discard-confirm p { color:#576b80;font-size:15px; }
+.discard-icon { color:#a65c25;font-size:28px; }
+.discard-actions { display:grid;gap:10px; }
+.discard-actions button { min-height:48px; }
+@keyframes modal-arrive { from { opacity:0;transform:translateY(10px); } to { opacity:1;transform:translateY(0); } }
+@media(max-width:600px) { dialog.treasury-modal { width:calc(100% - 16px);max-height:94dvh;border-radius:20px; } .treasury-modal>form { max-height:94dvh; } .treasury-modal .dialog-heading { padding:18px 14px;gap:10px; } .treasury-modal .dialog-heading h2 { font-size:21px; } .modal-heading-icon { flex-basis:38px;height:38px;font-size:22px; } .treasury-modal .modal-body { padding:18px 16px; } .treasury-modal .form-grid { grid-template-columns:1fr; } .treasury-modal .dialog-actions { padding:12px 16px max(12px,env(safe-area-inset-bottom));gap:8px; } .treasury-modal .dialog-actions button { flex:1;padding:12px 8px;font-size:13px; } .treasury-modal .file-button { flex-basis:100%; } .treasury-modal .record-actions { padding:10px 16px; } }
+@media(prefers-reduced-motion:reduce) { dialog.treasury-modal[open] { animation:none; } }
