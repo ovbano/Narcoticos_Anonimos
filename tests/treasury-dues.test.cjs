@@ -9,7 +9,7 @@ test('closed financial reports retain their original balances and include the ne
   const summary={month:'2026-10-01',funds:[{fund:'general',opening:10000,income:0,expense:0,closing:10000}],entries:[],dues:[]};
   const report={...summary,closure:{summary,closed_name:'QA',note:'QA'},dues_history:{configured:true,through_month:'2026-10-01',members:[account]}};
   const html=window.TreasuryReport.html(report,true);
-  assert.match(html,/Pendientes acumulados/);assert.match(html,/Detalle de los meses pendientes/);assert.match(html,/18[,.]00/);assert.ok(html.includes('&lt;script&gt;'));
+  assert.match(html,/Deuda anterior/);assert.match(html,/Detalle de los meses pendientes/);assert.match(html,/18[,.]00/);assert.ok(html.includes('&lt;script&gt;'));
 });
 
 test('the roster includes registered companions who never paid without manufacturing debt',()=>{
@@ -42,4 +42,13 @@ test('22 registered companions appear even when only 16 have contribution accoun
  const roster=D.roster(ledger,members,companions,'2026-10-01');
  assert.equal(roster.length,22);assert.equal(new Set(roster.map(person=>person.source_id)).size,22);assert.equal(roster.filter(person=>person.tracking==='unconfigured').length,6);
  assert.equal(roster.find(person=>person.id==='m0').total_pending,2400,'a member who never paid still has individual debt');
+});
+
+
+test('report omits the notes page, keeps full concepts and retains receipt references',()=>{
+ const window={TreasuryModel:M};vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../tesoreria/report.js'),'utf8'),{window,setTimeout,clearTimeout,TextEncoder,Uint8Array,Map,Set});
+ const concept='Concepto completo '.repeat(15)+'FINAL';
+ const report={month:'2026-10-01',funds:[],dues:[],entries:[{id:'1',kind:'income',status:'posted',entry_date:'2026-10-01',fund:'rent',amount_cents:600,description:concept,due_month:'2026-09-01',no_receipt_reason:'Sin factura'},{id:'2',kind:'expense',status:'posted',entry_date:'2026-10-02',fund:'general',amount_cents:100,receipt_path:'test.jpg'}]};
+ const html=window.TreasuryReport.html(report,false);
+ assert.ok(!html.includes('Notas de los movimientos'));assert.ok(!html.includes('[nota]'));assert.ok(html.includes(concept));assert.match(html,/Comprobantes registrados/);
 });
