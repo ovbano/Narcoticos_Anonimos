@@ -6,7 +6,7 @@
   const fields = ["opening", "income", "expense", "closing"];
   function reportData(r) {
     return r.closure?.summary
-      ? { ...r.closure.summary, closure: r.closure }
+      ? { ...r.closure.summary, closure: r.closure, dues_history: r.dues_history }
       : r;
   }
   function sections(input, includeDues) {
@@ -160,6 +160,18 @@
         [54, 29, 29, 29, 37],
         [1, 2, 3],
       );
+    }
+    if (includeDues && r.dues_history?.configured) {
+      title("Pendientes acumulados del local");
+      text("Estado hasta " + M.monthName(r.dues_history.through_month) + ". Los abonos se descuentan de su mes asignado. No son dinero disponible.");
+      table(["Compañero", "Anterior", "Del mes", "Total"],
+        (r.dues_history.members || []).map((member) => [member.name, M.money(member.previous_pending), M.money(member.current_pending), M.money(member.total_pending)]),
+        [66, 38, 38, 36], [1, 2, 3]);
+      const pendingMonths = (r.dues_history.members || []).flatMap((member) => (member.periods || []).filter((period) => Number(period.pending) > 0).map((period) => [member.name, M.monthName(period.month), M.money(period.expected), M.money(period.paid), M.money(period.pending)]));
+      if (pendingMonths.length) {
+        title("Detalle de los meses pendientes");
+        table(["Compañero", "Mes", "Cuota", "Recibido", "Pendiente"], pendingMonths, [46, 45, 29, 29, 29], [2, 3, 4]);
+      }
     }
     if (receipts.length) {
       blocks.push({ type: "page" });

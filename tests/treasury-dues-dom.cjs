@@ -1,0 +1,35 @@
+// DOM integration with synthetic records; no network or production access.
+const {JSDOM,VirtualConsole}=require(process.env.JSDOM_MODULE||'jsdom');
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..');
+(async()=>{
+ const errors=[];const console=new VirtualConsole();console.on('jsdomError',e=>errors.push(e.message));
+ const dom=new JSDOM(fs.readFileSync(path.join(root,'tesoreria/index.html'),'utf8'),{url:'http://localhost:8765/tesoreria/',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole:console});
+ const w=dom.window;w.structuredClone=structuredClone;w.alert=()=>{};w.confirm=()=>true;w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});w.ResizeObserver=class{observe(){}disconnect(){}};
+ w.HTMLElement.prototype.scrollIntoView=function(){};w.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};w.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');this.dispatchEvent(new w.Event('close'));};
+ const src=fs.readFileSync(path.join(__dirname,'treasury-browser.cjs'),'utf8');w.eval(src.slice(src.indexOf('const fixture ='),src.indexOf('(async () =>'))+'\nfixture();');
+ for(const file of ['model.js','dues.js','report.js','modals.js','activities.js','app.js','controls.js'])w.eval(fs.readFileSync(path.join(root,'tesoreria',file),'utf8'));
+ await new Promise(r=>setTimeout(r,100));
+ const today=w.TreasuryModel.today(), month=today.slice(0,7);
+ if(!w.document.querySelector('#dues-summary').textContent) process.stdout.write(JSON.stringify({auth:w.document.querySelector('#auth-message').textContent,toast:w.document.querySelector('#toast')?.textContent,period:w.document.querySelector('#period-status').textContent,errors})+'\n');
+ assert.match(w.document.querySelector('#dues-summary').textContent,/Saldos hasta/);
+ const button=w.document.querySelector('[data-payment="member-1"]');assert.ok(button);button.click();
+ const form=w.document.querySelector('#entry-form');assert.equal(form.elements.due_month.value,'2026-09');assert.equal(form.elements.entry_date.value,today);assert.equal(form.elements.member_id.value,'member-1');
+ form.elements.amount.value='6';form.dispatchEvent(new w.Event('submit',{bubbles:true,cancelable:true}));
+ await new Promise(r=>setTimeout(r,150));
+ assert.equal(w.__fixture.entries.length,1);
+ assert.equal(w.__fixture.entries[0].due_month,'2026-09-01');assert.equal(w.__fixture.entries[0].entry_date,today);
+ assert.equal(w.document.querySelector('#month').value,month);
+ if(!w.document.querySelector('#dues-summary').textContent) process.stdout.write(JSON.stringify({auth:w.document.querySelector('#auth-message').textContent,toast:w.document.querySelector('#toast')?.textContent,period:w.document.querySelector('#period-status').textContent,errors})+'\n');
+ assert.match(w.document.querySelector('#dues-summary').textContent,/Saldos hasta/);
+ assert.ok(w.document.querySelector('.due-history-details'));
+ w.document.querySelector('#dues-search').value='no existe';w.document.querySelector('#dues-search').dispatchEvent(new w.Event('input'));
+ assert.match(w.document.querySelector('#dues-list').textContent,/No hay compañeros/);
+ w.document.querySelector('#dues-search').value='';w.document.querySelector('#dues-search').dispatchEvent(new w.Event('input'));
+ w.document.querySelector('#month').value='2026-09';w.document.querySelector('#month').dispatchEvent(new w.Event('change'));
+ await new Promise(r=>setTimeout(r,100));
+ assert.equal(w.document.querySelector('[data-payment]'),null,'historical views must not offer duplicate collection');
+ w.document.querySelector('#dues-current').click();await new Promise(r=>setTimeout(r,100));assert.equal(w.document.querySelector('#month').value,month);assert.ok(w.document.querySelector('[data-payment]'));
+ assert.deepEqual(errors,[]);
+ dom.window.close();process.stdout.write('PASS: actual app refresh, accumulated cards, oldest-month payment prefill/save, cash-month switch, search, no DOM errors.\n');
+})().catch(error=>{console.error(error);process.exitCode=1;process.exit(1);});

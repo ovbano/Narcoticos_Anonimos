@@ -8,6 +8,8 @@
     profile,
     settings,
     report,
+    duesHistory = null,
+    duesError = null,
     members = [],
     drafts = [],
     audit = [],
@@ -81,6 +83,8 @@
     $("#password-form").reset();
     $("#password").value = "";
     members = [];
+    duesHistory = null;
+    duesError = null;
     drafts = [];
     audit = [];
     $$("dialog[open]").forEach((d) => d.close());
@@ -91,6 +95,8 @@
       "movement-list",
       "draft-list",
       "dues-list",
+      "dues-summary",
+      "dues-totals",
       "member-list",
       "audit-list",
       "fund-cards",
@@ -216,6 +222,16 @@
     );
     if (token !== refreshToken) return;
     report = r;
+    duesHistory = null;
+    duesError = null;
+    try {
+      const ledger = await result(db.rpc("treasury_dues_history", { p_month: $("#month").value + "-01" }));
+      if (token !== refreshToken) return;
+      duesHistory = ledger;
+    } catch (error) {
+      if (token !== refreshToken) return;
+      duesError = "No se pudo cargar el saldo acumulado. Pulsa Actualizar para reintentar.";
+    }
     $$(
       "[data-new],#quick-photo,#draft-new,#member-new,#download-pdf,#print-report",
     ).forEach((b) => (b.disabled = false));
@@ -224,6 +240,9 @@
   }
   function clearPeriod(message, status) {
     report = null;
+    duesHistory = null;
+    duesError = null;
+    $("#dues-totals").replaceChildren();
     ["balance", "opening", "income", "expense"].forEach(
       (id) => ($("#" + id).textContent = "—"),
     );
@@ -328,22 +347,7 @@
       drafts.map(entryHTML).join("") ||
       '<div class="empty">Todo al día. No tienes borradores pendientes.</div>';
     renderEntries();
-    const pending = report.dues.reduce(
-      (n, d) => n + Math.max(0, d.expected - d.paid),
-      0,
-    );
-    $("#dues-summary").textContent =
-      "Pendiente del mes: " +
-      M.money(pending) +
-      ". Este valor no se suma al saldo disponible.";
-    $("#dues-list").innerHTML =
-      report.dues
-        .map(
-          (d) =>
-            `<article class="due-card"><span class="badge">${M.dueStatus(d)}</span><h3>${M.esc(d.name)}</h3><p>${M.money(d.paid)} recibidos / ${M.money(d.expected)} de referencia</p><div class="progress"><i style="width:${Math.min(100, d.expected ? (d.paid / d.expected) * 100 : 100)}%"></i></div>${writable() && !closed ? `<button class="secondary wide" data-payment="${M.esc(d.id)}">Registrar abono</button>` : ""}</article>`,
-        )
-        .join("") ||
-      '<div class="empty">Agrega a los compañeros que aportan para el local.</div>';
+    renderDues();
     $("#member-list").innerHTML = members
       .map(
         (m) =>
@@ -357,6 +361,24 @@
       : "<p>Saldo calculado: <strong>" +
         M.money(t.closing) +
         "</strong>. El cierre se habilita cuando termine el mes y se hayan resuelto sus borradores.</p>";
+  }
+  function renderDues() {
+    if (!report) return;
+    if (!duesHistory?.configured) {
+      $("#dues-totals").replaceChildren();
+      $("#dues-summary").textContent = duesError || "No hay un historial de cuotas disponible.";
+      $("#dues-list").replaceChildren();
+      return;
+    }
+    const ledger = duesHistory.members || [], D = window.TreasuryDues;
+    const sums = D.totals(ledger);
+    const currentLabel = M.monthName(duesHistory.through_month);
+    const currentView = duesHistory.through_month.slice(0, 7) === M.today().slice(0, 7);
+    $("#dues-summary").textContent = "Saldos hasta " + M.monthName(duesHistory.through_month) + ". Las cuotas sin pagar se conservan; no forman parte del dinero disponible. Los pagos se descuentan del mes al que se asignaron." + (currentView ? "" : " Esta es una consulta histórica; usa Ver pendientes actuales para registrar un cobro.");
+    $("#dues-totals").innerHTML = [["Meses anteriores", sums.previous_pending], [currentLabel, sums.current_pending], ["Total por cobrar", sums.total_pending]]
+      .map(([label, value]) => `<div><span>${label}</span><strong>${M.money(value)}</strong></div>`).join("");
+    $("#dues-list").innerHTML = D.filter(ledger, $("#dues-search").value, $("#dues-filter").value)
+      .map((member) => D.card(member, writable() && currentView)).join("") || '<div class="empty">No hay compañeros que coincidan con la búsqueda o el filtro.</div>';
   }
   function categories() {
     const income = field("kind").value === "income",
@@ -571,6 +593,8 @@
         payload.reason = field("correction_reason").value.trim();
       const data = await cmd(correctionMode ? "correct" : "save", payload);
       activeEntry = data.record;
+      if (post && payload.category === "rent_contribution")
+        $("#month").value = payload.entry_date.slice(0, 7);
       dirty = false;
       $("#entry-dialog").close();
       toast(
@@ -932,6 +956,9 @@
           : {}),
       }),
     );
+    if ($("#include-dues").checked) {
+      report.dues_history = await result(db.rpc("treasury_dues_history", { p_month: report.month }));
+    }
     return report;
   }
   function printHTML(html) {
@@ -939,6 +966,9 @@
     window.print();
   }
   function wire() {
+    $("#dues-current").addEventListener("click", () => { $("#month").value = M.today().slice(0, 7); refresh().catch(fail); });
+    $("#dues-search").addEventListener("input", renderDues);
+    $("#dues-filter").addEventListener("change", renderDues);
     $("#month").value = M.today().slice(0, 7);
     $("#setup-form").elements.start_month.value = M.today().slice(0, 7);
     $("#login-form").onsubmit = (e) => {
@@ -1025,7 +1055,14 @@
           report.entries.find((x) => x.id === b.dataset.entry);
         openEntry(entry.kind, entry);
       }
-      if (b.dataset.payment) openEntry("income", null, b.dataset.payment);
+      if (b.dataset.payment || b.dataset.duesPayment) {
+        openEntry("income", null, b.dataset.payment || b.dataset.duesPayment);
+        if (b.dataset.paymentMonth) {
+          field("due_month").value = b.dataset.paymentMonth;
+          field("amount").value = (Number(b.dataset.paymentAmount) / 100).toFixed(2);
+          field("description").value = "Aporte para el local · " + M.monthName(b.dataset.paymentMonth + "-01");
+        }
+      }
       if (b.dataset.member) openMember(b.dataset.member);
       if (b.id === "correct-entry") {
         $("#entry-dialog").close();

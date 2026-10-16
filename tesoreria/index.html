@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" />
     <link rel="stylesheet" href="tesoreria.css?v=22" />
     <link rel="stylesheet" href="modals.css?v=24" />
+    <link rel="stylesheet" href="dues.css?v=27" />
   </head>
   <body>
     <header class="masthead">
@@ -304,13 +305,17 @@
                 <div>
                   <h2>Aportes para nuestro local</h2>
                   <p>
-                    Referencia mensual de $12. Los abonos se registran una sola
-                    vez y se asignan al mes que corresponda.
+                    Cuota mensual de referencia: $12. Los saldos pendientes se
+                    acumulan desde el inicio de participación de cada compañero.
                   </p>
                 </div>
                 <button id="member-new" class="primary">Compañero</button>
               </div>
-              <div id="dues-summary" class="notice"></div>
+              <div id="dues-summary" class="notice" role="status"></div>
+              <div id="dues-totals" class="dues-totals"></div>
+              <button id="dues-current" type="button" class="secondary">Ver pendientes actuales</button>
+              <div class="dues-filters"><label>Buscar compañero<input id="dues-search" type="search" placeholder="Nombre o apellido…" /></label><label>Mostrar<select id="dues-filter"><option value="all">Todos los compañeros</option><option value="pending">Con saldo pendiente</option><option value="settled">Al día</option></select></label></div>
+              <p class="muted">Para cobrar un mes anterior, registra la fecha real del cobro y elige el mes adeudado. Si el dinero cubre varios meses, registra una parte para cada mes. No se trasladan excedentes automáticamente. Los ingresos antiguos sin compañero o mes identificado no se asignan por suposición.</p>
               <div id="dues-list" class="dues-grid"></div>
               <details class="panel">
                 <summary>Compañeros registrados</summary>
@@ -807,10 +812,11 @@
     <script src="../assets/vendor/jspdf/jspdf.umd.min.js"></script>
     <script src="../assets/vendor/jspdf/fonts.js"></script>
     <script src="model.js"></script>
-    <script src="report.js?v=17"></script>
+    <script src="dues.js?v=27"></script>
+    <script src="report.js?v=27"></script>
     <script src="modals.js?v=23"></script>
     <script src="activities.js?v=19"></script>
-    <script src="app.js?v=24"></script>
+    <script src="app.js?v=27"></script>
     <script src="controls.js?v=25"></script>
   </body>
 </html>
