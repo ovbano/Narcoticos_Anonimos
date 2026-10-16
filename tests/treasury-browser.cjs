@@ -166,6 +166,19 @@ const fixture = () => {
         return {
           data: [{ id: user.id, email: user.email, profile: profile() }],
         };
+      if (name === "treasury_dues_history") {
+        const through = [m, window.TreasuryModel.today().slice(0, 7) + "-01"].sort()[0];
+        return {data:{configured:true,month:m,through_month:through,members:S.members.filter(person=>person.start_month<=through).map(person=>{
+          const periods=[];
+          for(let month=[person.start_month,S.settings.start_month].sort().at(-1);month<=through&&(!person.end_month||month<=person.end_month);) {
+            const paid=S.entries.filter(entry=>entry.status==='posted'&&entry.category==='rent_contribution'&&entry.member_id===person.id&&entry.due_month===month&&entry.entry_date.slice(0,7)<=through.slice(0,7)).reduce((sum,entry)=>sum+entry.amount_cents,0);
+            periods.push({month,expected:Number(person.monthly_cents),paid,pending:Math.max(0,person.monthly_cents-paid),credit:Math.max(0,paid-person.monthly_cents)});
+            const next=new Date(month+"T12:00:00Z");next.setUTCMonth(next.getUTCMonth()+1);month=next.toISOString().slice(0,10);
+          }
+          const current=periods.find(period=>period.month===through);
+          return {...person,periods,expected:current?.expected||0,paid:current?.paid||0,previous_pending:periods.filter(period=>period.month<through).reduce((sum,period)=>sum+period.pending,0),current_pending:current?.pending||0,total_pending:periods.reduce((sum,period)=>sum+period.pending,0),months_pending:periods.filter(period=>period.pending>0).length};
+        })}};
+      }
       if (name === "treasury_report" || name === "treasury_prepare_report")
         return { data: calc(m) };
       let record;
@@ -405,6 +418,7 @@ const fixture = () => {
       ),
       1,
     );
+    await page.locator("#dues-current").click();
     await page.locator('[data-payment="member-1"]').click();
     await page.locator('#entry-form [name="entry_date"]').fill("2026-09-15");
     await page.locator('#entry-form [name="amount"]').fill("6");

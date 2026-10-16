@@ -1,0 +1,11 @@
+.dues-filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:1rem;margin:1.25rem 0}
+.dues-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;margin:1rem 0}
+.dues-totals>div{background:#fff;border:1px solid #dbe4ef;border-radius:18px;padding:1.1rem;display:grid;gap:.4rem;min-width:0}
+.dues-totals strong{font-size:1.55rem;color:#102d50;overflow-wrap:anywhere}.dues-totals span{font-size:.9rem;color:#51657a}
+.dues-totals>div:last-child{background:#102d50}.dues-totals>div:last-child strong,.dues-totals>div:last-child span{color:#fff}
+.due-history-card{display:flex;flex-direction:column;gap:.8rem;min-width:0}.due-history-heading h3{margin:.8rem 0 .2rem;overflow-wrap:anywhere}
+.due-history-total{display:grid;gap:.3rem;padding:1rem;background:#f0f5fb;border-radius:15px}.due-history-total strong{font-size:1.8rem;color:#102d50;overflow-wrap:anywhere}
+.due-history-breakdown,.due-history-month dl{display:grid;gap:.6rem;margin:0}.due-history-breakdown>div,.due-history-month dl>div{display:flex;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+.due-history-card dt{color:#536477}.due-history-card dd{margin:0;font-weight:700}.due-history-details{border-top:1px solid #dbe4ef;padding-top:1rem}.due-history-details summary{cursor:pointer;font-weight:700;color:#102d50;padding:.4rem 0}
+.due-history-month{padding:1rem 0;border-bottom:1px solid #dbe4ef}.due-history-month h4{text-transform:capitalize;margin:.3rem 0 .8rem}.due-history-month button{margin-top:.8rem;width:100%}
+@media(max-width:700px){.dues-filters,.dues-totals{grid-template-columns:1fr}.dues-totals>div{grid-template-columns:minmax(0,1fr) auto;align-items:center}.dues-totals strong{font-size:1.3rem}}
