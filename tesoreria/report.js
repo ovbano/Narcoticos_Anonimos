@@ -12,7 +12,6 @@
   function sections(input, includeDues) {
     const r = reportData(input),
       total = M.totals(r),
-      notes = [],
       receipts = [];
     const entries = r.entries
       .filter((e) => e.status === "posted")
@@ -83,18 +82,8 @@
         const id =
           (kind === "income" ? "I" : "E") + String(i + 1).padStart(2, "0");
         let concept = e.description || M.categories[e.category] || "Movimiento";
-        if (concept.length > 105) {
-          notes.push([id, "Concepto completo: " + concept]);
-          concept = concept.slice(0, 102) + "… [nota]";
-        }
-        if (e.due_month)
-          notes.push([
-            id,
-            "Aporte asignado a " + M.monthName(e.due_month) + ".",
-          ]);
+        // Preserve the complete concept in its wrapping table cell.
         if (e.receipt_path) receipts.push({ ...e, ref: id });
-        else if (e.no_receipt_reason)
-          notes.push([id, "Sin comprobante: " + e.no_receipt_reason]);
         return [
           id,
           M.date(e.entry_date),
@@ -130,48 +119,32 @@
         [1, 2, 3],
       );
     }
-    if (notes.length) {
-      blocks.push({ type: "page" });
-      title("Notas de los movimientos");
-      text(
-        "Las referencias I identifican ingresos; las E, egresos. Las notas repetidas se muestran una sola vez con todas sus referencias.",
-      );
-      const grouped = new Map();
-      for (const [ref, value] of notes)
-        grouped.set(value, [...(grouped.get(value) || []), ref]);
-      for (const [value, refs] of grouped)
-        text(refs.join(", ") + " — " + value);
-    }
     if (includeDues) {
       blocks.push({ type: "page" });
       title("Anexo privado · Aportes para arriendo");
       text(
         "La cuota corresponde al mes asignado. Un pendiente no es dinero disponible; el ingreso se cuenta en la fecha en que se recibió.",
       );
-      table(
-        ["Compañero", "Cuota", "Pagado", "Pendiente", "Estado"],
-        (r.dues || []).map((d) => [
-          d.name,
-          M.money(d.expected),
-          M.money(d.paid),
-          M.money(Math.max(0, d.expected - d.paid)),
-          M.dueStatus(d),
-        ]),
-        [54, 29, 29, 29, 37],
-        [1, 2, 3],
-      );
-    }
-    if (includeDues && r.dues_history?.configured) {
-      title("Pendientes acumulados del local");
-      text("Estado hasta " + M.monthName(r.dues_history.through_month) + ". Los abonos se descuentan de su mes asignado. No son dinero disponible.");
-      text("Se incluyen todos los compañeros registrados. Por configurar significa que aún falta confirmar el inicio de su cuota; no equivale a una deuda de cero.");
-      table(["Compañero", "Anterior", "Del mes", "Deuda total"],
-        (r.dues_roster || r.dues_history.members || []).map((member) => member.tracking === "unconfigured" ? [member.name, "—", "—", "Por configurar"] : [member.name, M.money(member.previous_pending), M.money(member.current_pending), M.money(member.total_pending)]),
-        [66, 38, 38, 36], [1, 2, 3]);
-      const pendingMonths = (r.dues_history.members || []).flatMap((member) => (member.periods || []).filter((period) => Number(period.pending) > 0).map((period) => [member.name, M.monthName(period.month), M.money(period.expected), M.money(period.paid), M.money(period.pending)]));
-      if (pendingMonths.length) {
-        title("Detalle de los meses pendientes");
-        table(["Compañero", "Mes", "Cuota", "Recibido", "Pendiente"], pendingMonths, [46, 45, 29, 29, 29], [2, 3, 4]);
+      if (r.dues_history?.configured) {
+        text("Estado hasta " + M.monthName(r.dues_history.through_month) + ". Deuda anterior: cuotas pendientes de meses previos. Del mes: lo que falta de la cuota de este período. Deuda total = anterior + del mes.");
+        text("Se incluyen todos los compañeros registrados. Por configurar significa que aún falta confirmar el inicio de su cuota; no equivale a una deuda de cero.");
+        const roster = r.dues_roster || r.dues_history.members || [];
+        const amounts = roster.filter((member) => member.tracking !== "unconfigured");
+        const rows = roster.map((member) => member.tracking === "unconfigured"
+          ? [member.name, "—", "—", "Por configurar"]
+          : [member.name, M.money(member.previous_pending), M.money(member.current_pending), M.money(member.total_pending)]);
+        rows.push(["TOTAL", ...["previous_pending", "current_pending", "total_pending"].map((key) => M.money(amounts.reduce((sum, member) => sum + Number(member[key] || 0), 0)))]);
+        table(["Compañero", "Deuda anterior", "Del mes", "Deuda total"], rows, [66, 38, 36, 38], [1, 2, 3]);
+        const pendingMonths = (r.dues_history.members || []).flatMap((member) => (member.periods || []).filter((period) => Number(period.pending) > 0).map((period) => [member.name, M.monthName(period.month), M.money(period.expected), M.money(period.paid), M.money(period.pending)]));
+        if (pendingMonths.length) {
+          title("Detalle de los meses pendientes");
+          table(["Compañero", "Mes", "Cuota", "Recibido", "Pendiente"], pendingMonths, [46, 45, 29, 29, 29], [2, 3, 4]);
+        }
+      } else {
+        text("No se pudo obtener el historial de cuotas. Esta tabla muestra solo el mes consultado y no permite confirmar la deuda acumulada.");
+        table(["Compañero", "Cuota", "Pagado", "Pendiente", "Estado"],
+          (r.dues || []).map((d) => [d.name, M.money(d.expected), M.money(d.paid), M.money(Math.max(0, d.expected - d.paid)), M.dueStatus(d)]),
+          [54, 29, 29, 29, 37], [1, 2, 3]);
       }
     }
     if (receipts.length) {
@@ -558,3 +531,4 @@
   }
   root.TreasuryReport = { html, download, prepare, deadline, optimizeUpload };
 })(window);
+
