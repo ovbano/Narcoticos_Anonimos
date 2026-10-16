@@ -425,8 +425,8 @@ const fixture = () => {
     await page.locator("#post-entry").click();
     await page.locator("#entry-dialog").waitFor({ state: "hidden" });
     await page
-      .locator(".due-card .badge")
-      .filter({ hasText: "Parcial" })
+      .locator('[data-dues-person="member-1"] .badge')
+      .filter({ hasText: "Con deuda" })
       .waitFor();
     assert.equal(await page.evaluate(() => window.__fixture.entries.length), 2);
     await page.locator('.tabs [data-tab="reports"]').click();
