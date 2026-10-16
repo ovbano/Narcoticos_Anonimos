@@ -8,6 +8,7 @@
     profile,
     settings,
     report,
+    duesRoster = [],
     duesHistory = null,
     duesError = null,
     members = [],
@@ -84,6 +85,7 @@
     $("#password").value = "";
     members = [];
     duesHistory = null;
+    duesRoster = [];
     duesError = null;
     drafts = [];
     audit = [];
@@ -178,15 +180,17 @@
     if (!profile) return;
     const token = ++refreshToken;
     $("#period-status").textContent = "Actualizando…";
-    const [s, mem, dr] = await Promise.all([
+    const [s, mem, dr, registeredCompanions] = await Promise.all([
       result(db.from("treasury_settings").select("*").maybeSingle()),
       all("treasury_members", (q) => q.order("name").order("id")),
       all("treasury_entries", (q) =>
         q.eq("status", "draft").order("created_at").order("id"),
       ),
+      result(db.rpc("treasury_companions")),
     ]);
     if (token !== refreshToken) return;
     settings = s;
+    companions = registeredCompanions;
     await window.TreasuryActivities.load({db, companions, writable: writable(), toast, refresh, picker, openEntry: (e, attach = false) => { openEntry(e.kind, e, null, attach); if (attach) field("correction_reason").value = "Adjuntar comprobante del pago"; }});
     if (token !== refreshToken) return;
     $("#workspace").classList.toggle("needs-setup", !settings);
@@ -223,6 +227,7 @@
     if (token !== refreshToken) return;
     report = r;
     duesHistory = null;
+    duesRoster = [];
     duesError = null;
     try {
       const ledger = await result(db.rpc("treasury_dues_history", { p_month: $("#month").value + "-01" }));
@@ -241,6 +246,7 @@
   function clearPeriod(message, status) {
     report = null;
     duesHistory = null;
+    duesRoster = [];
     duesError = null;
     $("#dues-totals").replaceChildren();
     ["balance", "opening", "income", "expense"].forEach(
@@ -370,15 +376,18 @@
       $("#dues-list").replaceChildren();
       return;
     }
-    const ledger = duesHistory.members || [], D = window.TreasuryDues;
+    const D = window.TreasuryDues;
+    const ledger = D.roster(duesHistory.members || [], members, companions, duesHistory.through_month);
+    duesRoster = ledger;
     const sums = D.totals(ledger);
+    const missing = ledger.filter((member) => member.tracking === "unconfigured").length;
     const currentLabel = M.monthName(duesHistory.through_month);
     const currentView = duesHistory.through_month.slice(0, 7) === M.today().slice(0, 7);
-    $("#dues-summary").textContent = "Saldos hasta " + M.monthName(duesHistory.through_month) + ". Las cuotas sin pagar se conservan; no forman parte del dinero disponible. Los pagos se descuentan del mes al que se asignaron." + (currentView ? "" : " Esta es una consulta histórica; usa Ver pendientes actuales para registrar un cobro.");
-    $("#dues-totals").innerHTML = [["Meses anteriores", sums.previous_pending], [currentLabel, sums.current_pending], ["Total por cobrar", sums.total_pending]]
+    $("#dues-summary").textContent = ledger.length + " compañeros registrados · " + missing + " con inicio de cuota por configurar. Saldos hasta " + M.monthName(duesHistory.through_month) + ". Las cuotas sin pagar se conservan; no forman parte del dinero disponible. Los pagos se descuentan del mes al que se asignaron." + (missing ? " El total no incluye a los compañeros cuyo inicio está por configurar." : "") + (currentView ? "" : " Esta es una consulta histórica; usa Ver pendientes actuales para registrar un cobro.");
+    $("#dues-totals").innerHTML = [["Meses anteriores", sums.previous_pending], [currentLabel, sums.current_pending], ["Total calculado por cobrar", sums.total_pending]]
       .map(([label, value]) => `<div><span>${label}</span><strong>${M.money(value)}</strong></div>`).join("");
-    $("#dues-list").innerHTML = D.filter(ledger, $("#dues-search").value, $("#dues-filter").value)
-      .map((member) => D.card(member, writable() && currentView)).join("") || '<div class="empty">No hay compañeros que coincidan con la búsqueda o el filtro.</div>';
+    $("#dues-list").innerHTML = D.table(D.filter(ledger, $("#dues-search").value, $("#dues-filter").value), writable() && currentView);
+
   }
   function categories() {
     const income = field("kind").value === "income",
@@ -761,7 +770,7 @@
   function populateSource() {
     sourcePicker?.set($("#member-form").elements.source_anniversary_id.value);
   }
-  function openMember(id) {
+  function openMember(id, sourceId = null) {
     activeMember = members.find((m) => m.id === id) || null;
     const f = $("#member-form");
     f.reset();
@@ -780,6 +789,16 @@
       activeMember?.source_anniversary_id ||
         (activeMember ? "existing:" + activeMember.id : ""),
     );
+    if (sourceId) {
+      const source = companions.find((companion) => companion.id === sourceId);
+      if (source) {
+        f.elements.source_anniversary_id.value = source.id;
+        f.elements.name.value = source.name;
+        sourcePicker.set(source.id);
+        f.elements.start_month.value = "";
+        f.elements.start_month.required = true;
+      }
+    }
     $("#member-dialog").showModal();
   }
   function auditSummary(data) {
@@ -958,6 +977,7 @@
     );
     if ($("#include-dues").checked) {
       report.dues_history = await result(db.rpc("treasury_dues_history", { p_month: report.month }));
+      report.dues_roster = window.TreasuryDues.roster(report.dues_history.members || [], members, companions, report.dues_history.through_month);
     }
     return report;
   }
@@ -1055,7 +1075,17 @@
           report.entries.find((x) => x.id === b.dataset.entry);
         openEntry(entry.kind, entry);
       }
+      if (b.dataset.duesConfigure) openMember(null, b.dataset.duesConfigure);
+      if (b.dataset.duesDetail) {
+        const person = duesRoster.find((person) => person.id === b.dataset.duesDetail);
+        if (person) {
+          $("#dues-detail-name").textContent = person.name;
+          $("#dues-detail-content").innerHTML = window.TreasuryDues.detail(person, writable() && duesHistory.through_month.slice(0,7) === M.today().slice(0,7));
+          $("#dues-detail-dialog").showModal();
+        }
+      }
       if (b.dataset.payment || b.dataset.duesPayment) {
+        $("#dues-detail-dialog").close();
         openEntry("income", null, b.dataset.payment || b.dataset.duesPayment);
         if (b.dataset.paymentMonth) {
           field("due_month").value = b.dataset.paymentMonth;

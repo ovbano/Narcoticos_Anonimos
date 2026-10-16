@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" />
     <link rel="stylesheet" href="tesoreria.css?v=22" />
     <link rel="stylesheet" href="modals.css?v=24" />
-    <link rel="stylesheet" href="dues.css?v=27" />
+    <link rel="stylesheet" href="dues.css?v=28" />
   </head>
   <body>
     <header class="masthead">
@@ -303,7 +303,7 @@
             <section id="view-dues" data-view hidden>
               <div class="section-heading">
                 <div>
-                  <h2>Aportes para nuestro local</h2>
+                  <h2>Deuda individual del local</h2>
                   <p>
                     Cuota mensual de referencia: $12. Los saldos pendientes se
                     acumulan desde el inicio de participación de cada compañero.
@@ -314,9 +314,9 @@
               <div id="dues-summary" class="notice" role="status"></div>
               <div id="dues-totals" class="dues-totals"></div>
               <button id="dues-current" type="button" class="secondary">Ver pendientes actuales</button>
-              <div class="dues-filters"><label>Buscar compañero<input id="dues-search" type="search" placeholder="Nombre o apellido…" /></label><label>Mostrar<select id="dues-filter"><option value="all">Todos los compañeros</option><option value="pending">Con saldo pendiente</option><option value="settled">Al día</option></select></label></div>
+              <div class="dues-filters"><label>Buscar compañero<input id="dues-search" type="search" placeholder="Nombre o apellido…" /></label><label>Mostrar<select id="dues-filter"><option value="all">Todos los compañeros</option><option value="pending">Con saldo pendiente</option><option value="settled">Al día</option><option value="unconfigured">Inicio por configurar</option></select></label></div>
               <p class="muted">Para cobrar un mes anterior, registra la fecha real del cobro y elige el mes adeudado. Si el dinero cubre varios meses, registra una parte para cada mes. No se trasladan excedentes automáticamente. Los ingresos antiguos sin compañero o mes identificado no se asignan por suposición.</p>
-              <div id="dues-list" class="dues-grid"></div>
+              <div id="dues-list" class="dues-roster-wrap" aria-live="polite"></div>
               <details class="panel">
                 <summary>Compañeros registrados</summary>
                 <div id="member-list"></div>
@@ -670,6 +670,7 @@
         </div>
       </form>
     </dialog>
+    <dialog id="dues-detail-dialog" aria-labelledby="dues-detail-name"><form method="dialog"><header class="dialog-heading"><h2 id="dues-detail-name">Detalle individual</h2><button type="button" class="secondary" data-close="dues-detail-dialog">Cerrar</button></header><div id="dues-detail-content"></div></form></dialog>
     <dialog id="member-dialog">
       <form id="member-form">
         <div class="dialog-heading">
@@ -812,11 +813,11 @@
     <script src="../assets/vendor/jspdf/jspdf.umd.min.js"></script>
     <script src="../assets/vendor/jspdf/fonts.js"></script>
     <script src="model.js"></script>
-    <script src="dues.js?v=27"></script>
-    <script src="report.js?v=27"></script>
-    <script src="modals.js?v=23"></script>
+    <script src="dues.js?v=28"></script>
+    <script src="report.js?v=28"></script>
+    <script src="modals.js?v=28"></script>
     <script src="activities.js?v=19"></script>
-    <script src="app.js?v=27"></script>
+    <script src="app.js?v=28"></script>
     <script src="controls.js?v=25"></script>
   </body>
 </html>

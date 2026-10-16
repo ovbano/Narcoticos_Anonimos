@@ -3,7 +3,7 @@
   'use strict';
   const changed = new WeakSet();
   const prompts = new WeakMap();
-  const icons = {'entry-dialog':'wallet2','member-dialog':'person-plus','password-dialog':'shield-lock','activity-dialog':'people'};
+  const icons = {'entry-dialog':'wallet2','member-dialog':'person-plus','password-dialog':'shield-lock','activity-dialog':'people','dues-detail-dialog':'person-check'};
   const icon = name => `<i class="bi bi-${name}" aria-hidden="true"></i>`;
   const dialogs = [...document.querySelectorAll('dialog')];
   function pending(d) {
@@ -59,3 +59,4 @@
   passwordForm.addEventListener('input',()=>{const a=passwordForm.elements.new_password.value,b=passwordForm.elements.confirm_password.value;feedback.textContent=!a&&!b?'':a.length<12?'Usa al menos 12 caracteres.':!b?'Repite la contraseña para confirmarla.':a===b?'Las contraseñas coinciden.':'Las contraseñas todavía no coinciden.';feedback.classList.toggle('matches',a.length>=12&&a===b);});
   window.TreasuryModals={requestClose};
 })();
+
