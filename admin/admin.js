@@ -110,6 +110,7 @@
   };
 
   const clearSessionUI = () => {
+    document.dispatchEvent(new Event("site:session-cleared"));
     authVersion++;
     usersRequest++;
     setView("login");
@@ -1047,4 +1048,5 @@
 
   document.addEventListener("DOMContentLoaded", boot, { once: true });
 })();
+
 
