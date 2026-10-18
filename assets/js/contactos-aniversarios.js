@@ -26,11 +26,15 @@
       badgeClass: 'role-alternate'
     },
     secretaria_tesoreria: {
-      label: 'SECRETARIA / TESORERA',
-      description: 'Secretaría y tesorería del grupo',
+      label: 'TESORERÍA',
+      description: 'Tesorería del grupo',
       cssClass: 'is-secretary',
       badgeClass: 'role-secretary'
-    }
+    },
+    secretaria: { label: 'SECRETARÍA', description: 'Secretaría del grupo', cssClass: 'is-secretary', badgeClass: 'role-secretary' },
+    cafeteria: { label: 'CAFETERÍA', description: 'Cafetería del grupo', cssClass: 'is-alternate', badgeClass: 'role-alternate' },
+    literatura: { label: 'LITERATURA', description: 'Literatura del grupo', cssClass: 'is-principal', badgeClass: 'role-principal' },
+    linea_telefonica: { label: 'LÍNEA TELEFÓNICA', description: 'Información y atención telefónica', cssClass: 'is-alternate', badgeClass: 'role-alternate' },
   };
 
   let siteData = { contacts: [], anniversaries: [] };
@@ -474,7 +478,7 @@
 
   const renderContacts = () => {
     const contacts = [...siteData.contacts].sort((a, b) => {
-      const order = ['rsg_principal', 'rsg_alterno', 'secretaria_tesoreria'];
+      const order = Object.keys(roleConfig);
       return order.indexOf(a.role) - order.indexOf(b.role);
     });
 
@@ -585,5 +589,6 @@
     init();
   }
 })();
+
 
 
