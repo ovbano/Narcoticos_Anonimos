@@ -135,6 +135,13 @@
           : [member.name, M.money(member.previous_pending), M.money(member.current_pending), M.money(member.total_pending)]);
         rows.push(["TOTAL", ...["previous_pending", "current_pending", "total_pending"].map((key) => M.money(amounts.reduce((sum, member) => sum + Number(member[key] || 0), 0)))]);
         table(["Compañero", "Deuda anterior", "Del mes", "Deuda total"], rows, [66, 38, 36, 38], [1, 2, 3]);
+        const reconciled = (r.dues_history.members || []).flatMap(member => (member.periods || []).filter(period => period.reconciliation_note).map(period => ({member, period})));
+        if (reconciled.length) {
+          title("Conciliaciones históricas de aportes");
+          text("Estos reconocimientos y diferencias regularizadas no son ingresos nuevos ni modifican caja. La cuota ordinaria se conserva.");
+          table(["Compañero", "Mes", "Reconocido", "Regularizado"], reconciled.map(({member, period}) => [member.name, M.monthName(period.month), M.money(period.recognized_paid), M.money(period.waived)]), [60, 48, 35, 35], [2, 3]);
+          for (const {member, period} of reconciled) text(member.name + " · " + M.monthName(period.month) + ": " + period.reconciliation_note);
+        }
         const pendingMonths = (r.dues_history.members || []).flatMap((member) => (member.periods || []).filter((period) => Number(period.pending) > 0).map((period) => [member.name, M.monthName(period.month), M.money(period.expected), M.money(period.paid), M.money(period.pending)]));
         if (pendingMonths.length) {
           title("Detalle de los meses pendientes");
@@ -531,4 +538,5 @@
   }
   root.TreasuryReport = { html, download, prepare, deadline, optimizeUpload };
 })(window);
+
 
