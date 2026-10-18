@@ -46,6 +46,7 @@
   <link href="assets/css/anniversary-experience.css" rel="stylesheet">
   <link href="assets/css/anniversary-celebration.css" rel="stylesheet">
   <link href="assets/css/community.css?v=1" rel="stylesheet">
+  <link href="assets/css/navigation.css?v=1" rel="stylesheet">
 </head>
 
 <body class="index-page">
@@ -64,12 +65,10 @@
       <nav id="navmenu" class="navmenu" aria-label="Navegación principal">
         <ul>
           <li><a href="#inicio" class="active">Inicio</a></li>
-          <li><a href="#nosotros">Quiénes somos</a></li>
+          <li class="dropdown"><button type="button" class="nav-dropdown-button" aria-expanded="false" aria-controls="nav-group">El grupo <i class="bi bi-chevron-down" aria-hidden="true"></i></button><ul id="nav-group"><li><a href="#nosotros">Quiénes somos</a></li><li><a href="#como-funciona">Cómo funciona</a></li><li><a href="#normas">Normas del grupo</a></li></ul></li>
           <li><a href="#reuniones">Reuniones</a></li>
           <li><a href="#aniversarios">Aniversarios</a></li>
-          <li class="dropdown"><a href="#un-mensaje"><span>Conecta</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a><ul><li><a href="#un-mensaje">Una pregunta, un mensaje</a></li><li><a href="#esperanza">Tarjetas de esperanza</a></li><li><a href="#directorio">Directorio de reuniones</a></li><li><a href="#normas">Normas del grupo</a></li></ul></li>
-          <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#solo-por-hoy">Solo por hoy</a></li>
+          <li class="dropdown"><button type="button" class="nav-dropdown-button" aria-expanded="false" aria-controls="nav-connect">Conecta <i class="bi bi-chevron-down" aria-hidden="true"></i></button><ul id="nav-connect"><li><a href="#solo-por-hoy">Solo por hoy</a></li><li><a href="#un-mensaje">Una pregunta, un mensaje</a></li><li><a href="#esperanza">Tarjetas de esperanza</a></li><li><a href="#directorio">Directorio de reuniones</a></li></ul></li>
           <li><a href="#contacto">Contacto</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list" aria-label="Abrir menú móvil"></i>
@@ -1063,8 +1062,10 @@
 
   <script src="assets/js/community-model.js?v=1"></script>
   <script src="assets/js/community.js?v=1"></script>
+  <script src="assets/js/navigation.js?v=1"></script>
 </body>
 </html>
+
 
 
 
