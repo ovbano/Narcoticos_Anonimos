@@ -43,11 +43,15 @@
       className: "alternate",
     },
     secretaria_tesoreria: {
-      title: "Secretaria / Tesorera",
-      description: "Secretaría y tesorería del grupo",
+      title: "Tesorería",
+      description: "Administración de los fondos y los informes del grupo",
       icon: "bi-cash-coin",
       className: "secretary",
     },
+    secretaria: { title: "Secretaría", description: "Actas y documentación del grupo", icon: "bi-journal-text", className: "secretary" },
+    cafeteria: { title: "Cafetería", description: "Preparación del café y atención de las reuniones", icon: "bi-cup-hot", className: "alternate" },
+    literatura: { title: "Literatura", description: "Cuidado y disponibilidad de la literatura de NA", icon: "bi-book", className: "principal" },
+    linea_telefonica: { title: "Línea telefónica", description: "Atención de llamadas e información sobre el grupo", icon: "bi-telephone", className: "alternate" },
   };
 
   let authVersion = 0, signingOut = false;
@@ -583,14 +587,14 @@
   const renderContacts = () => {
     const grid = $("#contacts-admin-grid");
     if (!grid) return;
-    const order = ["rsg_principal", "rsg_alterno", "secretaria_tesoreria"];
+    const order = Object.keys(roleInfo);
     const contacts = order.map(
       (role) =>
         state.contacts.find((contact) => contact.role === role) || {
           role,
           name: "",
           phone: "",
-          active: true,
+          active: false,
         },
     );
 
@@ -598,10 +602,11 @@
       .map((contact) => {
         const info = roleInfo[contact.role];
         return `<article class="contact-admin-card ${info.className}">
-        <div class="contact-admin-head"><span class="contact-admin-icon"><i class="bi ${info.icon}"></i></span><div><span class="role-label">${escapeHtml(info.title)}</span><h3>${escapeHtml(contact.name || "Sin asignar")}</h3><p>${escapeHtml(info.description)}</p></div></div>
+        <div class="contact-admin-head"><span class="contact-admin-icon"><i class="bi ${info.icon}"></i></span><div><span class="role-label">${escapeHtml(info.title)}</span><h3>${escapeHtml(contact.active ? contact.name : "Servicio vacante")}</h3><p>${escapeHtml(info.description)}</p></div></div>
         <form class="contact-form" data-role="${escapeHtml(contact.role)}">
-          <label class="field"><span>Nombre</span><input type="text" name="name" value="${escapeHtml(contact.name)}" required maxlength="100"></label>
-          <label class="field"><span>Teléfono</span><input type="text" name="phone" value="${escapeHtml(contact.phone)}" required maxlength="30" placeholder="+593 ..."></label>
+          <label class="field"><span>Estado del servicio</span><select name="service_status"><option value="occupied" ${contact.active ? "selected" : ""}>Ocupado</option><option value="vacant" ${!contact.active ? "selected" : ""}>Vacante</option></select></label>
+          <label class="field"><span>Nombre</span><input type="text" name="name" value="${escapeHtml(contact.name)}" maxlength="100"></label>
+          <label class="field"><span>Teléfono</span><input type="text" name="phone" value="${escapeHtml(contact.phone)}" maxlength="30" placeholder="+593 ..."></label>
           <button type="submit" class="btn-primary"><i class="bi bi-floppy"></i> Guardar ${escapeHtml(info.title)}</button>
         </form>
       </article>`;
@@ -609,21 +614,36 @@
       .join("");
 
     $$(".contact-form", grid).forEach((form) => {
+      const syncVacancy = () => {
+        const vacant = form.elements.service_status.value === "vacant";
+        for (const name of ["name", "phone"]) {
+          form.elements[name].disabled = vacant;
+          form.elements[name].required = !vacant;
+        }
+      };
+      form.elements.service_status.addEventListener("change", syncVacancy);
+      syncVacancy();
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
         const button = $('button[type="submit"]', form);
         button.disabled = true;
         try {
-          const { error } = await db
+          const occupied = form.elements.service_status.value === "occupied";
+          const name = form.elements.name.value.trim();
+          const phone = form.elements.phone.value.trim();
+          if (occupied && (!name || !phone)) throw new Error("Completa el nombre y teléfono del servidor.");
+          const { data, error } = await db
             .from("service_contacts")
             .update({
-              name: form.elements.name.value.trim(),
-              phone: form.elements.phone.value.trim(),
-              active: true,
+              name: occupied ? name : "",
+              phone: occupied ? phone : "",
+              active: occupied,
               updated_at: new Date().toISOString(),
             })
-            .eq("role", form.dataset.role);
+            .eq("role", form.dataset.role)
+            .select("role").single();
           if (error) throw error;
+          if (!data) throw new Error("No se pudo actualizar el servicio.");
           await loadData();
           showAlert("Contacto actualizado.");
         } catch (error) {
@@ -1027,3 +1047,4 @@
 
   document.addEventListener("DOMContentLoaded", boot, { once: true });
 })();
+
