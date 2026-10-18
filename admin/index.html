@@ -17,7 +17,8 @@
       rel="stylesheet"
     />
     <link href="admin.css?v=20" rel="stylesheet" />
-  </head>
+  <link href="directory.css?v=1" rel="stylesheet">
+</head>
   <body>
     <main id="login-view" class="login-page">
       <section class="login-card">
@@ -175,6 +176,7 @@
             <button type="button" class="admin-tab" data-tab="contacts">
               <i class="bi bi-people"></i> Servidores y contactos
             </button>
+            <button type="button" class="admin-tab" data-tab="directory"><i class="bi bi-geo-alt"></i> Directorio de reuniones</button>
             <button type="button" class="admin-tab admin-only" data-tab="users">
               <i class="bi bi-person-gear"></i> Accesos
             </button>
@@ -456,6 +458,7 @@
             </div>
           </section>
 
+<section class="admin-panel" data-panel="directory"><div class="panel-heading"><div><span class="eyebrow">INFORMACIÓN PÚBLICA</span><h2>Directorio de reuniones</h2><p>Incorpora grupos con información confirmada. Puedes guardar un borrador y publicarlo después.</p></div><button type="button" id="directory-admin-refresh" class="btn-secondary"><i class="bi bi-arrow-clockwise"></i> Actualizar</button></div><p id="directory-admin-status" role="status" aria-live="polite" class="directory-admin-status"></p><div class="directory-admin-layout"><form id="directory-admin-form" class="directory-admin-editor"><input type="hidden" id="directory-entry-id"><h3 id="directory-edit-title">Añadir un grupo</h3><p>Un registro reúne los días que comparten la misma hora. Si un grupo tiene otro horario, crea un registro adicional.</p><label class="field"><span>Nombre del grupo *</span><input id="directory-entry-name" name="group_name" required maxlength="120"></label><label class="field"><span>Ciudad *</span><input name="city" required maxlength="120"></label><label class="field"><span>Dirección o referencia pública *</span><input name="address" required maxlength="250"></label><fieldset id="directory-entry-days" class="directory-admin-days"><legend>Días de reunión *</legend><div><label><input type="checkbox" value="0">Dom</label><label><input type="checkbox" value="1">Lun</label><label><input type="checkbox" value="2">Mar</label><label><input type="checkbox" value="3">Mié</label><label><input type="checkbox" value="4">Jue</label><label><input type="checkbox" value="5">Vie</label><label><input type="checkbox" value="6">Sáb</label></div></fieldset><div class="directory-admin-pair"><label class="field"><span>Hora de Ecuador *</span><input name="meeting_time" type="time" required></label><label class="field"><span>WhatsApp público (opcional)</span><input name="contact_phone" type="tel" maxlength="30" placeholder="+593…" pattern="[+0-9 ()-]{7,30}"></label></div><label class="field"><span>Enlace del mapa (opcional)</span><input name="map_url" type="url" maxlength="1500" placeholder="https://maps…"></label><label class="directory-admin-check"><input id="directory-entry-exact" type="checkbox"><span>El grupo confirmó que la dirección corresponde a su lugar exacto de reunión.</span></label><label class="field"><span>Indicaciones para visitantes (opcional)</span><textarea name="notes" maxlength="500" placeholder="Referencia de llegada o cómo confirmar la modalidad…"></textarea></label><label class="field"><span>Enlace de la fuente consultada</span><input name="source_url" type="url" maxlength="1500" placeholder="Página o información pública del grupo"><small>Obligatorio para publicar. Verifica horario, dirección y autorización del contacto público.</small></label><label class="directory-admin-check"><input id="directory-entry-published" type="checkbox"><span>He revisado los datos y quiero publicar este grupo en el directorio.</span></label><div class="directory-admin-buttons"><button type="submit" class="btn-primary"><i class="bi bi-floppy"></i> Guardar grupo</button><button type="button" id="directory-admin-reset" class="btn-secondary">Nuevo / cancelar edición</button></div></form><div class="directory-admin-records"><div id="directory-admin-list"><p class="empty-state">Abre esta sección para consultar los grupos.</p></div></div></div></section>
           <section class="admin-panel admin-only" data-panel="users">
             <div class="panel-heading">
               <div>
@@ -648,7 +651,9 @@
     <script src="../assets/vendor/supabase/supabase.js"></script>
     <script src="../assets/js/supabase-config.js"></script>
     <script src="../assets/js/anniversary-model.js"></script>
-    <script src="admin.js?v=services-7"></script>
+    <script src="admin.js?v=directory-1"></script>
+    <script src="directory.js?v=1"></script>
   </body>
 </html>
+
 
