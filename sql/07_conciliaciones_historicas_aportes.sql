@@ -78,6 +78,6 @@ begin
       'previous_pending', coalesce(a.previous_pending, 0)) order by a.name, a.id), '[]'::jsonb))
   into result from accounts a;
   return result;
-end $function$
+end $function$;
 
 commit;
