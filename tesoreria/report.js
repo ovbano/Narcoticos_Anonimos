@@ -331,7 +331,7 @@
   function html(input, includeDues, person, evidence = []) {
     const { r, blocks } = sections(input, includeDues);
     return (
-      `<div class="print-header"><img src="../assets/img/logo-amigos-verdaderos.png" alt="Logo"><div><b>GRUPO AMIGOS VERDADEROS</b><br>Narcóticos Anónimos</div></div><h1>Informe mensual de tesorería</h1><p>${esc(M.monthName(r.month))} · ${r.closure ? "MES CERRADO" : "PROVISIONAL"}<br>Preparado por: ${esc(person)} · ${esc(M.date(M.today()))}</p>` +
+      `<div class="print-header"><img src="../assets/img/logo-amigos-verdaderos-transparente.png" alt="Logo"><div><b>GRUPO AMIGOS VERDADEROS</b><br>Narcóticos Anónimos</div></div><h1>Informe mensual de tesorería</h1><p>${esc(M.monthName(r.month))} · ${r.closure ? "MES CERRADO" : "PROVISIONAL"}<br>Preparado por: ${esc(person)} · ${esc(M.date(M.today()))}</p>` +
       blocks
         .map((b) =>
           b.type === "page"
@@ -459,8 +459,10 @@
     }
     try {
       const img = new Image();
-      img.src = "../assets/img/logo-amigos-verdaderos.png";
+      img.src = "../assets/img/logo-amigos-verdaderos-transparente.png";
       await deadline(() => img.decode());
+      doc.setFillColor(9,31,72);
+      doc.circle(25.5, 21.5, 10, "F");
       doc.addImage(img, "PNG", 16, 12, 19, 19);
     } catch {}
     font(13, true);
