@@ -1,0 +1,110 @@
+/* Correcciones de contraste y presentación. Solo sitio público. */
+.visual-refresh .hero .hero-logo {
+  border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
+  object-fit: cover;
+  background: #0b2574;
+  border: 1px solid #b8c9e080;
+  box-shadow: 0 14px 35px #020b242e;
+}
+.visual-refresh .hero .hero-logo-wrap::before { display: none; }
+/* Fondo claro: no heredar el texto blanco de la versión original. */
+.visual-refresh .about .welcome-message { background: #f5f1e7; border-color: #dfd5bf; color: #17355f; }
+.visual-refresh .about .welcome-message strong { color: #17355f; }
+.visual-refresh .about .welcome-message p { color: #465d7b; }
+.visual-refresh .about .welcome-message > i { color: #86692f; }
+.visual-refresh .about :is(.check-card,.check-card span) { color: #294465; }
+.visual-refresh .meeting-card :is(.meeting-meta,.meeting-meta span) { color: #495f7d; }
+.visual-refresh .meeting-card .featured-label { color: #fff; background: #103574; }
+.visual-refresh .meeting-card .meeting-day { background: #103574; color: #fff; }
+.visual-refresh .meeting-card .meeting-day :is(span,strong) { color: #fff; }
+.visual-refresh .meeting-note { background: #edf2fa; color: #294465; }
+.visual-refresh .meeting-note :is(strong,span,div) { color: #294465; }
+.visual-refresh .meeting-note a { color: #103574; }
+.visual-refresh .resource-card > span { color: #174681; }
+.visual-refresh .faq-help { color: #17355f; }
+.visual-refresh .faq-help strong { color: #17355f; }
+.visual-refresh .faq-help span { color: #465d7b; }
+.visual-refresh .contact :is(.contact-method strong,.contact-panel-head h3) { color: #17355f; }
+.visual-refresh .contact :is(.contact-method span,.contact-method small,.contact-panel-head p) { color: #465d7b; }
+.visual-refresh .contact .contact-person-data strong { color: #17355f; }
+.visual-refresh .contact .contact-person-data :is(small,em) { color: #465d7b; }
+.visual-refresh .principles :is(h2,h3) { color: #fff; }
+.visual-refresh .principles p { color: #d1dced; }
+.visual-refresh .principles .principle-card { background: #ffffff08; border-color: #ffffff29; }
+.visual-refresh .cta .cta-box { background: #103574; }
+.visual-refresh .cta .cta-box :is(h2,p) { color: #fff; }
+.visual-refresh .cta .cta-box > span { color: #ead6a9; }
+/* Pie completo: textos opacos y contraste explícito sobre azul. */
+.visual-refresh #footer {
+  background: linear-gradient(130deg,#081c3e,#102c58);
+  border-top: 3px solid #baa16b;
+  color: #d5dfef;
+  font-size: 14px;
+}
+.visual-refresh #footer .footer-top { padding-top: 58px; padding-bottom: 36px; }
+.visual-refresh #footer .footer-logo { align-items: center; gap: 13px; }
+.visual-refresh #footer .footer-logo img { border-radius: 50%; object-fit: cover; background: transparent; border: 1px solid #b7cae0; }
+.visual-refresh #footer .footer-logo strong { color: #fff; font-size: 21px; line-height: 1.3; }
+.visual-refresh #footer .footer-logo span { color: #c4d3e9; font-size: 13px; }
+.visual-refresh #footer .footer-about > p { color: #d0dced; font-size: 14px; line-height: 1.9; }
+.visual-refresh #footer h4 { color: #ead6a9; font-size: 13px; font-weight: 750; letter-spacing: .06em; line-height: 1.6; margin-bottom: 18px; }
+.visual-refresh #footer .footer-links a { display: inline-block; color: #d6e1f1; padding: 5px 0; font-size: 13px; line-height: 1.5; }
+.visual-refresh #footer .footer-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 5px; }
+.visual-refresh #footer .footer-links li { margin-bottom: 5px; }
+.visual-refresh #footer .footer-contact p { color: #d0dced; font-size: 13px; line-height: 1.8; }
+.visual-refresh #footer .footer-contact i { color: #ead6a9; }
+.visual-refresh #footer .footer-values { display: flex; flex-wrap: wrap; gap: 8px; }
+.visual-refresh #footer .footer-values span { background: #ffffff08; color: #dce6f4; border: 1px solid #ffffff2b; padding: 9px 11px; font-size: 11px; border-radius: 9px; }
+.visual-refresh #footer .footer-values i { color: #ead6a9; }
+.visual-refresh #footer .footer-contact-link { display: flex; align-items: center; gap: 12px; padding: 13px; margin-bottom: 9px; border: 1px solid #ffffff26; background: #ffffff06; border-radius: 11px; }
+.visual-refresh #footer .footer-contact-link:hover { background: #ffffff12; border-color: #a9bfd9; }
+.visual-refresh #footer .footer-contact-link > i { color: #ead6a9; font-size: 20px; }
+.visual-refresh #footer .footer-contact-link strong { color: #fff; font-size: 14px; line-height: 1.5; }
+.visual-refresh #footer .footer-contact-link small { color: #c6d5e9; font-size: 12px; line-height: 1.7; }
+.visual-refresh #footer .footer-disclaimer { border-color: #ffffff2b; gap: 13px; padding-top: 22px; padding-bottom: 22px; }
+.visual-refresh #footer .footer-disclaimer i { color: #ead6a9; }
+.visual-refresh #footer .footer-disclaimer p { color: #cbd9ec; font-size: 12px; line-height: 1.85; }
+.visual-refresh #footer .copyright { padding-top: 24px; padding-bottom: 28px; }
+.visual-refresh #footer .copyright p { color: #d5e0f0; font-size: 12px; line-height: 1.8; }
+.visual-refresh #footer .copyright strong { color: #fff; }
+.visual-refresh #footer .credits { color: #b8cae2; font-size: 11px; line-height: 1.8; }
+.visual-refresh #footer a:focus-visible { outline: 3px solid #ead6a9; outline-offset: 4px; border-radius: 4px; }
+/* Encabezado del modal: estructura flex explícita, cierre a la derecha. */
+.visual-refresh #anniversariesModal .anniversary-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: #091f48; color: #fff; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading { display: flex; flex: 1 1 auto; width: auto; min-width: 0; gap: 14px; align-items: center; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading > div { min-width: 0; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading > div > span { color: #ead6a9; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading h2 { color: #fff; overflow-wrap: anywhere; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading p { color: #d1dced; }
+.visual-refresh #anniversariesModal .anniversary-modal-header .btn-close { flex: 0 0 24px; width: 24px; height: 24px; min-width: 24px; min-height: 24px; box-sizing: content-box; margin: 0 0 0 auto; padding: 10px; align-self: center; opacity: 1; filter: invert(1) grayscale(100%) brightness(200%); }
+.visual-refresh #anniversariesModal .ann-calendar-brand img { border-radius: 50%; background: transparent; padding: 0; object-fit: cover; }
+.visual-refresh #anniversariesModal .ann-calendar-brand > span { color: #ead6a9; }
+.visual-refresh #anniversariesModal .ann-calendar-brand small { color: #d1dced; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 { color: #fff; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 em { color: #ead6a9; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics strong { color: #fff; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics small { color: #d1dced; }
+.visual-refresh #anniversariesModal .anniversary-modal-note { background: #eaf0f8; }
+.visual-refresh #anniversariesModal .anniversary-modal-note p { color: #344e70; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts button { color: #405978; background: #fff; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts button[aria-pressed=true] { color: #fff; background: #103574; }
+.visual-refresh #anniversariesModal .ann-search input::placeholder { color: #5b708f; opacity: 1; }
+.visual-refresh #anniversariesModal .ann-no-events { color: #4a6282; border-color: #bdcce0; background: #f8faff; }
+.visual-refresh #anniversariesModal .ann-no-events strong { color: #254568; }
+.visual-refresh #anniversariesModal .ann-no-events p { color: #4a6282; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer { display: flex; justify-content: space-between; gap: 12px; background: #fff; color: #17355f; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer > span { color: #294465; font-size: 12px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer .btn-primary { color: #fff; background: #103574; border-color: #103574; }
+@media (max-width: 575.98px) {
+  .visual-refresh #footer .footer-top { padding-top: 40px; padding-bottom: 24px; }
+  .visual-refresh #footer h4 { margin-top: 12px; }
+  .visual-refresh #footer .footer-contact-link { min-height: 64px; }
+  .visual-refresh #footer .footer-logo strong { font-size: 20px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-header { gap: 8px; padding: 17px 13px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading { gap: 9px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading h2 { font-size: 17px; line-height: 1.35; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading > div > span { font-size: 9px; letter-spacing: .06em; }
+  .visual-refresh #anniversariesModal .anniversary-modal-icon { flex-basis: 34px; width: 34px; height: 34px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-footer { justify-content: flex-end; }
+}
