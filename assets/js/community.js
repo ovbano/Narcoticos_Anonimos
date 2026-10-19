@@ -31,7 +31,8 @@
     const light=palette==='ivory',ink=light?'#102650':'#fffaf0',gold=light?'#866526':'#e7c887';
     const bg=ctx.createLinearGradient(0,0,1080,1350);bg.addColorStop(0,light?'#fffdf7':palette==='night'?'#121e30':'#061d4b');bg.addColorStop(1,light?'#eee5d3':palette==='night'?'#080e18':'#173a78');ctx.fillStyle=bg;ctx.fillRect(0,0,1080,1350);
     ctx.strokeStyle=gold;ctx.lineWidth=2;ctx.strokeRect(40,40,1000,1270);ctx.globalAlpha=.4;ctx.strokeRect(54,54,972,1242);ctx.globalAlpha=1;
-    const img=new Image();await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('El logo tardó en cargar. Intenta de nuevo.')),10000);img.onload=()=>{clearTimeout(timer);resolve();};img.onerror=()=>{clearTimeout(timer);reject(Error('No se pudo cargar el logo.'));};img.src='assets/img/logo-amigos-verdaderos.png';});
+    const img=new Image();await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('El logo tardó en cargar. Intenta de nuevo.')),10000);img.onload=()=>{clearTimeout(timer);resolve();};img.onerror=()=>{clearTimeout(timer);reject(Error('No se pudo cargar el logo.'));};img.src='assets/img/logo-amigos-verdaderos-transparente.png';});
+    if(light){ctx.fillStyle='#102650';ctx.beginPath();ctx.arc(540,177,86,0,Math.PI*2);ctx.fill();}
     const ratio=Math.min(154/img.width,154/img.height);ctx.drawImage(img,540-img.width*ratio/2,100,img.width*ratio,img.height*ratio);
     ctx.textAlign='center';ctx.fillStyle=gold;ctx.font='600 21px sans-serif';ctx.fillText('GRUPO AMIGOS VERDADEROS',540,300);ctx.font='18px sans-serif';ctx.fillText('NARCÓTICOS ANÓNIMOS',540,335);
     ctx.fillStyle=gold;ctx.font='20px sans-serif';ctx.fillText(item.word,540,435);
