@@ -1,0 +1,162 @@
+/* Alternativa azul: portada y calendario comparten la identidad del grupo. */
+.visual-refresh .main > .hero {
+  color: #fff;
+  background: radial-gradient(ellipse at 90% 10%, #2b54975c, transparent 52%), linear-gradient(135deg, #071b42, #103574);
+  padding-top: 152px;
+  padding-bottom: 38px;
+}
+.visual-refresh .hero .eyebrow { background: #ffffff0d; border-color: #ffffff29; color: #e6d5ab; }
+.visual-refresh .hero h1 {
+  font-family: Inter, var(--heading-font), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(42px, 4.5vw, 64px);
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  color: #fff;
+  text-wrap: balance;
+}
+.visual-refresh .hero h1 span { color: #e7d1a0; font-style: normal; }
+.visual-refresh .hero-lead { color: #d2dced; font-size: 17px; line-height: 1.85; }
+.visual-refresh .hero-lead strong { color: #fff; }
+.visual-refresh .hero .btn-primary { color: #10284f; background: #ead6a9; border-color: #ead6a9; box-shadow: none; }
+.visual-refresh .hero .btn-primary:hover { color: #10284f; background: #f5e5c2; border-color: #f5e5c2; }
+.visual-refresh .hero .btn-outline-light { color: #fff; border-color: #8b9fbe; background: #ffffff05; }
+.visual-refresh .hero .btn-outline-light:hover { color: #fff; background: #ffffff12; border-color: #c6d2e3; }
+.visual-refresh .hero-note { color: #bfcde1; }
+.visual-refresh .hero-note i { color: #e6d5ab; }
+.visual-refresh .hero-logo-wrap {
+  min-height: 450px;
+  max-width: 440px;
+  padding: 35px 28px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.visual-refresh .hero-logo-wrap::before { inset: 8px; border: 1px solid #d7c2974d; border-radius: 50%; }
+.visual-refresh .hero-logo { width: 86%; max-width: 310px; }
+.visual-refresh .hero-logo-caption { margin-top: 18px; padding: 10px 0; }
+.visual-refresh .hero-logo-caption strong { font: 700 23px Inter,system-ui,sans-serif; }
+.visual-refresh .hero-logo-caption span { color: #d9c89e; font-size: 9px; }
+.visual-refresh .value-row { border-top-color: #ffffff24; }
+.visual-refresh .value-item > i { color: #ead6a9; background: #ffffff08; border-color: #ffffff1f; }
+.visual-refresh .value-item strong { color: #fff; }
+.visual-refresh .value-item span { color: #bfcde1; }
+.visual-refresh .section-title h2,
+.visual-refresh :is(.about,.faq,.principles) h2 { font-family: Inter,var(--heading-font),system-ui,sans-serif; font-weight: 750; font-size: clamp(31px,3.1vw,43px); line-height: 1.2; letter-spacing: -.035em; }
+.visual-refresh .community-section h2 { font-family: Inter,var(--heading-font),system-ui,sans-serif; font-weight: 750; font-size: clamp(33px,3.5vw,46px); line-height: 1.17; }
+.visual-refresh .community-section h2 em { font-style: normal; }
+/* Calendario: cabecera azul, controles claros y estados distinguibles. */
+.visual-refresh #anniversariesModal { --bs-modal-width: 1180px; }
+.visual-refresh #anniversariesModal .modal-content { background: #eef2f8; border: 1px solid #dbe3f0; border-radius: 24px; overflow: hidden; box-shadow: 0 30px 90px #071b4260; }
+.visual-refresh #anniversariesModal .anniversary-modal-header { background: #091f48; border-bottom: 1px solid #ffffff1a; padding: 23px 28px; }
+.visual-refresh #anniversariesModal .anniversary-modal-icon { width: 48px; height: 48px; flex-basis: 48px; border-radius: 14px; background: #ffffff10; color: #e8d3a5; border: 1px solid #ffffff1a; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading > div > span { color: #d3c39f; font-size: 10px; letter-spacing: .13em; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading h2 { color: #fff; font: 700 24px/1.25 Inter,system-ui,sans-serif; margin-top: 5px; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading p { display: block; color: #bbcbe1; font-size: 12px; line-height: 1.6; margin: 6px 0 0; }
+.visual-refresh #anniversariesModal .anniversary-modal-header .btn-close { filter: invert(1) grayscale(100%) brightness(200%); opacity: 1; min-width: 24px; min-height: 24px; padding: 10px; margin-left: 15px; }
+.visual-refresh #anniversariesModal .anniversary-modal-note { padding: 14px 28px; background: #eaf0f8; border-bottom-color: #d6dfed; }
+.visual-refresh #anniversariesModal .anniversary-modal-note p { color: #405978; font-size: 13px; line-height: 1.65; }
+.visual-refresh #anniversariesModal .anniversary-modal-note i { color: #254d84; }
+.visual-refresh #anniversariesModal .ann-calendar-cover { background: #103574; padding: 28px; gap: 15px 25px; }
+.visual-refresh #anniversariesModal .ann-calendar-brand { margin-bottom: 0; }
+.visual-refresh #anniversariesModal .ann-calendar-brand img { width: 50px; height: 50px; }
+.visual-refresh #anniversariesModal .ann-calendar-brand > span { font-size: 10px; color: #e7d4ab; letter-spacing: .09em; }
+.visual-refresh #anniversariesModal .ann-calendar-brand small { font-size: 12px; color: #c7d4e8; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 { font: 700 31px/1.2 Inter,system-ui,sans-serif; letter-spacing: -.035em; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 em { color: #e8d3a5; font-style: normal; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics { gap: 24px; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics > span { padding-left: 22px; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics strong { font: 650 44px/1 Inter,system-ui,sans-serif; letter-spacing: -.04em; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics small { color: #c8d6eb; font-size: 10px; letter-spacing: .07em; }
+.visual-refresh #anniversariesModal .ann-calendar-workspace { padding: 26px; background: #f0f4fa; }
+.visual-refresh #anniversariesModal .ann-toolbar { padding: 14px; border: 1px solid #dce4ef; border-radius: 16px; background: #fff; gap: 12px; }
+.visual-refresh #anniversariesModal .ann-month-nav { gap: 8px; }
+.visual-refresh #anniversariesModal .ann-month-nav h3 { font-size: 22px; font-weight: 750; color: #132e57; min-width: 195px; }
+.visual-refresh #anniversariesModal .ann-square { border-radius: 10px; min-width: 44px; min-height: 44px; border-color: #d3ddeb; }
+.visual-refresh #anniversariesModal .ann-toolbar > #ann-today { min-height: 44px; font-size: 12px; color: #254d84; border-radius: 10px; background: #eef3fa; }
+.visual-refresh #anniversariesModal .ann-search { min-height: 46px; border-radius: 10px; background: #f7f9fc; }
+.visual-refresh #anniversariesModal .ann-search input { min-height: 44px; font-size: 15px; width: 180px; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts { gap: 7px; border: 0; margin-bottom: 22px; padding-bottom: 0; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts button { min-height: 44px; font-size: 12px; font-weight: 650; border: 1px solid #dbe3ef; border-radius: 10px; background: #fff; color: #4c6282; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts button[aria-pressed=true] { background: #103574; color: #fff; border-color: #103574; box-shadow: 0 5px 12px #10357420; }
+.visual-refresh #anniversariesModal .ann-explorer-layout { gap: 22px; }
+.visual-refresh #anniversariesModal .ann-month-sheet { background: #fff; border: 1px solid #dce4ef; border-radius: 18px; padding: 18px; box-shadow: none; }
+.visual-refresh #anniversariesModal .ann-week span { font-size: 10px; color: #627794; }
+.visual-refresh #anniversariesModal .ann-day { min-height: 67px; font-size: 18px; border-radius: 10px; color: #3c5271; background: #f5f7fb; border: 1px solid transparent; box-shadow: none; }
+.visual-refresh #anniversariesModal .ann-day:hover { background: #e7eef8; border-color: #b9cce5; }
+.visual-refresh #anniversariesModal .ann-day.has-events { background: #e8effb; color: #153e7a; border-color: #a6bee3; font-weight: 750; }
+.visual-refresh #anniversariesModal .ann-day.is-today:not(.is-selected) { background: #fcf5e8; border-color: #b49351; color: #73571f; }
+.visual-refresh #anniversariesModal .ann-day.is-selected { color: #fff; background: #103574; border-color: #103574; box-shadow: 0 0 0 2px #fff,0 0 0 4px #adc2e3; }
+.visual-refresh #anniversariesModal .ann-day.is-selected .ann-dots { color: #fff; }
+.visual-refresh #anniversariesModal .ann-day.is-selected .ann-dots .gold { color: #f0d59d; }
+.visual-refresh #anniversariesModal .ann-legend { font-size: 11px; color: #4d6382; line-height: 1.7; }
+.visual-refresh #anniversariesModal .ann-agenda { padding: 20px; background: #fff; border: 1px solid #dce4ef; border-radius: 18px; }
+.visual-refresh #anniversariesModal .ann-agenda-heading .ann-kicker { color: #81652e; font-size: 10px; }
+.visual-refresh #anniversariesModal .ann-agenda-heading h4 { color: #132e57; font-size: 23px; font-weight: 750; }
+.visual-refresh #anniversariesModal .ann-agenda-heading .ann-button { min-height: 44px; font-size: 12px; }
+.visual-refresh #anniversariesModal .ann-agenda #ann-count { color: #627794; font-size: 13px; margin: 13px 0 20px; }
+.visual-refresh #anniversariesModal .ann-agenda-card { padding: 15px 12px; border: 1px solid #dce4ef; background: #f8faff; border-radius: 12px; box-shadow: none; }
+.visual-refresh #anniversariesModal .ann-agenda-card strong { font-size: 17px; color: #173b70; font-weight: 700; }
+.visual-refresh #anniversariesModal .ann-agenda-card small { font-size: 13px; line-height: 1.6; color: #5a6e8b; }
+.visual-refresh #anniversariesModal .ann-agenda-card em { font-size: 11px; line-height: 1.5; }
+.visual-refresh #anniversariesModal .ann-agenda-card.is-current { background: #fffaf0; border-color: #cfb475; }
+.visual-refresh #anniversariesModal .ann-agenda-date { background: #e5edf9; width: 64px; min-height: 76px; font: 700 30px/1.2 Inter,system-ui,sans-serif; }
+.visual-refresh #anniversariesModal .ann-agenda-date small { font-size: 10px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer { background: #fff; border-top: 1px solid #dce4ef; padding: 16px 26px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer .btn-primary { background: #103574; border-color: #103574; min-height: 46px; border-radius: 10px; font-size: 14px; }
+.visual-refresh #anniversariesModal :is(button,input,a):focus-visible { outline: 3px solid #b49351; outline-offset: 3px; }
+@media (max-width: 991.98px) {
+  .visual-refresh .main > .hero { padding-top: 125px; }
+  .visual-refresh .hero h1 { font-size: clamp(42px,6.5vw,62px); }
+  .visual-refresh .hero-logo-wrap { min-height: 390px; max-width: 390px; }
+  .visual-refresh .hero-logo { max-width: 260px; }
+  .visual-refresh #anniversariesModal .ann-explorer-layout { grid-template-columns: 1fr; }
+  .visual-refresh #anniversariesModal .ann-month-shortcuts { grid-template-columns: repeat(6,minmax(0,1fr)); }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics { gap: 16px; }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics strong { font-size: 34px; }
+}
+@media (max-width: 700px) {
+  .visual-refresh #anniversariesModal .ann-calendar-cover { grid-template-columns: 1fr; padding: 22px; }
+  .visual-refresh #anniversariesModal .ann-calendar-intro { grid-column: 1; grid-row: auto; }
+  .visual-refresh #anniversariesModal .ann-calendar-brand { grid-column: 1; }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics { grid-column: 1; grid-row: auto; justify-content: flex-start; padding-top: 10px; }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics > span { padding-left: 16px; }
+  .visual-refresh #anniversariesModal .ann-calendar-intro h3 { font-size: 28px; }
+  .visual-refresh #anniversariesModal .ann-calendar-workspace { padding: 16px 12px; }
+  .visual-refresh #anniversariesModal .ann-toolbar { padding: 12px; gap: 10px; }
+  .visual-refresh #anniversariesModal .ann-month-nav { width: 100%; justify-content: space-between; }
+  .visual-refresh #anniversariesModal .ann-month-nav h3 { min-width: 0; font-size: 19px; }
+  .visual-refresh #anniversariesModal .ann-toolbar > #ann-today { width: 100%; }
+  .visual-refresh #anniversariesModal .ann-search { width: 100%; margin-left: 0; }
+  .visual-refresh #anniversariesModal .ann-search input { width: 100%; min-width: 0; font-size: 16px; }
+  .visual-refresh #anniversariesModal .ann-month-sheet { padding: 12px 8px; }
+  .visual-refresh #anniversariesModal .ann-days,.visual-refresh #anniversariesModal .ann-week { gap: 4px; }
+  .visual-refresh #anniversariesModal .ann-day { min-height: 53px; font-size: 16px; }
+  .visual-refresh #anniversariesModal .ann-week span { font-size: 9px; letter-spacing: 0; }
+  .visual-refresh #anniversariesModal .ann-agenda { padding: 18px 13px; }
+  .visual-refresh #anniversariesModal .ann-agenda-card strong { font-size: 18px; }
+}
+@media (max-width: 575.98px) {
+  .visual-refresh .main > .hero { padding-top: 112px; padding-bottom: 30px; }
+  .visual-refresh .hero h1 { font-size: clamp(36px,9.5vw,51px); line-height: 1.15; }
+  .visual-refresh .hero-lead { font-size: 16px; }
+  .visual-refresh .hero-logo-wrap { max-width: 330px; min-height: 355px; padding: 28px 25px; }
+  .visual-refresh .hero-logo { max-width: 230px; }
+  .visual-refresh .hero-logo-caption strong { font-size: 20px; }
+  .visual-refresh .hero-logo-caption span { font-size: 8px; }
+  .visual-refresh #anniversariesModal .modal-dialog { margin: 8px; max-width: none; height: calc(100% - 16px); }
+  .visual-refresh #anniversariesModal .modal-content { max-height: 100%; border-radius: 18px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-header { padding: 18px 16px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading { gap: 10px; min-width: 0; }
+  .visual-refresh #anniversariesModal .anniversary-modal-icon { width: 38px; height: 38px; flex-basis: 38px; font-size: 18px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading h2 { font-size: 18px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading p { display: none; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading > div > span { font-size: 9px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-note { padding: 12px 16px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-note p { font-size: 12px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-footer { padding: 12px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visual-refresh .hero *, .visual-refresh #anniversariesModal * { transition: none!important; animation: none!important; scroll-behavior: auto!important; }
+}
