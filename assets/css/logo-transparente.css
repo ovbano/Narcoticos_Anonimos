@@ -1,4 +1,5 @@
-/* El PNG conserva su transparencia y sus puntas; no recortar el emblema. */
+/* Dos variantes explícitas. Nunca recolorear ni recortar el logo transparente. */
+img.group-logo,
 img[src*="logo-amigos-verdaderos-transparente.png"] {
   object-fit: contain !important;
   border-radius: 0 !important;
@@ -7,23 +8,15 @@ img[src*="logo-amigos-verdaderos-transparente.png"] {
   padding: 0 !important;
   box-shadow: none !important;
   background: transparent !important;
-  filter: brightness(0) saturate(100%) invert(12%) sepia(47%) saturate(1991%) hue-rotate(190deg) brightness(96%) contrast(99%);
-}
-.visual-refresh .hero img.hero-logo,
-.visual-refresh #footer img,
-.visual-refresh .header img,
-#anniversariesModal .ann-calendar-brand img,
-.ann-invitation-brand img,
-.brand img[src*="logo-amigos-verdaderos-transparente.png"],
-.hope-card:not([data-theme="ivory"]) .hope-card-brand img {
   filter: none !important;
 }
-@media print {
-  .print-header img[src*="logo-amigos-verdaderos-transparente.png"] {
-    background: #091f48 !important;
-    border-radius: 50% !important;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-    filter: none !important;
-  }
+img.group-logo--seal,
+.print-header img[src*="logo-amigos-verdaderos.png"] {
+  border-radius: 50% !important;
+  clip-path: circle(50%) !important;
+  object-fit: cover !important;
+  filter: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }

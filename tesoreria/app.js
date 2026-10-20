@@ -1359,7 +1359,7 @@
       });
     $("#print-guide").onclick = () =>
       printHTML(
-        '<div class="print-header"><img src="../assets/img/logo-amigos-verdaderos-transparente.png" alt="Logo"><b>AMIGOS VERDADEROS · GUÍA DE TESORERÍA</b></div>' +
+        '<div class="print-header"><img src="../assets/img/logo-amigos-verdaderos.png" alt="Logo"><b>AMIGOS VERDADEROS · GUÍA DE TESORERÍA</b></div>' +
           $("#guide-content").innerHTML,
       );
     $("#audit-more").onclick = () => busy($("#audit-more"), () => loadAudit());
@@ -1391,6 +1391,3 @@
     })
     .catch(fail);
 })();
-
-
-

@@ -688,7 +688,7 @@ section,
 
 .welcome-message strong,
 .welcome-message p {
-  color: var(--na-white) !important;
+  color: var(--na-white);
 }
 
 .welcome-message p {
