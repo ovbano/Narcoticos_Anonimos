@@ -1,0 +1,376 @@
+/* Sistema visual público: azul profundo, superficies claras y una jerarquía común. */
+body.visual-refresh {
+  --page-ink: #142d50;
+  --page-muted: #50617a;
+  --page-blue: #123566;
+  --page-gold: #80632d;
+  --page-line: #dce3ec;
+  --page-paper: #f7f8fa;
+  --cm-navy: #142d50;
+  --cm-blue: #123566;
+  --cm-muted: #50617a;
+  background: #fff;
+  color: var(--page-ink);
+  font-family: Inter, system-ui, sans-serif;
+}
+.visual-refresh :is(section[id],#ubicacion) { scroll-margin-top: 108px; }
+.visual-refresh .main > .section,
+.visual-refresh .community-section { padding-block: 88px; }
+.visual-refresh .section-title { text-align: left; max-width: none; padding-bottom: 36px; }
+.visual-refresh :is(.section-title h2,.about h2,.faq h2,.principles h2,.community-section h2,.anniversary-title) {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px,3.3vw,48px);
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: 1.14;
+  color: var(--page-ink);
+  text-wrap: balance;
+}
+.visual-refresh :is(.section-title p,.community-heading > p,.about p,.anniversary-intro) { color: var(--page-muted); font-size: 16px; line-height: 1.8; max-width: 660px; margin-left: 0; }
+.visual-refresh :is(.section-kicker,.community-kicker,.community-step) { font: 700 11px/1.6 Inter,system-ui,sans-serif; letter-spacing: .13em; color: var(--page-gold); }
+.visual-refresh .community-section h2 em { color: #345c8c; font-weight: 400; }
+.visual-refresh :is(a,button,input,select):focus-visible { outline: 3px solid #b78e42; outline-offset: 4px; }
+.visual-refresh :is(.btn,.community-button,.ann-button) { border-radius: 10px; min-height: 46px; }
+.visual-refresh .header .header-container { background: #fff; min-height: 76px; border: 1px solid #e1e6ee; border-radius: 14px; box-shadow: 0 8px 30px #0c244314; }
+.visual-refresh .header .logo img { width: 48px; height: 48px; }
+.visual-refresh .header .logo-text strong { color: var(--page-ink); }
+.visual-refresh .header .btn-getstarted { border-radius: 9px; background: var(--page-blue); color: #fff; }
+/* Portada: marca blanca sobre azul, sin cuadros ni órbitas que compitan con el mensaje. */
+.visual-refresh .main > .hero { background: linear-gradient(120deg,#0a203f,#143a6c); padding: 156px 0 32px; min-height: 0; color: #fff; overflow: hidden; }
+.visual-refresh .hero::after, .visual-refresh .hero-pattern, .visual-refresh .hero-logo-glow, .visual-refresh .hero-logo-wrap::before { display: none; }
+.visual-refresh .hero .eyebrow { border: 1px solid #607492; color: #ecdbb6; background: transparent; border-radius: 30px; font-size: 11px; padding: 8px 13px; letter-spacing: .04em; }
+.visual-refresh .hero h1 { color: #fff; font: 400 clamp(46px,5vw,70px)/1.08 Georgia,serif; letter-spacing: -.04em; margin: 26px 0; max-width: 620px; text-wrap: balance; }
+.visual-refresh .hero h1 span { color: #e8d2a5; font-style: italic; }
+.visual-refresh .hero-lead { font-size: 16px; line-height: 1.85; color: #d7e1ef; max-width: 540px; }
+.visual-refresh .hero-lead strong { color: #fff; }
+.visual-refresh .hero .btn { font-size: 13px; font-weight: 650; padding: 15px 20px; min-height: 50px; box-shadow: none; }
+.visual-refresh .hero .btn-primary { color: #10284f; background: #eedab0; border-color: #eedab0; }
+.visual-refresh .hero .btn-primary:hover { background: #fae8c7; border-color: #fae8c7; }
+.visual-refresh .hero .btn-outline-light { color: #fff; background: transparent; border-color: #7e94b2; }
+.visual-refresh .hero .btn-outline-light:hover { background: #ffffff12; }
+.visual-refresh .hero-note { color: #c8d5e7; font-size: 12px; line-height: 1.8; max-width: 490px; }
+.visual-refresh .hero-note i { color: #e8d2a5; }
+.visual-refresh .hero-logo-wrap { width: 100%; max-width: 440px; min-height: 0; padding: 25px; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.visual-refresh .hero-logo { width: min(100%,330px); height: auto; animation: none; }
+.visual-refresh .hero-logo-caption { background: transparent; border: 0; box-shadow: none; min-width: 0; width: 100%; padding: 18px 0 0; margin-top: 16px; }
+.visual-refresh .hero-logo-caption strong { color: #fff; font: 400 25px/1.3 Georgia,serif; }
+.visual-refresh .hero-logo-caption span { color: #e8d2a5; font-size: 9px; letter-spacing: .15em; margin-top: 10px; }
+.visual-refresh .value-row { margin-top: 44px; padding: 24px 0 0; border: 0; border-top: 1px solid #ffffff2b; border-radius: 0; background: none; box-shadow: none; }
+.visual-refresh .value-item { padding: 10px 0; box-shadow: none; background: none; border: 0; }
+.visual-refresh .value-item > i { width: 40px; height: 40px; flex: 0 0 40px; border: 1px solid #ffffff2b; color: #e8d2a5; background: transparent; font-size: 20px; }
+.visual-refresh .value-item strong { color: #fff; font-size: 13px; }
+.visual-refresh .value-item span { color: #c8d5e7; font-size: 12px; }
+/* Presentación del grupo. */
+.visual-refresh .about .image-wrapper { padding: 0; border: 0; border-radius: 22px; background: transparent; box-shadow: none; overflow: hidden; }
+.visual-refresh .about .image-wrapper::before,.visual-refresh .about .image-wrapper::after { display: none; }
+.visual-refresh .about-main-image { border-radius: 22px!important; box-shadow: none; width: 100%; }
+.visual-refresh .check-card { background: #fff; color: var(--page-ink); border: 0; border-bottom: 1px solid var(--page-line); border-radius: 0; box-shadow: none; padding: 14px 0; font-size: 13px; }
+.visual-refresh .check-card i { color: #315b89; }
+.visual-refresh .about .welcome-message { background: #eef3f8; border: 1px solid #d7e1ed; border-left: 3px solid #315b89; border-radius: 12px; box-shadow: none; padding: 22px; }
+.visual-refresh .about .welcome-message strong { color: #183858; font-size: 15px; line-height: 1.6; }
+.visual-refresh .about .welcome-message p { color: #445b75; opacity: 1; font-size: 14px; line-height: 1.7; }
+.visual-refresh .about .welcome-message > i { color: #315b89; background: #fff; border-radius: 12px; }
+/* Preguntas, reuniones y directorio. */
+.visual-refresh .question-section { background: #f6f3ec; }
+.visual-refresh .question-answer-wrap { background: #102e56; border: 0; border-radius: 22px; box-shadow: 0 20px 50px #112b4b0d; }
+.visual-refresh .question-answer-wrap :is(h3,p) { color: #fff; }
+.visual-refresh .question-answer-wrap .community-kicker { color: #e8d2a5; }
+.visual-refresh .question-answer-wrap .question-signature { color: #e8d2a5; }
+.visual-refresh .question-answer-wrap .question-signature small { color: #d1dced; }
+.visual-refresh .question-answer-wrap .community-button { background: #254c7d; border-color: #7f98b8; }
+.visual-refresh .question-answer-wrap .community-button:hover { background: #315d93; }
+.visual-refresh .question-options button { background: transparent; border: 1px solid #ccd6e1; border-radius: 12px; padding: 18px; min-height: 64px; }
+.visual-refresh .question-options button[aria-pressed=true] { background: #fff; border-color: #345c8c; color: #173858; box-shadow: 0 4px 14px #10284f08; }
+.visual-refresh .light-background { background: var(--page-paper); }
+.visual-refresh :is(.meeting-card,.directory-card,.step-card,.resource-card,.contact-panel,.map-card) { border: 1px solid var(--page-line); border-radius: 18px; background: #fff; box-shadow: 0 4px 16px #10284f04; }
+.visual-refresh :is(.meeting-card,.directory-card,.step-card,.resource-card) { padding: 28px; transition: transform .2s,border-color .2s,box-shadow .2s; }
+.visual-refresh :is(.meeting-card,.directory-card,.step-card,.resource-card):hover { transform: translateY(-3px); border-color: #a8bad0; box-shadow: 0 12px 28px #10284f0c; }
+.visual-refresh :is(.meeting-card h3,.step-card h3,.resource-card h3) { color: var(--page-ink); font: 650 22px/1.35 Inter,system-ui,sans-serif; }
+.visual-refresh :is(.meeting-card p,.step-card p,.resource-card p) { color: var(--page-muted); font-size: 14px; line-height: 1.8; }
+.visual-refresh .meeting-day { color: #fff; background: var(--page-blue); border-radius: 12px; box-shadow: none; }
+.visual-refresh .meeting-day :is(span,strong) { color: #fff; }
+.visual-refresh .featured-label { color: #fff; background: var(--page-blue); }
+.visual-refresh .meeting-meta { border-top-color: var(--page-line); color: var(--page-muted); }
+.visual-refresh .meeting-meta span { color: var(--page-muted); }
+.visual-refresh .meeting-note { color: #294465; background: #eaf0f7; border-radius: 12px; box-shadow: none; }
+.visual-refresh .meeting-note :is(strong,div,span) { color: #294465; }
+.visual-refresh .meeting-note a { color: #173b70; }
+.visual-refresh .directory-toolbar { background: #f5f7fa; border: 1px solid var(--page-line); border-radius: 16px; padding: 22px; }
+.visual-refresh .directory-card h3 { font-size: 28px; }
+.visual-refresh .directory-verified { font-size: 12px; }
+.visual-refresh :is(.directory-search,.directory-toolbar select) { border-color: #bccbdd; background: #fff; }
+.visual-refresh .directory-map { border: 1px solid var(--page-line); background: #f4f7fb; }
+/* Literatura y tarjetas compartibles. */
+.visual-refresh .sph-section { background: #f7f4ed; }
+.visual-refresh .sph-credit { color: #566172; }
+.visual-refresh .hope-section { background: #eff3f8; }
+.visual-refresh .hope-layout { align-items: start; gap: 64px; }
+.visual-refresh .hope-message-list { gap: 9px; }
+.visual-refresh .hope-message-list button { padding: 16px 18px; background: #ffffff80; border: 1px solid #dce4ee; border-radius: 12px; }
+.visual-refresh .hope-message-list button[aria-pressed=true] { border-color: #41658e; background: #fff; box-shadow: 0 5px 14px #10284f09; }
+.visual-refresh .hope-message-list button strong { font-size: 14px; font-weight: 600; }
+.visual-refresh .hope-card { border-radius: 16px; max-width: 450px; padding: 40px 34px; box-shadow: 0 18px 40px #10284f1c; }
+.visual-refresh .hope-card::before { inset: 14px; border-radius: 8px; }
+.visual-refresh .hope-card::after { display: none; }
+.visual-refresh .hope-card-brand img { width: 76px; height: 76px; }
+.visual-refresh .hope-card-brand { font-size: 10px; }
+.visual-refresh .hope-card-brand small { font-size: 9px; }
+.visual-refresh .hope-card-message h3 { font-size: clamp(28px,2.7vw,36px); line-height: 1.2; }
+.visual-refresh .hope-card-message p { font-size: 15px; line-height: 1.8; }
+.visual-refresh .hope-card-bottom small { font-size: 10px; }
+.visual-refresh .hope-palettes button { background: #fff; }
+.visual-refresh .hope-palettes button[aria-pressed=true] { outline: 2px solid #345c8c; outline-offset: 2px; }
+.visual-refresh .hope-dialog { border: 1px solid #d5dfeb; padding: 22px; }
+/* Aniversarios, normas, pasos y recursos. */
+.visual-refresh .anniversaries { background: #fff; }
+.visual-refresh .anniversary-decoration { display: none; }
+.visual-refresh .anniversary-actions { gap: 12px; }
+.visual-refresh .anniversary-period { border-radius: 12px; background: #f3f6fa; border: 1px solid var(--page-line); box-shadow: none; }
+.visual-refresh .btn-anniversary-calendar { border-radius: 12px; background: var(--page-blue); box-shadow: none; }
+.visual-refresh .anniversary-message { color: #294465; background: #f3f6fa; border: 1px solid var(--page-line); border-radius: 12px; box-shadow: none; }
+.visual-refresh .anniversary-message p { color: #294465; }
+.visual-refresh .anniversary-empty { border: 1px dashed #b8c8dc; border-radius: 16px; background: #f8fafc; color: #405773; }
+.visual-refresh .anniversary-card { border-radius: 18px; box-shadow: 0 5px 18px #10284f09; border-color: var(--page-line); }
+.visual-refresh .group-rules { background: #f7f8fa; }
+.visual-refresh .norm-item { padding: 20px; border-radius: 12px; border: 1px solid var(--page-line); background: #fff; box-shadow: none; }
+.visual-refresh .norm-item h3 { color: var(--page-ink); font-size: 13px; line-height: 1.6; letter-spacing: .04em; }
+.visual-refresh .norm-item p { color: var(--page-muted); font-size: 14px; line-height: 1.75; }
+.visual-refresh .norm-item > span { color: #315b89; background: #edf3f9; box-shadow: none; border-radius: 8px; }
+.visual-refresh .purpose-card { background: #123566; border-radius: 16px; box-shadow: none; }
+.visual-refresh .purpose-card :is(strong,span) { color: #fff; }
+.visual-refresh .step-number { color: #6c809a; font: italic 28px Georgia,serif; }
+.visual-refresh .principles { background: #0d294f; }
+.visual-refresh .principles :is(h2,h3) { color: #fff; }
+.visual-refresh .principles p { color: #d1dced; }
+.visual-refresh .principles .section-kicker { color: #e8d2a5; }
+.visual-refresh .principle-card { background: #ffffff06; border: 1px solid #ffffff26; border-radius: 16px; box-shadow: none; }
+.visual-refresh .resource-card > span { color: #214c80; }
+.visual-refresh .faq .accordion-item { border: 1px solid var(--page-line); border-radius: 12px; box-shadow: none; overflow: hidden; margin-bottom: 12px; }
+.visual-refresh .faq .accordion-button { color: var(--page-ink); font: 600 15px/1.7 Inter,system-ui,sans-serif; padding: 21px; }
+.visual-refresh .faq .accordion-button:not(.collapsed) { background: #edf3f9; box-shadow: none; }
+.visual-refresh .faq .accordion-body { color: var(--page-muted); font-size: 15px; line-height: 1.8; padding: 14px 21px 24px; }
+.visual-refresh .faq-help { color: #294465; background: #f3f6fa; border: 1px solid var(--page-line); border-radius: 12px; box-shadow: none; }
+.visual-refresh .faq-help :is(strong,span) { color: #294465; }
+.visual-refresh .cta .cta-box { background: #123566; border-radius: 22px; box-shadow: none; }
+.visual-refresh .cta .cta-box h2 { color: #fff; font: 400 clamp(32px,3.4vw,46px)/1.2 Georgia,serif; }
+.visual-refresh .cta .cta-box p { color: #d7e1ef; }
+.visual-refresh .cta .cta-box span { color: #e8d2a5; }
+/* Contacto y mapa. */
+.visual-refresh .contact-panel { padding: 26px; }
+.visual-refresh .contact-panel-head { border-bottom: 1px solid var(--page-line); padding-bottom: 20px; }
+.visual-refresh .contact-panel-head h3 { color: var(--page-ink); font-size: 20px; }
+.visual-refresh .contact-panel-head p { color: var(--page-muted); }
+.visual-refresh .contact :is(.contact-method strong,.contact-person-data strong) { color: var(--page-ink); }
+.visual-refresh .contact :is(.contact-method small,.contact-method span,.contact-person-data small,.contact-person-data em) { color: var(--page-muted); }
+.visual-refresh .contact-person-card { border-radius: 12px; box-shadow: none; }
+.visual-refresh .map-card { overflow: hidden; }
+.visual-refresh .map-card-head { padding: 25px; background: #fff; }
+.visual-refresh .map-card-head h3 { font: 400 29px/1.3 Georgia,serif; color: var(--page-ink); }
+.visual-refresh .map-link { min-height: 54px; color: #fff; background: var(--page-blue); }
+
+/* Pie completo: textos opacos y contraste explícito sobre azul. */
+.visual-refresh #footer {
+  background: linear-gradient(130deg,#081c3e,#102c58);
+  border-top: 3px solid #baa16b;
+  color: #d5dfef;
+  font-size: 14px;
+}
+.visual-refresh #footer .footer-top { padding-top: 58px; padding-bottom: 36px; }
+.visual-refresh #footer .footer-logo { align-items: center; gap: 13px; }
+.visual-refresh #footer .footer-logo img { border-radius: 50%; object-fit: cover; background: transparent; border: 1px solid #b7cae0; }
+.visual-refresh #footer .footer-logo strong { color: #fff; font-size: 21px; line-height: 1.3; }
+.visual-refresh #footer .footer-logo span { color: #c4d3e9; font-size: 13px; }
+.visual-refresh #footer .footer-about > p { color: #d0dced; font-size: 14px; line-height: 1.9; }
+.visual-refresh #footer h4 { color: #ead6a9; font-size: 13px; font-weight: 750; letter-spacing: .06em; line-height: 1.6; margin-bottom: 18px; }
+.visual-refresh #footer .footer-links a { display: inline-block; color: #d6e1f1; padding: 5px 0; font-size: 13px; line-height: 1.5; }
+.visual-refresh #footer .footer-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 5px; }
+.visual-refresh #footer .footer-links li { margin-bottom: 5px; }
+.visual-refresh #footer .footer-contact p { color: #d0dced; font-size: 13px; line-height: 1.8; }
+.visual-refresh #footer .footer-contact i { color: #ead6a9; }
+.visual-refresh #footer .footer-values { display: flex; flex-wrap: wrap; gap: 8px; }
+.visual-refresh #footer .footer-values span { background: #ffffff08; color: #dce6f4; border: 1px solid #ffffff2b; padding: 9px 11px; font-size: 11px; border-radius: 9px; }
+.visual-refresh #footer .footer-values i { color: #ead6a9; }
+.visual-refresh #footer .footer-contact-link { display: flex; align-items: center; gap: 12px; padding: 13px; margin-bottom: 9px; border: 1px solid #ffffff26; background: #ffffff06; border-radius: 11px; }
+.visual-refresh #footer .footer-contact-link:hover { background: #ffffff12; border-color: #a9bfd9; }
+.visual-refresh #footer .footer-contact-link > i { color: #ead6a9; font-size: 20px; }
+.visual-refresh #footer .footer-contact-link strong { color: #fff; font-size: 14px; line-height: 1.5; }
+.visual-refresh #footer .footer-contact-link small { color: #c6d5e9; font-size: 12px; line-height: 1.7; }
+.visual-refresh #footer .footer-disclaimer { border-color: #ffffff2b; gap: 13px; padding-top: 22px; padding-bottom: 22px; }
+.visual-refresh #footer .footer-disclaimer i { color: #ead6a9; }
+.visual-refresh #footer .footer-disclaimer p { color: #cbd9ec; font-size: 12px; line-height: 1.85; }
+.visual-refresh #footer .copyright { padding-top: 24px; padding-bottom: 28px; }
+.visual-refresh #footer .copyright p { color: #d5e0f0; font-size: 12px; line-height: 1.8; }
+.visual-refresh #footer .copyright strong { color: #fff; }
+.visual-refresh #footer .credits { color: #b8cae2; font-size: 11px; line-height: 1.8; }
+.visual-refresh #footer a:focus-visible { outline: 3px solid #ead6a9; outline-offset: 4px; border-radius: 4px; }
+
+/* Calendario: cabecera azul, controles claros y estados distinguibles. */
+.visual-refresh #anniversariesModal { --bs-modal-width: 1180px; }
+.visual-refresh #anniversariesModal .modal-content { background: #eef2f8; border: 1px solid #dbe3f0; border-radius: 24px; overflow: hidden; box-shadow: 0 30px 90px #071b4260; }
+.visual-refresh #anniversariesModal .anniversary-modal-header { background: #091f48; border-bottom: 1px solid #ffffff1a; padding: 23px 28px; }
+.visual-refresh #anniversariesModal .anniversary-modal-icon { width: 48px; height: 48px; flex-basis: 48px; border-radius: 14px; background: #ffffff10; color: #e8d3a5; border: 1px solid #ffffff1a; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading > div > span { color: #d3c39f; font-size: 10px; letter-spacing: .13em; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading h2 { color: #fff; font: 700 24px/1.25 Inter,system-ui,sans-serif; margin-top: 5px; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading p { display: block; color: #bbcbe1; font-size: 12px; line-height: 1.6; margin: 6px 0 0; }
+.visual-refresh #anniversariesModal .anniversary-modal-header .btn-close { filter: invert(1) grayscale(100%) brightness(200%); opacity: 1; min-width: 24px; min-height: 24px; padding: 10px; margin-left: 15px; }
+.visual-refresh #anniversariesModal .anniversary-modal-note { padding: 14px 28px; background: #eaf0f8; border-bottom-color: #d6dfed; }
+.visual-refresh #anniversariesModal .anniversary-modal-note p { color: #405978; font-size: 13px; line-height: 1.65; }
+.visual-refresh #anniversariesModal .anniversary-modal-note i { color: #254d84; }
+.visual-refresh #anniversariesModal .ann-calendar-cover { background: #103574; padding: 28px; gap: 15px 25px; }
+.visual-refresh #anniversariesModal .ann-calendar-brand { margin-bottom: 0; }
+.visual-refresh #anniversariesModal .ann-calendar-brand img { width: 50px; height: 50px; }
+.visual-refresh #anniversariesModal .ann-calendar-brand > span { font-size: 10px; color: #e7d4ab; letter-spacing: .09em; }
+.visual-refresh #anniversariesModal .ann-calendar-brand small { font-size: 12px; color: #c7d4e8; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 { font: 700 31px/1.2 Inter,system-ui,sans-serif; letter-spacing: -.035em; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 em { color: #e8d3a5; font-style: normal; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics { gap: 24px; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics > span { padding-left: 22px; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics strong { font: 650 44px/1 Inter,system-ui,sans-serif; letter-spacing: -.04em; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics small { color: #c8d6eb; font-size: 10px; letter-spacing: .07em; }
+.visual-refresh #anniversariesModal .ann-calendar-workspace { padding: 26px; background: #f0f4fa; }
+.visual-refresh #anniversariesModal .ann-toolbar { padding: 14px; border: 1px solid #dce4ef; border-radius: 16px; background: #fff; gap: 12px; }
+.visual-refresh #anniversariesModal .ann-month-nav { gap: 8px; }
+.visual-refresh #anniversariesModal .ann-month-nav h3 { font-size: 22px; font-weight: 750; color: #132e57; min-width: 195px; }
+.visual-refresh #anniversariesModal .ann-square { border-radius: 10px; min-width: 44px; min-height: 44px; border-color: #d3ddeb; }
+.visual-refresh #anniversariesModal .ann-toolbar > #ann-today { min-height: 44px; font-size: 12px; color: #254d84; border-radius: 10px; background: #eef3fa; }
+.visual-refresh #anniversariesModal .ann-search { min-height: 46px; border-radius: 10px; background: #f7f9fc; }
+.visual-refresh #anniversariesModal .ann-search input { min-height: 44px; font-size: 15px; width: 180px; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts { gap: 7px; border: 0; margin-bottom: 22px; padding-bottom: 0; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts button { min-height: 44px; font-size: 12px; font-weight: 650; border: 1px solid #dbe3ef; border-radius: 10px; background: #fff; color: #4c6282; }
+.visual-refresh #anniversariesModal .ann-month-shortcuts button[aria-pressed=true] { background: #103574; color: #fff; border-color: #103574; box-shadow: 0 5px 12px #10357420; }
+.visual-refresh #anniversariesModal .ann-explorer-layout { gap: 22px; }
+.visual-refresh #anniversariesModal .ann-month-sheet { background: #fff; border: 1px solid #dce4ef; border-radius: 18px; padding: 18px; box-shadow: none; }
+.visual-refresh #anniversariesModal .ann-week span { font-size: 10px; color: #627794; }
+.visual-refresh #anniversariesModal .ann-day { min-height: 67px; font-size: 18px; border-radius: 10px; color: #3c5271; background: #f5f7fb; border: 1px solid transparent; box-shadow: none; }
+.visual-refresh #anniversariesModal .ann-day:hover { background: #e7eef8; border-color: #b9cce5; }
+.visual-refresh #anniversariesModal .ann-day.has-events { background: #e8effb; color: #153e7a; border-color: #a6bee3; font-weight: 750; }
+.visual-refresh #anniversariesModal .ann-day.is-today:not(.is-selected) { background: #fcf5e8; border-color: #b49351; color: #73571f; }
+.visual-refresh #anniversariesModal .ann-day.is-selected { color: #fff; background: #103574; border-color: #103574; box-shadow: 0 0 0 2px #fff,0 0 0 4px #adc2e3; }
+.visual-refresh #anniversariesModal .ann-day.is-selected .ann-dots { color: #fff; }
+.visual-refresh #anniversariesModal .ann-day.is-selected .ann-dots .gold { color: #f0d59d; }
+.visual-refresh #anniversariesModal .ann-legend { font-size: 11px; color: #4d6382; line-height: 1.7; }
+.visual-refresh #anniversariesModal .ann-agenda { padding: 20px; background: #fff; border: 1px solid #dce4ef; border-radius: 18px; }
+.visual-refresh #anniversariesModal .ann-agenda-heading .ann-kicker { color: #81652e; font-size: 10px; }
+.visual-refresh #anniversariesModal .ann-agenda-heading h4 { color: #132e57; font-size: 23px; font-weight: 750; }
+.visual-refresh #anniversariesModal .ann-agenda-heading .ann-button { min-height: 44px; font-size: 12px; }
+.visual-refresh #anniversariesModal .ann-agenda #ann-count { color: #627794; font-size: 13px; margin: 13px 0 20px; }
+.visual-refresh #anniversariesModal .ann-agenda-card { padding: 15px 12px; border: 1px solid #dce4ef; background: #f8faff; border-radius: 12px; box-shadow: none; }
+.visual-refresh #anniversariesModal .ann-agenda-card strong { font-size: 17px; color: #173b70; font-weight: 700; }
+.visual-refresh #anniversariesModal .ann-agenda-card small { font-size: 13px; line-height: 1.6; color: #5a6e8b; }
+.visual-refresh #anniversariesModal .ann-agenda-card em { font-size: 11px; line-height: 1.5; }
+.visual-refresh #anniversariesModal .ann-agenda-card.is-current { background: #fffaf0; border-color: #cfb475; }
+.visual-refresh #anniversariesModal .ann-agenda-date { background: #e5edf9; width: 64px; min-height: 76px; font: 700 30px/1.2 Inter,system-ui,sans-serif; }
+.visual-refresh #anniversariesModal .ann-agenda-date small { font-size: 10px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer { background: #fff; border-top: 1px solid #dce4ef; padding: 16px 26px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer .btn-primary { background: #103574; border-color: #103574; min-height: 46px; border-radius: 10px; font-size: 14px; }
+.visual-refresh #anniversariesModal :is(button,input,a):focus-visible { outline: 3px solid #b49351; outline-offset: 3px; }
+/* Calendario: una cabecera compacta y una sola superficie de trabajo. */
+.visual-refresh #anniversariesModal .anniversary-modal-header { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 20px 26px; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading { display: flex; flex: 1 1 auto; width: auto; min-width: 0; gap: 13px; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading h2 { font-size: 21px; }
+.visual-refresh #anniversariesModal .anniversary-modal-heading p { margin-top: 4px; font-size: 12px; }
+.visual-refresh #anniversariesModal .anniversary-modal-header .btn-close { flex: 0 0 24px; width: 24px; height: 24px; margin: 0 0 0 auto; padding: 10px; box-sizing: content-box; }
+.visual-refresh #anniversariesModal .anniversary-modal-note { background: #edf3f9; padding: 11px 26px; }
+.visual-refresh #anniversariesModal .ann-calendar-cover { background: #fff; padding: 24px 26px; border-bottom: 1px solid #dce3ec; grid-template-columns: 1fr auto; }
+.visual-refresh #anniversariesModal .ann-calendar-cover::after { display: none; }
+.visual-refresh #anniversariesModal .ann-calendar-brand { grid-column: 1; grid-row: 1; }
+.visual-refresh #anniversariesModal .ann-calendar-brand > span { color: #705725; }
+.visual-refresh #anniversariesModal .ann-calendar-brand small { color: #50617a; }
+.visual-refresh #anniversariesModal .ann-calendar-intro { grid-column: 1; grid-row: 2; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 { font: 400 28px/1.2 Georgia,serif; color: #142d50; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 br { display: none; }
+.visual-refresh #anniversariesModal .ann-calendar-intro h3 em { color: #345c8c; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics { grid-column: 2; grid-row: 1/3; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics > span { border-left-color: #dce3ec; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics strong { color: #142d50; font-size: 36px; }
+.visual-refresh #anniversariesModal .ann-calendar-metrics small { color: #50617a; }
+.visual-refresh #anniversariesModal .ann-calendar-workspace { background: #f5f7fa; }
+.visual-refresh #anniversariesModal .ann-month-nav h3 { min-width: 0; width: 190px; text-align: center; font-size: 20px; }
+.visual-refresh #anniversariesModal .ann-search input { min-width: 0; width: 100%; }
+.visual-refresh #anniversariesModal .ann-search input::placeholder { color: #50617a; opacity: 1; }
+.visual-refresh #anniversariesModal .ann-search { flex: 1; min-width: 160px; }
+.visual-refresh #anniversariesModal .ann-day { min-height: 58px; background: #fff; border: 1px solid #e8edf4; }
+.visual-refresh #anniversariesModal .ann-day.is-selected { background: #123566; color: #fff; }
+.visual-refresh #anniversariesModal .ann-day.has-events:not(.is-selected) { background: #eaf1fa; }
+.visual-refresh #anniversariesModal .ann-day.is-today:not(.is-selected) { background: #fcf5e8; border-color: #a37c34; }
+.visual-refresh #anniversariesModal .ann-no-events { background: #f6f8fb; color: #50617a; border: 1px dashed #b8c8dc; border-radius: 12px; padding: 24px 16px; }
+.visual-refresh #anniversariesModal .ann-no-events strong { color: #173858; }
+.visual-refresh #anniversariesModal .ann-no-events p { color: #50617a; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer { display: flex; justify-content: space-between; gap: 12px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer > span { color: #294465; font-size: 12px; }
+.visual-refresh #anniversariesModal .anniversary-modal-footer .btn-primary { color: #fff; }
+@media(min-width:1200px) {
+  .visual-refresh .hero > .container > .row:first-child { --bs-gutter-x: 64px; }
+  .visual-refresh .faq .col-lg-5 { padding-right: 42px; }
+}
+@media(max-width:991.98px) {
+  .visual-refresh .main > .section,.visual-refresh .community-section { padding-block: 64px; }
+  .visual-refresh .main > .hero { padding-top: 128px; padding-bottom: 28px; }
+  .visual-refresh .hero h1 { font-size: clamp(44px,7vw,64px); }
+  .visual-refresh .hero-logo-wrap { max-width: 360px; padding: 0; }
+  .visual-refresh .hero-logo { max-width: 240px; }
+  .visual-refresh .hope-layout { gap: 32px; }
+  .visual-refresh #anniversariesModal .ann-explorer-layout { grid-template-columns: 1fr; }
+  .visual-refresh #anniversariesModal .ann-month-shortcuts { grid-template-columns: repeat(6,minmax(0,1fr)); }
+  .visual-refresh #anniversariesModal .ann-toolbar { flex-wrap: wrap; }
+}
+@media(max-width:767.98px) {
+  .visual-refresh .hero .hero-buttons .btn { flex: 1 1 200px; }
+  .visual-refresh .community-heading { margin-bottom: 32px; }
+  .visual-refresh #anniversariesModal .ann-calendar-cover { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+  .visual-refresh #anniversariesModal .ann-calendar-intro { grid-row: auto; }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics { grid-column: 1; grid-row: auto; justify-content: flex-start; gap: 32px; }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics > span { padding-left: 0; border: 0; }
+  .visual-refresh #anniversariesModal .ann-calendar-metrics strong { font-size: 30px; }
+  .visual-refresh #anniversariesModal .ann-calendar-workspace { padding: 16px; }
+  .visual-refresh #anniversariesModal .ann-toolbar { display: flex; gap: 12px; }
+  .visual-refresh #anniversariesModal .ann-month-nav { flex: 1 1 100%; justify-content: space-between; }
+  .visual-refresh #anniversariesModal .ann-month-nav h3 { width: auto; flex: 1; }
+  .visual-refresh #anniversariesModal .ann-search { flex-basis: 55%; }
+}
+@media(max-width:575.98px) {
+  .visual-refresh .main > .section,.visual-refresh .community-section { padding-block: 48px; }
+  .visual-refresh .main > .hero { padding-top: 112px; padding-bottom: 25px; }
+  .visual-refresh .hero h1 { font-size: clamp(40px,10.8vw,58px); }
+  .visual-refresh .hero-lead { font-size: 15px; }
+  .visual-refresh .hero-logo-wrap { max-width: 290px; }
+  .visual-refresh .hero-logo { max-width: 210px; }
+  .visual-refresh .hero-logo-caption strong { font-size: 23px; }
+  .visual-refresh .value-row { margin-top: 28px; }
+  .visual-refresh .value-item { gap: 9px; }
+  .visual-refresh .value-item > i { flex-basis: 32px; width: 32px; height: 32px; font-size: 17px; }
+  .visual-refresh .value-item strong { font-size: 12px; }
+  .visual-refresh .value-item span { font-size: 11px; }
+  .visual-refresh :is(.section-title h2,.about h2,.faq h2,.principles h2,.community-section h2,.anniversary-title) { font-size: 34px; }
+  .visual-refresh :is(.meeting-card,.directory-card,.step-card,.resource-card,.contact-panel) { padding: 23px; }
+  .visual-refresh .about .welcome-message { padding: 17px; gap: 12px; }
+  .visual-refresh .hope-card { padding: 32px 28px; min-height: 550px; }
+  .visual-refresh .hope-card-message h3 { font-size: 30px; }
+  .visual-refresh .hope-card-message p { font-size: 14px; }
+  .visual-refresh .hope-dialog { padding: 16px; }
+  .visual-refresh .hope-dialog .hope-card { min-height: 540px; }
+  .visual-refresh #footer .footer-top { padding-top: 40px; padding-bottom: 24px; }
+  .visual-refresh #footer h4 { margin-top: 12px; }
+  .visual-refresh #anniversariesModal .modal-dialog { margin: 8px; height: calc(100% - 16px); }
+  .visual-refresh #anniversariesModal .modal-content { border-radius: 18px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-header { padding: 16px; gap: 8px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading { gap: 9px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading h2 { font-size: 17px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading p { display: none; }
+  .visual-refresh #anniversariesModal .anniversary-modal-icon { width: 36px; height: 36px; flex-basis: 36px; font-size: 18px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-heading > div > span { font-size: 9px; letter-spacing: .06em; }
+  .visual-refresh #anniversariesModal .anniversary-modal-note { padding: 12px 16px; }
+  .visual-refresh #anniversariesModal .ann-calendar-workspace { padding: 12px; }
+  .visual-refresh #anniversariesModal .ann-toolbar { padding: 10px; }
+  .visual-refresh #anniversariesModal .ann-month-shortcuts { gap: 5px; }
+  .visual-refresh #anniversariesModal .ann-month-shortcuts button { min-height: 42px; }
+  .visual-refresh #anniversariesModal .ann-month-sheet { padding: 12px 7px; }
+  .visual-refresh #anniversariesModal :is(.ann-days,.ann-week) { gap: 3px; }
+  .visual-refresh #anniversariesModal .ann-day { min-height: 44px; font-size: 15px; border-radius: 8px; }
+  .visual-refresh #anniversariesModal .ann-agenda { padding: 16px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-footer { padding: 12px 16px; }
+  .visual-refresh #anniversariesModal .anniversary-modal-footer > span { max-width: 60%; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .visual-refresh *, .visual-refresh *::before, .visual-refresh *::after { animation: none!important; transition: none!important; scroll-behavior: auto!important; }
+}
